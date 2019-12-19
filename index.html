@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+
+<head>
+  <link rel="icon" href="images/icon.png">
+  <link rel="stylesheet" href="styles/style.css">
+  <meta charset="utf-8">
+  <title>Verzweifelte Physiker</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+</head>
+
+<body>
+  <div class="snowflakes" aria-hidden="true">
+    <div class="snowflake">GOP</div>
+    <div class="snowflake">❆</div>
+    <div class="snowflake">❅</div>
+    <div class="snowflake">❆</div>
+    <div class="snowflake">❅</div>
+    <div class="snowflake">❆</div>
+    <div class="snowflake">❅</div>
+    <div class="snowflake">❆</div>
+    <div class="snowflake">❅</div>
+    <div class="snowflake">❆</div>
+    <div class="snowflake">❅</div>
+    <div class="snowflake">❆</div>
+  </div>
+  <div class="wrapper">
+    <div class="statsCont">
+      <h3 id="totalDisp">gesamt <br> 3001</h3>
+      <span class="hoverline">
+        <h3 style="text-align: center;"><a id="stats" href="history.html">Statistiken</a></h3>
+      </span>
+      <h3 id="todayDisp" style="text-align: right;">heute <br> 736</h3>
+    </div>
+    <div class="mainBtnCont" id="mainButtonCont">
+      <input type="button" onclick="verzweifle()" value="ich verzweifle" id="mainButton" class="bigButton"
+        accesskey="f" />
+      <div class="ringStart"></div>
+    </div>
+    <span class="hoverline">
+      <input id="nameInput" maxlength="15" pattern=".{1,15}" title="input a name up to 15 characters length" type="text"
+        name="name_input" value="guest" class="nameInput" autocomplete="off" />
+    </span>
+    <div></div>
+    <div id="toastAnker" class="toastAnker">
+
+    </div>
+  </div>
+</body>
+<script src="scripts/script.js"></script>
+
+</html>

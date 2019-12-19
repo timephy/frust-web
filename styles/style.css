@@ -1,0 +1,638 @@
+:root {
+  --dark: black;
+  --dark-1: #1d1d1d;
+  --dark-2: #2d2d2d;
+  --bright: white;
+  --dark-red: #7f0000;
+  --bright-red: #f05545;
+  --red: #b71c1c;
+  --bright-background: #ECEFF1;
+  --dark-background: #121212;
+  --thin-material-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --medium-material-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  --thick-material-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  font-size: 150%;
+}
+
+body * {
+  font-family: 'Roboto', 'Monserrat', sans-serif;
+  font-weight: 300;
+}
+
+::-moz-selection {
+  background: var(--bright-red);
+}
+
+::selection {
+  background: var(--bright-red);
+}
+
+/*containers*/
+.wrapper {
+  /*for some reason this fixes the scroll overflow of animations on some mobile devices when overflow hidden doesn't want to work on the main body element*/
+  position: absolute;
+  overflow: hidden;
+  min-height: 100%;
+  min-width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.statsCont {
+  display: flex;
+  justify-content: space-between;
+  align-self: stretch;
+  padding-top: 0.2em;
+}
+
+.mainBtnCont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 60vmin;
+  max-height: 80vmax - 6em;
+  max-width: 80vmax - 6em;
+  width: 60vmin;
+}
+
+h3 {
+  font-size: 1em;
+  margin: 0.2em 1em 0.2em 1em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.24);
+}
+
+/*toast messages*/
+.toastAnker {
+  height: 100%;
+  width: 100%;
+  overflow-y: hidden;
+  bottom: 0px;
+  position: fixed;
+  z-index: -1;
+  display: flex;
+  flex-flow: column-reverse;
+  justify-content: flex-end;
+  align-items: center;
+  transform: rotate(180deg);
+  /*strange hack to make the new element push up all the others*/
+}
+
+.toast {
+  transform: rotate(-180deg);
+  position: relative;
+  max-height: 0em;
+  width: auto;
+  text-align: center;
+  border-radius: 0.1em;
+  padding: 0em;
+  margin: 0em;
+  bottom: 2.4em;
+  opacity: 0;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.toast.show {
+  padding: 0.5em 0em 0.5em 0em;
+  margin: 0.2em;
+  max-height: 4em;
+  bottom: -1em;
+  opacity: 1;
+}
+
+.toast.hide {
+  -webkit-transition: all 0.2s ease-in 0.3s, height 0.2s ease-in 0.5s;
+  -moz-transition: all 0.2s ease-in 0.3s, height 0.2s ease-in 0.5s;
+  -o-transition: all 0.2s ease-in 0.3s, height 0.2s ease-in 0.5s;
+  transition: all 0.2s ease-in 0.3s, height 0.2s ease-in 0.5s;
+  opacity: 0;
+  max-height: 0px;
+  bottom: -2.4em;
+}
+
+/*the user name box*/
+.nameInput {
+  border: 0.1em solid transparent;
+  font-size: 1.5em;
+  height: 1em;
+  text-align: center;
+  padding: 0.2em;
+  text-transform: lowercase;
+  letter-spacing: 0.1em;
+  -webkit-transition: 250ms ease;
+  -moz-transition: 250ms ease;
+  -o-transition: 250ms ease;
+  transition: 250ms ease;
+}
+
+.nameInput:focus {
+  outline: 0;
+  letter-spacing: 0.2em;
+}
+
+.nameInput:invalid {
+  border: 0.1em solid var(--red);
+}
+
+#stats {
+  text-decoration: none;
+}
+
+/*the fancy underline animations*/
+.hoverline {
+  position: relative;
+  height: 100%;
+}
+
+.hoverline:before, .hoverline:after, .toast:after {
+  content: "";
+  position: absolute;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  opacity: 0.2;
+  background-color: var(--red);
+  height: 0.2em;
+  width: 0px;
+  /*box-shadow: var(--thin-material-shadow);*/
+}
+
+.hoverline:after {
+  right: 0;
+  bottom: 0;
+}
+
+.toast:after {
+  left: 0;
+  bottom: 0;
+}
+
+.hoverline:hover:before, .hoverline:hover:after, .hoverline:focus-within:before, .hoverline:focus-within:after, .toast.show:after {
+  width: 100%;
+  opacity: 1;
+}
+
+.toast.hide:after {
+  width: 0px;
+  right: 0;
+  left: auto;
+}
+
+.hoverline {
+  position: relative;
+}
+
+/*big button stuff*/
+@keyframes buttonStart {
+  0% {
+    transform: scale(0.8);
+  }
+
+  60% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.bigButton {
+  -webkit-animation: 0.5s ease buttonStart;
+  -moz-animation: 0.5s ease buttonStart;
+  -o-animation: 0.5s ease buttonStart;
+  animation: 0.5s ease buttonStart;
+  padding: 0px;
+  font-size: 7vmin;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.1em;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border: none;
+  border-radius: 50%;
+  outline: none;
+  background-color: var(--red);
+  background-image: -webkit-linear-gradient(-45deg, var(--dark-red), var(--red));
+  background-image: linear-gradient(-45deg, var(--dark-red), var(--red));
+  color: var(--bright);
+  box-shadow: var(--medium-material-shadow);
+  -webkit-transition: 250ms ease;
+  -moz-transition: 250ms ease;
+  -o-transition: 250ms ease;
+  transition: 250ms ease;
+}
+
+.bigButton:hover {
+  transform: scale(1.02);
+  box-shadow: var(--thick-material-shadow);
+}
+
+.bigButton:active {
+  transform: scale(0.98);
+  box-shadow: var(--thin-material-shadow);
+}
+
+@-webkit-keyframes rainbow {
+  0% {
+    background-position: 0% 82%
+  }
+
+  50% {
+    background-position: 100% 19%
+  }
+
+  100% {
+    background-position: 0% 82%
+  }
+}
+
+@-moz-keyframes rainbow {
+  0% {
+    background-position: 0% 82%
+  }
+
+  50% {
+    background-position: 100% 19%
+  }
+
+  100% {
+    background-position: 0% 82%
+  }
+}
+
+@-o-keyframes rainbow {
+  0% {
+    background-position: 0% 82%
+  }
+
+  100% {
+    background-position:200% 19%
+  }
+}
+
+@keyframes rainbow {
+  0% {
+    background-position: 0% 0%
+  }
+
+  100% {
+    background-position: 0% 200%
+  }
+}
+
+.bigButton.rainbow {
+  background-image: linear-gradient(0deg,
+      rgb(255, 0, 0) 0%,
+      rgb(255, 255, 0) 15%,
+      rgb(0, 255, 0) 30%,
+      rgb(0, 255, 255) 50%,
+      rgb(0, 0, 255) 65%,
+      rgb(255, 0, 255) 80%,
+      rgb(255, 0, 0) 100%);
+  background-size: 200% 200%;
+  -webkit-animation: rainbow 2s linear infinite;
+  -moz-animation: rainbow 2s linear infinite;
+  -o-animation: rainbow 2s linear infinite;
+  animation: rainbow 2s linear infinite;
+}
+
+
+.ring:before, .ring:after, .ringStart:after, .ringStart:before {
+  pointer-events: none;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 0.2em solid var(--red);
+  left: -0.1em;
+  top: -0.1em;
+  opacity: 1;
+  filter: blur(0);
+  transform: scale(0.8);
+  z-index: -1;
+  -webkit-transition: 700ms transform ease, 200ms blur ease, 700ms opacity ease;
+  -moz-transition: 700ms transform ease, 200ms blur ease, 700ms opacity ease;
+  -o-transition: 700ms transform ease, 200ms blur ease, 700ms opacity ease;
+  transition: 700ms transform ease, 200ms blur ease, 700ms opacity ease;
+}
+
+.ring:after, .ringStart:after {
+  -webkit-transition-delay: 100ms;
+  -moz-transition-delay: 100ms;
+  -o-transition-delay: 100ms;
+  transition-delay: 100ms;
+}
+
+.ring.show:before, .ring.show:after {
+  opacity: 0;
+  transform: scale(2.5);
+}
+
+@keyframes ringStartAnim {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+    filter: blur(0.1em);
+  }
+}
+
+.ringStart:before {
+  filter: blur(0.1em);
+  opacity: 0;
+  -webkit-animation: 1.5s ease-out 0s 1 ringStartAnim;
+  -moz-animation: 1.5s ease-out 0s 1 ringStartAnim;
+  -o-animation: 1.5s ease-out 0s 1 ringStartAnim;
+  animation: 1.5s ease-out 0s 1 ringStartAnim;
+}
+
+.ringStart:after {
+  opacity: 0;
+  -webkit-animation: 0.5s ease-out 0.2s 1 ringStartAnim;
+  -moz-animation: 0.5s ease-out 0.2s 1 ringStartAnim;
+  -o-animation: 0.5s ease-out 0.2s 1 ringStartAnim;
+  animation: 0.5s ease-out 0.2s 1 ringStartAnim;
+}
+
+/*user specific settings e.g. screen size and theme*/
+@media (prefers-color-scheme: dark) {
+  body {
+    background: var(--dark-background);
+  }
+
+  .nameInput {
+    background: var(--dark-1);
+  }
+
+  .nameInput {
+    box-shadow: var(--medium-material-shadow);
+  }
+
+  .nameInput:hover {
+    box-shadow: var(--thick-material-shadow);
+  }
+
+  .nameInput:focus {
+    box-shadow: var(--thin-material-shadow);
+  }
+
+  li, input, h1, h2, h3, h4, div {
+    color: var(--bright);
+  }
+
+  /*link styling*/
+  a:link {
+    color: var(--bright);
+  }
+
+  a:visited {
+    color: var(--bright);
+  }
+
+  a:active {
+    color: var(--red);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    background: var(--bright-background);
+  }
+
+  .nameInput {
+    background: var(--bright);
+  }
+
+  .nameInput {
+    box-shadow: var(--thin-material-shadow);
+  }
+
+  .nameInput:hover, .nameInput:focus {
+    box-shadow: var(--thick-material-shadow);
+  }
+
+  li, input, h1, h2, h3, h4, div {
+    color: var(--dark);
+  }
+
+  /*link styling*/
+  a:link {
+    color: var(--dark);
+  }
+
+  a:visited {
+    color: var(--dark);
+  }
+
+  a:active {
+    color: var(--red);
+  }
+}
+
+@media(min-width: 1000px) {
+  .statsCont {
+    padding-left: 10vmin;
+    padding-right: 10vmin;
+    padding-top: 2vmin;
+    justify-content: space-around;
+  }
+
+  h3 {
+    font-size: 1.5em;
+  }
+
+  .mainBtnCont {
+    height: 40vmin;
+    max-height: 60vmax-6em;
+    max-width: 60vmax-6em;
+    width: 40vmin;
+  }
+
+  .bigButton {
+    font-size: 4vmin;
+  }
+
+  .ring.show:before, .ring.show:after, .ringStart:before, .ringStart:after {
+    transform: scale(1.5);
+  }
+}
+
+@media(max-width: 500px) {
+  body {
+    font-size: 100%;
+  }
+}
+
+@media(max-width: 350px) {
+  h3 {
+    margin: 0.2em 0.5em 0.2em 0.5em;
+  }
+}
+
+/* customizable snowflake styling */
+.snowflake {
+  color: #fff;
+  font-size: 1em;
+  font-family: Arial, sans-serif;
+  text-shadow: 0 0 5px #000;
+}
+
+@-webkit-keyframes snowflakes-fall {
+  0% {
+    top: -10%
+  }
+
+  100% {
+    top: 100%
+  }
+}
+
+/*copy pasta snowflakes*/
+@-webkit-keyframes snowflakes-shake {
+  0%, 100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0)
+  }
+
+  50% {
+    -webkit-transform: translateX(80px);
+    transform: translateX(80px)
+  }
+}
+
+@keyframes snowflakes-fall {
+  0% {
+    top: -10%
+  }
+
+  100% {
+    top: 100%
+  }
+}
+
+@keyframes snowflakes-shake {
+
+  0%,
+  100% {
+    transform: translateX(0)
+  }
+
+  50% {
+    transform: translateX(80px)
+  }
+}
+
+.snowflake {
+  position: fixed;
+  top: -10%;
+  z-index: 20;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none;
+  -webkit-animation-name: snowflakes-fall, snowflakes-shake;
+  -webkit-animation-duration: 10s, 3s;
+  -webkit-animation-timing-function: linear, ease-in-out;
+  -webkit-animation-iteration-count: infinite, infinite;
+  -webkit-animation-play-state: running, running;
+  animation-name: snowflakes-fall, snowflakes-shake;
+  animation-duration: 10s, 3s;
+  animation-timing-function: linear, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+  animation-play-state: running, running
+}
+
+.snowflake:nth-of-type(0) {
+  left: 1%;
+  -webkit-animation-delay: 0s, 0s;
+  animation-delay: 0s, 0s
+}
+
+.snowflake:nth-of-type(1) {
+  left: 10%;
+  -webkit-animation-delay: 1s, 1s;
+  animation-delay: 1s, 1s
+}
+
+.snowflake:nth-of-type(2) {
+  left: 20%;
+  -webkit-animation-delay: 6s, .5s;
+  animation-delay: 6s, .5s
+}
+
+.snowflake:nth-of-type(3) {
+  left: 30%;
+  -webkit-animation-delay: 4s, 2s;
+  animation-delay: 4s, 2s
+}
+
+.snowflake:nth-of-type(4) {
+  left: 40%;
+  -webkit-animation-delay: 2s, 2s;
+  animation-delay: 2s, 2s
+}
+
+.snowflake:nth-of-type(5) {
+  left: 50%;
+  -webkit-animation-delay: 8s, 3s;
+  animation-delay: 8s, 3s
+}
+
+.snowflake:nth-of-type(6) {
+  left: 60%;
+  -webkit-animation-delay: 6s, 2s;
+  animation-delay: 6s, 2s
+}
+
+.snowflake:nth-of-type(7) {
+  left: 70%;
+  -webkit-animation-delay: 2.5s, 1s;
+  animation-delay: 2.5s, 1s
+}
+
+.snowflake:nth-of-type(8) {
+  left: 80%;
+  -webkit-animation-delay: 1s, 0s;
+  animation-delay: 1s, 0s
+}
+
+.snowflake:nth-of-type(9) {
+  left: 90%;
+  -webkit-animation-delay: 3s, 1.5s;
+  animation-delay: 3s, 1.5s
+}
+
+.snowflake:nth-of-type(10) {
+  left: 25%;
+  -webkit-animation-delay: 2s, 0s;
+  animation-delay: 2s, 0s
+}
+
+.snowflake:nth-of-type(11) {
+  left: 65%;
+  -webkit-animation-delay: 4s, 2.5s;
+  animation-delay: 4s, 2.5s
+}
