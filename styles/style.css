@@ -418,11 +418,11 @@ h3 {
 
 @media (prefers-color-scheme: light) {
   body {
-    background: var(--bright-background);
+    background: var(--bright);
   }
 
   .nameInput {
-    background: var(--bright);
+    background: var(--bright-background);
   }
 
   .nameInput {
@@ -496,7 +496,6 @@ h3 {
   color: #fff;
   font-size: 1em;
   font-family: Arial, sans-serif;
-  text-shadow: 0 0 5px #000;
 }
 
 @-webkit-keyframes snowflakes-fall {
