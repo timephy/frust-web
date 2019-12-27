@@ -7,9 +7,7 @@ var totalDisp = document.getElementById("totalDisp")
 var totalClicks = 3000;
 var todaysClicks = 735;
 
-var storage = window.localStorage
-
-var options = [
+var possibleButtonLabels = [
   "Exmatrikulation",
   "GOP",
   "noch Fragen?",
@@ -17,50 +15,70 @@ var options = [
   "E1GeNv3kToR"
 ]
 
-var prevName = "guest";
+var name = "Anonym";
 var NAME_KEY = "frust_name"
-var CLICK_KEY = "clikkks"
+// var CLICK_KEY = "clikkks"
 
-function verzweifle() {
-  if (validatedText(nameInput.value) != prevName) {
-    prevName = validatedText(nameInput.value)
-    storage.setItem(NAME_KEY, prevName)
-  }
+var socket = io({path: '/api/socket.io'})
 
-  // Display creative and original message
-  if (Math.random() > 0.85) {
-    btnElem.value = options[Math.floor(Math.random() * options.length)]
-  } else {
-    btnElem.value = "ich verzweifle"
-  }
+// Stats
+var currentStats = {"total": 0, "day": 0, "hour": 0};
 
-  // keep track of the clicks
-  todaysClicks++;
-  totalClicks++;
-  storage.setItem(CLICK_KEY, totalClicks)
-  totalDisp.innerText = "total \n "+totalClicks
-  todayDisp.innerText = "today \n "+todaysClicks
+function displayStats(total, day, hour) {
+  totalDisp.innerText = "total \n " + total
+  todayDisp.innerText = "today \n " + day
 
-  if (totalClicks % 1000 == 0) {
+  if (total % 1000 == 0) {
     btnElem.classList.add("rainbow")
-  } else if (totalClicks % 1000 == 1) {
+  } else if (total % 1000 == 1) {
     btnElem.classList.remove("rainbow")
+  }
+}
+
+// Utils
+
+function incrementStats() {
+  currentStats["total"]++;
+  currentStats["day"]++;
+  currentStats["hour"]++;
+}
+
+/** Returns a randomized button label. */
+function randomButtonLabel() {
+  return Math.random() < 0.85
+    ? "ich verzweifle"
+    : possibleButtonLabels[Math.floor(Math.random() * possibleButtonLabels.length)]
+}
+
+// Clicks
+
+/** The main button action. */
+function verzweifle() {
+  if (validatedName(nameInput.value) != name) {
+    name = validatedName(nameInput.value)
+    storage.setItem(NAME_KEY, name)
   }
 
   // Purely Visual
-  spawnRing()
-  toast(prevName)
+  // Display creative and original message
+  btnElem.value = randomButtonLabel()
+  displayRing()
+  
+  socket.emit("click", {"name": name, "comment": undefined})
+  // incrementStats()
+  // displayStats(currentStats["total"], currentStats["day"], currentStats["hour"]);
 }
 
-function validatedText(input) {
+function validatedName(input) {
   var validatedInput = "jemand"
   if (input.trim() != "") {
-    validatedInput = input.trim()
+    validatedInput = input.trim();
   }
-  return validatedInput
+  return validatedInput;
 }
 
-function spawnRing() {
+/** Displays the buttom click animation. */
+function displayRing() {
   var ring = document.createElement("div")
   ring.className = "ring";
   btnElem.parentElement.appendChild(ring)
@@ -69,40 +87,72 @@ function spawnRing() {
   destroyDelay(ring, 700)
 }
 
-function toast(name) {
+/** Displays a click (Killfeed-like-style). */
+function displayClick(name, comment) {
+  var text = `${name} ist gerade verzweifelt...`
+  // add comment in braces if present
+  if (comment != undefined && comment != "") {
+    text = text.concat(` (${comment})`)
+  }
+
   var toast = document.createElement("div")
   toast.className = "toast"
-  toast.appendChild(document.createTextNode(name + " ist gerade verweifelt..."))
+  toast.appendChild(document.createTextNode(text))
   anker.appendChild(toast)
   window.getComputedStyle(toast).opacity
   toast.classList.add("show")
-  hideDelay(toast)
+  hideDelay(toast, 1500)
   destroyDelay(toast, 2500)
 }
 
-function hideDelay(element) {
-  var e = element
-  setTimeout(function() {
-    e.classList.add("hide")
-  }, 1500)
+
+/** Adds hide class to element after specified time. */
+function hideDelay(element, time) {
+  setTimeout(() => element.classList.add("hide"), time)
 }
 
+/** Removes the element from its parent after specified time. */
 function destroyDelay(element, time) {
-  var e = element
-  setTimeout(function() {
-    e.parentElement.removeChild(e)
-  }, time)
+  setTimeout(() => element.parentElement.removeChild(element), time)
 }
 
+// Data store
+var storage = window.localStorage
+
+/** Loads stored data from storage. */
 function loadFiles() {
   if (storage.getItem(NAME_KEY))
-    prevName = storage.getItem(NAME_KEY); // load from local storage
+    name = storage.getItem(NAME_KEY); // load from local storage
     
-  if (storage.getItem(CLICK_KEY)) 
-    totalClicks = storage.getItem(CLICK_KEY);
+  // if (storage.getItem(CLICK_KEY)) 
+  //   totalClicks = storage.getItem(CLICK_KEY);
 
-totalDisp.innerText = "total \n " + totalClicks
-  nameInput.value = prevName //Display the loaded name
+  // totalDisp.innerText = "total \n " + totalClicks;
+  nameInput.value = name; //Display the loaded name
 }
 
 document.body.onload = loadFiles()
+
+
+// Socket.io
+socket.on("stats", (stats) => {
+  console.log(`stats(${stats["total"]}, ${stats["day"]}, ${stats["hour"]})`);
+  currentStats = stats;
+  displayStats(stats["total"], stats["day"], stats["hour"]);
+});
+
+socket.on("users", (users) => {
+  console.log(`users(${users["count"]})`);
+  // label = users["count"]
+});
+
+socket.on("click", (click) => {
+  console.log(`click(${click["name"]}, ${click["comment"]})`);
+  
+  displayClick(click["name"], click["comment"])
+  incrementStats()
+  displayStats(currentStats["total"], currentStats["day"], currentStats["hour"]);
+});
+
+socket.connect({path: '/api/socket.io'})
+
