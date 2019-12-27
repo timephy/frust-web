@@ -154,5 +154,5 @@ socket.on("click", (click) => {
   displayStats(currentStats["total"], currentStats["day"], currentStats["hour"]);
 });
 
-socket.connect({path: '/api/socket.io'})
+socket.connect()
 
