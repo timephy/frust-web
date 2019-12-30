@@ -1,0 +1,22 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - master
+      - staging
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: echo
+        run: echo ${{ secrets.test }}
+
+    env:
+      DOCKER_REGISTRY: docker.pkg.github.com
+      IMAGE_NAME: frustrated-physicists-backend
+      # IMAGE_TAG: ${{ substring(github.ref, 11) }}
