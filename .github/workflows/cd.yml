@@ -14,7 +14,9 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: echo
-        run: echo ${{ secrets.test }}
+        run: |
+          echo ${{ secrets.test }}
+          echo ~
 
     env:
       DOCKER_REGISTRY: docker.pkg.github.com
