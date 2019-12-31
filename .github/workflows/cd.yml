@@ -12,6 +12,16 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
+      - name: compute path
+        run: |
+          BRANCH=${GITHUB_REF#refs/heads/}
+          if [ $BRANCH == "master" ]; then
+            PATH=/private-backup/nginx/static/fp.timephy.com/
+          elif [ $BRANCH == "staging" ]; then
+            PATH=/private-backup/nginx/static/staging.fp.timephy.com/
+          fi
+          echo "::set-env name=PATH::$PATH"
+
       - name: rsync
         run: |
           mkdir -p ~/.ssh
@@ -21,4 +31,4 @@ jobs:
           ssh-keyscan timephy.com > ~/.ssh/known_hosts
           rsync -r -v --delete-after \
             *.html scripts styles images \
-            cd@timephy.com:/private-backup/nginx/static/fp.timephy.com/
+            cd@timephy.com:$PATH
