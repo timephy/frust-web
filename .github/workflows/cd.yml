@@ -17,4 +17,5 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.id_rsa }}" > ~/.ssh/id_rsa
           ssh-keygen -R timephy.com
+          ssh-keyscan timephy.com > ~/.ssh/known_hosts
           rsync -r -v --delete-after . cd@timephy.com:/private-backup/nginx/static/fp.timephy.com/
