@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - staging
 
 jobs:
   build:
@@ -20,6 +21,8 @@ jobs:
           elif [ $BRANCH == "staging" ]; then
             PATH=/private-backup/nginx/static/staging.fp.timephy.com/
           fi
+          echo $BRANCH
+          echo $PATH
           echo "::set-env name=PATH::$PATH"
 
       - name: rsync
