@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - staging
 
 jobs:
   build:
@@ -17,10 +16,4 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           echo ${{ secrets.id_rsa }} > ~/.ssh/id_rsa
-          ssh cd@timephy.com
-          touch i_was_here
-
-    env:
-      DOCKER_REGISTRY: docker.pkg.github.com
-      IMAGE_NAME: frustrated-physicists-backend
-      # IMAGE_TAG: ${{ substring(github.ref, 11) }}
+          rsync -r -v --delete-after . cd@timephy.com:/private-backup/nginx/static/fp.timephy.com/
