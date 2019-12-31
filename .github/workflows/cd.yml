@@ -15,5 +15,5 @@ jobs:
       - name: echo
         run: |
           mkdir -p ~/.ssh
-          echo ${{ secrets.id_rsa }} > ~/.ssh/id_rsa
+          echo "${{ secrets.id_rsa }}" > ~/.ssh/id_rsa
           rsync -r -v --delete-after . cd@timephy.com:/private-backup/nginx/static/fp.timephy.com/
