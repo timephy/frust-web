@@ -13,25 +13,27 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: compute path
+      - name: compute deploy path
         run: |
           BRANCH=${GITHUB_REF#refs/heads/}
           if [ $BRANCH == "master" ]; then
-            PATH=/private-backup/nginx/static/fp.timephy.com/
+            DEPLOY_PATH=/private-backup/nginx/static/fp.timephy.com/
           elif [ $BRANCH == "staging" ]; then
-            PATH=/private-backup/nginx/static/staging.fp.timephy.com/
+            DEPLOY_PATH=/private-backup/nginx/static/staging.fp.timephy.com/
           fi
           echo $BRANCH
-          echo $PATH
-          echo "::set-env name=PATH::$PATH"
+          echo $DEPLOY_PATH
+          echo "::set-env name=DEPLOY_PATH::$DEPLOY_PATH"
 
       - name: rsync
         run: |
           mkdir -p ~/.ssh
+          # "" required, otherwise multiline secret is not treated correctly
           echo "${{ secrets.id_rsa }}" > ~/.ssh/id_rsa
           # rsync error if id_rsa is readable by other users
           chmod 700 ~/.ssh/id_rsa
-          ssh-keyscan timephy.com > ~/.ssh/known_hosts
+          ssh-keyscan $SERVER > ~/.ssh/known_hosts
           rsync -r -v --delete-after \
             *.html scripts styles images \
-            cd@timephy.com:$PATH
+            cd@$SERVER:$DEPLOY_PATH
+        env: SERVER=timephy.com
