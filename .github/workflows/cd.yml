@@ -16,6 +16,7 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.id_rsa }}" > ~/.ssh/id_rsa
+          # rsync error if id_rsa is readable by other users
           chmod 700 ~/.ssh/id_rsa
           ssh-keyscan timephy.com > ~/.ssh/known_hosts
-          rsync -r -v --delete-after --exclude .git --exclude .github . cd@timephy.com:/private-backup/nginx/static/fp.timephy.com/
+          rsync -r -v --delete-after *.html scripts/ styles/ images/ cd@timephy.com:/private-backup/nginx/static/fp.timephy.com/
