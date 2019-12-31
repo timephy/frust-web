@@ -36,4 +36,5 @@ jobs:
           rsync -r -v --delete-after \
             *.html scripts styles images \
             cd@$SERVER:$DEPLOY_PATH
-        env: SERVER=timephy.com
+        env:
+          SERVER: timephy.com
