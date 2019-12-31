@@ -33,6 +33,7 @@ jobs:
           # rsync error if id_rsa is readable by other users
           chmod 700 ~/.ssh/id_rsa
           ssh-keyscan $SERVER > ~/.ssh/known_hosts
+          # no / behind directories, otherwise only contents will be copied
           rsync -r -v --delete-after \
             *.html scripts styles images \
             cd@$SERVER:$DEPLOY_PATH
