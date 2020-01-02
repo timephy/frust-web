@@ -26,8 +26,8 @@ var socket = io({path: '/api/socket.io'})
 var currentStats = {"total": 0, "day": 0, "hour": 0};
 
 function displayStats(total, day, hour) {
-  totalDisp.innerText = "total \n " + total
-  todayDisp.innerText = "today \n " + day
+  totalDisp.innerText = "total\n" + total
+  todayDisp.innerText = "today\n" + day
 
   if (total % 1000 == 0) {
     btnElem.classList.add("rainbow")
@@ -36,7 +36,7 @@ function displayStats(total, day, hour) {
   }
 }
 
-function displayActiveUsers(num){
+function displayActiveUsers(num) {
   usersDisp.innerText = "users\n" + num
 }
 
