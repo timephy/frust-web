@@ -36,7 +36,7 @@ function displayStats(total, day, hour) {
   }
 }
 
-function setActiveUsers(num){
+function displayActiveUsers(num){
   usersDisp.innerText = "users\n" + num
 }
 
@@ -148,7 +148,7 @@ socket.on("stats", (stats) => {
 
 socket.on("users", (users) => {
   console.log(`users(${users["count"]})`);
-  // label = users["count"]
+  displayActiveUsers(users["count"]);
 });
 
 socket.on("click", (click) => {
