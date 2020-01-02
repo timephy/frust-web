@@ -280,7 +280,7 @@ h3 {
   }
 
   100% {
-    background-position:200% 19%
+    background-position: 200% 19%
   }
 }
 
@@ -309,7 +309,6 @@ h3 {
   -o-animation: rainbow 2s linear infinite;
   animation: rainbow 2s linear infinite;
 }
-
 
 .ring:before, .ring:after, .ringStart:after, .ringStart:before {
   pointer-events: none;
@@ -419,6 +418,10 @@ h3 {
 @media (prefers-color-scheme: light) {
   body {
     background: var(--bright);
+  }
+
+  .snowflake {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
   }
 
   .nameInput {
