@@ -3,6 +3,7 @@ var anker = document.getElementById("toastAnker")
 var nameInput = document.getElementById("nameInput")
 var todayDisp = document.getElementById("todayDisp")
 var totalDisp = document.getElementById("totalDisp")
+var usersDisp = document.getElementById("stats")
 
 var totalClicks = 3000;
 var todaysClicks = 735;
@@ -35,6 +36,10 @@ function displayStats(total, day, hour) {
   }
 }
 
+function setActiveUsers(num){
+  usersDisp.innerText = "users\n" + num
+}
+
 // Utils
 
 function incrementStats() {
@@ -63,7 +68,7 @@ function verzweifle() {
   // Display creative and original message
   btnElem.value = randomButtonLabel()
   displayRing()
-  
+
   socket.emit("click", {"name": name, "comment": undefined})
   // incrementStats()
   // displayStats(currentStats["total"], currentStats["day"], currentStats["hour"]);
@@ -123,8 +128,8 @@ var storage = window.localStorage
 function loadFiles() {
   if (storage.getItem(NAME_KEY))
     name = storage.getItem(NAME_KEY); // load from local storage
-    
-  // if (storage.getItem(CLICK_KEY)) 
+
+  // if (storage.getItem(CLICK_KEY))
   //   totalClicks = storage.getItem(CLICK_KEY);
 
   // totalDisp.innerText = "total \n " + totalClicks;
@@ -148,11 +153,10 @@ socket.on("users", (users) => {
 
 socket.on("click", (click) => {
   console.log(`click(${click["name"]}, ${click["comment"]})`);
-  
+
   displayClick(click["name"], click["comment"])
   incrementStats()
   displayStats(currentStats["total"], currentStats["day"], currentStats["hour"]);
 });
 
 socket.connect()
-
