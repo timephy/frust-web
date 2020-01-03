@@ -20,10 +20,10 @@ var name = "Anonym";
 var NAME_KEY = "frust_name"
 // var CLICK_KEY = "clikkks"
 
-var socket = io({path: '/api/socket.io'})
+var socket = io({ path: "/api/socket.io" });
 
 // Stats
-var currentStats = {"total": 0, "day": 0, "hour": 0};
+var currentStats = { "total": 0, "day": 0, "hour": 0 };
 
 function displayStats(total, day, hour) {
   totalDisp.innerText = "total\n" + total
@@ -50,9 +50,9 @@ function incrementStats() {
 
 /** Returns a randomized button label. */
 function randomButtonLabel() {
-  return Math.random() < 0.85
-    ? "ich verzweifle"
-    : possibleButtonLabels[Math.floor(Math.random() * possibleButtonLabels.length)]
+  return Math.random() < 0.85 ?
+    "ich verzweifle" :
+    possibleButtonLabels[Math.floor(Math.random() * possibleButtonLabels.length)]
 }
 
 // Clicks
@@ -69,7 +69,7 @@ function verzweifle() {
   btnElem.value = randomButtonLabel()
   displayRing()
 
-  socket.emit("click", {"name": name, "comment": undefined})
+  socket.emit("click", { "name": name, "comment": undefined })
   // incrementStats()
   // displayStats(currentStats["total"], currentStats["day"], currentStats["hour"]);
 }
