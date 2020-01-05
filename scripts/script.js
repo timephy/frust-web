@@ -5,25 +5,37 @@ var todayDisp = document.getElementById("todayDisp")
 var totalDisp = document.getElementById("totalDisp")
 var usersDisp = document.getElementById("stats")
 
-var totalClicks = 3000;
-var todaysClicks = 735;
-
-var possibleButtonLabels = [
+const MAX_TOASTS = 35; //please increase if you find any device that needs it
+const NAME_KEY = "frust_name"
+const possibleButtonLabels = [
   "Exmatrikulation",
   "GOP",
   "noch Fragen?",
   "fresh Hermann",
-  "E1GeNv3kToR"
+  "E1GeNv3kToR",
+  "I wanna die",
+  "end me now",
+  "😭",
+  "（┬＿┬）",
+  "(◕︵◕)",
+  "RIP Studium",
+  "\"mathe wird leicht\"",
+  "Zeile mal Spalte",
+  "??????"
 ]
 
-var name = "Anonym";
-var NAME_KEY = "frust_name"
-// var CLICK_KEY = "clikkks"
+var name = "guest";
 
-var socket = io({ path: "/api/socket.io" });
+var socket = io({
+  path: "/api/socket.io"
+});
 
 // Stats
-var currentStats = { "total": 0, "day": 0, "hour": 0 };
+var currentStats = {
+  "total": 0,
+  "day": 0,
+  "hour": 0
+};
 
 function displayStats(total, day, hour) {
   totalDisp.innerText = "total\n" + total
@@ -50,7 +62,7 @@ function incrementStats() {
 
 /** Returns a randomized button label. */
 function randomButtonLabel() {
-  return Math.random() < 0.85 ?
+  return Math.random() < 0.9 ?
     "ich verzweifle" :
     possibleButtonLabels[Math.floor(Math.random() * possibleButtonLabels.length)]
 }
@@ -68,9 +80,12 @@ function verzweifle() {
   // Display creative and original message
   btnElem.value = randomButtonLabel()
   displayRing()
+  displayClick('sssssss', 'sssf')
 
-  socket.emit("click", { "name": name, "comment": undefined })
-  // incrementStats()
+  socket.emit("click", {
+    "name": name,
+    "comment": undefined
+  })
   // displayStats(currentStats["total"], currentStats["day"], currentStats["hour"]);
 }
 
@@ -94,10 +109,15 @@ function displayRing() {
 
 /** Displays a click (Killfeed-like-style). */
 function displayClick(name, comment) {
+  //prevent extreme amounts of comment messages
+  if (anker.childElementCount > MAX_TOASTS)
+    anker.firstElementChild.remove()
+
+
   var text = `${name} ist gerade verzweifelt...`
   // add comment in braces if present
   if (comment != undefined && comment != "") {
-    text = text.concat(` (${comment})`)
+    text = text.concat(` \n(${comment})`)
   }
 
   var toast = document.createElement("div")
@@ -107,7 +127,8 @@ function displayClick(name, comment) {
   window.getComputedStyle(toast).opacity
   toast.classList.add("show")
   hideDelay(toast, 1500)
-  destroyDelay(toast, 2500)
+  destroyDelay(toast, 2000)
+
 }
 
 
@@ -118,7 +139,7 @@ function hideDelay(element, time) {
 
 /** Removes the element from its parent after specified time. */
 function destroyDelay(element, time) {
-  setTimeout(() => element.parentElement.removeChild(element), time)
+  setTimeout(() => element.remove(), time)
 }
 
 // Data store
@@ -129,10 +150,6 @@ function loadFiles() {
   if (storage.getItem(NAME_KEY))
     name = storage.getItem(NAME_KEY); // load from local storage
 
-  // if (storage.getItem(CLICK_KEY))
-  //   totalClicks = storage.getItem(CLICK_KEY);
-
-  // totalDisp.innerText = "total \n " + totalClicks;
   nameInput.value = name; //Display the loaded name
 }
 
