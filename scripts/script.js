@@ -20,14 +20,14 @@ var name = "Anonym";
 var NAME_KEY = "frust_name"
 // var CLICK_KEY = "clikkks"
 
-var socket = io({path: '/api/socket.io'})
+var socket = io({ path: "/api/socket.io" });
 
 // Stats
-var currentStats = {"total": 0, "day": 0, "hour": 0};
+var currentStats = { "total": 0, "day": 0, "hour": 0 };
 
 function displayStats(total, day, hour) {
-  totalDisp.innerText = "total \n " + total
-  todayDisp.innerText = "today \n " + day
+  totalDisp.innerText = "total\n" + total
+  todayDisp.innerText = "today\n" + day
 
   if (total % 1000 == 0) {
     btnElem.classList.add("rainbow")
@@ -36,7 +36,7 @@ function displayStats(total, day, hour) {
   }
 }
 
-function setActiveUsers(num){
+function displayActiveUsers(num) {
   usersDisp.innerText = "users\n" + num
 }
 
@@ -50,9 +50,9 @@ function incrementStats() {
 
 /** Returns a randomized button label. */
 function randomButtonLabel() {
-  return Math.random() < 0.85
-    ? "ich verzweifle"
-    : possibleButtonLabels[Math.floor(Math.random() * possibleButtonLabels.length)]
+  return Math.random() < 0.85 ?
+    "ich verzweifle" :
+    possibleButtonLabels[Math.floor(Math.random() * possibleButtonLabels.length)]
 }
 
 // Clicks
@@ -69,7 +69,7 @@ function verzweifle() {
   btnElem.value = randomButtonLabel()
   displayRing()
 
-  socket.emit("click", {"name": name, "comment": undefined})
+  socket.emit("click", { "name": name, "comment": undefined })
   // incrementStats()
   // displayStats(currentStats["total"], currentStats["day"], currentStats["hour"]);
 }
@@ -148,7 +148,7 @@ socket.on("stats", (stats) => {
 
 socket.on("users", (users) => {
   console.log(`users(${users["count"]})`);
-  // label = users["count"]
+  displayActiveUsers(users["count"]);
 });
 
 socket.on("click", (click) => {
