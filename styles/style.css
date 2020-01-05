@@ -143,6 +143,11 @@ h3 {
   border: 0.1em solid var(--red);
 }
 
+.commentInput{
+  font-size: 1em;
+  height: 5em;
+}
+
 #stats {
   text-decoration: none;
 }
@@ -309,6 +314,14 @@ h3 {
   animation: rainbow 2s linear infinite;
 }
 
+.elmo {
+  background-image: url('/images/elmo.jpg');
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .ring:before, .ring:after, .ringStart:after, .ringStart:before {
   pointer-events: none;
   content: '';
@@ -396,7 +409,7 @@ h3 {
     box-shadow: var(--thin-material-shadow);
   }
 
-  li, input, h1, h2, h3, h4, div {
+  li, input, h1, h2, h3, h4, div, textarea {
     color: var(--bright);
   }
 .snowflake{
@@ -434,7 +447,7 @@ h3 {
     box-shadow: var(--thick-material-shadow);
   }
 
-  li, input, h1, h2, h3, h4, div {
+  li, input, h1, h2, h3, h4, div, textarea {
     color: var(--dark);
   }
 

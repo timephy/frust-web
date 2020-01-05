@@ -1,6 +1,7 @@
 var btnElem = document.getElementById("mainButton")
 var anker = document.getElementById("toastAnker")
 var nameInput = document.getElementById("nameInput")
+var commentInput = document.getElementById("commentInput")
 var todayDisp = document.getElementById("todayDisp")
 var totalDisp = document.getElementById("totalDisp")
 var usersDisp = document.getElementById("stats")
@@ -15,16 +16,17 @@ const possibleButtonLabels = [
   "E1GeNv3kToR",
   "I wanna die",
   "end me now",
-  "😭",
+  ":(",
   "（┬＿┬）",
   "(◕︵◕)",
   "RIP Studium",
   "\"mathe wird leicht\"",
   "Zeile mal Spalte",
-  "??????"
+  "?????"
 ]
 
 var name = "guest";
+var comment = "";
 
 var socket = io({
   path: "/api/socket.io"
@@ -45,6 +47,12 @@ function displayStats(total, day, hour) {
     btnElem.classList.add("rainbow")
   } else if (total % 1000 == 1) {
     btnElem.classList.remove("rainbow")
+  }
+
+  if (day == 666) {
+    console.log('satan is calling')
+    btnElem.classList.add("elmo")
+    setTimeout(() => btnElem.classList.remove("elmo"), 2)
   }
 }
 
@@ -76,15 +84,17 @@ function verzweifle() {
     storage.setItem(NAME_KEY, name)
   }
 
+  if (validatedName(commentInput.value) != comment)
+    comment = validatedName(commentInput.value)
+
   // Purely Visual
   // Display creative and original message
   btnElem.value = randomButtonLabel()
   displayRing()
-  displayClick('sssssss', 'sssf')
 
   socket.emit("click", {
     "name": name,
-    "comment": undefined
+    "comment": comment
   })
   // displayStats(currentStats["total"], currentStats["day"], currentStats["hour"]);
 }
@@ -117,7 +127,7 @@ function displayClick(name, comment) {
   var text = `${name} ist gerade verzweifelt...`
   // add comment in braces if present
   if (comment != undefined && comment != "") {
-    text = text.concat(` \n(${comment})`)
+    text = text.concat(` (${comment})`)
   }
 
   var toast = document.createElement("div")
