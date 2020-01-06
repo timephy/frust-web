@@ -133,6 +133,11 @@ h3 {
   -o-animation: 2s ease-in-out toastAnim;
   animation: 2s ease-in-out toastAnim;
   transform: rotate(-180deg);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none;
   position: relative;
   width: auto;
   text-align: center;
@@ -344,6 +349,11 @@ h3 {
   -o-animation: 1s ease popupAnim;
   animation: 1s ease popupAnim;
   position: fixed;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
