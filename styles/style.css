@@ -106,7 +106,8 @@ h3 {
   padding: 0em;
   margin: 0em;
   bottom: 2.4em;
-  opacity: 0;
+  opacity: 1;
+  will-change: max-height, bottom, opacity;
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
@@ -179,6 +180,7 @@ h3 {
 .hoverline:before, .hoverline:after, .toast:after {
   content: "";
   position: absolute;
+  will-change: opacity, width;
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
