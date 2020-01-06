@@ -84,8 +84,8 @@ function verzweifle() {
     storage.setItem(NAME_KEY, name)
   }
 
-  if (validatedName(commentInput.value) != comment)
-    comment = validatedName(commentInput.value)
+  if (validatedComment(commentInput.value) != comment)
+    comment = validatedComment(commentInput.value)
 
   // Purely Visual
   // Display creative and original message
@@ -101,6 +101,14 @@ function verzweifle() {
 
 function validatedName(input) {
   var validatedInput = "jemand"
+  if (input.trim() != "") {
+    validatedInput = input.trim();
+  }
+  return validatedInput;
+}
+
+function validatedComment(input) {
+  var validatedInput = ""
   if (input.trim() != "") {
     validatedInput = input.trim();
   }

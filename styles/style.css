@@ -143,9 +143,15 @@ h3 {
   border: 0.1em solid var(--red);
 }
 
-.commentInput{
+.commentInput {
   font-size: 1em;
   height: 5em;
+  resize: none;
+}
+
+.commentInput:focus {
+  /*keep the letter spacing as it was*/
+  letter-spacing: 0.1em;
 }
 
 #stats {
@@ -412,7 +418,8 @@ h3 {
   li, input, h1, h2, h3, h4, div, textarea {
     color: var(--bright);
   }
-.snowflake{
+
+  .snowflake {
     text-shadow: none;
   }
 
