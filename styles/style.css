@@ -156,13 +156,14 @@ h3 {
 
 .commentInput {
   font-size: 1em;
-  height: 4em;
+  height: 2em;
   resize: none;
 }
 
 .commentInput:focus {
   /*keep the letter spacing as it was*/
   letter-spacing: 0.1em;
+  height: 4em;
 }
 
 #stats {

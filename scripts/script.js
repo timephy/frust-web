@@ -1,13 +1,14 @@
-var btnElem = document.getElementById("mainButton")
-var anker = document.getElementById("toastAnker")
-var nameInput = document.getElementById("nameInput")
-var commentInput = document.getElementById("commentInput")
-var todayDisp = document.getElementById("todayDisp")
-var totalDisp = document.getElementById("totalDisp")
-var usersDisp = document.getElementById("stats")
+var btnElem = document.getElementById("mainButton");
+var anker = document.getElementById("toastAnker");
+var nameInput = document.getElementById("nameInput");
+var commentInput = document.getElementById("commentInput");
+var todayDisp = document.getElementById("todayDisp");
+var totalDisp = document.getElementById("totalDisp");
+var usersDisp = document.getElementById("stats");
 
 const MAX_TOASTS = 35; //please increase if you find any device that needs it
-const NAME_KEY = "frust_name"
+const NAME_KEY = "name";
+const COMMENT_KEY = "comment";
 const possibleButtonLabels = [
   "Exmatrikulation",
   "GOP",
@@ -23,7 +24,7 @@ const possibleButtonLabels = [
   "\"mathe wird leicht\"",
   "Zeile mal Spalte",
   "?????"
-]
+];
 
 var name = "guest";
 var comment = "";
@@ -40,24 +41,24 @@ var currentStats = {
 };
 
 function displayStats(total, day, hour) {
-  totalDisp.innerText = "total\n" + total
-  todayDisp.innerText = "today\n" + day
+  totalDisp.innerText = "total\n" + total;
+  todayDisp.innerText = "today\n" + day;
 
   if (total % 1000 == 0) {
-    btnElem.classList.add("rainbow")
+    btnElem.classList.add("rainbow");
   } else if (total % 1000 == 1) {
-    btnElem.classList.remove("rainbow")
+    btnElem.classList.remove("rainbow");
   }
 
   if (day == 666) {
-    console.log('satan is calling')
-    btnElem.classList.add("elmo")
-    setTimeout(() => btnElem.classList.remove("elmo"), 2)
+    console.log('satan is calling');
+    btnElem.classList.add("elmo");
+    setTimeout(() => btnElem.classList.remove("elmo"), 2);
   }
 }
 
 function displayActiveUsers(num) {
-  usersDisp.innerText = "users\n" + num
+  usersDisp.innerText = "users\n" + num;
 }
 
 // Utils
@@ -72,7 +73,7 @@ function incrementStats() {
 function randomButtonLabel() {
   return Math.random() < 0.9 ?
     "ich verzweifle" :
-    possibleButtonLabels[Math.floor(Math.random() * possibleButtonLabels.length)]
+    possibleButtonLabels[Math.floor(Math.random() * possibleButtonLabels.length)];
 }
 
 // Clicks
@@ -80,27 +81,29 @@ function randomButtonLabel() {
 /** The main button action. */
 function verzweifle() {
   if (validatedName(nameInput.value) != name) {
-    name = validatedName(nameInput.value)
-    storage.setItem(NAME_KEY, name)
+    name = validatedName(nameInput.value);
+    storage.setItem(NAME_KEY, name);
   }
 
-  if (validatedComment(commentInput.value) != comment)
-    comment = validatedComment(commentInput.value)
+  if (validatedComment(commentInput.value) != comment) {
+    comment = validatedComment(commentInput.value);
+    storage.setItem(COMMENT_KEY, comment);
+  }
 
   // Purely Visual
   // Display creative and original message
-  btnElem.value = randomButtonLabel()
-  displayRing()
+  btnElem.value = randomButtonLabel();
+  displayRing();
 
   socket.emit("click", {
     "name": name,
     "comment": comment
-  })
+  });
   // displayStats(currentStats["total"], currentStats["day"], currentStats["hour"]);
 }
 
 function validatedName(input) {
-  var validatedInput = "jemand"
+  var validatedInput = "jemand";
   if (input.trim() != "") {
     validatedInput = input.trim();
   }
@@ -108,7 +111,7 @@ function validatedName(input) {
 }
 
 function validatedComment(input) {
-  var validatedInput = ""
+  var validatedInput = "";
   if (input.trim() != "") {
     validatedInput = input.trim();
   }
@@ -117,61 +120,64 @@ function validatedComment(input) {
 
 /** Displays the buttom click animation. */
 function displayRing() {
-  var ring = document.createElement("div")
+  var ring = document.createElement("div");
   ring.className = "ring";
-  btnElem.parentElement.appendChild(ring)
-  window.getComputedStyle(ring).opacity
-  ring.classList.add("show")
-  destroyDelay(ring, 700)
+  btnElem.parentElement.appendChild(ring);
+  window.getComputedStyle(ring).opacity;
+  ring.classList.add("show");
+  destroyDelay(ring, 700);
 }
 
 /** Displays a click (Killfeed-like-style). */
 function displayClick(name, comment) {
-  //prevent extreme amounts of comment messages
+  // prevent extreme amounts of comment messages
   if (anker.childElementCount > MAX_TOASTS)
-    anker.firstElementChild.remove()
-
+    anker.firstElementChild.remove();
 
   var text = `${name} ist gerade verzweifelt...`
   // add comment in braces if present
   if (comment != undefined && comment != "") {
-    text = text.concat(` (${comment})`)
+    text = text.concat(` (${comment})`);
   }
 
   var toast = document.createElement("div")
-  toast.className = "toast"
-  toast.appendChild(document.createTextNode(text))
-  anker.appendChild(toast)
-  window.getComputedStyle(toast).opacity
-  toast.classList.add("show")
-  hideDelay(toast, 1500)
-  destroyDelay(toast, 2000)
-
+  toast.className = "toast";
+  toast.appendChild(document.createTextNode(text));
+  anker.appendChild(toast);
+  window.getComputedStyle(toast).opacity;
+  toast.classList.add("show");
+  hideDelay(toast, 1500);
+  destroyDelay(toast, 2000);
 }
 
 
 /** Adds hide class to element after specified time. */
 function hideDelay(element, time) {
-  setTimeout(() => element.classList.add("hide"), time)
+  setTimeout(() => element.classList.add("hide"), time);
 }
 
 /** Removes the element from its parent after specified time. */
 function destroyDelay(element, time) {
-  setTimeout(() => element.remove(), time)
+  setTimeout(() => element.remove(), time);
 }
 
 // Data store
-var storage = window.localStorage
+var storage = window.localStorage;
 
 /** Loads stored data from storage. */
 function loadFiles() {
+  // load name, comment
   if (storage.getItem(NAME_KEY))
-    name = storage.getItem(NAME_KEY); // load from local storage
+    name = storage.getItem(NAME_KEY);
+  if (storage.getItem(COMMENT_KEY))
+    comment = storage.getItem(COMMENT_KEY);
 
-  nameInput.value = name; //Display the loaded name
+  // set name, comment
+  nameInput.value = name;
+  commentInput.value = comment;
 }
 
-document.body.onload = loadFiles()
+document.body.onload = loadFiles();
 
 
 // Socket.io
@@ -194,4 +200,4 @@ socket.on("click", (click) => {
   displayStats(currentStats["total"], currentStats["day"], currentStats["hour"]);
 });
 
-socket.connect()
+socket.connect();
