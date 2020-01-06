@@ -106,7 +106,6 @@ function verzweifle() {
   // Display creative and original message
   btnElem.value = randomButtonLabel();
   displayRing();
-  displayClick("name", "")
 
   socket.emit("click", {
     "name": name,
@@ -159,8 +158,6 @@ function displayClick(name, comment) {
   anker.appendChild(toast);
   destroyDelay(toast, 2000);
 }
-
-
 
 /** Removes the element from its parent after specified time. */
 function destroyDelay(element, time) {
