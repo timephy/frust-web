@@ -45,6 +45,17 @@ body * {
   align-items: center;
 }
 
+.spacer{
+  height: 1em;
+}
+
+.tinyWrapper{
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .statsCont {
   display: flex;
   justify-content: space-between;
@@ -145,7 +156,7 @@ h3 {
 
 .commentInput {
   font-size: 1em;
-  height: 5em;
+  height: 4em;
   resize: none;
 }
 

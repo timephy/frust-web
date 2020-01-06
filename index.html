@@ -51,12 +51,17 @@
       <input type="button" onclick="verzweifle()" value="ich verzweifle" id="mainButton" class="bigButton" accesskey="f" />
       <div class="ringStart"></div>
     </div>
-    <span class="hoverline">
-      <input id="nameInput" maxlength="15" pattern=".{1,15}" title="input a name up to 15 characters length" type="text" name="name_input" value="guest" class="nameInput" autocomplete="off" />
-    </span>
-    <span class="hoverline">
-      <textarea rows="3" cols="30" id="commentInput" maxlength="75" pattern=".{0,75}" title="comment can't be longer than 75 characters" type="text" name="comment_input" value="" class="nameInput commentInput" autocomplete="off"></textarea>
-    </span>
+    <div  class="tinyWrapper">
+      <span class="hoverline">
+        <input id="nameInput" maxlength="15" pattern=".{1,15}" title="input a name up to 15 characters length" type="text" name="name_input" value="guest" class="nameInput" autocomplete="off" />
+      </span>
+      <div class="spacer">
+
+      </div>
+      <span class="hoverline">
+        <textarea rows="4" cols="33" id="commentInput" maxlength="75" pattern=".{0,75}" title="comment can't be longer than 75 characters" type="text" name="comment_input" value="" class="nameInput commentInput" autocomplete="off"></textarea>
+      </span>
+    </div>
 
     <div></div>
     <div id="toastAnker" class="toastAnker">
