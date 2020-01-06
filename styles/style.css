@@ -104,34 +104,19 @@ h3 {
     max-height: 0em;
   }
 
-  10% {
-    padding: 0.5em 0em 0.5em 0em;
-    margin: 0.2em;
-    max-height: 4em;
-    bottom: -1em;
-    opacity: 1;
-  }
-
-  90% {
-    padding: 0.5em 0em 0.5em 0em;
-    margin: 0.2em;
-    max-height: 4em;
-    bottom: -1em;
-    opacity: 1;
-  }
-
   100% {
-    opacity: 0;
-    max-height: 0px;
-    bottom: -2.4em;
+    padding: 0.5em 0em 0.5em 0em;
+    margin: 0.2em;
+    max-height: 4em;
+    bottom: -1em;
   }
 }
 
 .toast {
-  -webkit-animation: 2s ease-in-out toastAnim;
-  -moz-animation: 2s ease-in-out toastAnim;
-  -o-animation: 2s ease-in-out toastAnim;
-  animation: 2s ease-in-out toastAnim;
+  -webkit-animation: 0.2s ease-in-out toastAnim;
+  -moz-animation: 0.2s ease-in-out toastAnim;
+  -o-animation: 0.2s ease-in-out toastAnim;
+  animation: 0.2s ease-in-out toastAnim;
   transform: rotate(-180deg);
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -143,13 +128,19 @@ h3 {
   text-align: center;
   padding: 0.5em 0em 0.5em 0em;
   margin: 0.2em;
+  opacity: 1;
+  max-height: 0px;
+  bottom: -2.4em;
+}
+
+.toast.hide {
+  -webkit-transition: all 0.2s ease-in 0.3s, height 0.2s ease-in 0.5s;
+  -moz-transition: all 0.2s ease-in 0.3s, height 0.2s ease-in 0.5s;
+  -o-transition: all 0.2s ease-in 0.3s, height 0.2s ease-in 0.5s;
+  transition: all 0.2s ease-in 0.3s, height 0.2s ease-in 0.5s;
   opacity: 0;
   max-height: 0px;
   bottom: -2.4em;
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
 }
 
 @keyframes toastUnderlineAnim {
@@ -158,32 +149,27 @@ h3 {
     opacity: 0.2;
   }
 
-  25% {
-    width: 100%;
-    opacity: 1;
-  }
-
-  75% {
-    width: 100%;
-    opacity: 1;
-  }
-
   100% {
-    width: 0px;
-    right: 0;
-    left: auto;
+    width: 100%;
+    opacity: 1;
   }
 }
 
 .toast:after {
-  -webkit-animation: 2s ease-in-out toastUnderlineAnim;
-  -moz-animation: 2s ease-in-out toastUnderlineAnim;
-  -o-animation: 2s ease-in-out toastUnderlineAnim;
-  animation: 2s ease-in-out toastUnderlineAnim;
+  -webkit-animation: 0.5s ease-in-out toastUnderlineAnim;
+  -moz-animation: 0.5s ease-in-out toastUnderlineAnim;
+  -o-animation: 0.5s ease-in-out toastUnderlineAnim;
+  animation: 0.5s ease-in-out toastUnderlineAnim;
   left: 0;
   bottom: 0;
   width: 100%;
   opacity: 1;
+}
+
+.toast.hide:after {
+  width: 0px;
+  right: 0;
+  left: auto;
 }
 
 /*the user name box*/
