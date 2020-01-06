@@ -7,7 +7,8 @@ var totalDisp = document.getElementById("totalDisp")
 var usersDisp = document.getElementById("stats")
 
 const MAX_TOASTS = 35; //please increase if you find any device that needs it
-const NAME_KEY = "frust_name"
+const NAME_KEY = "name"
+const COMMENT_KEY = "comment"
 const possibleButtonLabels = [
   "Exmatrikulation",
   "GOP",
@@ -84,8 +85,10 @@ function verzweifle() {
     storage.setItem(NAME_KEY, name)
   }
 
-  if (validatedComment(commentInput.value) != comment)
+  if (validatedComment(commentInput.value) != comment) {
     comment = validatedComment(commentInput.value)
+    storage.setItem(COMMENT_KEY, comment)
+  }
 
   // Purely Visual
   // Display creative and original message
@@ -127,10 +130,9 @@ function displayRing() {
 
 /** Displays a click (Killfeed-like-style). */
 function displayClick(name, comment) {
-  //prevent extreme amounts of comment messages
+  // prevent extreme amounts of comment messages
   if (anker.childElementCount > MAX_TOASTS)
     anker.firstElementChild.remove()
-
 
   var text = `${name} ist gerade verzweifelt...`
   // add comment in braces if present
@@ -146,7 +148,6 @@ function displayClick(name, comment) {
   toast.classList.add("show")
   hideDelay(toast, 1500)
   destroyDelay(toast, 2000)
-
 }
 
 
@@ -165,10 +166,15 @@ var storage = window.localStorage
 
 /** Loads stored data from storage. */
 function loadFiles() {
+  // load name, comment
   if (storage.getItem(NAME_KEY))
-    name = storage.getItem(NAME_KEY); // load from local storage
+    name = storage.getItem(NAME_KEY);
+  if (storage.getItem(COMMENT_KEY))
+    comment = storage.getItem(COMMENT_KEY);
 
-  nameInput.value = name; //Display the loaded name
+  // set name, comment
+  nameInput.value = name;
+  commentInput.value = comment;
 }
 
 document.body.onload = loadFiles()
