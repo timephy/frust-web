@@ -156,7 +156,13 @@ function displayClick(name, comment) {
   toast.className = "toast";
   toast.appendChild(document.createTextNode(text));
   anker.appendChild(toast);
+  hideDelay(toast, 1500);
   destroyDelay(toast, 2000);
+}
+
+/** Adds hide class to element after specified time. */
+function hideDelay(element, time) {
+  setTimeout(() => element.classList.add("hide"), time);
 }
 
 /** Removes the element from its parent after specified time. */

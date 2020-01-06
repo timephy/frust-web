@@ -128,9 +128,9 @@ h3 {
   text-align: center;
   padding: 0.5em 0em 0.5em 0em;
   margin: 0.2em;
+  max-height: 4em;
+  bottom: -1em;
   opacity: 1;
-  max-height: 0px;
-  bottom: -2.4em;
 }
 
 .toast.hide {
