@@ -139,6 +139,7 @@ h3 {
   text-align: center;
   padding: 0.2em;
   letter-spacing: 0.1em;
+  box-shadow: var(--thin-material-shadow);
   -webkit-transition: 250ms ease;
   -moz-transition: 250ms ease;
   -o-transition: 250ms ease;
@@ -413,9 +414,6 @@ h3 {
 
   .nameInput {
     background: var(--dark-1);
-  }
-
-  .nameInput {
     box-shadow: var(--medium-material-shadow);
   }
 
@@ -456,9 +454,6 @@ h3 {
 
   .nameInput {
     background: var(--bright-background);
-  }
-
-  .nameInput {
     box-shadow: var(--thin-material-shadow);
   }
 
