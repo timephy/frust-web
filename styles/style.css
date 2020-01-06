@@ -525,6 +525,9 @@ h3 {
 }
 
 /* customizable snowflake styling */
+.snowflakes{
+  display: block !important;
+}
 .snowflake {
   color: #fff;
   font-size: 1em;

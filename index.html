@@ -18,6 +18,7 @@
 
   <link rel="stylesheet" href="styles/style.css">
   <meta charset="utf-8">
+  <meta name="description" content="A website for fellow Physics students at TU Munich to show their frustration.">
   <title>Frustrated Physicists</title>
   <meta name="viewport" content="width=device-width">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -25,20 +26,6 @@
 </head>
 
 <body>
-  <div class="snowflakes" aria-hidden="true">
-    <div class="snowflake">GOP</div>
-    <div class="snowflake">&#x1F62D;</div>
-    <div class="snowflake">❅</div>
-    <div class="snowflake">❆</div>
-    <div class="snowflake">❅</div>
-    <div class="snowflake">❆</div>
-    <div class="snowflake">❅</div>
-    <div class="snowflake">❆</div>
-    <div class="snowflake">❅</div>
-    <div class="snowflake">❆</div>
-    <div class="snowflake">❅</div>
-    <div class="snowflake">❆</div>
-  </div>
   <div class="wrapper">
     <div class="statsCont">
       <h3 id="totalDisp">total<br>---</h3>
@@ -51,7 +38,7 @@
       <input type="button" onclick="verzweifle()" value="ich verzweifle" id="mainButton" class="bigButton" accesskey="f" />
       <div class="ringStart"></div>
     </div>
-    <div  class="tinyWrapper">
+    <div class="tinyWrapper">
       <span class="hoverline">
         <input id="nameInput" maxlength="15" pattern=".{1,15}" title="input a name up to 15 characters length" type="text" name="name_input" value="guest" class="nameInput" autocomplete="off" />
       </span>
@@ -67,6 +54,21 @@
     <div id="toastAnker" class="toastAnker">
 
     </div>
+  </div>
+
+  <div class="snowflakes" aria-hidden="true" style="display: none;">
+    <div class="snowflake">GOP</div>
+    <div class="snowflake">&#x1F62D;</div>
+    <div class="snowflake">❅</div>
+    <div class="snowflake">❆</div>
+    <div class="snowflake">❅</div>
+    <div class="snowflake">❆</div>
+    <div class="snowflake">❅</div>
+    <div class="snowflake">❆</div>
+    <div class="snowflake">❅</div>
+    <div class="snowflake">❆</div>
+    <div class="snowflake">❅</div>
+    <div class="snowflake">❆</div>
   </div>
 </body>
 <script src="scripts/socket.io.js"></script>
