@@ -1,5 +1,6 @@
 var btnElem = document.getElementById("mainButton");
 var anker = document.getElementById("toastAnker");
+var panker = document.getElementById("popupAnker");
 var nameInput = document.getElementById("nameInput");
 var commentInput = document.getElementById("commentInput");
 var todayDisp = document.getElementById("todayDisp");
@@ -45,20 +46,23 @@ function displayStats(total, day, hour) {
   todayDisp.innerText = "today\n" + day;
 
   if (total % 1000 == 0) {
-    btnElem.classList.add("rainbow");
-  } else if (total % 1000 == 1) {
-    btnElem.classList.remove("rainbow");
+    popup("+1.000")
+  }
+
+  if (total % 10000 == 0) {
+    popup("+10.000")
   }
 
   if (day == 666) {
     console.log('satan is calling');
     btnElem.classList.add("elmo");
+    popup("666")
     setTimeout(() => btnElem.classList.remove("elmo"), 2);
   }
 }
 
 function displayActiveUsers(num) {
-  usersDisp.innerText = "users\n" + num;
+  usersDisp.innerText = "active\n" + num;
 }
 
 // Utils
@@ -67,6 +71,14 @@ function incrementStats() {
   currentStats["total"]++;
   currentStats["day"]++;
   currentStats["hour"]++;
+}
+
+function popup(text){
+  var pop = document.createElement("div")
+  pop.className = "popup";
+  pop.appendChild(document.createTextNode(text));
+  panker.appendChild(pop);
+  destroyDelay(pop, 1000);
 }
 
 /** Returns a randomized button label. */
@@ -94,6 +106,7 @@ function verzweifle() {
   // Display creative and original message
   btnElem.value = randomButtonLabel();
   displayRing();
+  displayClick("name", "")
 
   socket.emit("click", {
     "name": name,
@@ -144,17 +157,10 @@ function displayClick(name, comment) {
   toast.className = "toast";
   toast.appendChild(document.createTextNode(text));
   anker.appendChild(toast);
-  window.getComputedStyle(toast).opacity;
-  toast.classList.add("show");
-  hideDelay(toast, 1500);
   destroyDelay(toast, 2000);
 }
 
 
-/** Adds hide class to element after specified time. */
-function hideDelay(element, time) {
-  setTimeout(() => element.classList.add("hide"), time);
-}
 
 /** Removes the element from its parent after specified time. */
 function destroyDelay(element, time) {
