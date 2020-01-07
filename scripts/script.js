@@ -7,6 +7,8 @@ var todayDisp = document.getElementById("todayDisp");
 var totalDisp = document.getElementById("totalDisp");
 var usersDisp = document.getElementById("stats");
 
+navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+
 const MAX_TOASTS = 35; //please increase if you find any device that needs it
 const NAME_KEY = "name";
 const COMMENT_KEY = "comment";
@@ -88,7 +90,11 @@ function randomButtonLabel() {
 
 /** The main button action. */
 function verzweifle() {
-  window.navigator.vibrate(200); // vibrate for 200ms
+
+  if (navigator.vibrate) {
+	  // vibration API supported
+    navigator.vibrate(200); // vibrate for 200ms
+  }
 
   if (validatedName(nameInput.value) != name) {
     name = validatedName(nameInput.value);
