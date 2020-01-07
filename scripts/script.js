@@ -71,7 +71,7 @@ function debugMethod() {
 
 function displayStats(total, day, hour) {
   totalDisp.innerText = "total\n" + total;
-  todayDisp.innerText = "today\n" + day;
+  todayDisp.innerText = "heute\n" + day;
 
   if (total % 10000 == 0) {
     popup("+10.000")
@@ -80,8 +80,8 @@ function displayStats(total, day, hour) {
   }
 }
 
-function displayActiveUsers(num) {
-  usersDisp.innerText = "active\n" + num;
+function displayOnlineUsers(num) {
+  usersDisp.innerText = "online\n" + num;
 }
 
 // Utils
@@ -225,7 +225,7 @@ socket.on("stats", (stats) => {
 
 socket.on("users", (users) => {
   console.log(`users(${users["count"]})`);
-  displayActiveUsers(users["count"]);
+  displayOnlineUsers(users["count"]);
 });
 
 socket.on("click", (click) => {
