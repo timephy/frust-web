@@ -88,6 +88,8 @@ function randomButtonLabel() {
 
 /** The main button action. */
 function verzweifle() {
+  window.navigator.vibrate(200); // vibrate for 200ms
+
   if (validatedName(nameInput.value) != name) {
     name = validatedName(nameInput.value);
     storage.setItem(NAME_KEY, name);
