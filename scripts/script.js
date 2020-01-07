@@ -103,7 +103,7 @@ function verzweifle() {
     storage.setItem(NAME_KEY, name);
   }
 
-  let sanitizedComment = sanitizeInput(commentInput.value)
+  let sanitizedComment = sanitizeInput(commentInput.value, "")
   if (sanitizedComment != comment) {
     comment = sanitizedComment;
     storage.setItem(COMMENT_KEY, comment);
