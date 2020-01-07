@@ -111,9 +111,10 @@ function verzweifle() {
   let sanitizedName = sanitizeInput(nameInput.value);
   if (sanitizedName != name)
     storage.setItem(NAME_KEY, sanitizedName);
-  name = sanitizedName || "Anonym";
+  name = sanitizedName || "Anonym"; // or default name
 
   let sanitizedComment = sanitizeInput(commentInput.value);
+  // commands are not saved
   if (sanitizedComment != comment && !sanitizedComment.startsWith("/"))
     storage.setItem(COMMENT_KEY, sanitizedComment);
   comment = sanitizedComment || "";
@@ -131,6 +132,7 @@ function verzweifle() {
     } else if (command == "gaypride") {
       // action
     } else {
+      // No command matched
       alert("Kommando nicht valide.")
     }
   } else { // Click
@@ -148,6 +150,7 @@ function verzweifle() {
   // displayStats(currentStats["total"], currentStats["day"], currentStats["hour"]);
 }
 
+/** String corrections for input fields. */
 const sanitizeInput = (input) => input.trim();
 
 /** Displays the buttom click animation. */
