@@ -58,17 +58,6 @@ var currentStats = {
 /** effect variables */
 var resetableTimers = {};
 
-function debugMethod() {
-  //addTemporaryClass(wrapper, "rainbowColor", 8000);
-  //popup("666");
-  //addTemporaryClass(button, "elmo", 3000);
-
-  displayClick(nameInput.value, "", "big");
-  displayClick(nameInput.value, "", "dashed");
-  displayClick(nameInput.value, "");
-  displayClick(nameInput.value, "","dotted pink");
-}
-
 function displayStats(total, day, hour) {
   totalDisp.innerText = "total\n" + total;
   todayDisp.innerText = "today\n" + day;
@@ -155,8 +144,6 @@ function verzweifle() {
   // Display creative and original message
   button.value = randomButtonLabel();
   displayRing();
-
-  debugMethod();
 }
 
 /** String corrections for input fields. */
