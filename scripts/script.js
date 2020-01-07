@@ -29,8 +29,20 @@ const possibleButtonLabels = [
   "?????"
 ];
 
-var name = "Gast";
-var comment = "";
+var name;
+var comment;
+
+/** Loads stored data from storage. */
+document.body.onload = () => {
+  // load name, comment
+  name = storage.getItem(NAME_KEY);
+  comment = storage.getItem(COMMENT_KEY);
+
+  // set name, comment
+  nameInput.value = name;
+  commentInput.value = comment;
+};
+
 
 var socket = io({
   path: "/api/socket.io"
@@ -100,19 +112,43 @@ function randomButtonLabel() {
 /** The main button action. */
 function verzweifle() {
 
-  if (navigator.vibrate) {
-    // vibration API supported
-    navigator.vibrate(200); // vibrate for 200ms
+  if (navigator.vibrate) { // vibration API supported
+    navigator.vibrate(100);
   }
 
-  if (validatedName(nameInput.value) != name) {
-    name = validatedName(nameInput.value);
-    storage.setItem(NAME_KEY, name);
-  }
+  // Inputs
+  let sanitizedName = sanitizeInput(nameInput.value);
+  if (sanitizedName != name)
+    storage.setItem(NAME_KEY, sanitizedName);
+  name = sanitizedName || "Anonym"; // or default name
 
-  if (validatedComment(commentInput.value) != comment) {
-    comment = validatedComment(commentInput.value);
-    storage.setItem(COMMENT_KEY, comment);
+  let sanitizedComment = sanitizeInput(commentInput.value);
+  // commands are not saved
+  if (sanitizedComment != comment && !sanitizedComment.startsWith("/"))
+    storage.setItem(COMMENT_KEY, sanitizedComment);
+  comment = sanitizedComment || "";
+
+  if (comment.startsWith("/")) { // Command
+    command = comment.substring(1);
+    if (command == "fireworks") {
+      socket.emit("event", {
+        "id": "fireworks"
+      })
+    } else if (command == "rainbow") {
+      socket.emit("event", {
+        "id": "rainbow"
+      })
+    } else if (command == "gaypride") {
+      // action
+    } else {
+      // No command matched
+      alert("Kommando nicht valide.")
+    }
+  } else { // Click
+    socket.emit("click", {
+      "name": name,
+      "comment": comment
+    });
   }
 
   // Purely Visual
@@ -120,29 +156,11 @@ function verzweifle() {
   button.value = randomButtonLabel();
   displayRing();
 
-  socket.emit("click", {
-    "name": name,
-    "comment": comment
-  });
-
   debugMethod();
 }
 
-function validatedName(input) {
-  var validatedInput = "jemand";
-  if (input.trim() != "") {
-    validatedInput = input.trim();
-  }
-  return validatedInput;
-}
-
-function validatedComment(input) {
-  var validatedInput = "";
-  if (input.trim() != "") {
-    validatedInput = input.trim();
-  }
-  return validatedInput;
-}
+/** String corrections for input fields. */
+const sanitizeInput = (input) => input.trim();
 
 /** Displays the buttom click animation. */
 function displayRing() {
@@ -197,21 +215,6 @@ function addTemporaryClass(targetElem, cssClass, time) {
 // Data store
 var storage = window.localStorage;
 
-/** Loads stored data from storage. */
-function loadFiles() {
-  // load name, comment
-  if (storage.getItem(NAME_KEY))
-    name = storage.getItem(NAME_KEY);
-  if (storage.getItem(COMMENT_KEY))
-    comment = storage.getItem(COMMENT_KEY);
-
-  // set name, comment
-  nameInput.value = name;
-  commentInput.value = comment;
-}
-
-document.body.onload = loadFiles();
-
 
 // Socket.io
 socket.on("stats", (stats) => {
@@ -231,6 +234,17 @@ socket.on("click", (click) => {
   displayClick(click["name"], click["comment"])
   incrementStats()
   displayStats(currentStats["total"], currentStats["day"], currentStats["hour"]);
+});
+
+socket.on("event", (event) => {
+  console.log(`event(${event["id"]})`);
+
+  // Reacting to "everyone events"
+  if (event["id"] == "fireworks") {
+
+  } else if (event["id"] == "rainbow") {
+
+  }
 });
 
 socket.connect();
