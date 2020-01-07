@@ -29,7 +29,7 @@ const possibleButtonLabels = [
   "?????"
 ];
 
-var name = "guest";
+var name = "Gast";
 var comment = "";
 
 var socket = io({
@@ -45,23 +45,23 @@ var currentStats = {
 
 /** effect variables */
 var resetableTimers = {};
+var toastType = "toast";
 
 function debugMethod() {
   //addTemporaryClass(wrapper, "rainbowColor", 8000);
+  //addTemporaryClass(button, "rainbow", 8000);
   //popup("666");
   //addTemporaryClass(button, "elmo", 3000);
 
-  displayClick(nameInput.value, "", "big");
-  displayClick(nameInput.value, "", "dashed");
+  //displayClick(nameInput.value, "", "dotted purple");
   displayClick(nameInput.value, "");
-  displayClick(nameInput.value, "","dotted pink");
 }
 
 function displayStats(total, day, hour) {
-  totalDisp.innerText = "total\n" + total;
-  todayDisp.innerText = "today\n" + day;
+  totalDisp.innerText = "gesamt\n" + total;
+  todayDisp.innerText = "heute\n" + day;
 
-  if (total % 10000 == 0) {
+  if (today % 10000 == 0) {
     popup("+10.000")
   } else if (total % 1000 == 0) {
     popup("+1.000")
@@ -167,7 +167,7 @@ function displayClick(name, comment, effectClass) {
   }
 
   var toast = document.createElement("div")
-  toast.className = "toast" + " " + effectClass;
+  toast.className = toastType + " " + effectClass;
   toast.appendChild(document.createTextNode(text));
   anker.prepend(toast);
   hideDelay(toast, 2500);
