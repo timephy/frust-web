@@ -159,9 +159,9 @@ function verzweifle() {
         });
         break;
       case "fuck":
-      case  "fireworks":
-      case  "satan":
-      case  "gaypride":
+      case "fireworks":
+      case "satan":
+      case "gaypride":
         socket.emit("event", {
           "id": command
         });
@@ -289,7 +289,7 @@ socket.on("event", (event) => {
       displayClick("bigBoy", "", "big")
       break;
     case "small":
-      popup("Kann man das lesen???", "small");
+      displayClick("Kann man das lesen???", "", "small");
       break;
     case "fuck":
       popup("Fuck you", "fu");
