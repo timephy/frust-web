@@ -120,6 +120,7 @@ function verzweifle() {
 
   if (comment.startsWith("/")) { // Command
     command = comment.substring(1);
+    // print("possible command", command, comment)
     if (command == "fireworks") {
       socket.emit("event", {
         "id": "fireworks"
@@ -146,9 +147,7 @@ function verzweifle() {
   // displayStats(currentStats["total"], currentStats["day"], currentStats["hour"]);
 }
 
-function sanitizeInput(input) {
-  return input.trim();
-}
+const sanitizeInput = (input) => input.trim();
 
 /** Displays the buttom click animation. */
 function displayRing() {
@@ -215,7 +214,7 @@ socket.on("click", (click) => {
 });
 
 socket.on("event", (event) => {
-  console.log(`event(${click["id"]})`);
+  console.log(`event(${event["id"]})`);
 
   // Reacting to "everyone events"
   if (event["id"] == "fireworks") {
