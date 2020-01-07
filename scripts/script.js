@@ -148,12 +148,20 @@ function verzweifle() {
       case "rainbow":
         addTemporaryClass(wrapper, "rainbowColor", 8000);
         break;
-      case "small", "big", "green", "purple", "blue", "yellow":
+      case "small":
+      case "big":
+      case "green":
+      case "purple":
+      case "blue":
+      case "yellow":
         socket.emit("event", {
           "id": command
         });
         break;
-      case "fuck", "fireworks", "satan", "gaypride":
+      case "fuck":
+      case  "fireworks":
+      case  "satan":
+      case  "gaypride":
         socket.emit("event", {
           "id": command
         });
