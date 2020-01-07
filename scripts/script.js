@@ -31,6 +31,7 @@ const possibleButtonLabels = [
 
 var name;
 var comment;
+var vibrationsActive = false;
 
 /** Loads stored data from storage. */
 document.body.onload = () => {
@@ -120,7 +121,7 @@ function randomButtonLabel() {
 /** The main button action. */
 function verzweifle() {
 
-  if (navigator.vibrate) { // vibration API supported
+  if (navigator.vibrate && vibrationsActive) { // vibration API supported
     navigator.vibrate(100);
   }
 
@@ -140,50 +141,19 @@ function verzweifle() {
     command = comment.substring(1);
 
     switch (command) {
-      case "yellow":
-        socket.emit("event", {
-          "id": command
-        });
-        break;
-      case "blue":
-        socket.emit("event", {
-          "id": command
-        });
-        break;
-      case "purple":
-        socket.emit("event", {
-          "id": command
-        });
-        break;
-      case "green":
-        socket.emit("event", {
-          "id": command
-        });
-        break;
-      case "gaypride":
-        socket.emit("event", {
-          "id": command
-        });
+      case "vibrate":
+        vibrationsActive = !vibrationsActive;
+        console.log("vibrationsActive   " + vibrationsActive)
         break;
       case "rainbow":
         addTemporaryClass(wrapper, "rainbowColor", 8000);
         break;
-      case "satan":
+      case "small", "big", "green", "purple", "blue", "yellow":
         socket.emit("event", {
           "id": command
         });
         break;
-      case "big":
-        socket.emit("event", {
-          "id": command
-        });
-        break;
-      case "small":
-        socket.emit("event", {
-          "id": command
-        });
-        break;
-      case "fuck":
+      case "fuck", "fireworks", "satan", "gaypride":
         socket.emit("event", {
           "id": command
         });
