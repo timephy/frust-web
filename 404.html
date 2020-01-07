@@ -1,79 +1,122 @@
 <!DOCTYPE html>
-<html>
+<html lang="de" dir="ltr">
 
 <head>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="194x194" href="/images/favicon-194x194.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="manifest" href="/manifest/manifest.webmanifest">
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#000000">
+  <link rel="shortcut icon" href="/images/favicon.ico">
+  <meta name="apple-mobile-web-app-title" content="Frustrated Physicists">
+  <meta name="application-name" content="Frustrated Physicists">
+  <meta name="msapplication-TileColor" content="#2b5797">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <meta name="description" content="The Frustrated Physicists 404 Page... Who would ever read this description?">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Page Not Found</title>
 
   <style media="screen">
-body {
-  height: 100%;
-  margin: 0;
-  font-size: 150%;
-}
-body * {
-  font-family: 'Roboto', 'Monserrat', sans-serif;
-  font-weight: 300;
-}
-::-moz-selection {
-  background: var(--bright-red);
-}
-::selection {
-  background: var(--bright-red);
-}
-/*the fancy underline animations*/
-.hoverline {
-  position: relative;
-  height: 100%;
-}
-.hoverline:before, .hoverline:after, .toast:after {
-  content: "";
-  position: absolute;
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-  opacity: 0.2;
-  background-color: var(--red);
-  height: 0.2em;
-  width: 0px;
-  /*box-shadow: var(--thin-material-shadow);*/
-}
-.hoverline:after {
-  right: 0;
-  bottom: 0;
-}
-.hoverline:hover:before, .hoverline:hover:after, .hoverline:focus-within:before, .hoverline:focus-within:after{
-  width: 100%;
-  opacity: 1;
-}
-.hoverline {
-  position: relative;
-}
-      #message span {
-        display: flex;
-        align-items: stretch;
-        align-content: stretch;
-        justify-content: center;
-        padding: 0;
-      }
+    body {
+      height: 100%;
+      margin: 0;
+      font-size: 150%;
+    }
+
+    body * {
+      font-family: 'Roboto', 'Monserrat', sans-serif;
+      font-weight: 300;
+    }
+
+    ::-moz-selection {
+      background: var(--bright-red);
+    }
+
+    ::selection {
+      background: var(--bright-red);
+    }
+
+    /*the fancy underline animations*/
+    .hoverline {
+      position: relative;
+      height: 100%;
+    }
+
+    .hoverline:before,
+    .hoverline:after,
+    .toast:after {
+      content: "";
+      position: absolute;
+      -webkit-transition: all 0.5s ease-in-out;
+      -moz-transition: all 0.5s ease-in-out;
+      -o-transition: all 0.5s ease-in-out;
+      transition: all 0.5s ease-in-out;
+      opacity: 0.2;
+      background-color: var(--red);
+      height: 0.2em;
+      width: 0px;
+      /*box-shadow: var(--thin-material-shadow);*/
+    }
+
+    .hoverline:after {
+      right: 0;
+      bottom: 0;
+    }
+
+    .hoverline:hover:before,
+    .hoverline:hover:after,
+    .hoverline:focus-within:before,
+    .hoverline:focus-within:after {
+      width: 100%;
+      opacity: 1;
+    }
+
+    .hoverline {
+      position: relative;
+    }
+
+    #message span {
+      display: flex;
+      align-items: stretch;
+      align-content: stretch;
+      justify-content: center;
+      padding: 0;
+    }
+
     @media (prefers-color-scheme: dark) {
-li, input, h1, h2, h3, h4, p{
-    color: white;
-  }
-/*link styling*/
-  a:link {
-    color: white;
-  }
-  a:visited {
-    color: white;
-  }
-  a:active {
-    color: #b71c1c;
-  }
-body{
-background: #121212;}
+
+      li,
+      input,
+      h1,
+      h2,
+      h3,
+      h4,
+      p {
+        color: white;
+      }
+
+      /*link styling*/
+      a:link {
+        color: white;
+      }
+
+      a:visited {
+        color: white;
+      }
+
+      a:active {
+        color: #b71c1c;
+      }
+
+      body {
+        background: #121212;
+      }
+
       #message {
         background: #1d1d1d;
         max-width: 360px;
@@ -81,28 +124,33 @@ background: #121212;}
         padding: 32px 24px 16px;
         border-radius: 3px;
       }
+
       #message h3 {
         font-weight: normal;
         font-size: 16px;
         margin: 16px 0 12px;
         text-shadow: none;
       }
+
       #message h2 {
         color: #b71c1c;
         font-weight: bold;
         font-size: 16px;
         margin: 0 0 8px;
       }
+
       #message h1 {
         font-size: 22px;
         font-weight: 300;
         margin: 0 0 16px;
       }
+
       #message p {
         line-height: 140%;
         margin: 16px 0 24px;
         font-size: 14px;
       }
+
       #message a {
         display: flex;
         text-align: center;
@@ -115,43 +163,61 @@ background: #121212;}
         margin-top: 16px;
         border-radius: 4px;
       }
+
       #message {
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
       }
+
       #load {
         color: rgba(0, 0, 0, 0.4);
         text-align: center;
         font-size: 13px;
       }
+
       @media (max-width: 600px) {
+
         body,
         #message {
           margin-top: 0;
           background: #121212;
           box-shadow: none;
         }
+
         #message a {
           background: #1d1d1d;
         }
+
         body {
           border-top: 16px solid #b71c1c;
         }
       }
     }
+
     @media (prefers-color-scheme: light) {
-li, input, h1, h2, h3, h4, p {
-    color: black;
-  }
-/*link styling*/
-  a:link {
-    color: black;
-  }
-  a:visited {
-    color: black;
-  }
-  a:active {
-    color: #b71c1c;
-  }
+
+      li,
+      input,
+      h1,
+      h2,
+      h3,
+      h4,
+      p {
+        color: black;
+      }
+
+      /*link styling*/
+      a:link {
+        color: black;
+      }
+
+      a:visited {
+        color: black;
+      }
+
+      a:active {
+        color: #b71c1c;
+      }
+
       #message {
         background: white;
         max-width: 360px;
@@ -159,6 +225,7 @@ li, input, h1, h2, h3, h4, p {
         padding: 32px 24px 16px;
         border-radius: 3px;
       }
+
       #message h3 {
         color: black;
         font-weight: normal;
@@ -166,21 +233,25 @@ li, input, h1, h2, h3, h4, p {
         margin: 16px 0 12px;
         text-shadow: none;
       }
+
       #message h2 {
         font-weight: bold;
         font-size: 16px;
         margin: 0 0 8px;
       }
+
       #message h1 {
         font-size: 22px;
         font-weight: 300;
         margin: 0 0 16px;
       }
+
       #message p {
         line-height: 140%;
         margin: 16px 0 24px;
         font-size: 14px;
       }
+
       #message a {
         display: flex;
         text-align: center;
@@ -194,21 +265,26 @@ li, input, h1, h2, h3, h4, p {
         border-radius: 4px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
       }
+
       #message {
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
       }
+
       #load {
         color: rgba(0, 0, 0, 0.4);
         text-align: center;
         font-size: 13px;
       }
+
       @media (max-width: 600px) {
+
         body,
         #message {
           margin-top: 0;
           background: #white;
           box-shadow: none;
         }
+
         body {
           border-top: 16px solid #b71c1c;
         }
@@ -221,10 +297,11 @@ li, input, h1, h2, h3, h4, p {
   <div id="message">
     <h2>404</h2>
     <h1>Page Not Found</h1>
-    <p>The specified file was not found on this website. Please check the URL for mistakes and try again.</p>
+    <p>Sorry for the inconvenience, it seems like the specified file was not found on this website. Please check the URL for mistakes and try again.</p>
     <h3>Why am I seeing this?</h3>
-    <p>You were probably messing around with our URLs and trying to figure out what else we're hosting, because I don't see any other way how you could have gotten here... <br> If this was an accident, you can go back to our site using this link: <a class="hoverline"
-        href="/">main page</a></p>
+    <p>You were probably messing around with our URLs and trying to figure out what else we're hosting, because I don't see any other way how you could have gotten here... <br> If this was an accident, you can go back to our site using this link: <a
+        class="hoverline" href="/">main page</a></p>
   </div>
 </body>
+
 </html>

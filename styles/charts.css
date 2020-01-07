@@ -1,0 +1,50 @@
+.chart {background: conic-gradient(#b71c1c 4%, #4d4d4d 0 28%, #f05545 0 67%, #7f0000 0);
+  border-radius: 50%;
+  width: 50%;
+  height: 0;
+  padding-top: 50%;
+  float: left;
+  padding-right: 20px;
+}
+.key {
+  width: 50%;
+  float: right;
+  list-style: none;
+  display: table;
+  border-collapse: separate;
+}
+.key > li {
+  display: table-row;
+}
+.key > li > * {
+  display: table-cell;
+  border-bottom: 12px solid #fff;
+}
+.percent {
+  color: #fff;
+  padding: 10px 2px;
+  text-shadow: 0 0 1px #000;
+  text-align: center;
+}
+.choice {
+  padding-left: 10px;
+}
+.red {
+  background: #b71c1c;
+}
+.gray {
+  background: #4d4d4d;
+}
+.blue {
+  background: #f05545;
+}
+.yellow {
+  background: #7f0000;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  padding: 20px;
+  font-family: sans-serif;
+}
