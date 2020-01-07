@@ -73,7 +73,7 @@ function displayStats(total, day, hour) {
   totalDisp.innerText = "gesamt\n" + total;
   todayDisp.innerText = "heute\n" + day;
 
-  if (today % 10000 == 0) {
+  if (total % 10000 == 0) {
     popup("+10.000")
   } else if (total % 1000 == 0) {
     popup("+1.000")
