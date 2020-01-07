@@ -150,7 +150,7 @@ function displayClick(name, comment) {
   if (anker.childElementCount > MAX_TOASTS)
     anker.lastElementChild.remove();
 
-  var text = `${name} ist gerade verzweifelt...`
+  var text = `${name} verzweifelt...`
   // add comment in braces if present
   if (comment != undefined && comment != "") {
     text = text.concat(` (${comment})`);
