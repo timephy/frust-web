@@ -114,7 +114,7 @@ function verzweifle() {
   name = sanitizedName || "Anonym";
 
   let sanitizedComment = sanitizeInput(commentInput.value);
-  if (sanitizedComment != comment)
+  if (sanitizedComment != comment && !sanitizedComment.startsWith("/"))
     storage.setItem(COMMENT_KEY, sanitizedComment);
   comment = sanitizedComment || "";
 
