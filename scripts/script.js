@@ -96,17 +96,15 @@ function verzweifle() {
   }
 
   // Inputs
-  let sanitizedName = sanitizeInput(nameInput.value, "Anonym")
-  if (sanitizedName != name) {
-    storage.setItem(NAME_KEY, name);
-  }
-  name = sanitizedName;
+  let sanitizedName = sanitizeInput(nameInput.value);
+  if (sanitizedName != name)
+    storage.setItem(NAME_KEY, sanitizedName);
+  name = sanitizedName || "Anonym";
 
-  let sanitizedComment = sanitizeInput(commentInput.value, "")
-  if (sanitizedComment != comment) {
-    storage.setItem(COMMENT_KEY, comment);
-  }
-  comment = sanitizedComment;
+  let sanitizedComment = sanitizeInput(commentInput.value);
+  if (sanitizedComment != comment)
+    storage.setItem(COMMENT_KEY, sanitizedComment);
+  comment = sanitizedComment || "";
 
   if (comment.startsWith("/")) { // Command
     command = comment.substring(1);
@@ -136,8 +134,8 @@ function verzweifle() {
   // displayStats(currentStats["total"], currentStats["day"], currentStats["hour"]);
 }
 
-function sanitizeInput(input, fallback) {
-  return input.trim() || fallback;
+function sanitizeInput(input) {
+  return input.trim();
 }
 
 /** Displays the buttom click animation. */
