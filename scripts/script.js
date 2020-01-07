@@ -59,15 +59,6 @@ var currentStats = {
 var resetableTimers = {};
 var toastType = "toast";
 
-function debugMethod() {
-  //addTemporaryClass(wrapper, "rainbowColor", 8000);
-  //addTemporaryClass(button, "rainbow", 8000);
-  //popup("666");
-  //addTemporaryClass(button, "elmo", 3000);
-
-  //displayClick(nameInput.value, "", "dotted purple");
-  displayClick(nameInput.value, "");
-}
 
 function displayStats(total, day, hour) {
   totalDisp.innerText = "gesamt\n" + total;
@@ -155,8 +146,6 @@ function verzweifle() {
   // Display creative and original message
   button.value = randomButtonLabel();
   displayRing();
-
-  debugMethod();
 }
 
 /** String corrections for input fields. */
