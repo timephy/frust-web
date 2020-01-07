@@ -144,7 +144,7 @@ function displayRing() {
 function displayClick(name, comment) {
   // prevent extreme amounts of comment messages
   if (anker.childElementCount > MAX_TOASTS)
-    anker.firstElementChild.remove();
+    anker.lastElementChild.remove();
 
   var text = `${name} ist gerade verzweifelt...`
   // add comment in braces if present
@@ -155,7 +155,7 @@ function displayClick(name, comment) {
   var toast = document.createElement("div")
   toast.className = "toast";
   toast.appendChild(document.createTextNode(text));
-  anker.appendChild(toast);
+  anker.prepend(toast);
   hideDelay(toast, 1500);
   destroyDelay(toast, 2000);
 }
