@@ -45,10 +45,6 @@ body * {
   align-items: center;
 }
 
-.spacer {
-  height: 1em;
-}
-
 .tinyWrapper {
   display: flex;
   flex-flow: column nowrap;
@@ -198,11 +194,14 @@ h3 {
   right: 0.75em;
   align-self: center;
 }
+#commentButton:active, #commentButton:hover {
+  transform: rotate(180);
+}
 
 .commentInput {
+  margin-top: 0.5em;
   font-size: 1em;
   height: 5em;
-  height: 2em;
   resize: none;
   width: 100%;
   box-sizing: border-box
