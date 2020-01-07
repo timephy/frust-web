@@ -57,10 +57,12 @@ var currentStats = {
 
 /** effect variables */
 var resetableTimers = {};
+var toastType = "toast";
+
 
 function displayStats(total, day, hour) {
-  totalDisp.innerText = "total\n" + total;
-  todayDisp.innerText = "today\n" + day;
+  totalDisp.innerText = "gesamt\n" + total;
+  todayDisp.innerText = "heute\n" + day;
 
   if (total % 10000 == 0) {
     popup("+10.000")
@@ -69,8 +71,8 @@ function displayStats(total, day, hour) {
   }
 }
 
-function displayActiveUsers(num) {
-  usersDisp.innerText = "active\n" + num;
+function displayOnlineUsers(num) {
+  usersDisp.innerText = "online\n" + num;
 }
 
 // Utils
@@ -172,7 +174,7 @@ function displayClick(name, comment, effectClass) {
   }
 
   var toast = document.createElement("div")
-  toast.className = "toast" + " " + effectClass;
+  toast.className = toastType + " " + effectClass;
   toast.appendChild(document.createTextNode(text));
   anker.prepend(toast);
   hideDelay(toast, 2500);
@@ -212,7 +214,7 @@ socket.on("stats", (stats) => {
 
 socket.on("users", (users) => {
   console.log(`users(${users["count"]})`);
-  displayActiveUsers(users["count"]);
+  displayOnlineUsers(users["count"]);
 });
 
 socket.on("click", (click) => {
