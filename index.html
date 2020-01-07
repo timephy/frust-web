@@ -35,22 +35,26 @@
       <h3 id="todayDisp" style="text-align: right;">today<br>---</h3>
     </div>
     <div class="mainBtnCont" id="mainButtonCont">
-      <input type="button" onclick="verzweifle()" value="ich verzweifle" id="mainButton" class="bigButton" accesskey="f" />
+      <input type="button" onclick="verzweifle()" value="ich verzweifle" id="mainButton" class="bigButton"
+        accesskey="f" />
       <div class="ringStart"></div>
     </div>
     <div class="tinyWrapper">
       <span class="hoverline">
-        <input id="nameInput" maxlength="15" pattern=".{1,15}" title="input a name up to 15 characters length" type="text" name="name_input" value="guest" class="nameInput" autocomplete="off" />
+        <input id="nameInput" maxlength="15" pattern=".{1,15}" title="input a name up to 15 characters length"
+          type="text" name="name_input" placeholder="Anonym" class="nameInput" autocomplete="off" />
       </span>
       <div class="spacer">
 
       </div>
       <span class="hoverline">
-        <textarea rows="4" cols="33" id="commentInput" maxlength="75" pattern=".{0,75}" title="comment can't be longer than 75 characters" type="text" name="comment_input" value="" class="nameInput commentInput" autocomplete="off"></textarea>
+        <textarea rows="4" cols="33" id="commentInput" maxlength="75" pattern=".{0,75}"
+          title="comment can't be longer than 75 characters" type="text" name="comment_input" value=""
+          class="nameInput commentInput" autocomplete="off"></textarea>
       </span>
     </div>
 
-    <div id="popupAnker" ></div>
+    <div id="popupAnker"></div>
     <div id="toastAnker" class="toastAnker">
 
     </div>
