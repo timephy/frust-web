@@ -1,5 +1,6 @@
-var btnElem = document.getElementById("mainButton");
+var button = document.getElementById("mainButton");
 var anker = document.getElementById("toastAnker");
+var wrapper = document.getElementById("wrapper");
 var panker = document.getElementById("popupAnker");
 var nameInput = document.getElementById("nameInput");
 var commentInput = document.getElementById("commentInput");
@@ -24,7 +25,6 @@ const possibleButtonLabels = [
   "（┬＿┬）",
   "(◕︵◕)",
   "RIP Studium",
-  "\"mathe wird leicht\"",
   "Zeile mal Spalte",
   "?????"
 ];
@@ -43,6 +43,20 @@ var currentStats = {
   "hour": 0
 };
 
+/** effect variables */
+var resetableTimers = {};
+
+function debugMethod() {
+  //addTemporaryClass(wrapper, "rainbowColor", 8000);
+  //popup("666");
+  //addTemporaryClass(button, "elmo", 3000);
+
+  displayClick(nameInput.value, "", "big");
+  displayClick(nameInput.value, "", "dashed");
+  displayClick(nameInput.value, "");
+  displayClick(nameInput.value, "","dotted pink");
+}
+
 function displayStats(total, day, hour) {
   totalDisp.innerText = "total\n" + total;
   todayDisp.innerText = "today\n" + day;
@@ -51,11 +65,6 @@ function displayStats(total, day, hour) {
     popup("+10.000")
   } else if (total % 1000 == 0) {
     popup("+1.000")
-  } else if (day == 666) {
-    console.log('satan is calling');
-    btnElem.classList.add("elmo");
-    popup("666")
-    setTimeout(() => btnElem.classList.remove("elmo"), 2);
   }
 }
 
@@ -71,7 +80,7 @@ function incrementStats() {
   currentStats["hour"]++;
 }
 
-function popup(text){
+function popup(text) {
   var pop = document.createElement("div")
   pop.className = "popup";
   pop.appendChild(document.createTextNode(text));
@@ -92,7 +101,7 @@ function randomButtonLabel() {
 function verzweifle() {
 
   if (navigator.vibrate) {
-	  // vibration API supported
+    // vibration API supported
     navigator.vibrate(200); // vibrate for 200ms
   }
 
@@ -108,14 +117,15 @@ function verzweifle() {
 
   // Purely Visual
   // Display creative and original message
-  btnElem.value = randomButtonLabel();
+  button.value = randomButtonLabel();
   displayRing();
 
   socket.emit("click", {
     "name": name,
     "comment": comment
   });
-  // displayStats(currentStats["total"], currentStats["day"], currentStats["hour"]);
+
+  debugMethod();
 }
 
 function validatedName(input) {
@@ -138,14 +148,14 @@ function validatedComment(input) {
 function displayRing() {
   var ring = document.createElement("div");
   ring.className = "ring";
-  btnElem.parentElement.appendChild(ring);
+  button.parentElement.appendChild(ring);
   window.getComputedStyle(ring).opacity;
   ring.classList.add("show");
   destroyDelay(ring, 700);
 }
 
 /** Displays a click (Killfeed-like-style). */
-function displayClick(name, comment) {
+function displayClick(name, comment, effectClass) {
   // prevent extreme amounts of comment messages
   if (anker.childElementCount > MAX_TOASTS)
     anker.lastElementChild.remove();
@@ -157,11 +167,11 @@ function displayClick(name, comment) {
   }
 
   var toast = document.createElement("div")
-  toast.className = "toast";
+  toast.className = "toast" + " " + effectClass;
   toast.appendChild(document.createTextNode(text));
   anker.prepend(toast);
-  hideDelay(toast, 3000);
-  destroyDelay(toast, 4000);
+  hideDelay(toast, 2500);
+  destroyDelay(toast, 3000);
 }
 
 /** Adds hide class to element after specified time. */
@@ -172,6 +182,16 @@ function hideDelay(element, time) {
 /** Removes the element from its parent after specified time. */
 function destroyDelay(element, time) {
   setTimeout(() => element.remove(), time);
+}
+
+/**adds the class to element and then removes it after a delay  */
+function addTemporaryClass(targetElem, cssClass, time) {
+  if (!!resetableTimers[cssClass]) {
+    clearTimeout(resetableTimers[cssClass])
+  }
+  targetElem.classList.add(cssClass);
+  resetableTimers[cssClass] = setTimeout(() => targetElem.classList.remove(cssClass), time);
+  console.log(cssClass + ": timer " + resetableTimers[cssClass])
 }
 
 // Data store
