@@ -45,15 +45,11 @@ function displayStats(total, day, hour) {
   totalDisp.innerText = "total\n" + total;
   todayDisp.innerText = "today\n" + day;
 
-  if (total % 1000 == 0) {
-    popup("+1.000")
-  }
-
   if (total % 10000 == 0) {
     popup("+10.000")
-  }
-
-  if (day == 666) {
+  } else if (total % 1000 == 0) {
+    popup("+1.000")
+  } else if (day == 666) {
     console.log('satan is calling');
     btnElem.classList.add("elmo");
     popup("666")
@@ -78,7 +74,7 @@ function popup(text){
   pop.className = "popup";
   pop.appendChild(document.createTextNode(text));
   panker.appendChild(pop);
-  destroyDelay(pop, 1000);
+  destroyDelay(pop, 5000);
 }
 
 /** Returns a randomized button label. */
