@@ -66,7 +66,7 @@ function debugMethod() {
   displayClick(nameInput.value, "", "big");
   displayClick(nameInput.value, "", "dashed");
   displayClick(nameInput.value, "");
-  displayClick(nameInput.value, "","dotted pink");
+  displayClick(nameInput.value, "", "dotted pink");
 }
 
 function displayStats(total, day, hour) {
