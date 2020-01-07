@@ -91,8 +91,7 @@ function randomButtonLabel() {
 /** The main button action. */
 function verzweifle() {
 
-  if (navigator.vibrate) {
-    // vibration API supported
+  if (navigator.vibrate) { // vibration API supported
     navigator.vibrate(100);
   }
 
