@@ -93,7 +93,7 @@ function verzweifle() {
 
   if (navigator.vibrate) {
     // vibration API supported
-    navigator.vibrate(200); // vibrate for 200ms
+    navigator.vibrate(100); // vibrate for 200ms
   }
 
   if (validatedName(nameInput.value) != name) {
