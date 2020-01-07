@@ -9,8 +9,9 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
   <link rel="manifest" href="/manifest.json">
   <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#000000">
-  <link rel="shortcut icon" href="/images/favicon.ico">  <meta name="apple-mobile-web-app-title" content="Frustrierte Physiker">
-    <meta name="application-name" content="Frustrierte Physiker">
+  <link rel="shortcut icon" href="/images/favicon.ico">
+  <meta name="apple-mobile-web-app-title" content="Frustrierte Physiker">
+  <meta name="application-name" content="Frustrierte Physiker">
   <meta name="msapplication-TileColor" content="#2b5797">
   <meta name="msapplication-config" content="/images/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
@@ -42,16 +43,21 @@
       <span style="display: flex; flex-direction: row;" class="hoverline">
         <input id="nameInput" maxlength="15" pattern=".{1,15}" title="Wähle einen bis zu 15 Zeichen langen Namen" type="text" name="name_input" value="Gast" class="nameInput" autocomplete="off" />
         <div id="commentButton">
-    +
+          +
         </div>
       </span>
+      <div class="spacer">
+
+      </div>
       <span style="width: 100%;" class="hoverline">
         <textarea id="commentInput" maxlength="75" pattern=".{0,75}" title="Kommentare dürfen nur 75 Zeichen lang sein" type="text" name="comment_input" value="" class="nameInput commentInput" autocomplete="off"></textarea>
       </span>
     </div>
 
     <div id="popupAnker"></div>
-    <div id="toastAnker" class="toastAnker">
+    <div id="toastAnker" class="toastAnker"> </div>
+
+    <div class="spacer">
 
     </div>
   </div>

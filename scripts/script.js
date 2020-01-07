@@ -59,7 +59,6 @@ var currentStats = {
 var resetableTimers = {};
 var toastType = "toast";
 
-
 function displayStats(total, day, hour) {
   totalDisp.innerText = "gesamt\n" + total;
   todayDisp.innerText = "heute\n" + day;
@@ -83,12 +82,30 @@ function incrementStats() {
   currentStats["hour"]++;
 }
 
-function popup(text) {
+function popup(text, cssClass) {
   var pop = document.createElement("div")
-  pop.className = "popup";
+  if (!cssClass)
+    pop.className = "popup";
+  else
+    pop.className = cssClass;
+
   pop.appendChild(document.createTextNode(text));
   panker.appendChild(pop);
   destroyDelay(pop, 5000);
+}
+
+function fireworks() {
+  var pyro = document.createElement("div")
+  pyro.className = "pyro"
+  var t = document.createElement("div")
+  t.className = "before";
+  pyro.appendChild(t)
+  var t = document.createElement("div")
+  t.className = "after"
+  pyro.appendChild(t)
+
+  panker.appendChild(pyro);
+  destroyDelay(pyro, 5000);
 }
 
 /** Returns a randomized button label. */
@@ -121,20 +138,62 @@ function verzweifle() {
 
   if (comment.startsWith("/")) { // Command
     command = comment.substring(1);
-    if (command == "fireworks") {
-      socket.emit("event", {
-        "id": "fireworks"
-      })
-    } else if (command == "rainbow") {
-      socket.emit("event", {
-        "id": "rainbow"
-      })
-    } else if (command == "gaypride") {
-      // action
-    } else {
-      // No command matched
-      alert("Kommando nicht valide.")
+
+    switch (command) {
+      case "yellow":
+        socket.emit("event", {
+          "id": command
+        });
+        break;
+      case "blue":
+        socket.emit("event", {
+          "id": command
+        });
+        break;
+      case "purple":
+        socket.emit("event", {
+          "id": command
+        });
+        break;
+      case "green":
+        socket.emit("event", {
+          "id": command
+        });
+        break;
+      case "gaypride":
+        socket.emit("event", {
+          "id": command
+        });
+        break;
+      case "rainbow":
+        addTemporaryClass(wrapper, "rainbowColor", 8000);
+        break;
+      case "satan":
+        socket.emit("event", {
+          "id": command
+        });
+        break;
+      case "big":
+        socket.emit("event", {
+          "id": command
+        });
+        break;
+      case "small":
+        socket.emit("event", {
+          "id": command
+        });
+        break;
+      case "fuck":
+        socket.emit("event", {
+          "id": command
+        });
+        break;
+      default:
+        // No command matched
+        alert("Kommando nicht valide.");
+        break;
     }
+
   } else { // Click
     socket.emit("click", {
       "name": name,
@@ -229,10 +288,37 @@ socket.on("event", (event) => {
   console.log(`event(${event["id"]})`);
 
   // Reacting to "everyone events"
-  if (event["id"] == "fireworks") {
-
-  } else if (event["id"] == "rainbow") {
-
+  switch (event["id"]) {
+    case "yellow":
+      displayClick("Lemon", "", "yellow dashed")
+      break;
+    case "blue":
+      displayClick("Im blue", "", "blue")
+      break;
+    case "purple":
+      displayClick("Jemand", "", "purple")
+      break;
+    case "green":
+      displayClick("TeamTrees", "", "green dotted")
+      break;
+    case "gaypride":
+      addTemporaryClass(button, "rainbow", 8000);
+      break;
+    case "satan":
+      addTemporaryClass(button, "elmo", 3000);
+      break;
+    case "big":
+      displayClick("bigBoy", "", "big")
+      break;
+    case "small":
+      popup("Kann man das lesen???", "small");
+      break;
+    case "fuck":
+      popup("Fuck you", "fu");
+      break;
+    case "fireworks":
+      fireworks()
+      break;
   }
 });
 
