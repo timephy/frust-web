@@ -29,8 +29,20 @@ const possibleButtonLabels = [
   "?????"
 ];
 
-var name = "guest";
-var comment = "";
+var name;
+var comment;
+
+/** Loads stored data from storage. */
+document.body.onload = () => {
+  // load name, comment
+  name = storage.getItem(NAME_KEY);
+  comment = storage.getItem(COMMENT_KEY);
+
+  // set name, comment
+  nameInput.value = name;
+  commentInput.value = comment;
+};
+
 
 var socket = io({
   path: "/api/socket.io"
@@ -180,21 +192,6 @@ function destroyDelay(element, time) {
 
 // Data store
 var storage = window.localStorage;
-
-/** Loads stored data from storage. */
-function loadFiles() {
-  // load name, comment
-  if (storage.getItem(NAME_KEY))
-    name = storage.getItem(NAME_KEY);
-  if (storage.getItem(COMMENT_KEY))
-    comment = storage.getItem(COMMENT_KEY);
-
-  // set name, comment
-  nameInput.value = name;
-  commentInput.value = comment;
-}
-
-document.body.onload = loadFiles();
 
 
 // Socket.io
