@@ -71,7 +71,7 @@ function incrementStats() {
   currentStats["hour"]++;
 }
 
-function popup(text){
+function popup(text) {
   var pop = document.createElement("div")
   pop.className = "popup";
   pop.appendChild(document.createTextNode(text));
@@ -92,7 +92,7 @@ function randomButtonLabel() {
 function verzweifle() {
 
   if (navigator.vibrate) {
-	  // vibration API supported
+    // vibration API supported
     navigator.vibrate(200); // vibrate for 200ms
   }
 
@@ -211,6 +211,17 @@ socket.on("click", (click) => {
   displayClick(click["name"], click["comment"])
   incrementStats()
   displayStats(currentStats["total"], currentStats["day"], currentStats["hour"]);
+});
+
+socket.on("event", (event) => {
+  console.log(`event(${click["id"]})`);
+
+  // Reacting to "everyone events"
+  if (event["id"] == "fireworks") {
+
+  } else if (event["id"] == "rainbow") {
+
+  }
 });
 
 socket.connect();
