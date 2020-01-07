@@ -96,20 +96,21 @@ function verzweifle() {
     navigator.vibrate(100);
   }
 
-  // Commands
+  // Inputs
   let sanitizedName = sanitizeInput(nameInput.value, "Anonym")
   if (sanitizedName != name) {
-    name = sanitizedName;
     storage.setItem(NAME_KEY, name);
   }
+  name = sanitizedName;
 
   let sanitizedComment = sanitizeInput(commentInput.value, "")
   if (sanitizedComment != comment) {
-    comment = sanitizedComment;
     storage.setItem(COMMENT_KEY, comment);
   }
-  if (sanitizedComment.startsWith("/")) { // Command
-    command = sanitizeInput.substring(1);
+  comment = sanitizedComment;
+
+  if (comment.startsWith("/")) { // Command
+    command = comment.substring(1);
     if (command == "fireworks") {
       socket.emit("event", {
         "id": "fireworks"
