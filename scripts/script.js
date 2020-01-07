@@ -96,14 +96,36 @@ function verzweifle() {
     navigator.vibrate(100);
   }
 
-  if (validatedName(nameInput.value) != name) {
-    name = validatedName(nameInput.value);
+  // Commands
+  let sanitizedName = sanitizeInput(nameInput.value, "Anonym")
+  if (sanitizedName != name) {
+    name = sanitizedName;
     storage.setItem(NAME_KEY, name);
   }
 
-  if (validatedComment(commentInput.value) != comment) {
-    comment = validatedComment(commentInput.value);
+  let sanitizedComment = sanitizeInput(commentInput.value)
+  if (sanitizedComment != comment) {
+    comment = sanitizedComment;
     storage.setItem(COMMENT_KEY, comment);
+  }
+  if (sanitizedComment.startsWith("/")) { // Command
+    command = sanitizeInput.substring(1);
+    if (command == "fireworks") {
+      socket.emit("event", {
+        "id": "fireworks"
+      })
+    } else if (command == "rainbow") {
+      socket.emit("event", {
+        "id": "rainbow"
+      })
+    } else if (command == "gaypride") {
+      // action
+    }
+  } else { // Click
+    socket.emit("click", {
+      "name": name,
+      "comment": comment
+    });
   }
 
   // Purely Visual
@@ -111,27 +133,11 @@ function verzweifle() {
   btnElem.value = randomButtonLabel();
   displayRing();
 
-  socket.emit("click", {
-    "name": name,
-    "comment": comment
-  });
   // displayStats(currentStats["total"], currentStats["day"], currentStats["hour"]);
 }
 
-function validatedName(input) {
-  var validatedInput = "jemand";
-  if (input.trim() != "") {
-    validatedInput = input.trim();
-  }
-  return validatedInput;
-}
-
-function validatedComment(input) {
-  var validatedInput = "";
-  if (input.trim() != "") {
-    validatedInput = input.trim();
-  }
-  return validatedInput;
+function sanitizeInput(input, fallback) {
+  return input.trim() || fallback;
 }
 
 /** Displays the buttom click animation. */
