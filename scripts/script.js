@@ -120,7 +120,6 @@ function verzweifle() {
 
   if (comment.startsWith("/")) { // Command
     command = comment.substring(1);
-    // print("possible command", command, comment)
     if (command == "fireworks") {
       socket.emit("event", {
         "id": "fireworks"
@@ -131,6 +130,8 @@ function verzweifle() {
       })
     } else if (command == "gaypride") {
       // action
+    } else {
+      alert("Kommando nicht valide.")
     }
   } else { // Click
     socket.emit("click", {
