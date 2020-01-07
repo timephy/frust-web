@@ -46,7 +46,7 @@ body * {
 }
 
 .spacer {
-  height: 0.5em;
+  height: 1em;
 }
 
 .tinyWrapper {
@@ -109,36 +109,6 @@ h3 {
   }
 }
 
-.litetoast {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  pointer-events: none;
-  position: relative;
-  width: auto;
-  text-align: center;
-  padding: 0.5em 0em 0.5em 0em;
-  margin: 0.2em;
-  max-height: 4em;
-  bottom: 1em;
-}
-
-.litetoast::after {
-  content: "";
-  position: absolute;
-  background-color: var(--red);
-  height: 0.2em;
-  width: 100%;
-  left: 0;
-  bottom: 0;
-}
-
-.litetoast.hide {
-  max-height: 0px;
-  bottom: 2.4em;
-}
-
 .toast {
   -webkit-animation: 0.2s ease-in-out toastAnim;
   -moz-animation: 0.2s ease-in-out toastAnim;
@@ -193,23 +163,16 @@ h3 {
   border: 0.1em solid var(--red);
 }
 
-#commentButton {
-  position: absolute;
-  right: 0.75em;
-  align-self: center;
-}
-
 .commentInput {
   font-size: 1em;
-  height: 5em;
+  height: 2em;
   resize: none;
-  width: 100%;
-  box-sizing: border-box
 }
 
 .commentInput:focus {
   /*keep the letter spacing as it was*/
   letter-spacing: 0.1em;
+  height: 4em;
 }
 
 #stats {
@@ -311,7 +274,7 @@ h3 {
   border: none;
   border-radius: 50%;
   outline: none;
-  background-color: var(--red, red);
+  background-color: var(--red);
   background-image: -webkit-linear-gradient(-45deg, var(--dark-red), var(--red));
   background-image: linear-gradient(-45deg, var(--dark-red), var(--red));
   color: var(--bright);
@@ -749,40 +712,6 @@ h3 {
   }
 }
 
-@keyframes bcolorchange {
-  0% {
-    background-color: red;
-  }
-
-  14.5% {
-    background-color: violet;
-  }
-
-  29% {
-    background-color: indigo;
-  }
-
-  43% {
-    background-color: blue;
-  }
-
-  56% {
-    background-color: green;
-  }
-
-  70% {
-    background-color: yellow;
-  }
-
-  85% {
-    background-color: orange;
-  }
-
-  100% {
-    background-color: red;
-  }
-}
-
 .rainbowColor *:not(.popup) {
   -webkit-animation: 5s linear colorchange infinite;
   -moz-animation: 5s linear colorchange infinite;
@@ -790,20 +719,8 @@ h3 {
   animation: 5s linear colorchange infinite;
 }
 
-.bigButton.rainbow {
-  background-image: none;
-  -webkit-animation: 5s linear bcolorchange infinite;
-  -moz-animation: 5s linear bcolorchange infinite;
-  -o-animation: 5s linear bcolorchange infinite;
-  animation: 5s linear bcolorchange infinite;
-}
-
 .big {
   font-size: 200%;
-}
-
-.small {
-  font-size: 50%;
 }
 
 /** underline effect types **/
@@ -836,17 +753,7 @@ h3 {
   border-bottom-color: yellow;
 }
 
-.toast.purple:after {
-  background-color: purple;
-  border-bottom-color: purple;
-}
-
-.toast.black:after {
-  background-color: black;
-  border-bottom-color: black;
-}
-
-.toast.white:after {
-  background-color: white;
-  border-bottom-color: white;
+.toast.pink:after {
+  background-color: pink;
+  border-bottom-color: pink;
 }

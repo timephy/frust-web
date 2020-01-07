@@ -59,29 +59,20 @@ var currentStats = {
 var resetableTimers = {};
 var toastType = "toast";
 
-function debugMethod() {
-  //addTemporaryClass(wrapper, "rainbowColor", 8000);
-  //addTemporaryClass(button, "rainbow", 8000);
-  //popup("666");
-  //addTemporaryClass(button, "elmo", 3000);
-
-  //displayClick(nameInput.value, "", "dotted purple");
-  displayClick(nameInput.value, "");
-}
 
 function displayStats(total, day, hour) {
   totalDisp.innerText = "gesamt\n" + total;
   todayDisp.innerText = "heute\n" + day;
 
-  if (today % 10000 == 0) {
+  if (total % 10000 == 0) {
     popup("+10.000")
   } else if (total % 1000 == 0) {
     popup("+1.000")
   }
 }
 
-function displayActiveUsers(num) {
-  usersDisp.innerText = "active\n" + num;
+function displayOnlineUsers(num) {
+  usersDisp.innerText = "online\n" + num;
 }
 
 // Utils
@@ -155,8 +146,6 @@ function verzweifle() {
   // Display creative and original message
   button.value = randomButtonLabel();
   displayRing();
-
-  debugMethod();
 }
 
 /** String corrections for input fields. */
@@ -225,7 +214,7 @@ socket.on("stats", (stats) => {
 
 socket.on("users", (users) => {
   console.log(`users(${users["count"]})`);
-  displayActiveUsers(users["count"]);
+  displayOnlineUsers(users["count"]);
 });
 
 socket.on("click", (click) => {
