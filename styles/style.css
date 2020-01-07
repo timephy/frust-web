@@ -139,18 +139,6 @@ h3 {
   bottom: 2.4em;
 }
 
-@keyframes toastUnderlineAnim {
-  0% {
-    width: 0px;
-    opacity: 0.2;
-  }
-
-  100% {
-    width: 100%;
-    opacity: 1;
-  }
-}
-
 /*the user name box*/
 .nameInput {
   border: 0.1em solid transparent;
@@ -209,6 +197,18 @@ h3 {
   height: 0.2em;
   width: 0px;
   /*box-shadow: var(--thin-material-shadow);*/
+}
+
+@keyframes toastUnderlineAnim {
+  0% {
+    width: 0px;
+    opacity: 0.2;
+  }
+
+  100% {
+    width: 100%;
+    opacity: 1;
+  }
 }
 
 .toast:after {
@@ -310,35 +310,39 @@ h3 {
     opacity: 0;
   }
 
-  35% {
+  15% {
     opacity: 1;
   }
 
-  70% {
+  30% {
     font-size: 5em;
+  }
+
+  85% {
+    font-size: 4em;
     opacity: 1;
   }
 
   100% {
-    font-size: 4em;
+    font-size: 3em;
     opacity: 0;
   }
 }
 
 .popup {
-  -webkit-animation: 1s ease popupAnim;
-  -moz-animation: 1s ease popupAnim;
-  -o-animation: 1s ease popupAnim;
-  animation: 1s ease popupAnim;
+  -webkit-animation: 5s ease popupAnim;
+  -moz-animation: 5s ease popupAnim;
+  -o-animation: 5s ease popupAnim;
+  animation: 5s ease popupAnim;
   position: fixed;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   pointer-events: none;
+  top: 5%;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   text-shadow: var(--medium-material-shadow);
   font-size: 4em;
   opacity: 0;
@@ -671,4 +675,85 @@ h3 {
   left: 65%;
   -webkit-animation-delay: 4s, 2.5s;
   animation-delay: 4s, 2.5s
+}
+
+/***effects****/
+@keyframes colorchange {
+  0% {
+    color: violet;
+  }
+
+  14.5% {
+    color: indigo;
+  }
+
+  29% {
+    color: blue;
+  }
+
+  43% {
+    color: green;
+  }
+
+  56% {
+    color: yellow;
+  }
+
+  70% {
+    color: orange;
+  }
+
+  85% {
+    color: red;
+  }
+
+  100% {
+    color: violet;
+  }
+}
+
+.rainbowColor *:not(.popup) {
+  -webkit-animation: 5s linear colorchange infinite;
+  -moz-animation: 5s linear colorchange infinite;
+  -o-animation: 5s linear colorchange infinite;
+  animation: 5s linear colorchange infinite;
+}
+
+.big {
+  font-size: 200%;
+}
+
+/** underline effect types **/
+.toast.dashed:after {
+  height: 0em;
+  background-color: transparent !important;
+  border-bottom: 0.2em dashed var(--red);
+}
+
+.toast.dotted:after {
+  height: 0em;
+  background-color: transparent !important;
+  border-bottom: 0.2em dotted var(--red);
+}
+
+/**** colors ****/
+/** toast **/
+.toast.blue:after {
+  background-color: blue;
+  border-bottom-color: blue;
+}
+
+.toast.green:after {
+  background-color: green;
+  border-bottom-color: green;
+}
+
+.toast.yellow:after {
+  background-color: yellow;
+  border-bottom-color: yellow;
+}
+
+.toast.pink:after {
+  background-color: pink;
+  border-bottom-color: pink;
 }
