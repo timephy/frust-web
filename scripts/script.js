@@ -120,10 +120,13 @@ function openComment() {
   if (commentInput.classList.contains("hide")) {
     commentInput.classList.remove("hide")
     commentInput.parentElement.classList.remove("hide")
+    nameInput.blur()
     commentInput.focus()
   } else{
     commentInput.classList.add("hide")
-    commentInput.parentElement.classList.add("hide")}
+    commentInput.parentElement.classList.add("hide")
+    commentInput.blur()
+  }
 }
 
 /** The main button action. */
