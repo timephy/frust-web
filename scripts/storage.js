@@ -13,8 +13,10 @@ function addGetSet(obj, attr, def) {
                 return this["_" + attr];
             },
             set: function (value) {
-                if (value === false) value = "";
-                else value = String(value);
+                if (value === false || value === null || value === undefined)
+                    value = "";
+                else
+                    value = String(value);
                 this["_" + attr] = value;
                 this.localStorage.setItem(attr, value);
             }
