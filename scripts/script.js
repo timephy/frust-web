@@ -172,7 +172,13 @@ function verzweifle() {
       case "purple":
       case "blue":
       case "yellow":
+      case "black":
+      case "white":
         storage.color = command;
+        break;
+      case "clear": 
+        storage.color = ""
+        storage.underlineType = ""
         break;
       case "small":
       case "big":
@@ -268,29 +274,11 @@ socket.on("event", (event) => {
 
   // Reacting to "everyone events"
   switch (event["id"]) {
-    case "yellow":
-      displayClick("Lemon", "", "yellow dashed")
-      break;
-    case "blue":
-      displayClick("Im blue", "", "blue")
-      break;
-    case "purple":
-      displayClick("Jemand", "", "purple")
-      break;
-    case "green":
-      displayClick("TeamTrees", "", "green dotted")
-      break;
     case "gaypride":
       addTemporaryClass(button, "rainbow", 8000);
       break;
     case "satan":
       addTemporaryClass(button, "elmo", 3000);
-      break;
-    case "big":
-      displayClick("bigBoy", "", "big")
-      break;
-    case "small":
-      displayClick("Kann man das lesen???", "", "small");
       break;
     case "fuck":
       popup("Fuck you", "fu");
