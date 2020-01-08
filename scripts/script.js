@@ -144,8 +144,13 @@ function verzweifle() {
         console.log("vibrationsActive   " + storage.vibration)
         break;
       case "darkmode":
-        storage.darkmode = !storage.darkmode;
-        console.log("darkmode   " + storage.darkmode)
+        if (localStorage.getItem("theme")) {
+          if (localStorage.getItem("theme") == "dark")
+            localStorage.setItem("theme", "light");
+          else
+            localStorage.setItem("theme", "dark");
+        }
+        console.log("darkmode   " + localStorage.getItem("theme"))
         break;
       case "rainbow":
         addTemporaryClass(wrapper, "rainbowColor", 8000);
@@ -166,7 +171,7 @@ function verzweifle() {
       case "einstein":
       case "satan":
       case "gaypride":
-      case "einstein":
+      case "fireworks":
         socket.emit("event", {
           "id": command
         });
@@ -182,12 +187,12 @@ function verzweifle() {
       "name": name,
       "comment": comment
     });
-    sessionClicks++;
-    button.innerText = randomButtonLabel() + '\n' + sessionClicks;
   }
 
   // Purely Visual
   // Display creative and original message
+  sessionClicks++;
+  button.innerText = randomButtonLabel() + '\n' + sessionClicks;
   displayRing();
 }
 
@@ -279,9 +284,8 @@ socket.on("event", (event) => {
     case "fireworks":
       fireworks()
       break;
-
     case "einstein":
-      einstein()
+      einstein();
       break;
   }
 });

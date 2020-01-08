@@ -23,6 +23,32 @@
   <meta name="viewport" content="width=device-width, user-scalable=no" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
+  <script type="text/javascript">
+    var theme = "light";
+
+    function detectColorScheme() {
+
+      //don't use the storage object, this has to happen in the header and we want to minimize loading times!!!!!!
+      if (localStorage.getItem("theme")) {
+        if (localStorage.getItem("theme") == "dark")
+          theme = "dark";
+      } else if (!window.matchMedia) {
+        //matchMedia method not supported
+        console.log("matchMedia method not supported")
+        return false;
+      } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        //OS theme setting detected as dark
+        theme = "dark";
+        localStorage.setItem('theme', 'dark');
+      }
+      //dark theme preferred, set document with a `data-theme` attribute
+      if (theme == "dark")
+        document.documentElement.setAttribute("data-theme", "dark");
+      else
+        document.documentElement.setAttribute("data-theme", "light");
+    }
+    detectColorScheme();
+  </script>
 </head>
 
 <body>
@@ -41,8 +67,7 @@
 
     <div class="tinyWrapper">
       <span style="display: flex; flex-direction: row;" class="hoverline">
-        <input id="nameInput" maxlength="15" pattern=".{1,15}" title="Wähle einen bis zu 15 Zeichen langen Namen"
-          type="text" name="name_input" placeholder="Gast" class="nameInput" autocomplete="off" />
+        <input id="nameInput" maxlength="15" pattern=".{1,15}" title="Wähle einen bis zu 15 Zeichen langen Namen" type="text" name="name_input" placeholder="Gast" class="nameInput" autocomplete="off" />
         <div id="commentButton">
           +
         </div>
@@ -51,8 +76,7 @@
 
       </div>
       <span style="width: 100%;" class="hoverline">
-        <textarea id="commentInput" maxlength="75" pattern=".{0,75}" title="Kommentare dürfen nur 75 Zeichen lang sein"
-          type="text" name="comment_input" value="" class="nameInput commentInput" autocomplete="off"></textarea>
+        <textarea id="commentInput" maxlength="75" pattern=".{0,75}" title="Kommentare dürfen nur 75 Zeichen lang sein" type="text" name="comment_input" value="" class="nameInput commentInput" autocomplete="off"></textarea>
       </span>
     </div>
 
