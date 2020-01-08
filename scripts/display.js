@@ -141,7 +141,7 @@ function displayToast(string, effectClass) {
 
   const toast = document.createElement("div")
   toast.className = [toastType, effectClass].join(" ");
-  toast.appendChild(document.createTextNode(text));
+  toast.appendChild(document.createTextNode(string));
   anker.prepend(toast);
   hideDelay(toast, 2500);
   destroyDelay(toast, 3000);
