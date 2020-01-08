@@ -118,7 +118,6 @@ function randomButtonLabel() {
 
 // Clicks
 function openComment() {
-
   if (commentInput.classList.contains("hide")) {
     commentInput.classList.remove("hide")
     commentInput.parentElement.classList.remove("hide")
@@ -128,6 +127,7 @@ function openComment() {
     commentInput.classList.add("hide")
     commentInput.parentElement.classList.add("hide")
     commentInput.blur()
+    nameInput.focus()
   }
 }
 
@@ -178,7 +178,7 @@ function verzweifle() {
       case "white":
         storage.color = command;
         break;
-      case "clear": 
+      case "clear":
         storage.color = ""
         storage.underlineType = ""
         break;
@@ -202,7 +202,7 @@ function verzweifle() {
         alert("Kommando nicht valide.");
         break;
     }
-
+    commentInput.value = "";
   } else { // Click
     socket.emit("click", {
       "name": name,
