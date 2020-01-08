@@ -936,6 +936,7 @@ h3 {
 
 .einstein {
   position: fixed;
+  z-index: 999;
   top: 50%;
   left: 50%;
   width: 20vmin;
