@@ -133,6 +133,9 @@ socket.on("click", (click) => {
 socket.on("event", (event) => {
   console.log(`event(${event["id"]})`);
 
+  // FIXME: for testing displayClick
+  displayClick(event["name"], "triggered " + event["id"], "")
+
   // Reacting to "everyone events"
   switch (event["id"]) {
     case "gaypride":
