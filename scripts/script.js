@@ -1,31 +1,6 @@
-const button = document.getElementById("mainButton");
-const anker = document.getElementById("toastAnker");
-const wrapper = document.getElementById("wrapper");
-const panker = document.getElementById("popupAnker");
-const nameInput = document.getElementById("nameInput");
-const commentInput = document.getElementById("commentInput");
-const todayDisp = document.getElementById("todayDisp");
-const totalDisp = document.getElementById("totalDisp");
-const usersDisp = document.getElementById("stats");
-
 navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
 
 const MAX_TOASTS = 35; //please increase if you find any device that needs it
-const possibleButtonLabels = [
-  "Exmatrikulation",
-  "GOP",
-  "noch Fragen?",
-  "fresh Hermann",
-  "E1GeNv3kToR",
-  "I wanna die",
-  "end me now",
-  ":(",
-  "（┬＿┬）",
-  "(◕︵◕)",
-  "RIP Studium",
-  "Zeile mal Spalte",
-  "?????"
-];
 
 
 document.body.onload = () => {
@@ -45,91 +20,6 @@ var currentStats = {
 };
 var sessionClicks = 0;
 
-/** effect variables */
-var resetableTimers = {};
-var toastType = "toast";
-
-function displayStats(total, day) {
-  totalDisp.innerText = "gesamt\n" + total;
-  todayDisp.innerText = "heute\n" + day;
-
-  if (total % 10000 == 0) {
-    popup("+10.000")
-  } else if (total % 1000 == 0) {
-    popup("+1.000")
-  }
-}
-
-function displayOnlineUsers(num) {
-  usersDisp.innerText = "online\n" + num;
-}
-
-// Utils
-
-function incrementStats() {
-  currentStats["total"]++;
-  currentStats["day"]++;
-}
-
-function popup(text, cssClass) {
-  const pop = document.createElement("div")
-  if (!cssClass)
-    pop.className = "popup";
-  else
-    pop.className = cssClass;
-
-  pop.appendChild(document.createTextNode(text));
-  panker.appendChild(pop);
-  destroyDelay(pop, 5000);
-}
-
-function fireworks() {
-  const pyro = document.createElement("div")
-  pyro.className = "pyro"
-  let t = document.createElement("div")
-  t.className = "before";
-  pyro.appendChild(t)
-  t = document.createElement("div")
-  t.className = "after"
-  pyro.appendChild(t)
-
-  panker.appendChild(pyro);
-  destroyDelay(pyro, 5000);
-}
-
-function einstein() {
-  var einstein = document.createElement("img")
-  einstein.className = "einstein"
-  einstein.style.left = Math.random() * 90 + "%"
-  einstein.style.top = Math.random() * 90 + "%"
-
-  panker.appendChild(einstein);
-  destroyDelay(einstein, 5000);
-}
-
-/** Returns a randomized button label. */
-function randomButtonLabel() {
-  return Math.random() < 0.9 ?
-    "ich verzweifle" :
-    possibleButtonLabels[Math.floor(Math.random() * possibleButtonLabels.length)];
-}
-
-// Clicks
-function openComment(commentButton) {
-  if (commentInput.classList.contains("hide")) {
-    commentButton.classList.remove("hide")
-    commentInput.classList.remove("hide")
-    commentInput.parentElement.classList.remove("hide")
-    //nameInput.blur()
-    //commentInput.focus()
-  } else {
-    commentButton.classList.add("hide")
-    commentInput.classList.add("hide")
-    commentInput.parentElement.classList.add("hide")
-    //commentInput.blur()
-    //nameInput.focus()
-  }
-}
 
 /** The main button action. */
 function verzweifle() {
@@ -153,54 +43,45 @@ function verzweifle() {
   if (comment.startsWith("/")) { // Command
     command = comment.substring(1);
 
-    switch (command) {
-      case "vibrate":
-        storage.vibration = !storage.vibration;
-        console.log("vibrationsActive   " + storage.vibration)
-        break;
-      case "darkmode":
-        if (localStorage.getItem("theme")) {
-          if (localStorage.getItem("theme") == "dark")
-            localStorage.setItem("theme", "light");
-          else
-            localStorage.setItem("theme", "dark");
-        }
-        console.log("darkmode   " + localStorage.getItem("theme"))
-        break;
-      case "rainbow":
-        addTemporaryClass(wrapper, "rainbowColor", 8000);
-        break;
-      case "green":
-      case "purple":
-      case "blue":
-      case "yellow":
-      case "black":
-      case "white":
-        storage.color = command;
-        break;
-      case "clear":
-        storage.color = ""
-        storage.underlineType = ""
-        break;
-      case "small":
-      case "big":
-      case "dotted":
-      case "dashed":
-        storage.underlineType = command;
-        break;
-      case "fuck":
-      case "einstein":
-      case "satan":
-      case "gaypride":
-      case "fireworks":
-        socket.emit("event", {
-          "id": command
-        });
-        break;
-      default:
-        // No command matched
-        alert("Kommando nicht valide.");
-        break;
+    if (["green", "purple", "blue", "yellow", "black", "white"].includes(command)) {
+      // Color
+      storage.color = command;
+    } else if (["small", "big", "dotted", "dashed"].includes(command)) {
+      // Underline, Size
+      storage.underlineType = command;
+    } else if (["fuck", "einstein", "satan", "gaypride", "fireworks"].includes(command)) {
+      // Global events
+      socket.emit("event", {
+        "name": name,
+        "id": command
+      });
+    } else {
+      switch (command) {
+        case "vibrate":
+          storage.vibration = !storage.vibration;
+          console.log("vibrationsActive   " + storage.vibration)
+          break;
+        case "darkmode":
+          if (localStorage.getItem("theme")) {
+            if (localStorage.getItem("theme") == "dark")
+              localStorage.setItem("theme", "light");
+            else
+              localStorage.setItem("theme", "dark");
+          }
+          console.log("darkmode   " + localStorage.getItem("theme"))
+          break;
+        case "rainbow":
+          addTemporaryClass(wrapper, "rainbowColor", 8000);
+          break;
+        case "clear":
+          storage.color = ""
+          storage.underlineType = ""
+          break;
+        default:
+          // No command matched
+          alert("Kommando nicht valide.");
+          break;
+      }
     }
     commentInput.value = "";
   } else { // Click
@@ -217,38 +98,6 @@ function verzweifle() {
   button.innerText = randomButtonLabel() + '\n' + sessionClicks;
   displayRing();
 }
-
-/** Displays the buttom click animation. */
-function displayRing() {
-  const ring = document.createElement("div");
-  ring.className = "ring";
-  button.parentElement.appendChild(ring);
-  window.getComputedStyle(ring).opacity;
-  ring.classList.add("show");
-  destroyDelay(ring, 700);
-}
-
-/** Displays a click (Killfeed-like-style). */
-function displayClick(name, comment, effectClass) {
-  // prevent extreme amounts of comment messages
-  if (anker.childElementCount > MAX_TOASTS)
-    anker.lastElementChild.remove();
-
-  let text = `${name} verzweifelt...`
-  // add comment in braces if present
-  if (comment != undefined && comment != "") {
-    text = text.concat(` (${comment})`);
-  }
-
-  const toast = document.createElement("div")
-  toast.className = [toastType, effectClass].join(" ");
-  toast.appendChild(document.createTextNode(text));
-  anker.prepend(toast);
-  hideDelay(toast, 2500);
-  destroyDelay(toast, 3000);
-}
-
-
 
 
 // Socket.io
@@ -272,7 +121,10 @@ socket.on("click", (click) => {
 });
 
 socket.on("event", (event) => {
-  console.log(`event(${event["id"]})`);
+  console.log(`event(${event["name"]}, ${event["id"]})`);
+
+  // FIXME: for testing displayClick
+  displayClick(event["name"], "triggered " + event["id"], "")
 
   // Reacting to "everyone events"
   switch (event["id"]) {
@@ -280,7 +132,7 @@ socket.on("event", (event) => {
       addTemporaryClass(button, "rainbow", 8000);
       break;
     case "satan":
-      addTemporaryClass(button, "elmo", 3000);
+      addTemporaryClass(button, "teemo", 5000);
       break;
     case "fuck":
       popup("Fuck you", "fu");
