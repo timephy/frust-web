@@ -380,7 +380,7 @@ h3 {
 }
 
 .teemo {
-  background-image: url('/images/teemo.jpeg');
+  background-image: url('images/teemo.jpeg');
   height: 100%;
   background-position: center;
   background-repeat: no-repeat;
