@@ -1,8 +1,7 @@
 :root {
-  --dark: black;
+  --text: black;
   --dark-1: #1d1d1d;
   --dark-2: #2d2d2d;
-  --bright: white;
   --dark-red: #7f0000;
   --bright-red: #f05545;
   --red: #b71c1c;
@@ -209,7 +208,12 @@ h3 {
   text-align: center;
 }
 
+<<<<<<< HEAD:styles/betterstyle.css
 #commentButton.hide {
+=======
+#commentButton:active,
+#commentButton:hover {
+>>>>>>> d126e5a2812a23cac092039c5fb4d836b3f6febb:styles/styleAdjustableDarkmode.css
   transform: rotate(90deg);
 }
 
@@ -291,7 +295,14 @@ h3 {
   bottom: 0;
 }
 
+<<<<<<< HEAD:styles/betterstyle.css
 .hoverline:focus-within:before, .hoverline:focus-within:after {
+=======
+.hoverline:hover:before,
+.hoverline:hover:after,
+.hoverline:focus-within:before,
+.hoverline:focus-within:after {
+>>>>>>> d126e5a2812a23cac092039c5fb4d836b3f6febb:styles/styleAdjustableDarkmode.css
   width: 100%;
   opacity: 1;
 }
@@ -345,8 +356,7 @@ h3 {
   position: relative;
 }
 
-.hoverline.hide:before,
-.hoverline.hide:after {
+.hoverline.hide:before, .hoverline.hide:after {
   width: 0px;
 }
 
@@ -385,7 +395,7 @@ h3 {
   background-color: var(--red);
   background-image: -webkit-linear-gradient(-45deg, var(--dark-red), var(--red));
   background-image: linear-gradient(-45deg, var(--dark-red), var(--red));
-  color: var(--bright);
+  color: white;
   touch-action: manipulation;
   box-shadow: var(--medium-material-shadow);
   -webkit-transition: 250ms ease;
@@ -556,6 +566,10 @@ h3 {
     background: var(--dark-1);
   }
 
+<<<<<<< HEAD:styles/betterstyle.css
+  li, input, h1, h2, h3, h4, div, textarea {
+    color: var(--text);
+=======
   li,
   input,
   h1,
@@ -565,6 +579,7 @@ h3 {
   div,
   textarea {
     color: var(--bright);
+>>>>>>> d126e5a2812a23cac092039c5fb4d836b3f6febb:styles/styleAdjustableDarkmode.css
   }
 
   .snowflake {
@@ -573,11 +588,11 @@ h3 {
 
   /*link styling*/
   a:link {
-    color: var(--bright);
+    color: var(--text);
   }
 
   a:visited {
-    color: var(--bright);
+    color: var(--text);
   }
 
   a:active {
@@ -585,14 +600,30 @@ h3 {
   }
 }
 
-@media (prefers-color-scheme: light),
-(prefers-color-scheme: no-preference) {
+<<<<<<< HEAD:styles/betterstyle.css
+@media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
   body {
-    background: var(--bright);
+    background: white;
   }
 
   .nameInput {
     background: var(--bright-background);
+  }
+
+  li, input, h1, h2, h3, h4, div, textarea {
+    color: var(--text);
+=======
+[data-theme="light"] {
+  background: var(--bright);
+
+  .nameInput {
+    background: var(--bright-background);
+    box-shadow: var(--thin-material-shadow);
+  }
+
+  .nameInput:hover,
+  .nameInput:focus {
+    box-shadow: var(--thick-material-shadow);
   }
 
   li,
@@ -604,15 +635,16 @@ h3 {
   div,
   textarea {
     color: var(--dark);
+>>>>>>> d126e5a2812a23cac092039c5fb4d836b3f6febb:styles/styleAdjustableDarkmode.css
   }
 
   /*link styling*/
   a:link {
-    color: var(--dark);
+    color: var(--text);
   }
 
   a:visited {
-    color: var(--dark);
+    color: var(--text);
   }
 
   a:active {
@@ -1028,10 +1060,16 @@ h3 {
     transform: rotate(0deg) scale(0.5);
   }
 
+<<<<<<< HEAD:styles/betterstyle.css
   15% {
     transform: rotate(0deg) scale(1.1);
+=======
+  to {
+    -ms-transform: rotate(360deg) translate(-50%, -50%);
+>>>>>>> d126e5a2812a23cac092039c5fb4d836b3f6febb:styles/styleAdjustableDarkmode.css
   }
 
+<<<<<<< HEAD:styles/betterstyle.css
   25% {
     transform: rotate(0deg) scale(1);
   }
@@ -1056,22 +1094,53 @@ h3 {
 
   100% {
     transform: rotate(360deg) scale(0);
+=======
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg) translate(-50%, -50%);
+  }
+
+  to {
+    -moz-transform: rotate(360deg) translate(-50%, -50%);
+  }
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg) translate(-50%, -50%);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg) translate(-50%, -50%);
+>>>>>>> d126e5a2812a23cac092039c5fb4d836b3f6febb:styles/styleAdjustableDarkmode.css
   }
 }
 
 @keyframes spin {
   from {
+<<<<<<< HEAD:styles/betterstyle.css
     transform: rotate(0deg);
   }
 
   to {
     transform: rotate(360deg);
+=======
+    transform: rotate(0deg) translate(-50%, -50%);
+  }
+
+  to {
+    transform: rotate(360deg) translate(-50%, -50%);
+>>>>>>> d126e5a2812a23cac092039c5fb4d836b3f6febb:styles/styleAdjustableDarkmode.css
   }
 }
 
 /*******more copypasta****/
+<<<<<<< HEAD:styles/betterstyle.css
+.pyro>.before, .pyro>.after {
+=======
 .pyro>.before,
 .pyro>.after {
+>>>>>>> d126e5a2812a23cac092039c5fb4d836b3f6febb:styles/styleAdjustableDarkmode.css
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1082,6 +1151,10 @@ h3 {
   -webkit-animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
   -moz-animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
   -o-animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+<<<<<<< HEAD:styles/betterstyle.css
+=======
+  -ms-animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+>>>>>>> d126e5a2812a23cac092039c5fb4d836b3f6febb:styles/styleAdjustableDarkmode.css
   animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
 }
 

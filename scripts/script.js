@@ -43,55 +43,45 @@ function verzweifle() {
   if (comment.startsWith("/")) { // Command
     command = comment.substring(1);
 
-    switch (command) {
-      case "vibrate":
-        storage.vibration = !storage.vibration;
-        console.log("vibrationsActive   " + storage.vibration)
-        break;
-      case "darkmode":
-        if (localStorage.getItem("theme")) {
-          if (localStorage.getItem("theme") == "dark")
-            localStorage.setItem("theme", "light");
-          else
-            localStorage.setItem("theme", "dark");
-        }
-        console.log("darkmode   " + localStorage.getItem("theme"))
-        break;
-      case "rainbow":
-        addTemporaryClass(wrapper, "rainbowColor", 8000);
-        break;
-      case "green":
-      case "purple":
-      case "blue":
-      case "yellow":
-      case "black":
-      case "white":
-        storage.color = command;
-        break;
-      case "clear":
-        storage.color = ""
-        storage.underlineType = ""
-        break;
-      case "small":
-      case "big":
-      case "dotted":
-      case "dashed":
-        storage.underlineType = command;
-        break;
-      case "fuck":
-      case "einstein":
-      case "satan":
-      case "gaypride":
-      case "fireworks":
-        socket.emit("event", {
-          "name": name,
-          "id": command
-        });
-        break;
-      default:
-        // No command matched
-        alert("Kommando nicht valide.");
-        break;
+    if (["green", "purple", "blue", "yellow", "black", "white"].includes(command)) {
+      // Color
+      storage.color = command;
+    } else if (["small", "big", "dotted", "dashed"].includes(command)) {
+      // Underline, Size
+      storage.underlineType = command;
+    } else if (["fuck", "einstein", "satan", "gaypride", "fireworks"].includes(command)) {
+      // Global events
+      socket.emit("event", {
+        "name": name,
+        "id": command
+      });
+    } else {
+      switch (command) {
+        case "vibrate":
+          storage.vibration = !storage.vibration;
+          console.log("vibrationsActive   " + storage.vibration)
+          break;
+        case "darkmode":
+          if (localStorage.getItem("theme")) {
+            if (localStorage.getItem("theme") == "dark")
+              localStorage.setItem("theme", "light");
+            else
+              localStorage.setItem("theme", "dark");
+          }
+          console.log("darkmode   " + localStorage.getItem("theme"))
+          break;
+        case "rainbow":
+          addTemporaryClass(wrapper, "rainbowColor", 8000);
+          break;
+        case "clear":
+          storage.color = ""
+          storage.underlineType = ""
+          break;
+        default:
+          // No command matched
+          alert("Kommando nicht valide.");
+          break;
+      }
     }
     commentInput.value = "";
   } else { // Click
@@ -131,7 +121,7 @@ socket.on("click", (click) => {
 });
 
 socket.on("event", (event) => {
-  console.log(`event(${event["id"]})`);
+  console.log(`event(${event["name"]}, ${event["id"]})`);
 
   // FIXME: for testing displayClick
   displayToast(event["name"] + "triggered " + event["id"])
@@ -142,7 +132,7 @@ socket.on("event", (event) => {
       addTemporaryClass(button, "rainbow", 8000);
       break;
     case "satan":
-      addTemporaryClass(button, "elmo", 3000);
+      addTemporaryClass(button, "teemo", 5000);
       break;
     case "fuck":
       popup("Fuck you", "fu");

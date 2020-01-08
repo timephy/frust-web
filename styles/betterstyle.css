@@ -532,7 +532,7 @@ h3 {
 /*user specific settings e.g. screen size and theme*/
 @media (prefers-color-scheme: dark) {
   body {
-    background: var(--dark-background);
+    background: var(--background);
   }
 
   .nameInput {
@@ -567,7 +567,7 @@ h3 {
   }
 
   .nameInput {
-    background: var(--bright-background);
+    background: var(--background);
   }
 
   li, input, h1, h2, h3, h4, div, textarea {

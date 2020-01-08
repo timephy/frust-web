@@ -19,7 +19,7 @@ jobs:
           if [ $BRANCH == "master" ]; then
             DEPLOY_PATH=/private-backup/nginx/static/fp.timephy.com/
           elif [ $BRANCH == "staging" ]; then
-            DEPLOY_PATH=/private-backup/nginx/static/staging.fp.timephy.com/
+            DEPLOY_PATH=/private-backup/nginx/static/staging-fp.timephy.com/
           fi
           echo $BRANCH
           echo $DEPLOY_PATH
