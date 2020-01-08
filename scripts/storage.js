@@ -14,6 +14,7 @@ function addGetSet(obj, attr, def) {
             },
             set: function (value) {
                 if (value === false) value = "";
+                else value = String(value);
                 this["_" + attr] = value;
                 this.localStorage.setItem(attr, value);
             }
