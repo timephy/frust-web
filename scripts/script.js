@@ -142,7 +142,7 @@ socket.on("event", (event) => {
       addTemporaryClass(button, "rainbow", 8000);
       break;
     case "satan":
-      addTemporaryClass(button, "elmo", 3000);
+      addTemporaryClass(button, "teemo", 3000);
       break;
     case "fuck":
       popup("Fuck you", "fu");
