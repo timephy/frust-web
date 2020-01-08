@@ -27,7 +27,6 @@
     var theme = "light";
 
     function detectColorScheme() {
-
       //don't use the storage object, this has to happen in the header and we want to minimize loading times!!!!!!
       if (localStorage.getItem("theme")) {
         if (localStorage.getItem("theme") == "dark")
@@ -67,7 +66,8 @@
 
     <div class="tinyWrapper">
       <span style="display: flex; flex-direction: row;" class="hoverline">
-        <input id="nameInput" maxlength="15" pattern=".{1,15}" title="Wähle einen bis zu 15 Zeichen langen Namen" type="text" name="name_input" placeholder="Gast" class="nameInput" autocomplete="off" />
+        <input id="nameInput" maxlength="15" pattern=".{1,15}" title="Wähle einen bis zu 15 Zeichen langen Namen"
+          type="text" name="name_input" placeholder="Gast" class="nameInput" autocomplete="off" />
         <div id="commentButton" class="hide" onclick="openComment(this)">
           +
         </div>
@@ -76,7 +76,8 @@
 
       </div>
       <span style="width: 100%;" class="hoverline hide">
-        <textarea id="commentInput" maxlength="75" pattern=".{0,75}" title="Kommentare dürfen nur 75 Zeichen lang sein" type="text" name="comment_input" value="" class="nameInput commentInput hide" autocomplete="off"></textarea>
+        <textarea id="commentInput" maxlength="75" pattern=".{0,75}" title="Kommentare dürfen nur 75 Zeichen lang sein"
+          type="text" name="comment_input" value="" class="nameInput commentInput hide" autocomplete="off"></textarea>
       </span>
     </div>
 
@@ -105,6 +106,7 @@
 <script src="scripts/socket.io.js"></script>
 <script src="scripts/utils.js"></script>
 <script src="scripts/storage.js"></script>
+<script src="scripts/display.js"></script>
 <script src="scripts/script.js"></script>
 
 </html>
