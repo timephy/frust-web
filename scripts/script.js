@@ -32,7 +32,6 @@ document.body.onload = () => {
   // set name, comment
   nameInput.value = storage.name;
   commentInput.value = storage.comment;
-  vibrationsActive = storage.vibration;
 };
 
 const socket = io({
@@ -46,7 +45,6 @@ var currentStats = {
   "hour": 0
 };
 var sessionClicks = 0;
-vibrationsActive = false;
 
 /** effect variables */
 var resetableTimers = {};
@@ -101,6 +99,14 @@ function fireworks() {
   destroyDelay(pyro, 5000);
 }
 
+function einstein() {
+  var einstein = document.createElement("img")
+  einstein.className = "einstein"
+
+  panker.appendChild(einstein);
+  destroyDelay(einstein, 5000);
+}
+
 /** Returns a randomized button label. */
 function randomButtonLabel() {
   return Math.random() < 0.9 ?
@@ -113,7 +119,7 @@ function randomButtonLabel() {
 /** The main button action. */
 function verzweifle() {
 
-  if (navigator.vibrate && vibrationsActive) { // vibration API supported
+  if (navigator.vibrate && storage.vibration) { // vibration API supported
     navigator.vibrate(100);
   }
 
@@ -134,26 +140,33 @@ function verzweifle() {
 
     switch (command) {
       case "vibrate":
-        vibrationsActive = !vibrationsActive;
-        console.log("vibrationsActive   " + vibrationsActive)
+        storage.vibration = !storage.vibration;
+        console.log("vibrationsActive   " + storage.vibration)
+        break;
+      case "darkmode":
+        storage.darkmode = !storage.darkmode;
+        console.log("darkmode   " + storage.darkmode)
         break;
       case "rainbow":
         addTemporaryClass(wrapper, "rainbowColor", 8000);
         break;
-      case "small":
-      case "big":
       case "green":
       case "purple":
       case "blue":
       case "yellow":
+        storage.color = command;
+        break;
+      case "small":
+      case "big":
       case "dotted":
       case "dashed":
-
+        storage.underlineType = command;
         break;
       case "fuck":
-      case "fireworks":
+      case "einstein":
       case "satan":
       case "gaypride":
+      case "einstein":
         socket.emit("event", {
           "id": command
         });
@@ -264,6 +277,10 @@ socket.on("event", (event) => {
       popup("Fuck you", "fu");
       break;
     case "fireworks":
+      fireworks()
+      break;
+
+    case "einstein":
       fireworks()
       break;
   }

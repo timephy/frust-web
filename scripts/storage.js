@@ -27,5 +27,6 @@ addGetSet(Storage.prototype, "comment", "");
 addGetSet(Storage.prototype, "color", "");
 addGetSet(Storage.prototype, "vibration", "");
 addGetSet(Storage.prototype, "underlineType", "");
+addGetSet(Storage.prototype, "darkmode", "");
 
 let storage = new Storage(localStorage);

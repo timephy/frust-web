@@ -925,6 +925,56 @@ h3 {
 }
 
 
+.einstein {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 4em;
+  height: 4em;
+  background: url('/images/einstein.svg') no-repeat top left;
+  -webkit-animation: spin 1s linear infinite;
+  -moz-animation: spin 1s linear infinite;
+  -ms-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+}
+
+@-ms-keyframes spin {
+  from {
+    -ms-transform: rotate(0deg) translate(-50%, -50%);
+  }
+  to {
+    -ms-transform: rotate(360deg)  translate(-50%, -50%);
+  }
+}
+
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg)  translate(-50%, -50%);
+  }
+  to {
+    -moz-transform: rotate(360deg)  translate(-50%, -50%);
+  }
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg)  translate(-50%, -50%);
+  }
+  to {
+    -webkit-transform: rotate(360deg)  translate(-50%, -50%);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg)  translate(-50%, -50%);
+  }
+  to {
+    transform: rotate(360deg)  translate(-50%, -50%);
+  }
+}
+
+
 
 /*******more copypasta****/
 .pyro > .before, .pyro > .after {
