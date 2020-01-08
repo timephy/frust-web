@@ -61,6 +61,7 @@ body * {
   justify-content: space-between;
   align-self: stretch;
   padding-top: 0.2em;
+  margin-bottom: -3.5em;
 }
 
 .mainBtnCont {
@@ -177,7 +178,7 @@ h3 {
   text-align: center;
   padding: 0.2em;
   letter-spacing: 0.1em;
-  box-shadow: var(--thin-material-shadow);
+  box-shadow: var(--medium-material-shadow);
   -webkit-transition: 250ms ease;
   -moz-transition: 250ms ease;
   -o-transition: 250ms ease;
@@ -187,6 +188,7 @@ h3 {
 .nameInput:focus {
   outline: 0;
   letter-spacing: 0.2em;
+  box-shadow: var(--thin-material-shadow);
 }
 
 .nameInput:invalid {
@@ -204,33 +206,16 @@ h3 {
   -o-transition: 0.25s ease-in-out;
   transition: 0.25s ease-in-out;
   width: 1.5em;
-  text-align: center
+  text-align: center;
 }
 
 #commentButton.hide {
   transform: rotate(90deg);
 }
 
-@keyframes wiggle {
-  0% {transform: rotate(8deg);}
-  25% {transform: rotate(-8deg);}
-  50% {transform: rotate(16deg);}
-  75% {transform: rotate(-4deg);}
-  100% {transform: rotate(0deg);}
-}
-
-#commentButton.hide:hover {
-  -webkit-animation: 0.5s ease-in-out wiggle;
-  -moz-animation: 0.5s ease-in-out wiggle;
-  -o-animation: 0.5s ease-in-out wiggle;
-  animation: 0.5s ease-in-out wiggle;
-}
-
-
-
 .commentInput {
   font-size: 1em;
-  box-sizing: border-box
+  box-sizing: border-box;
   height: 5em;
   resize: none;
   width: 100%;
@@ -304,9 +289,54 @@ h3 {
   bottom: 0;
 }
 
-.hoverline:hover:before, .hoverline:hover:after, .hoverline:focus-within:before, .hoverline:focus-within:after {
+.hoverline:focus-within:before, .hoverline:focus-within:after {
   width: 100%;
   opacity: 1;
+}
+
+@media (hover: hover) {
+  .hoverline:hover:before, .hoverline:hover:after {
+    width: 100%;
+    opacity: 1;
+  }
+
+  @keyframes wiggle {
+    0% {
+      transform: rotate(8deg);
+    }
+
+    25% {
+      transform: rotate(-8deg);
+    }
+
+    50% {
+      transform: rotate(16deg);
+    }
+
+    75% {
+      transform: rotate(-4deg);
+    }
+
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+
+  #commentButton.hide:hover {
+    -webkit-animation: 0.5s ease-in-out wiggle;
+    -moz-animation: 0.5s ease-in-out wiggle;
+    -o-animation: 0.5s ease-in-out wiggle;
+    animation: 0.5s ease-in-out wiggle;
+  }
+
+  .bigButton:hover {
+    transform: scale(1.02);
+    box-shadow: var(--thick-material-shadow);
+  }
+
+  .nameInput:hover {
+    box-shadow: var(--thick-material-shadow);
+  }
 }
 
 .hoverline {
@@ -361,7 +391,7 @@ h3 {
   transition: 250ms ease;
 }
 
-.bigButton:hover {
+.bigButton:focus {
   transform: scale(1.02);
   box-shadow: var(--thick-material-shadow);
 }
@@ -508,15 +538,6 @@ h3 {
 
   .nameInput {
     background: var(--dark-1);
-    box-shadow: var(--medium-material-shadow);
-  }
-
-  .nameInput:hover {
-    box-shadow: var(--thick-material-shadow);
-  }
-
-  .nameInput:focus {
-    box-shadow: var(--thin-material-shadow);
   }
 
   li, input, h1, h2, h3, h4, div, textarea {
@@ -548,11 +569,6 @@ h3 {
 
   .nameInput {
     background: var(--bright-background);
-    box-shadow: var(--thin-material-shadow);
-  }
-
-  .nameInput:hover, .nameInput:focus {
-    box-shadow: var(--thick-material-shadow);
   }
 
   li, input, h1, h2, h3, h4, div, textarea {

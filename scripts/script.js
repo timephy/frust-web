@@ -105,7 +105,7 @@ function verzweifle() {
   // Purely Visual
   // Display creative and original message
   sessionClicks++;
-  button.innerText = randomButtonLabel() + '\n' + sessionClicks;
+  randomButtonLabel();
   displayRing();
 }
 
@@ -114,7 +114,7 @@ function verzweifle() {
 socket.on("stats", (stats) => {
   console.log(`stats(${stats["total"]}, ${stats["day"]})`);
   currentStats = stats;
-  displayStats(stats["total"], stats["day"]);
+  displayStats(currentStats["total"], currentStats["day"]);
 });
 
 socket.on("users", (users) => {
@@ -126,7 +126,7 @@ socket.on("click", (click) => {
   console.log(`click(${click["name"]}, ${click["comment"]}, ${click["style"]})`);
 
   displayClick(click["name"], click["comment"], click["style"])
-  incrementStats()
+  incrementStats();
   displayStats(currentStats["total"], currentStats["day"]);
 });
 
@@ -134,7 +134,7 @@ socket.on("event", (event) => {
   console.log(`event(${event["id"]})`);
 
   // FIXME: for testing displayClick
-  displayClick(event["name"], "triggered " + event["id"], "")
+  displayToast(event["name"] + "triggered " + event["id"])
 
   // Reacting to "everyone events"
   switch (event["id"]) {
