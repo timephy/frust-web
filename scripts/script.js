@@ -242,7 +242,7 @@ socket.on("users", (users) => {
 });
 
 socket.on("click", (click) => {
-  console.log(`click(${click["name"]}, ${click["comment"]})`);
+  console.log(`click(${click["name"]}, ${click["comment"]}, ${click["style"]})`);
 
   displayClick(click["name"], click["comment"])
   incrementStats()
