@@ -63,10 +63,16 @@ function verzweifle() {
           break;
         case "darkmode":
           if (localStorage.getItem("theme")) {
-            if (localStorage.getItem("theme") == "dark")
+            if (localStorage.getItem("theme") == "dark") {
               localStorage.setItem("theme", "light");
-            else
+              document.documentElement.setAttribute("data-theme", "light");
+            } else {
               localStorage.setItem("theme", "dark");
+              document.documentElement.setAttribute("data-theme", "dark");
+            }
+          } else {
+            localStorage.setItem("theme", "dark");
+            document.documentElement.setAttribute("data-theme", "dark");
           }
           console.log("darkmode   " + localStorage.getItem("theme"))
           break;

@@ -1,21 +1,36 @@
 :root {
-  --text: black;
-  --dark-1: #1d1d1d;
-  --dark-2: #2d2d2d;
+  --font-color: black;
+  --primary-color: #B71C1C;
+  --bg-color: #ffffff;
+  --bg-shade: #ECEFF1;
+  /*******static variables*****/
   --dark-red: #7f0000;
   --bright-red: #f05545;
-  --red: #b71c1c;
-  --bright-background: #ECEFF1;
   --dark-background: #121212;
   --thin-material-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   --medium-material-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   --thick-material-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
+[data-theme="dark"] {
+  --primary-color: #B71C1C;
+  --font-color: #E8F8F9;
+  --bg-color: #121212;
+  --bg-shade: #1d1d1d;
+}
+
+[data-theme="light"] {
+  --font-color: black;
+  --primary-color: #B71C1C;
+  --bg-color: #ffffff;
+  --bg-shade: #ECEFF1;
+}
+
 body {
   height: 100%;
   margin: 0;
   font-size: 150%;
+  background: var(--bg-color);
 }
 
 body * {
@@ -29,6 +44,22 @@ body * {
 
 ::selection {
   background: var(--bright-red);
+}
+
+a:link {
+  color: var(--font-color);
+}
+
+a:visited {
+  color: var(--font-color);
+}
+
+a:active {
+  color: var(--primary-color);
+}
+
+li, input, h1, h2, h3, h4, div, textarea {
+  color: var(--font-color);
 }
 
 /*containers*/
@@ -127,7 +158,7 @@ h3 {
 .litetoast::after {
   content: "";
   position: absolute;
-  background-color: var(--red);
+  background-color: var(--primary-color);
   height: 0.2em;
   width: 100%;
   left: 0;
@@ -177,6 +208,7 @@ h3 {
   text-align: center;
   padding: 0.2em;
   letter-spacing: 0.1em;
+  background: var(--bg-shade);
   box-shadow: var(--medium-material-shadow);
   -webkit-transition: 250ms ease;
   -moz-transition: 250ms ease;
@@ -191,7 +223,7 @@ h3 {
 }
 
 .nameInput:invalid {
-  border: 0.1em solid var(--red);
+  border: 0.1em solid var(--primary-color);
 }
 
 #commentButton {
@@ -248,7 +280,7 @@ h3 {
   -o-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
   opacity: 0.2;
-  background-color: var(--red);
+  background-color: var(--primary-color);
   height: 0.2em;
   width: 0px;
   /*box-shadow: var(--thin-material-shadow);*/
@@ -378,9 +410,9 @@ h3 {
   border: none;
   border-radius: 50%;
   outline: none;
-  background-color: var(--red);
-  background-image: -webkit-linear-gradient(-45deg, var(--dark-red), var(--red));
-  background-image: linear-gradient(-45deg, var(--dark-red), var(--red));
+  background-color: var(--primary-color);
+  background-image: -webkit-linear-gradient(-45deg, var(--dark-red), var(--primary-color));
+  background-image: linear-gradient(-45deg, var(--dark-red), var(--primary-color));
   color: white;
   touch-action: manipulation;
   box-shadow: var(--medium-material-shadow);
@@ -461,7 +493,7 @@ h3 {
   text-shadow: var(--medium-material-shadow);
   font-size: 4em;
   opacity: 0;
-  color: var(--red);
+  color: var(--primary-color);
 }
 
 .ring:before, .ring:after, .ringStart:after, .ringStart:before {
@@ -473,7 +505,7 @@ h3 {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border: 0.2em solid var(--red);
+  border: 0.2em solid var(--primary-color);
   left: -0.1em;
   top: -0.1em;
   opacity: 1;
@@ -527,65 +559,6 @@ h3 {
   -moz-animation: 0.5s ease-out 0.2s 1 ringStartAnim;
   -o-animation: 0.5s ease-out 0.2s 1 ringStartAnim;
   animation: 0.5s ease-out 0.2s 1 ringStartAnim;
-}
-
-/*user specific settings e.g. screen size and theme*/
-@media (prefers-color-scheme: dark) {
-  body {
-    background: var(--background);
-  }
-
-  .nameInput {
-    background: var(--dark-1);
-  }
-
-  li, input, h1, h2, h3, h4, div, textarea {
-    color: var(--text);
-  }
-
-  .snowflake {
-    text-shadow: none;
-  }
-
-  /*link styling*/
-  a:link {
-    color: var(--text);
-  }
-
-  a:visited {
-    color: var(--text);
-  }
-
-  a:active {
-    color: var(--red);
-  }
-}
-
-@media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
-  body {
-    background: white;
-  }
-
-  .nameInput {
-    background: var(--background);
-  }
-
-  li, input, h1, h2, h3, h4, div, textarea {
-    color: var(--text);
-  }
-
-  /*link styling*/
-  a:link {
-    color: var(--text);
-  }
-
-  a:visited {
-    color: var(--text);
-  }
-
-  a:active {
-    color: var(--red);
-  }
 }
 
 @media(min-width: 1000px) {
@@ -874,13 +847,13 @@ h3 {
 .toast.dashed:after {
   height: 0em;
   background-color: transparent !important;
-  border-bottom: 0.2em dashed var(--red);
+  border-bottom: 0.2em dashed var(--primary-color);
 }
 
 .toast.dotted:after {
   height: 0em;
   background-color: transparent !important;
-  border-bottom: 0.2em dotted var(--red);
+  border-bottom: 0.2em dotted var(--primary-color);
 }
 
 /**** colors ****/
