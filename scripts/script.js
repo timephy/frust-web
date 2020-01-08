@@ -102,6 +102,8 @@ function fireworks() {
 function einstein() {
   var einstein = document.createElement("img")
   einstein.className = "einstein"
+  einstein.style.left = Math.random()*90 +"%"
+  einstein.style.top = Math.random()*90 +"%"
 
   panker.appendChild(einstein);
   destroyDelay(einstein, 5000);

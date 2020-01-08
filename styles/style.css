@@ -938,43 +938,45 @@ h3 {
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 8em;
-  height: 8em;
+  width: 20vmin;
+  height: 20vmin;
   transform-origin: center;
   background: url('/images/einstein.svg') no-repeat top left;
-  -webkit-animation: spin 1s linear infinite;
+  -webkit-animation:scalespinIn 1s linear, spin 1s linear 3 1s, scalespinOut 4s linear;
   -moz-animation: spin 1s linear infinite;
   -ms-animation: spin 1s linear infinite;
   animation: spin 1s linear infinite;
 }
-
-@-ms-keyframes spin {
-  from {
-    -ms-transform: rotate(0deg);
+@keyframes scalespinIn {
+  0% {
+    transform: rotate(0deg) scale(0.5);
+  }
+  15% {
+    transform: rotate(0deg) scale(1.1);
   }
 
-  to {
-    -ms-transform: rotate(360deg);
-  }
-}
-
-@-moz-keyframes spin {
-  from {
-    -moz-transform: rotate(0deg) ;
+  25% {
+    transform: rotate(0deg) scale(1);
   }
 
-  to {
-    -moz-transform: rotate(360deg) ;
+  100% {
+    transform: rotate(360deg) scale(1);
   }
 }
 
-@-webkit-keyframes spin {
-  from {
-    -webkit-transform: rotate(0deg) ;
+@keyframes scalespinOut {
+  0% {
+    transform: rotate(0deg) ;
   }
 
-  to {
-    -webkit-transform: rotate(360deg) ;
+  65% {
+    transform: rotate(0deg) scale(1);
+  }
+  75% {
+    transform: rotate(0deg) scale(1.1);
+  }
+  100% {
+    transform: rotate(360deg) scale(0);
   }
 }
 
