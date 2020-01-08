@@ -45,6 +45,7 @@ var currentStats = {
   "hour": 0
 };
 var sessionClicks = 0;
+vibrationsActive = false;
 
 /** effect variables */
 var resetableTimers = {};
