@@ -14,7 +14,7 @@ function destroyDelay(element, time) {
     setTimeout(() => element.remove(), time);
 }
 
-/**adds the class to element and then removes it after a delay  */
+/** Adds the class to element and then removes it after a delay. */
 function addTemporaryClass(targetElem, cssClass, time) {
     if (!!resetableTimers[cssClass]) {
         clearTimeout(resetableTimers[cssClass])
