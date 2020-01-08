@@ -131,7 +131,7 @@ socket.on("click", (click) => {
 });
 
 socket.on("event", (event) => {
-  console.log(`event(${event["id"]})`);
+  console.log(`event(${event["name"]}, ${event["id"]})`);
 
   // FIXME: for testing displayClick
   displayClick(event["name"], "triggered " + event["id"], "")
