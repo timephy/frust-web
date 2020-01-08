@@ -44,10 +44,13 @@ function verzweifle() {
     command = comment.substring(1);
 
     if (["green", "purple", "blue", "yellow", "black", "white"].includes(command)) {
+      // Color
       storage.color = command;
     } else if (["small", "big", "dotted", "dashed"].includes(command)) {
+      // Underline, Size
       storage.underlineType = command;
     } else if (["fuck", "einstein", "satan", "gaypride", "fireworks"].includes(command)) {
+      // Global events
       socket.emit("event", {
         "name": name,
         "id": command
