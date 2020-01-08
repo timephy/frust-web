@@ -29,21 +29,12 @@ const possibleButtonLabels = [
   "?????"
 ];
 
-var name;
-var comment;
-var vibrationsActive = false;
 
-/** Loads stored data from storage. */
 document.body.onload = () => {
-  // load name, comment
-  name = storage.getItem(NAME_KEY);
-  comment = storage.getItem(COMMENT_KEY);
-
   // set name, comment
-  nameInput.value = name;
-  commentInput.value = comment;
+  nameInput.value = storage.name;
+  commentInput.value = storage.comment;
 };
-
 
 var socket = io({
   path: "/api/socket.io"
@@ -55,7 +46,7 @@ var currentStats = {
   "day": 0,
   "hour": 0
 };
-var sessionClicks=0;
+var sessionClicks = 0;
 
 /** effect variables */
 var resetableTimers = {};
@@ -128,15 +119,15 @@ function verzweifle() {
 
   // Inputs
   let sanitizedName = sanitizeInput(nameInput.value);
-  if (sanitizedName != name)
-    storage.setItem(NAME_KEY, sanitizedName);
-  name = sanitizedName || "Anonym"; // or default name
+  if (sanitizedName != storage.name)
+    storage.name = sanitizedName;
+  let name = sanitizedName || "Gast"; // or default name
 
   let sanitizedComment = sanitizeInput(commentInput.value);
   // commands are not saved
-  if (sanitizedComment != comment && !sanitizedComment.startsWith("/"))
-    storage.setItem(COMMENT_KEY, sanitizedComment);
-  comment = sanitizedComment || "";
+  if (sanitizedComment != storage.comment && !sanitizedComment.startsWith("/"))
+    storage.comment = sanitizedComment;
+  let comment = sanitizedComment || "";
 
   if (comment.startsWith("/")) { // Command
     command = comment.substring(1);
@@ -183,7 +174,7 @@ function verzweifle() {
   // Purely Visual
   // Display creative and original message
   sessionClicks++;
-  button.innerText = randomButtonLabel()+'\n'+sessionClicks;
+  button.innerText = randomButtonLabel() + '\n' + sessionClicks;
   displayRing();
 }
 
@@ -239,9 +230,6 @@ function addTemporaryClass(targetElem, cssClass, time) {
   resetableTimers[cssClass] = setTimeout(() => targetElem.classList.remove(cssClass), time);
   console.log(cssClass + ": timer " + resetableTimers[cssClass])
 }
-
-// Data store
-var storage = window.localStorage;
 
 
 // Socket.io
