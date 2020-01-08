@@ -84,6 +84,7 @@ function verzweifle() {
       case "gaypride":
       case "fireworks":
         socket.emit("event", {
+          "name": name,
           "id": command
         });
         break;
