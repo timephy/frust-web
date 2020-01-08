@@ -1,12 +1,12 @@
-var button = document.getElementById("mainButton");
-var anker = document.getElementById("toastAnker");
-var wrapper = document.getElementById("wrapper");
-var panker = document.getElementById("popupAnker");
-var nameInput = document.getElementById("nameInput");
-var commentInput = document.getElementById("commentInput");
-var todayDisp = document.getElementById("todayDisp");
-var totalDisp = document.getElementById("totalDisp");
-var usersDisp = document.getElementById("stats");
+const button = document.getElementById("mainButton");
+const anker = document.getElementById("toastAnker");
+const wrapper = document.getElementById("wrapper");
+const panker = document.getElementById("popupAnker");
+const nameInput = document.getElementById("nameInput");
+const commentInput = document.getElementById("commentInput");
+const todayDisp = document.getElementById("todayDisp");
+const totalDisp = document.getElementById("totalDisp");
+const usersDisp = document.getElementById("stats");
 
 navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
 
@@ -35,7 +35,7 @@ document.body.onload = () => {
   vibrationsActive = storage.vibration;
 };
 
-var socket = io({
+const socket = io({
   path: "/api/socket.io"
 });
 
@@ -76,7 +76,7 @@ function incrementStats() {
 }
 
 function popup(text, cssClass) {
-  var pop = document.createElement("div")
+  const pop = document.createElement("div")
   if (!cssClass)
     pop.className = "popup";
   else
@@ -88,12 +88,12 @@ function popup(text, cssClass) {
 }
 
 function fireworks() {
-  var pyro = document.createElement("div")
+  const pyro = document.createElement("div")
   pyro.className = "pyro"
-  var t = document.createElement("div")
+  const t = document.createElement("div")
   t.className = "before";
   pyro.appendChild(t)
-  var t = document.createElement("div")
+  const t = document.createElement("div")
   t.className = "after"
   pyro.appendChild(t)
 
@@ -148,7 +148,7 @@ function verzweifle() {
       case "yellow":
       case "dotted":
       case "dashed":
-      
+
         break;
       case "fuck":
       case "fireworks":
@@ -180,7 +180,7 @@ function verzweifle() {
 
 /** Displays the buttom click animation. */
 function displayRing() {
-  var ring = document.createElement("div");
+  const ring = document.createElement("div");
   ring.className = "ring";
   button.parentElement.appendChild(ring);
   window.getComputedStyle(ring).opacity;
@@ -194,13 +194,13 @@ function displayClick(name, comment, effectClass) {
   if (anker.childElementCount > MAX_TOASTS)
     anker.lastElementChild.remove();
 
-  var text = `${name} verzweifelt...`
+  let text = `${name} verzweifelt...`
   // add comment in braces if present
   if (comment != undefined && comment != "") {
     text = text.concat(` (${comment})`);
   }
 
-  var toast = document.createElement("div")
+  const toast = document.createElement("div")
   toast.className = toastType + " " + effectClass;
   toast.appendChild(document.createTextNode(text));
   anker.prepend(toast);
