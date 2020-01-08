@@ -102,8 +102,8 @@ function fireworks() {
 function einstein() {
   var einstein = document.createElement("img")
   einstein.className = "einstein"
-  einstein.style.left = Math.random()*90 +"%"
-  einstein.style.top = Math.random()*90 +"%"
+  einstein.style.left = Math.random() * 90 + "%"
+  einstein.style.top = Math.random() * 90 + "%"
 
   panker.appendChild(einstein);
   destroyDelay(einstein, 5000);
@@ -117,13 +117,15 @@ function randomButtonLabel() {
 }
 
 // Clicks
-function openComment() {
+function openComment(commentButton) {
   if (commentInput.classList.contains("hide")) {
+    commentButton.classList.remove("hide")
     commentInput.classList.remove("hide")
     commentInput.parentElement.classList.remove("hide")
     nameInput.blur()
     commentInput.focus()
-  } else{
+  } else {
+    commentButton.classList.add("hide")
     commentInput.classList.add("hide")
     commentInput.parentElement.classList.add("hide")
     commentInput.blur()

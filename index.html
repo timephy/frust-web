@@ -68,15 +68,15 @@
     <div class="tinyWrapper">
       <span style="display: flex; flex-direction: row;" class="hoverline">
         <input id="nameInput" maxlength="15" pattern=".{1,15}" title="Wähle einen bis zu 15 Zeichen langen Namen" type="text" name="name_input" placeholder="Gast" class="nameInput" autocomplete="off" />
-        <div id="commentButton" onclick="openComment()">
+        <div id="commentButton" class="hide" onclick="openComment(this)">
           +
         </div>
       </span>
       <div class="spacer">
 
       </div>
-      <span style="width: 100%;" class="hoverline">
-        <textarea id="commentInput" maxlength="75" pattern=".{0,75}" title="Kommentare dürfen nur 75 Zeichen lang sein" type="text" name="comment_input" value="" class="nameInput commentInput" autocomplete="off"></textarea>
+      <span style="width: 100%;" class="hoverline hide">
+        <textarea id="commentInput" maxlength="75" pattern=".{0,75}" title="Kommentare dürfen nur 75 Zeichen lang sein" type="text" name="comment_input" value="" class="nameInput commentInput hide" autocomplete="off"></textarea>
       </span>
     </div>
 
@@ -84,9 +84,6 @@
     <div id="toastAnker" class="toastAnker"> </div>
 
     <div class="spacer">
-      <svg src="/images/einstein.svg"></svg>
-        <img src="/images/einstein.svg"></img>
-          <embed src="/images/einstein.svg"></embed>
     </div>
   </div>
 
