@@ -230,10 +230,10 @@ h3 {
 
 .commentInput {
   font-size: 1em;
+  box-sizing: border-box
   height: 5em;
   resize: none;
   width: 100%;
-  box-sizing: border-box
 }
 
 .commentInput.hide {
