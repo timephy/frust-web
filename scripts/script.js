@@ -55,6 +55,7 @@ var currentStats = {
   "day": 0,
   "hour": 0
 };
+var sessionClicks;
 
 /** effect variables */
 var resetableTimers = {};
@@ -81,6 +82,8 @@ function incrementStats() {
   currentStats["total"]++;
   currentStats["day"]++;
   currentStats["hour"]++;
+
+  sessionClicks++;
 }
 
 function popup(text, cssClass) {
@@ -181,7 +184,7 @@ function verzweifle() {
 
   // Purely Visual
   // Display creative and original message
-  button.value = randomButtonLabel();
+  button.innerText = randomButtonLabel()+'\n'+sessionClicks;
   displayRing();
 }
 
