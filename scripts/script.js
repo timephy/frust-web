@@ -1,17 +1,16 @@
-var btnElem = document.getElementById("mainButton");
-var anker = document.getElementById("toastAnker");
-var panker = document.getElementById("popupAnker");
-var nameInput = document.getElementById("nameInput");
-var commentInput = document.getElementById("commentInput");
-var todayDisp = document.getElementById("todayDisp");
-var totalDisp = document.getElementById("totalDisp");
-var usersDisp = document.getElementById("stats");
+const button = document.getElementById("mainButton");
+const anker = document.getElementById("toastAnker");
+const wrapper = document.getElementById("wrapper");
+const panker = document.getElementById("popupAnker");
+const nameInput = document.getElementById("nameInput");
+const commentInput = document.getElementById("commentInput");
+const todayDisp = document.getElementById("todayDisp");
+const totalDisp = document.getElementById("totalDisp");
+const usersDisp = document.getElementById("stats");
 
 navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
 
 const MAX_TOASTS = 35; //please increase if you find any device that needs it
-const NAME_KEY = "name";
-const COMMENT_KEY = "comment";
 const possibleButtonLabels = [
   "Exmatrikulation",
   "GOP",
@@ -24,15 +23,18 @@ const possibleButtonLabels = [
   "（┬＿┬）",
   "(◕︵◕)",
   "RIP Studium",
-  "\"mathe wird leicht\"",
   "Zeile mal Spalte",
   "?????"
 ];
 
-var name = "guest";
-var comment = "";
 
-var socket = io({
+document.body.onload = () => {
+  // set name, comment
+  nameInput.value = storage.name;
+  commentInput.value = storage.comment;
+};
+
+const socket = io({
   path: "/api/socket.io"
 });
 
@@ -42,25 +44,25 @@ var currentStats = {
   "day": 0,
   "hour": 0
 };
+var sessionClicks = 0;
+
+/** effect variables */
+var resetableTimers = {};
+var toastType = "toast";
 
 function displayStats(total, day, hour) {
-  totalDisp.innerText = "total\n" + total;
-  todayDisp.innerText = "today\n" + day;
+  totalDisp.innerText = "gesamt\n" + total;
+  todayDisp.innerText = "heute\n" + day;
 
   if (total % 10000 == 0) {
     popup("+10.000")
   } else if (total % 1000 == 0) {
     popup("+1.000")
-  } else if (day == 666) {
-    console.log('satan is calling');
-    btnElem.classList.add("elmo");
-    popup("666")
-    setTimeout(() => btnElem.classList.remove("elmo"), 2);
   }
 }
 
-function displayActiveUsers(num) {
-  usersDisp.innerText = "active\n" + num;
+function displayOnlineUsers(num) {
+  usersDisp.innerText = "online\n" + num;
 }
 
 // Utils
@@ -71,12 +73,40 @@ function incrementStats() {
   currentStats["hour"]++;
 }
 
-function popup(text){
-  var pop = document.createElement("div")
-  pop.className = "popup";
+function popup(text, cssClass) {
+  const pop = document.createElement("div")
+  if (!cssClass)
+    pop.className = "popup";
+  else
+    pop.className = cssClass;
+
   pop.appendChild(document.createTextNode(text));
   panker.appendChild(pop);
   destroyDelay(pop, 5000);
+}
+
+function fireworks() {
+  const pyro = document.createElement("div")
+  pyro.className = "pyro"
+  let t = document.createElement("div")
+  t.className = "before";
+  pyro.appendChild(t)
+  t = document.createElement("div")
+  t.className = "after"
+  pyro.appendChild(t)
+
+  panker.appendChild(pyro);
+  destroyDelay(pyro, 5000);
+}
+
+function einstein() {
+  var einstein = document.createElement("img")
+  einstein.className = "einstein"
+  einstein.style.left = Math.random() * 90 + "%"
+  einstein.style.top = Math.random() * 90 + "%"
+
+  panker.appendChild(einstein);
+  destroyDelay(einstein, 5000);
 }
 
 /** Returns a randomized button label. */
@@ -87,110 +117,140 @@ function randomButtonLabel() {
 }
 
 // Clicks
+function openComment(commentButton) {
+  if (commentInput.classList.contains("hide")) {
+    commentButton.classList.remove("hide")
+    commentInput.classList.remove("hide")
+    commentInput.parentElement.classList.remove("hide")
+    //nameInput.blur()
+    //commentInput.focus()
+  } else {
+    commentButton.classList.add("hide")
+    commentInput.classList.add("hide")
+    commentInput.parentElement.classList.add("hide")
+    //commentInput.blur()
+    //nameInput.focus()
+  }
+}
 
 /** The main button action. */
 function verzweifle() {
 
-  if (navigator.vibrate) {
-	  // vibration API supported
-    navigator.vibrate(200); // vibrate for 200ms
+  if (navigator.vibrate && storage.vibration) { // vibration API supported
+    navigator.vibrate(100);
   }
 
-  if (validatedName(nameInput.value) != name) {
-    name = validatedName(nameInput.value);
-    storage.setItem(NAME_KEY, name);
-  }
+  // Inputs
+  let sanitizedName = sanitizeInput(nameInput.value);
+  if (sanitizedName != storage.name)
+    storage.name = sanitizedName;
+  let name = sanitizedName || "Gast"; // or default name
 
-  if (validatedComment(commentInput.value) != comment) {
-    comment = validatedComment(commentInput.value);
-    storage.setItem(COMMENT_KEY, comment);
+  let sanitizedComment = sanitizeInput(commentInput.value);
+  // commands are not saved
+  if (sanitizedComment != storage.comment && !sanitizedComment.startsWith("/"))
+    storage.comment = sanitizedComment;
+  let comment = sanitizedComment || "";
+
+  if (comment.startsWith("/")) { // Command
+    command = comment.substring(1);
+
+    switch (command) {
+      case "vibrate":
+        storage.vibration = !storage.vibration;
+        console.log("vibrationsActive   " + storage.vibration)
+        break;
+      case "darkmode":
+        if (localStorage.getItem("theme")) {
+          if (localStorage.getItem("theme") == "dark")
+            localStorage.setItem("theme", "light");
+          else
+            localStorage.setItem("theme", "dark");
+        }
+        console.log("darkmode   " + localStorage.getItem("theme"))
+        break;
+      case "rainbow":
+        addTemporaryClass(wrapper, "rainbowColor", 8000);
+        break;
+      case "green":
+      case "purple":
+      case "blue":
+      case "yellow":
+      case "black":
+      case "white":
+        storage.color = command;
+        break;
+      case "clear":
+        storage.color = ""
+        storage.underlineType = ""
+        break;
+      case "small":
+      case "big":
+      case "dotted":
+      case "dashed":
+        storage.underlineType = command;
+        break;
+      case "fuck":
+      case "einstein":
+      case "satan":
+      case "gaypride":
+      case "fireworks":
+        socket.emit("event", {
+          "id": command
+        });
+        break;
+      default:
+        // No command matched
+        alert("Kommando nicht valide.");
+        break;
+    }
+    commentInput.value = "";
+  } else { // Click
+    socket.emit("click", {
+      "name": name,
+      "comment": comment,
+      "style": storage.underlineType + " " + storage.color
+    });
   }
 
   // Purely Visual
   // Display creative and original message
-  btnElem.value = randomButtonLabel();
+  sessionClicks++;
+  button.innerText = randomButtonLabel() + '\n' + sessionClicks;
   displayRing();
-
-  socket.emit("click", {
-    "name": name,
-    "comment": comment
-  });
-  // displayStats(currentStats["total"], currentStats["day"], currentStats["hour"]);
-}
-
-function validatedName(input) {
-  var validatedInput = "jemand";
-  if (input.trim() != "") {
-    validatedInput = input.trim();
-  }
-  return validatedInput;
-}
-
-function validatedComment(input) {
-  var validatedInput = "";
-  if (input.trim() != "") {
-    validatedInput = input.trim();
-  }
-  return validatedInput;
 }
 
 /** Displays the buttom click animation. */
 function displayRing() {
-  var ring = document.createElement("div");
+  const ring = document.createElement("div");
   ring.className = "ring";
-  btnElem.parentElement.appendChild(ring);
+  button.parentElement.appendChild(ring);
   window.getComputedStyle(ring).opacity;
   ring.classList.add("show");
   destroyDelay(ring, 700);
 }
 
 /** Displays a click (Killfeed-like-style). */
-function displayClick(name, comment) {
+function displayClick(name, comment, effectClass) {
   // prevent extreme amounts of comment messages
   if (anker.childElementCount > MAX_TOASTS)
     anker.lastElementChild.remove();
 
-  var text = `${name} verzweifelt...`
+  let text = `${name} verzweifelt...`
   // add comment in braces if present
   if (comment != undefined && comment != "") {
     text = text.concat(` (${comment})`);
   }
 
-  var toast = document.createElement("div")
-  toast.className = "toast";
+  const toast = document.createElement("div")
+  toast.className = toastType + " " + effectClass;
   toast.appendChild(document.createTextNode(text));
   anker.prepend(toast);
-  hideDelay(toast, 3000);
-  destroyDelay(toast, 4000);
+  hideDelay(toast, 2500);
+  destroyDelay(toast, 3000);
 }
 
-/** Adds hide class to element after specified time. */
-function hideDelay(element, time) {
-  setTimeout(() => element.classList.add("hide"), time);
-}
 
-/** Removes the element from its parent after specified time. */
-function destroyDelay(element, time) {
-  setTimeout(() => element.remove(), time);
-}
-
-// Data store
-var storage = window.localStorage;
-
-/** Loads stored data from storage. */
-function loadFiles() {
-  // load name, comment
-  if (storage.getItem(NAME_KEY))
-    name = storage.getItem(NAME_KEY);
-  if (storage.getItem(COMMENT_KEY))
-    comment = storage.getItem(COMMENT_KEY);
-
-  // set name, comment
-  nameInput.value = name;
-  commentInput.value = comment;
-}
-
-document.body.onload = loadFiles();
 
 
 // Socket.io
@@ -202,15 +262,38 @@ socket.on("stats", (stats) => {
 
 socket.on("users", (users) => {
   console.log(`users(${users["count"]})`);
-  displayActiveUsers(users["count"]);
+  displayOnlineUsers(users["count"]);
 });
 
 socket.on("click", (click) => {
-  console.log(`click(${click["name"]}, ${click["comment"]})`);
+  console.log(`click(${click["name"]}, ${click["comment"]}, ${click["style"]})`);
 
-  displayClick(click["name"], click["comment"])
+  displayClick(click["name"], click["comment"], click["style"])
   incrementStats()
   displayStats(currentStats["total"], currentStats["day"], currentStats["hour"]);
+});
+
+socket.on("event", (event) => {
+  console.log(`event(${event["id"]})`);
+
+  // Reacting to "everyone events"
+  switch (event["id"]) {
+    case "gaypride":
+      addTemporaryClass(button, "rainbow", 8000);
+      break;
+    case "satan":
+      addTemporaryClass(button, "elmo", 3000);
+      break;
+    case "fuck":
+      popup("Fuck you", "fu");
+      break;
+    case "fireworks":
+      fireworks()
+      break;
+    case "einstein":
+      einstein();
+      break;
+  }
 });
 
 socket.connect();
