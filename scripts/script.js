@@ -281,7 +281,7 @@ socket.on("event", (event) => {
       break;
 
     case "einstein":
-      fireworks()
+      einstein()
       break;
   }
 });
