@@ -2,25 +2,14 @@ class Storage {
     constructor(localStorage) {
         this.localStorage = localStorage;
     }
-    get color() {
-        if (!this._color) {
-            this._color = this.localStorage.getItem("color");
-        }
-        return this._color;
-    }
-    set color(value) {
-        this._color = value;
-        this.localStorage.setItem("color", value);
-    }
 }
 
-function addGetSet(obj, attr) {
+function addGetSet(obj, attr, def) {
     Object.defineProperties(obj, {
         [attr]: {
             get: function () {
-                if (!this["_" + attr]) {
-                    this["_" + attr] = this.localStorage.getItem(attr);
-                }
+                if (!this["_" + attr])
+                    this["_" + attr] = this.localStorage.getItem(attr) || def;
                 return this["_" + attr];
             },
             set: function (value) {
@@ -33,10 +22,10 @@ function addGetSet(obj, attr) {
     })
 }
 
-addGetSet(Storage.prototype, "name");
-addGetSet(Storage.prototype, "comment");
-addGetSet(Storage.prototype, "color");
-addGetSet(Storage.prototype, "underlineType");
-addGetSet(Storage.prototype, "vibration");
+addGetSet(Storage.prototype, "name", "");
+addGetSet(Storage.prototype, "comment", "");
+addGetSet(Storage.prototype, "color", "");
+addGetSet(Storage.prototype, "vibration", "off");
+addGetSet(Storage.prototype, "underlineType", "");
 
 let storage = new Storage(localStorage);
