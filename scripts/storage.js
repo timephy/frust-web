@@ -4,12 +4,12 @@ class Storage {
     }
 }
 
-function addGetSet(obj, attr) {
+function addGetSet(obj, attr, def) {
     Object.defineProperties(obj, {
         [attr]: {
             get: function () {
                 if (!this["_" + attr])
-                    this["_" + attr] = this.localStorage.getItem(attr);
+                    this["_" + attr] = this.localStorage.getItem(attr) || def;
                 return this["_" + attr];
             },
             set: function (value) {
@@ -22,9 +22,9 @@ function addGetSet(obj, attr) {
     })
 }
 
-addGetSet(Storage.prototype, "name");
-addGetSet(Storage.prototype, "comment");
+addGetSet(Storage.prototype, "name", "");
+addGetSet(Storage.prototype, "comment", "");
 addGetSet(Storage.prototype, "color");
-addGetSet(Storage.prototype, "vibration");
+addGetSet(Storage.prototype, "vibration", "off");
 
 let storage = new Storage(localStorage);
