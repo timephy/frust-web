@@ -1,18 +1,16 @@
-var button = document.getElementById("mainButton");
-var anker = document.getElementById("toastAnker");
-var wrapper = document.getElementById("wrapper");
-var panker = document.getElementById("popupAnker");
-var nameInput = document.getElementById("nameInput");
-var commentInput = document.getElementById("commentInput");
-var todayDisp = document.getElementById("todayDisp");
-var totalDisp = document.getElementById("totalDisp");
-var usersDisp = document.getElementById("stats");
+const button = document.getElementById("mainButton");
+const anker = document.getElementById("toastAnker");
+const wrapper = document.getElementById("wrapper");
+const panker = document.getElementById("popupAnker");
+const nameInput = document.getElementById("nameInput");
+const commentInput = document.getElementById("commentInput");
+const todayDisp = document.getElementById("todayDisp");
+const totalDisp = document.getElementById("totalDisp");
+const usersDisp = document.getElementById("stats");
 
 navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
 
 const MAX_TOASTS = 35; //please increase if you find any device that needs it
-const NAME_KEY = "name";
-const COMMENT_KEY = "comment";
 const possibleButtonLabels = [
   "Exmatrikulation",
   "GOP",
@@ -29,22 +27,14 @@ const possibleButtonLabels = [
   "?????"
 ];
 
-var name;
-var comment;
 
-/** Loads stored data from storage. */
 document.body.onload = () => {
-  // load name, comment
-  name = storage.getItem(NAME_KEY);
-  comment = storage.getItem(COMMENT_KEY);
-
   // set name, comment
-  nameInput.value = name;
-  commentInput.value = comment;
+  nameInput.value = storage.name;
+  commentInput.value = storage.comment;
 };
 
-
-var socket = io({
+const socket = io({
   path: "/api/socket.io"
 });
 
@@ -54,11 +44,11 @@ var currentStats = {
   "day": 0,
   "hour": 0
 };
+var sessionClicks = 0;
 
 /** effect variables */
 var resetableTimers = {};
 var toastType = "toast";
-
 
 function displayStats(total, day, hour) {
   totalDisp.innerText = "gesamt\n" + total;
@@ -83,12 +73,40 @@ function incrementStats() {
   currentStats["hour"]++;
 }
 
-function popup(text) {
-  var pop = document.createElement("div")
-  pop.className = "popup";
+function popup(text, cssClass) {
+  const pop = document.createElement("div")
+  if (!cssClass)
+    pop.className = "popup";
+  else
+    pop.className = cssClass;
+
   pop.appendChild(document.createTextNode(text));
   panker.appendChild(pop);
   destroyDelay(pop, 5000);
+}
+
+function fireworks() {
+  const pyro = document.createElement("div")
+  pyro.className = "pyro"
+  let t = document.createElement("div")
+  t.className = "before";
+  pyro.appendChild(t)
+  t = document.createElement("div")
+  t.className = "after"
+  pyro.appendChild(t)
+
+  panker.appendChild(pyro);
+  destroyDelay(pyro, 5000);
+}
+
+function einstein() {
+  var einstein = document.createElement("img")
+  einstein.className = "einstein"
+  einstein.style.left = Math.random() * 90 + "%"
+  einstein.style.top = Math.random() * 90 + "%"
+
+  panker.appendChild(einstein);
+  destroyDelay(einstein, 5000);
 }
 
 /** Returns a randomized button label. */
@@ -99,61 +117,112 @@ function randomButtonLabel() {
 }
 
 // Clicks
+function openComment(commentButton) {
+  if (commentInput.classList.contains("hide")) {
+    commentButton.classList.remove("hide")
+    commentInput.classList.remove("hide")
+    commentInput.parentElement.classList.remove("hide")
+    nameInput.blur()
+    commentInput.focus()
+  } else {
+    commentButton.classList.add("hide")
+    commentInput.classList.add("hide")
+    commentInput.parentElement.classList.add("hide")
+    commentInput.blur()
+    nameInput.focus()
+  }
+}
 
 /** The main button action. */
 function verzweifle() {
 
-  if (navigator.vibrate) { // vibration API supported
+  if (navigator.vibrate && storage.vibration) { // vibration API supported
     navigator.vibrate(100);
   }
 
   // Inputs
   let sanitizedName = sanitizeInput(nameInput.value);
-  if (sanitizedName != name)
-    storage.setItem(NAME_KEY, sanitizedName);
-  name = sanitizedName || "Anonym"; // or default name
+  if (sanitizedName != storage.name)
+    storage.name = sanitizedName;
+  let name = sanitizedName || "Gast"; // or default name
 
   let sanitizedComment = sanitizeInput(commentInput.value);
   // commands are not saved
-  if (sanitizedComment != comment && !sanitizedComment.startsWith("/"))
-    storage.setItem(COMMENT_KEY, sanitizedComment);
-  comment = sanitizedComment || "";
+  if (sanitizedComment != storage.comment && !sanitizedComment.startsWith("/"))
+    storage.comment = sanitizedComment;
+  let comment = sanitizedComment || "";
 
   if (comment.startsWith("/")) { // Command
     command = comment.substring(1);
-    if (command == "fireworks") {
-      socket.emit("event", {
-        "id": "fireworks"
-      })
-    } else if (command == "rainbow") {
-      socket.emit("event", {
-        "id": "rainbow"
-      })
-    } else if (command == "gaypride") {
-      // action
-    } else {
-      // No command matched
-      alert("Kommando nicht valide.")
+
+    switch (command) {
+      case "vibrate":
+        storage.vibration = !storage.vibration;
+        console.log("vibrationsActive   " + storage.vibration)
+        break;
+      case "darkmode":
+        if (localStorage.getItem("theme")) {
+          if (localStorage.getItem("theme") == "dark")
+            localStorage.setItem("theme", "light");
+          else
+            localStorage.setItem("theme", "dark");
+        }
+        console.log("darkmode   " + localStorage.getItem("theme"))
+        break;
+      case "rainbow":
+        addTemporaryClass(wrapper, "rainbowColor", 8000);
+        break;
+      case "green":
+      case "purple":
+      case "blue":
+      case "yellow":
+      case "black":
+      case "white":
+        storage.color = command;
+        break;
+      case "clear":
+        storage.color = ""
+        storage.underlineType = ""
+        break;
+      case "small":
+      case "big":
+      case "dotted":
+      case "dashed":
+        storage.underlineType = command;
+        break;
+      case "fuck":
+      case "einstein":
+      case "satan":
+      case "gaypride":
+      case "fireworks":
+        socket.emit("event", {
+          "id": command
+        });
+        break;
+      default:
+        // No command matched
+        alert("Kommando nicht valide.");
+        break;
     }
+    commentInput.value = "";
   } else { // Click
     socket.emit("click", {
       "name": name,
-      "comment": comment
+      "comment": comment,
+      "style": storage.underlineType + " " + storage.color
     });
   }
 
   // Purely Visual
   // Display creative and original message
-  button.value = randomButtonLabel();
+  sessionClicks++;
+  button.innerText = randomButtonLabel() + '\n' + sessionClicks;
   displayRing();
 }
 
-/** String corrections for input fields. */
-const sanitizeInput = (input) => input.trim();
-
 /** Displays the buttom click animation. */
 function displayRing() {
-  var ring = document.createElement("div");
+  const ring = document.createElement("div");
   ring.className = "ring";
   button.parentElement.appendChild(ring);
   window.getComputedStyle(ring).opacity;
@@ -167,13 +236,13 @@ function displayClick(name, comment, effectClass) {
   if (anker.childElementCount > MAX_TOASTS)
     anker.lastElementChild.remove();
 
-  var text = `${name} verzweifelt...`
+  let text = `${name} verzweifelt...`
   // add comment in braces if present
   if (comment != undefined && comment != "") {
     text = text.concat(` (${comment})`);
   }
 
-  var toast = document.createElement("div")
+  const toast = document.createElement("div")
   toast.className = toastType + " " + effectClass;
   toast.appendChild(document.createTextNode(text));
   anker.prepend(toast);
@@ -181,28 +250,7 @@ function displayClick(name, comment, effectClass) {
   destroyDelay(toast, 3000);
 }
 
-/** Adds hide class to element after specified time. */
-function hideDelay(element, time) {
-  setTimeout(() => element.classList.add("hide"), time);
-}
 
-/** Removes the element from its parent after specified time. */
-function destroyDelay(element, time) {
-  setTimeout(() => element.remove(), time);
-}
-
-/**adds the class to element and then removes it after a delay  */
-function addTemporaryClass(targetElem, cssClass, time) {
-  if (!!resetableTimers[cssClass]) {
-    clearTimeout(resetableTimers[cssClass])
-  }
-  targetElem.classList.add(cssClass);
-  resetableTimers[cssClass] = setTimeout(() => targetElem.classList.remove(cssClass), time);
-  console.log(cssClass + ": timer " + resetableTimers[cssClass])
-}
-
-// Data store
-var storage = window.localStorage;
 
 
 // Socket.io
@@ -218,9 +266,9 @@ socket.on("users", (users) => {
 });
 
 socket.on("click", (click) => {
-  console.log(`click(${click["name"]}, ${click["comment"]})`);
+  console.log(`click(${click["name"]}, ${click["comment"]}, ${click["style"]})`);
 
-  displayClick(click["name"], click["comment"])
+  displayClick(click["name"], click["comment"], click["style"])
   incrementStats()
   displayStats(currentStats["total"], currentStats["day"], currentStats["hour"]);
 });
@@ -229,10 +277,22 @@ socket.on("event", (event) => {
   console.log(`event(${event["id"]})`);
 
   // Reacting to "everyone events"
-  if (event["id"] == "fireworks") {
-
-  } else if (event["id"] == "rainbow") {
-
+  switch (event["id"]) {
+    case "gaypride":
+      addTemporaryClass(button, "rainbow", 8000);
+      break;
+    case "satan":
+      addTemporaryClass(button, "elmo", 3000);
+      break;
+    case "fuck":
+      popup("Fuck you", "fu");
+      break;
+    case "fireworks":
+      fireworks()
+      break;
+    case "einstein":
+      einstein();
+      break;
   }
 });
 
