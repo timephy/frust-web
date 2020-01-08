@@ -115,6 +115,16 @@ function randomButtonLabel() {
 }
 
 // Clicks
+function openComment() {
+
+  if (commentInput.classList.contains("hide")) {
+    commentInput.classList.remove("hide")
+    commentInput.parentElement.classList.remove("hide")
+    commentInput.focus()
+  } else{
+    commentInput.classList.add("hide")
+    commentInput.parentElement.classList.add("hide")}
+}
 
 /** The main button action. */
 function verzweifle() {
@@ -185,7 +195,8 @@ function verzweifle() {
   } else { // Click
     socket.emit("click", {
       "name": name,
-      "comment": comment
+      "comment": comment,
+      "style": storage.underlineType + " " + storage.color
     });
   }
 
@@ -244,7 +255,7 @@ socket.on("users", (users) => {
 socket.on("click", (click) => {
   console.log(`click(${click["name"]}, ${click["comment"]}, ${click["style"]})`);
 
-  displayClick(click["name"], click["comment"])
+  displayClick(click["name"], click["comment"], click["style"])
   incrementStats()
   displayStats(currentStats["total"], currentStats["day"], currentStats["hour"]);
 });
