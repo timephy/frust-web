@@ -212,11 +212,25 @@ h3 {
 }
 
 @keyframes wiggle {
-  0% {transform: rotate(8deg);}
-  25% {transform: rotate(-8deg);}
-  50% {transform: rotate(16deg);}
-  75% {transform: rotate(-4deg);}
-  100% {transform: rotate(0deg);}
+  0% {
+    transform: rotate(8deg);
+  }
+
+  25% {
+    transform: rotate(-8deg);
+  }
+
+  50% {
+    transform: rotate(16deg);
+  }
+
+  75% {
+    transform: rotate(-4deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 #commentButton.hide:hover {
@@ -230,7 +244,7 @@ h3 {
 
 .commentInput {
   font-size: 1em;
-  box-sizing: border-box
+  box-sizing: border-box;
   height: 5em;
   resize: none;
   width: 100%;
@@ -256,7 +270,9 @@ h3 {
   height: 100%;
 }
 
-.hoverline:before, .hoverline:after, .toast:after {
+.hoverline:before,
+.hoverline:after,
+.toast:after {
   content: "";
   position: absolute;
   -webkit-transition: all 0.5s ease-in-out;
@@ -304,7 +320,10 @@ h3 {
   bottom: 0;
 }
 
-.hoverline:hover:before, .hoverline:hover:after, .hoverline:focus-within:before, .hoverline:focus-within:after {
+.hoverline:hover:before,
+.hoverline:hover:after,
+.hoverline:focus-within:before,
+.hoverline:focus-within:after {
   width: 100%;
   opacity: 1;
 }
@@ -313,7 +332,8 @@ h3 {
   position: relative;
 }
 
-.hoverline.hide:before, .hoverline.hide:after {
+.hoverline.hide:before,
+.hoverline.hide:after {
   width: 0px;
 }
 
@@ -443,7 +463,10 @@ h3 {
   color: var(--red);
 }
 
-.ring:before, .ring:after, .ringStart:after, .ringStart:before {
+.ring:before,
+.ring:after,
+.ringStart:after,
+.ringStart:before {
   pointer-events: none;
   content: '';
   position: absolute;
@@ -465,14 +488,16 @@ h3 {
   transition: 700ms transform ease, 200ms blur ease, 700ms opacity ease;
 }
 
-.ring:after, .ringStart:after {
+.ring:after,
+.ringStart:after {
   -webkit-transition-delay: 100ms;
   -moz-transition-delay: 100ms;
   -o-transition-delay: 100ms;
   transition-delay: 100ms;
 }
 
-.ring.show:before, .ring.show:after {
+.ring.show:before,
+.ring.show:after {
   opacity: 0;
   transform: scale(2.5);
 }
@@ -527,7 +552,14 @@ h3 {
     box-shadow: var(--thin-material-shadow);
   }
 
-  li, input, h1, h2, h3, h4, div, textarea {
+  li,
+  input,
+  h1,
+  h2,
+  h3,
+  h4,
+  div,
+  textarea {
     color: var(--bright);
   }
 
@@ -549,7 +581,8 @@ h3 {
   }
 }
 
-@media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
+@media (prefers-color-scheme: light),
+(prefers-color-scheme: no-preference) {
   body {
     background: var(--bright);
   }
@@ -559,11 +592,19 @@ h3 {
     box-shadow: var(--thin-material-shadow);
   }
 
-  .nameInput:hover, .nameInput:focus {
+  .nameInput:hover,
+  .nameInput:focus {
     box-shadow: var(--thick-material-shadow);
   }
 
-  li, input, h1, h2, h3, h4, div, textarea {
+  li,
+  input,
+  h1,
+  h2,
+  h3,
+  h4,
+  div,
+  textarea {
     color: var(--dark);
   }
 
@@ -604,7 +645,10 @@ h3 {
     font-size: 4vmin;
   }
 
-  .ring.show:before, .ring.show:after, .ringStart:before, .ringStart:after {
+  .ring.show:before,
+  .ring.show:after,
+  .ringStart:before,
+  .ringStart:after {
     transform: scale(1.5);
   }
 }
@@ -645,7 +689,9 @@ h3 {
 
 /*copy pasta snowflakes*/
 @-webkit-keyframes snowflakes-shake {
-  0%, 100% {
+
+  0%,
+  100% {
     -webkit-transform: translateX(0);
     transform: translateX(0)
   }
@@ -948,7 +994,7 @@ h3 {
 
 .fu {
   -webkit-animation: shadowAnim 0.25s ease-in-out infinite;
-  -moz-animation: : shadowAnim 0.25s ease-in-out infinite;
+  -moz-animation: shadowAnim 0.25s ease-in-out infinite;
   -o-animation: shadowAnim 0.25s ease-in-out infinite;
   animation: shadowAnim 0.25s ease-in-out infinite;
   position: static;
@@ -1026,7 +1072,8 @@ h3 {
 }
 
 /*******more copypasta****/
-.pyro>.before, .pyro>.after {
+.pyro>.before,
+.pyro>.after {
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1139,135 +1186,165 @@ h3 {
 }
 
 @-webkit-keyframes position {
-  0%, 19.9% {
+
+  0%,
+  19.9% {
     margin-top: 10%;
     margin-left: 40%;
   }
 
-  20%, 39.9% {
+  20%,
+  39.9% {
     margin-top: 40%;
     margin-left: 30%;
   }
 
-  40%, 59.9% {
+  40%,
+  59.9% {
     margin-top: 20%;
     margin-left: 70%;
   }
 
-  60%, 79.9% {
+  60%,
+  79.9% {
     margin-top: 30%;
     margin-left: 20%;
   }
 
-  80%, 99.9% {
+  80%,
+  99.9% {
     margin-top: 30%;
     margin-left: 80%;
   }
 }
 
 @-moz-keyframes position {
-  0%, 19.9% {
+
+  0%,
+  19.9% {
     margin-top: 10%;
     margin-left: 40%;
   }
 
-  20%, 39.9% {
+  20%,
+  39.9% {
     margin-top: 40%;
     margin-left: 30%;
   }
 
-  40%, 59.9% {
+  40%,
+  59.9% {
     margin-top: 20%;
     margin-left: 70%;
   }
 
-  60%, 79.9% {
+  60%,
+  79.9% {
     margin-top: 30%;
     margin-left: 20%;
   }
 
-  80%, 99.9% {
+  80%,
+  99.9% {
     margin-top: 30%;
     margin-left: 80%;
   }
 }
 
 @-o-keyframes position {
-  0%, 19.9% {
+
+  0%,
+  19.9% {
     margin-top: 10%;
     margin-left: 40%;
   }
 
-  20%, 39.9% {
+  20%,
+  39.9% {
     margin-top: 40%;
     margin-left: 30%;
   }
 
-  40%, 59.9% {
+  40%,
+  59.9% {
     margin-top: 20%;
     margin-left: 70%;
   }
 
-  60%, 79.9% {
+  60%,
+  79.9% {
     margin-top: 30%;
     margin-left: 20%;
   }
 
-  80%, 99.9% {
+  80%,
+  99.9% {
     margin-top: 30%;
     margin-left: 80%;
   }
 }
 
 @-ms-keyframes position {
-  0%, 19.9% {
+
+  0%,
+  19.9% {
     margin-top: 10%;
     margin-left: 40%;
   }
 
-  20%, 39.9% {
+  20%,
+  39.9% {
     margin-top: 40%;
     margin-left: 30%;
   }
 
-  40%, 59.9% {
+  40%,
+  59.9% {
     margin-top: 20%;
     margin-left: 70%;
   }
 
-  60%, 79.9% {
+  60%,
+  79.9% {
     margin-top: 30%;
     margin-left: 20%;
   }
 
-  80%, 99.9% {
+  80%,
+  99.9% {
     margin-top: 30%;
     margin-left: 80%;
   }
 }
 
 @keyframes position {
-  0%, 19.9% {
+
+  0%,
+  19.9% {
     margin-top: 10%;
     margin-left: 40%;
   }
 
-  20%, 39.9% {
+  20%,
+  39.9% {
     margin-top: 40%;
     margin-left: 30%;
   }
 
-  40%, 59.9% {
+  40%,
+  59.9% {
     margin-top: 20%;
     margin-left: 70%;
   }
 
-  60%, 79.9% {
+  60%,
+  79.9% {
     margin-top: 30%;
     margin-left: 20%;
   }
 
-  80%, 99.9% {
+  80%,
+  99.9% {
     margin-top: 30%;
     margin-left: 80%;
   }
