@@ -22,4 +22,4 @@ Dear fellow student, please feel free to talk to us directly about the project o
 
 Also see the backend implementation:
 
-https://github.com/timephy/frustrated-physicists-backend
+<https://github.com/timephy/frustrated-physicists-backend>
