@@ -195,6 +195,7 @@ h3 {
 
 #commentButton {
   position: absolute;
+  display: block;
   right: 0;
   align-self: center;
   font-size: 1.5em;
@@ -211,19 +212,21 @@ h3 {
 }
 
 @keyframes wiggle {
-  0% {transform: rotate(10deg);}
-  25% {transform: rotate(-10deg);}
-  50% {transform: rotate(20deg);}
-  75% {transform: rotate(-5deg);}
+  0% {transform: rotate(8deg);}
+  25% {transform: rotate(-8deg);}
+  50% {transform: rotate(16deg);}
+  75% {transform: rotate(-4deg);}
   100% {transform: rotate(0deg);}
 }
 
-#commentButton:hover {
+#commentButton.hide:hover {
   -webkit-animation: 0.5s ease-in-out wiggle;
   -moz-animation: 0.5s ease-in-out wiggle;
   -o-animation: 0.5s ease-in-out wiggle;
   animation: 0.5s ease-in-out wiggle;
 }
+
+
 
 .commentInput {
   font-size: 1em;
