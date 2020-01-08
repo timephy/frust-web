@@ -90,10 +90,10 @@ function popup(text, cssClass) {
 function fireworks() {
   const pyro = document.createElement("div")
   pyro.className = "pyro"
-  const t = document.createElement("div")
+  let t = document.createElement("div")
   t.className = "before";
   pyro.appendChild(t)
-  const t = document.createElement("div")
+  t = document.createElement("div")
   t.className = "after"
   pyro.appendChild(t)
 
