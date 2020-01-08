@@ -11,8 +11,6 @@ var usersDisp = document.getElementById("stats");
 navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
 
 const MAX_TOASTS = 35; //please increase if you find any device that needs it
-const NAME_KEY = "name";
-const COMMENT_KEY = "comment";
 const possibleButtonLabels = [
   "Exmatrikulation",
   "GOP",
@@ -178,9 +176,6 @@ function verzweifle() {
   displayRing();
 }
 
-/** String corrections for input fields. */
-const sanitizeInput = (input) => input.trim();
-
 /** Displays the buttom click animation. */
 function displayRing() {
   var ring = document.createElement("div");
@@ -211,25 +206,7 @@ function displayClick(name, comment, effectClass) {
   destroyDelay(toast, 3000);
 }
 
-/** Adds hide class to element after specified time. */
-function hideDelay(element, time) {
-  setTimeout(() => element.classList.add("hide"), time);
-}
 
-/** Removes the element from its parent after specified time. */
-function destroyDelay(element, time) {
-  setTimeout(() => element.remove(), time);
-}
-
-/**adds the class to element and then removes it after a delay  */
-function addTemporaryClass(targetElem, cssClass, time) {
-  if (!!resetableTimers[cssClass]) {
-    clearTimeout(resetableTimers[cssClass])
-  }
-  targetElem.classList.add(cssClass);
-  resetableTimers[cssClass] = setTimeout(() => targetElem.classList.remove(cssClass), time);
-  console.log(cssClass + ": timer " + resetableTimers[cssClass])
-}
 
 
 // Socket.io
