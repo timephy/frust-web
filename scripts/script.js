@@ -209,7 +209,7 @@ function verzweifle() {
     socket.emit("click", {
       "name": name,
       "comment": comment,
-      "style": storage.underlineType + " " + storage.color
+      "style": [storage.underlineType, storage.color].join(" ")
     });
   }
 
@@ -243,7 +243,7 @@ function displayClick(name, comment, effectClass) {
   }
 
   const toast = document.createElement("div")
-  toast.className = toastType + " " + effectClass;
+  toast.className = [toastType, effectClass].join(" ");
   toast.appendChild(document.createTextNode(text));
   anker.prepend(toast);
   hideDelay(toast, 2500);
