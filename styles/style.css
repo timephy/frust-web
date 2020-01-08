@@ -230,10 +230,10 @@ h3 {
 
 .commentInput {
   font-size: 1em;
+  box-sizing: border-box
   height: 5em;
   resize: none;
   width: 100%;
-  box-sizing: border-box
 }
 
 .commentInput.hide {
@@ -966,9 +966,9 @@ h3 {
   transform-origin: center;
   background: url('/images/einstein.svg') no-repeat top left;
   -webkit-animation: scalespinIn 1s linear, spin 1s linear 3 1s, scalespinOut 4s linear;
-  -moz-animation: spin 1s linear infinite;
-  -o-animation: spin 1s linear infinite;
-  animation: spin 1s linear infinite;
+  -moz-animation: scalespinIn 1s linear, spin 1s linear 3 1s, scalespinOut 4s linear;
+  -o-animation: scalespinIn 1s linear, spin 1s linear 3 1s, scalespinOut 4s linear;
+  animation: scalespinIn 1s linear, spin 1s linear 3 1s, scalespinOut 4s linear;
 }
 
 @keyframes scalespinIn {
