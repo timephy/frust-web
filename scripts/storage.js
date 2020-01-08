@@ -2,25 +2,14 @@ class Storage {
     constructor(localStorage) {
         this.localStorage = localStorage;
     }
-    get color() {
-        if (!this._color) {
-            this._color = this.localStorage.getItem("color");
-        }
-        return this._color;
-    }
-    set color(value) {
-        this._color = value;
-        this.localStorage.setItem("color", value);
-    }
 }
 
 function addGetSet(obj, attr) {
     Object.defineProperties(obj, {
         [attr]: {
             get: function () {
-                if (!this["_" + attr]) {
+                if (!this["_" + attr])
                     this["_" + attr] = this.localStorage.getItem(attr);
-                }
                 return this["_" + attr];
             },
             set: function (value) {
