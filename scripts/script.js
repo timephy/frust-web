@@ -122,14 +122,14 @@ function openComment(commentButton) {
     commentButton.classList.remove("hide")
     commentInput.classList.remove("hide")
     commentInput.parentElement.classList.remove("hide")
-    nameInput.blur()
-    commentInput.focus()
+    //nameInput.blur()
+    //commentInput.focus()
   } else {
     commentButton.classList.add("hide")
     commentInput.classList.add("hide")
     commentInput.parentElement.classList.add("hide")
-    commentInput.blur()
-    nameInput.focus()
+    //commentInput.blur()
+    //nameInput.focus()
   }
 }
 
