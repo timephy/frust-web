@@ -13,8 +13,6 @@ function addGetSet(obj, attr, def) {
                 return this["_" + attr];
             },
             set: function (value) {
-                if (typeof value !== "string")
-                    console.error(`Storage.${attr} = ${value} is not of type string.`)
                 this["_" + attr] = value;
                 this.localStorage.setItem(attr, value);
             }
