@@ -41,7 +41,8 @@
 
     <div class="tinyWrapper">
       <span style="display: flex; flex-direction: row;" class="hoverline">
-        <input id="nameInput" maxlength="15" pattern=".{1,15}" title="Wähle einen bis zu 15 Zeichen langen Namen" type="text" name="name_input" value="Gast" class="nameInput" autocomplete="off" />
+        <input id="nameInput" maxlength="15" pattern=".{1,15}" title="Wähle einen bis zu 15 Zeichen langen Namen"
+          type="text" name="name_input" placeholder="Gast" class="nameInput" autocomplete="off" />
         <div id="commentButton">
           +
         </div>
@@ -50,7 +51,8 @@
 
       </div>
       <span style="width: 100%;" class="hoverline">
-        <textarea id="commentInput" maxlength="75" pattern=".{0,75}" title="Kommentare dürfen nur 75 Zeichen lang sein" type="text" name="comment_input" value="" class="nameInput commentInput" autocomplete="off"></textarea>
+        <textarea id="commentInput" maxlength="75" pattern=".{0,75}" title="Kommentare dürfen nur 75 Zeichen lang sein"
+          type="text" name="comment_input" value="" class="nameInput commentInput" autocomplete="off"></textarea>
       </span>
     </div>
 
@@ -78,6 +80,7 @@
   </div>
 </body>
 <script src="scripts/socket.io.js"></script>
+<script src="scripts/storage.js"></script>
 <script src="scripts/script.js"></script>
 
 </html>
