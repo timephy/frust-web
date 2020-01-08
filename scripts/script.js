@@ -32,6 +32,7 @@ document.body.onload = () => {
   // set name, comment
   nameInput.value = storage.name;
   commentInput.value = storage.comment;
+  vibrationsActive = storage.vibration;
 };
 
 var socket = io({
@@ -145,9 +146,9 @@ function verzweifle() {
       case "purple":
       case "blue":
       case "yellow":
-        socket.emit("event", {
-          "id": command
-        });
+      case "dotted":
+      case "dashed":
+      
         break;
       case "fuck":
       case "fireworks":

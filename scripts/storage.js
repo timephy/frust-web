@@ -36,6 +36,7 @@ function addGetSet(obj, attr) {
 addGetSet(Storage.prototype, "name");
 addGetSet(Storage.prototype, "comment");
 addGetSet(Storage.prototype, "color");
+addGetSet(Storage.prototype, "underlineType");
 addGetSet(Storage.prototype, "vibration");
 
 let storage = new Storage(localStorage);
