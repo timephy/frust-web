@@ -49,7 +49,7 @@ function verzweifle() {
     } else if (["small", "big", "dotted", "dashed"].includes(command)) {
       // Underline, Size
       storage.underlineType = command;
-    } else if (["fuck", "einstein", "satan", "gaypride", "fireworks"].includes(command)) {
+    } else if (["fuck", "einstein", "satan", "666", "gaypride", "fireworks"].includes(command)) {
       // Global events
       socket.emit("event", {
         "name": name,
@@ -139,6 +139,9 @@ socket.on("event", (event) => {
       break;
     case "satan":
       addTemporaryClass(button, "teemo", 5000);
+      break;
+    case "666":
+      addTemporaryClass(button, "elmo", 3000);
       break;
     case "fuck":
       popup("Fuck you", "fu");

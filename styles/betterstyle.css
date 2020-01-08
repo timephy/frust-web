@@ -231,18 +231,18 @@ h3 {
   display: block;
   right: 0;
   align-self: center;
-  font-size: 1.5em;
   -webkit-transition: 0.25s ease-in-out;
   -moz-transition: 0.25s ease-in-out;
   -o-transition: 0.25s ease-in-out;
   transition: 0.25s ease-in-out;
   width: 1.5em;
+    padding-top: 0.25em;
+  padding-right: 0.5em;
   text-align: center;
+  align-content: center;
 }
 
-#commentButton.hide {
-  transform: rotate(90deg);
-}
+#commentButton.hide { }
 
 .commentInput {
   font-size: 1em;
@@ -434,6 +434,14 @@ h3 {
 
 .elmo {
   background-image: url('/images/elmo.jpg');
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.teemo {
+  background-image: url('/images/teemo.jpg');
   height: 100%;
   background-position: center;
   background-repeat: no-repeat;
