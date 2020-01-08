@@ -242,8 +242,6 @@ h3 {
   align-content: center;
 }
 
-#commentButton.hide { }
-
 .commentInput {
   font-size: 1em;
   box-sizing: border-box;
