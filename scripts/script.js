@@ -169,12 +169,12 @@ function verzweifle() {
       "name": name,
       "comment": comment
     });
+    sessionClicks++;
+    button.innerText = randomButtonLabel() + '\n' + sessionClicks;
   }
 
   // Purely Visual
   // Display creative and original message
-  sessionClicks++;
-  button.innerText = randomButtonLabel() + '\n' + sessionClicks;
   displayRing();
 }
 
