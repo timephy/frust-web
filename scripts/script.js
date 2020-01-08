@@ -41,8 +41,7 @@ const socket = io({
 // Stats
 var currentStats = {
   "total": 0,
-  "day": 0,
-  "hour": 0
+  "day": 0
 };
 var sessionClicks = 0;
 
@@ -50,7 +49,7 @@ var sessionClicks = 0;
 var resetableTimers = {};
 var toastType = "toast";
 
-function displayStats(total, day, hour) {
+function displayStats(total, day) {
   totalDisp.innerText = "gesamt\n" + total;
   todayDisp.innerText = "heute\n" + day;
 
@@ -70,7 +69,6 @@ function displayOnlineUsers(num) {
 function incrementStats() {
   currentStats["total"]++;
   currentStats["day"]++;
-  currentStats["hour"]++;
 }
 
 function popup(text, cssClass) {
@@ -209,7 +207,7 @@ function verzweifle() {
     socket.emit("click", {
       "name": name,
       "comment": comment,
-      "style": storage.underlineType + " " + storage.color
+      "style": [storage.underlineType, storage.color].join(" ")
     });
   }
 
@@ -243,7 +241,7 @@ function displayClick(name, comment, effectClass) {
   }
 
   const toast = document.createElement("div")
-  toast.className = toastType + " " + effectClass;
+  toast.className = [toastType, effectClass].join(" ");
   toast.appendChild(document.createTextNode(text));
   anker.prepend(toast);
   hideDelay(toast, 2500);
@@ -255,9 +253,9 @@ function displayClick(name, comment, effectClass) {
 
 // Socket.io
 socket.on("stats", (stats) => {
-  console.log(`stats(${stats["total"]}, ${stats["day"]}, ${stats["hour"]})`);
+  console.log(`stats(${stats["total"]}, ${stats["day"]})`);
   currentStats = stats;
-  displayStats(stats["total"], stats["day"], stats["hour"]);
+  displayStats(stats["total"], stats["day"]);
 });
 
 socket.on("users", (users) => {
@@ -270,7 +268,7 @@ socket.on("click", (click) => {
 
   displayClick(click["name"], click["comment"], click["style"])
   incrementStats()
-  displayStats(currentStats["total"], currentStats["day"], currentStats["hour"]);
+  displayStats(currentStats["total"], currentStats["day"]);
 });
 
 socket.on("event", (event) => {
