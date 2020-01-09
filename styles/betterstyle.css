@@ -260,18 +260,6 @@ h3 {
   letter-spacing: 0.1em;
 }
 
-#commentButton>svg>path {
-            d: path("m 0,75 L 50,25 L 100,75");
--webkit-transition: d 0.25s;
--moz-transition: d 0.25s;
--o-transition: d 0.25s;
-transition: d 0.25s;
-          }
-
-          #commentButton.hide>svg>path {
-            d: path("m 0,25 L 50,75 L 100,25");
-          }
-
 #stats {
   text-decoration: none;
 }
@@ -971,10 +959,10 @@ transition: d 0.25s;
   height: 20vmin;
   transform-origin: center;
   background: url('/images/einstein.svg') no-repeat top left;
-  -webkit-animation: scalespinIn 1s linear, spin 1s linear 3 1s, scalespinOut 4s linear;
-  -moz-animation: scalespinIn 1s linear, spin 1s linear 3 1s, scalespinOut 4s linear;
-  -o-animation: scalespinIn 1s linear, spin 1s linear 3 1s, scalespinOut 4s linear;
-  animation: scalespinIn 1s linear, spin 1s linear 3 1s, scalespinOut 4s linear;
+  -webkit-animation: scalespinIn 1s linear, spin 1s linear 3 1s, scalespinOut 1s linear 4s;
+  -moz-animation: scalespinIn 1s linear, spin 1s linear 3 1s, scalespinOut 1s linear 4s;
+  -o-animation: scalespinIn 1s linear, spin 1s linear 3 1s, scalespinOut 1s linear 4s;
+  animation: scalespinIn 1s linear, spin 1s linear 3 1s, scalespinOut 1s linear 4s;
 }
 
 @keyframes scalespinIn {
