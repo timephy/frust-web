@@ -242,7 +242,7 @@ h3 {
   align-content: center;
 }
 
-.commentInput {
+#commentInput {
   font-size: 1em;
   box-sizing: border-box;
   height: 5em;
@@ -250,15 +250,27 @@ h3 {
   width: 100%;
 }
 
-.commentInput.hide {
+#commentInput.hide {
   font-size: 0;
   height: 0;
 }
 
-.commentInput:focus {
+#commentInput:focus {
   /*keep the letter spacing as it was*/
   letter-spacing: 0.1em;
 }
+
+#commentButton>svg>path {
+            d: path("m 0,75 L 50,25 L 100,75");
+-webkit-transition: d 0.25s;
+-moz-transition: d 0.25s;
+-o-transition: d 0.25s;
+transition: d 0.25s;
+          }
+
+          #commentButton.hide>svg>path {
+            d: path("m 0,25 L 50,75 L 100,25");
+          }
 
 #stats {
   text-decoration: none;
