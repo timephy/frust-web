@@ -68,16 +68,6 @@
     <div class="tinyWrapper">
       <span style="display: flex; flex-direction: row;" class="hoverline">
         <input id="nameInput" maxlength="15" pattern=".{1,15}" title="Wähle einen bis zu 15 Zeichen langen Namen" type="text" name="name_input" placeholder="Gast" class="nameInput" autocomplete="off" />
-        <style media="screen">
-          #commentButton>svg>path {
-            d: path("m 0,75 L 50,25 L 100,75");
-            transition: d 0.25s;
-          }
-
-          #commentButton.hide>svg>path {
-            d: path("m 0,25 L 50,75 L 100,25");
-          }
-        </style>
         <div id="commentButton" class="hide" onclick="openComment(this)">
           <svg viewBox="0 0 100 100" height="1.5em" width="1.5em">
             <path d="m 0,25 L 50,75 L 100,25" style="stroke:var(--font-color);stroke-width:8;fill: none; " />
