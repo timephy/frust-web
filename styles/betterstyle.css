@@ -236,7 +236,7 @@ h3 {
   -o-transition: 0.25s ease-in-out;
   transition: 0.25s ease-in-out;
   width: 1.5em;
-    padding-top: 0.25em;
+  padding-top: 0.25em;
   padding-right: 0.5em;
   text-align: center;
   align-content: center;
@@ -329,33 +329,8 @@ h3 {
     opacity: 1;
   }
 
-  @keyframes wiggle {
-    0% {
-      transform: rotate(8deg);
-    }
-
-    25% {
-      transform: rotate(-8deg);
-    }
-
-    50% {
-      transform: rotate(16deg);
-    }
-
-    75% {
-      transform: rotate(-4deg);
-    }
-
-    100% {
-      transform: rotate(0deg);
-    }
-  }
-
   #commentButton.hide:hover {
-    -webkit-animation: 0.5s ease-in-out wiggle;
-    -moz-animation: 0.5s ease-in-out wiggle;
-    -o-animation: 0.5s ease-in-out wiggle;
-    animation: 0.5s ease-in-out wiggle;
+    transform: scale(1.2);
   }
 
   .bigButton:hover {
@@ -824,13 +799,6 @@ h3 {
   100% {
     background-color: red;
   }
-}
-
-.rainbowColor *:not(.popup) {
-  -webkit-animation: 5s linear colorchange infinite;
-  -moz-animation: 5s linear colorchange infinite;
-  -o-animation: 5s linear colorchange infinite;
-  animation: 5s linear colorchange infinite;
 }
 
 .bigButton.rainbow {

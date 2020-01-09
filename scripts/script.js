@@ -49,7 +49,7 @@ function verzweifle() {
     } else if (["small", "big", "dotted", "dashed"].includes(command)) {
       // Underline, Size
       storage.underlineType = command;
-    } else if (["fuck", "einstein", "satan", "666", "gaypride", "fireworks"].includes(command)) {
+    } else if (["fuck", "einstein", "satan", "666", "gaypride", "fireworks", "rickroll"].includes(command)) {
       // Global events
       socket.emit("event", {
         "name": name,
@@ -77,7 +77,14 @@ function verzweifle() {
           console.log("darkmode   " + localStorage.getItem("theme"))
           break;
         case "rainbow":
-          addTemporaryClass(wrapper, "rainbowColor", 8000);
+          let hue = 0;
+          const intervalId = setInterval(() => {
+            hue++;
+            document.documentElement.style.setProperty('--font-color', 'hsl(' + hue + ', 50%, 50%)');
+          }, 16);
+          setTimeout(() => {
+            clearInterval(intervalId);
+          }, 5000);
           break;
         case "clear":
           storage.color = ""
@@ -151,6 +158,9 @@ socket.on("event", (event) => {
       break;
     case "einstein":
       einstein();
+      break;
+    case "rickroll":
+      window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
       break;
   }
 });

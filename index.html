@@ -54,11 +54,11 @@
 <body>
   <div id="wrapper" class="wrapper">
     <div id="statsCont" class="statsCont">
-      <h3 id="leftDisp">sitzung<br>---<br>online<br>---</h3>
+      <h3 id="leftDisp">gesamt<br>---<br>sitzung<br>---</h3>
       <span class="hoverline">
-        <h3 style="text-align: center;"><a id="stats" href="/stats.html">Statistiken</a></h3>
+        <h3 style="text-align: center;"><a id="stats" href="stats.html">Statistiken</a></h3>
       </span>
-      <h3 id="rightDisp" style="text-align: right;">gesamt<br>---<br>heute<br>---</h3>
+      <h3 id="rightDisp" style="text-align: right;">heute<br>---<br>online<br>---</h3>
     </div>
     <div class="mainBtnCont" id="mainButtonCont">
       <button onclick="verzweifle()" id="mainButton" class="bigButton" accesskey="f">ich verzweifle</button>
@@ -69,19 +69,19 @@
       <span style="display: flex; flex-direction: row;" class="hoverline">
         <input id="nameInput" maxlength="15" pattern=".{1,15}" title="Wähle einen bis zu 15 Zeichen langen Namen" type="text" name="name_input" placeholder="Gast" class="nameInput" autocomplete="off" />
         <div id="commentButton" class="hide" onclick="openComment(this)">
-<style>
+          <style>
+            #commentButton>svg>path {
+              d: path("m 0,75 L 50,25 L 100,75");
+              -webkit-transition: d 0.25s;
+              -moz-transition: d 0.25s;
+              -o-transition: d 0.25s;
+              transition: d 0.25s;
+            }
 
-#commentButton>svg>path {
-            d: path("m 0,75 L 50,25 L 100,75");
--webkit-transition: d 0.25s;
--moz-transition: d 0.25s;
--o-transition: d 0.25s;
-transition: d 0.25s;
-          }
-
-          #commentButton.hide>svg>path {
-            d: path("m 0,25 L 50,75 L 100,25");
-          }</style>
+            #commentButton.hide>svg>path {
+              d: path("m 0,25 L 50,75 L 100,25");
+            }
+          </style>
           <svg viewBox="0 0 100 100" height="1.5em" width="1.5em">
             <path d="m 0,25 L 50,75 L 100,25" style="stroke:var(--font-color);stroke-width:8;fill: none; " />
           </svg>

@@ -30,8 +30,8 @@ var toastType = "toast";
 var currentUsers = 0;
 
 function displayStats(total, day) {
-  rightDisp.innerText = "sitzung\n" + sessionClicks + "\nonline\n" + currentUsers;
-  leftDisp.innerText = "gesamt\n" + currentStats["total"] + "\nheute\n" + currentStats["day"];
+  leftDisp.innerText = "gesamt\n" + currentStats["total"] + "sitzung\n" + sessionClicks;
+  rightDisp.innerText = "\nheute\n" + currentStats["day"] + "\nonline\n" + currentUsers;
 
 
   if (total % 10000 == 0) {
