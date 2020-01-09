@@ -28,8 +28,8 @@ function CreateTableFromJSON(jsonData) {
 
   // EXTRACT VALUE FOR HTML HEADER.
   var col = [];
-  for (var i = 0; i < jsonData.length; i++) {
-    for (var key in jsonData[i]) {
+  for (var i = 0; i < jsonData.identified_users.length; i++) {
+    for (var key in jsonData.identified_users[i]) {
       if (col.indexOf(key) === -1) {
         col.push(key);
       }
@@ -50,19 +50,19 @@ function CreateTableFromJSON(jsonData) {
   }
 
   // ADD JSON DATA TO THE TABLE AS ROWS.
-  for (var i = 0; i < jsonData.length; i++) {
+  for (var i = 0; i < jsonData.identified_users.length; i++) {
 
     tr = table.insertRow(-1);
 
     for (var j = 0; j < col.length; j++) {
       var tabCell = tr.insertCell(-1);
-      tabCell.innerHTML = jsonData[i][col[j]];
+      tabCell.innerHTML = jsonData.identified_users[i][col[j]];
     }
   }
 
   // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
   var divContainer = document.getElementById("showData");
-  divContainer.innerHTML = "";
+  divContainer.innerHTML = "user count: "+jsonData.user_count+"<br><br>";
   divContainer.appendChild(table);
 }
 

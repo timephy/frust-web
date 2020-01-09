@@ -20,6 +20,21 @@ var currentStats = {
 };
 var sessionClicks = 0;
 
+function toggleDarkmode(){
+  if (localStorage.getItem("theme")) {
+    if (localStorage.getItem("theme") == "dark") {
+      localStorage.setItem("theme", "light");
+      document.documentElement.setAttribute("data-theme", "light");
+    } else {
+      localStorage.setItem("theme", "dark");
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+  } else {
+    localStorage.setItem("theme", "dark");
+    document.documentElement.setAttribute("data-theme", "dark");
+  }
+  console.log("darkmode   " + localStorage.getItem("theme"))
+}
 
 /** The main button action. */
 function verzweifle() {
@@ -62,19 +77,7 @@ function verzweifle() {
           console.log("vibrationsActive   " + storage.vibration)
           break;
         case "darkmode":
-          if (localStorage.getItem("theme")) {
-            if (localStorage.getItem("theme") == "dark") {
-              localStorage.setItem("theme", "light");
-              document.documentElement.setAttribute("data-theme", "light");
-            } else {
-              localStorage.setItem("theme", "dark");
-              document.documentElement.setAttribute("data-theme", "dark");
-            }
-          } else {
-            localStorage.setItem("theme", "dark");
-            document.documentElement.setAttribute("data-theme", "dark");
-          }
-          console.log("darkmode   " + localStorage.getItem("theme"))
+          toggleDarkmode();
           break;
         case "rainbow":
           let hue = 0;

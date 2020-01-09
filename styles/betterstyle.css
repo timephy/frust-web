@@ -346,8 +346,8 @@ h3 {
     box-shadow: var(--thick-material-shadow);
   }
 
-  .github:hover, .adjust:hover {
-    width: 3.2em;
+  #githubButton:hover, #adjustButton:hover {
+    width: 2.2em;
   }
 }
 
@@ -550,26 +550,29 @@ h3 {
   animation: 0.5s ease-out 0.2s 1 ringStartAnim;
 }
 
-.github, .adjust {
+#githubButton, #adjustButton {
   position: fixed;
   left: 0.5em;
   bottom: 0.5em;
-  width: 3em;
+  width: 2em;
   height: auto;
+    background: transparent;
+    border: none !important;
+    outline: none;
 
-  -webkit-transition: transform 250ms ease;
-  -moz-transition: transform 250ms ease;
-  -o-transition: transform 250ms ease;
-  transition: transform 250ms ease;
+  -webkit-transition:  250ms ease;
+  -moz-transition:  250ms ease;
+  -o-transition:  250ms ease;
+  transition:  250ms ease;
 }
 
-.adjust {
+#adjustButton {
   left: auto;
   right: 0.5em;
 }
 
-.github:active, .adjust:active {
-  width: 2.8em;
+#githubButton:active, #adjustButton:active {
+  width: 1.8em;
 }
 
 @media(min-width: 1000px) {
