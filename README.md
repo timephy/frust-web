@@ -6,7 +6,7 @@ A website for fellow Physics students at TUM to show their frustration.
 
 ## To our fellow students
 
-Dear fellow student, please feel free to talk to us directly about the project or contribute to it by creating pull requests. We would be happy to cooperate with you.
+Please feel free to contact us directly about the project or contribute by creating pull requests. We would be happy to cooperate with you.
 
 ## Main contributors
 
