@@ -166,7 +166,7 @@ socket.on("event", (event) => {
       einstein();
       break;
     case "rickroll":
-      window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+      open("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
       break;
   }
 });
