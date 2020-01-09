@@ -195,6 +195,10 @@ h3 {
   -moz-transition: all 0.2s ease-in 0.3s, height 0.2s ease-in 0.5s;
   -o-transition: all 0.2s ease-in 0.3s, height 0.2s ease-in 0.5s;
   transition: all 0.2s ease-in 0.3s, height 0.2s ease-in 0.5s;
+  -webkit-transition-property: opacity, max-height, bottom;
+  -moz-transition-property: opacity, max-height, bottom;
+  -o-transition-property: opacity, max-height, bottom;
+  transition-property: opacity, max-height, bottom;
   opacity: 0;
   max-height: 0px;
   bottom: 2.4em;
@@ -340,6 +344,10 @@ h3 {
 
   .nameInput:hover {
     box-shadow: var(--thick-material-shadow);
+  }
+
+  .github:hover, .adjust:hover {
+    width: 3.2em;
   }
 }
 
@@ -540,6 +548,28 @@ h3 {
   -moz-animation: 0.5s ease-out 0.2s 1 ringStartAnim;
   -o-animation: 0.5s ease-out 0.2s 1 ringStartAnim;
   animation: 0.5s ease-out 0.2s 1 ringStartAnim;
+}
+
+.github, .adjust {
+  position: fixed;
+  left: 0.5em;
+  bottom: 0.5em;
+  width: 3em;
+  height: auto;
+
+  -webkit-transition: transform 250ms ease;
+  -moz-transition: transform 250ms ease;
+  -o-transition: transform 250ms ease;
+  transition: transform 250ms ease;
+}
+
+.adjust {
+  left: auto;
+  right: 0.5em;
+}
+
+.github:active, .adjust:active {
+  width: 2.8em;
 }
 
 @media(min-width: 1000px) {

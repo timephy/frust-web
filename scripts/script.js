@@ -78,13 +78,16 @@ function verzweifle() {
           break;
         case "rainbow":
           let hue = 0;
+          let tmpColor = document.documentElement.style.getProperty('--font-color');
           const intervalId = setInterval(() => {
             hue++;
-            document.documentElement.style.setProperty('--font-color', 'hsl(' + hue + ', 50%, 50%)');
+            hue = hue % 360;
+            document.documentElement.style.setProperty('--font-color', 'hsl(' + hue + ', 60%, 50%)');
           }, 16);
           setTimeout(() => {
             clearInterval(intervalId);
-          }, 5000);
+            document.documentElement.style.setProperty('--font-color', tmpColor);
+          }, 10000);
           break;
         case "clear":
           storage.color = ""
