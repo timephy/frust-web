@@ -20,7 +20,7 @@ var currentStats = {
 };
 var sessionClicks = 0;
 
-function toggleDarkmode(){
+function toggleDarkmode() {
   if (localStorage.getItem("theme")) {
     if (localStorage.getItem("theme") == "dark") {
       localStorage.setItem("theme", "light");
@@ -79,7 +79,9 @@ function verzweifle() {
         case "darkmode":
           toggleDarkmode();
           break;
-        case "stats":window.location.href = "/stats.html";
+        case "stats":
+        case "users":
+          window.location.href = "/stats.html";
           break;
         case "rainbow":
           let hue = 0;
