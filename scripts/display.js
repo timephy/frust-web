@@ -142,7 +142,7 @@ function displayToast(string, effectClass) {
 function step(timestamp) {
   window.requestAnimationFrame(step);
   if (tfrag.childElementCount > 1)
-    console.log("saved "+tfrag.childElementCount-1+" reflows")
+    console.log("saved " + (tfrag.childElementCount - 1).toString() + " reflows")
   anker.prepend(tfrag);
   tfrag = document.createDocumentFragment();
 }
