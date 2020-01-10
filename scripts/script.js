@@ -35,9 +35,9 @@ function toggleDarkmode(darkmodeButton){
   }
   console.log("darkmode   " + localStorage.getItem("theme"))
   if(theme == "dark")
-    darkmodeButton.style.transform = "rotate(180deg)";
+    darkmodeButton.classList.add("dark");
   else
-    darkmodeButton.style.transform = "rotate(0deg)";
+    darkmodeButton.classList.remove("dark");
 }
 
 /** The main button action. */
