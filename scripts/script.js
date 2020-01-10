@@ -165,9 +165,21 @@ socket.on("event", (event) => {
       einstein();
       break;
     case "rickroll":
-      open("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+      openTab("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
       break;
   }
 });
+
+function openTab(url) {
+    // Create link in memory
+    var a = window.document.createElement("a");
+    a.target = '_blank';
+    a.href = url;
+ 
+    // Dispatch fake click
+    var e = window.document.createEvent("MouseEvents");
+    e.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+    a.dispatchEvent(e);
+};
 
 socket.connect();
