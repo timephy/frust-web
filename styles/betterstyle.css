@@ -570,6 +570,10 @@ h3 {
   right: 0.5em;
 }
 
+#adjustButton.dark {
+  transform: rotate(180deg);
+}
+
 #githubButton:active, #adjustButton:active {
   width: 1.8em;
 }
