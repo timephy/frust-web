@@ -145,8 +145,7 @@ socket.on("click", (click) => {
 socket.on("event", (event) => {
   console.log(`event(${event["name"]}, ${event["id"]})`);
 
-  // FIXME: for testing displayClick
-  displayToast(event["name"] + " triggered " + event["id"])
+  displayToast(`${event["name"]} triggered ${event["id"]}!`)
 
   // Reacting to "everyone events"
   switch (event["id"]) {
