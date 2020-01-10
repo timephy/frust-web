@@ -107,6 +107,7 @@ function incrementStats() {
   currentStats["day"]++;
 }
 
+/** Display a popup. */
 function popup(text, cssClass) {
   const pop = document.createElement("div")
   if (!cssClass)
@@ -119,6 +120,7 @@ function popup(text, cssClass) {
   destroyDelay(pop, 5000);
 }
 
+/** Fireworks effect. */
 function fireworks() {
   const pyro = document.createElement("div")
   pyro.className = "pyro";
@@ -127,6 +129,7 @@ function fireworks() {
   destroyDelay(pyro, 5000);
 }
 
+/** Einstein effect. */
 function einstein() {
   var einstein = document.createElement("img")
   einstein.className = "einstein"
@@ -144,7 +147,7 @@ function displayRandomButtonLabel() {
     possibleButtonLabels[Math.floor(Math.random() * possibleButtonLabels.length)];
 }
 
-// Clicks
+/** Toggle comment field. */
 function openComment(commentButton) {
   if (commentInput.classList.contains("hide")) {
     commentButton.classList.remove("hide")
