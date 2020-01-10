@@ -31,24 +31,83 @@ var currentUsers = 0;
 
 var tfrag = document.createDocumentFragment();
 
-function displayStats(total, day) {
-  leftDisp.innerText = "gesamt\n" + currentStats["total"] + "\nonline\n" + currentUsers;
-  rightDisp.innerText = "heute\n" + currentStats["day"] + "\nsitzung\n" + sessionClicks;
+class StatsDisplay {
+  constructor(leftDisp, rightDisp) {
+    this.leftDisp = leftDisp;
+    this.rightDisp = rightDisp;
+  }
 
+  updateLeftDisplay() {
+    this.leftDisp.innerHTML = `gesamt<br>${this.total}<br>online<br>${this.online}`;
+  }
 
-  if (total % 10000 == 0) {
-    popup("+10.000")
-  } else if (total % 1000 == 0) {
-    popup("+1.000")
+  updateRightDisplay() {
+    this.rightDisp.innerHTML = `heute<br>${this.day}<br>session<br>${this.session}`;
+  }
+
+  // total
+  get total() {
+    return this._total || 0;
+  }
+  set total(value) {
+    this._total = value;
+    this.updateLeftDisplay();
+
+    if (value % 10000 == 0) {
+      popup("+10.000")
+    } else if (value % 1000 == 0) {
+      popup("+1.000")
+    }
+  }
+
+  // day
+  get day() {
+    return this._today || 0;
+  }
+  set day(value) {
+    this._today = value;
+    this.updateRightDisplay();
+  }
+
+  // session
+  get session() {
+    return this._session || 0;
+  }
+  set session(value) {
+    this._session = value;
+    this.updateRightDisplay();
+  }
+
+  // online
+  get online() {
+    return this._online || 0;
+  }
+  set online(value) {
+    this._online = value;
+    this.updateLeftDisplay();
   }
 }
 
-function displayOnlineUsers(num) {
-  currentUsers = num;
-  leftDisp.innerText = "gesamt\n" + currentStats["total"] + "\nonline\n" + currentUsers;
-  rightDisp.innerText = "heute\n" + currentStats["day"] + "\nsitzung\n" + sessionClicks;
-  //usersDisp.innerText = "online\n" + num;
-}
+const statsDisplay = new StatsDisplay(leftDisp, rightDisp)
+
+// function displayStats(total, day) {
+//   leftDisp.innerText = "gesamt\n" + currentStats["total"] + "\nonline\n" + currentUsers;
+//   rightDisp.innerText = "heute\n" + currentStats["day"] + "\nsitzung\n" + sessionClicks;
+
+
+//   if (total % 10000 == 0) {
+//     popup("+10.000")
+//   } else if (total % 1000 == 0) {
+//     popup("+1.000")
+//   }
+// }
+
+// function displayOnlineUsers(num) {
+//   currentUsers = num;
+//   leftDisp.innerText = "gesamt\n" + currentStats["total"] + "\nonline\n" + currentUsers;
+//   rightDisp.innerText = "heute\n" + currentStats["day"] + "\nsitzung\n" + sessionClicks;
+//   //usersDisp.innerText = "online\n" + num;
+// }
 
 // Utils
 
@@ -145,7 +204,7 @@ function displayToast(string, effectClass) {
 
 function step(timestamp) {
   window.requestAnimationFrame(step);
-  if(tfrag.childElementCount>0)
+  if (tfrag.childElementCount > 0)
     console.log(tfrag.childElementCount)
   anker.prepend(tfrag);
   tfrag = document.createDocumentFragment();

@@ -14,13 +14,13 @@ const socket = io({
 });
 
 // Stats
-var currentStats = {
-  "total": 0,
-  "day": 0
-};
-var sessionClicks = 0;
+// var currentStats = {
+//   "total": 0,
+//   "day": 0
+// };
+// var sessionClicks = 0;
 
-function toggleDarkmode(darkmodeButton){
+function toggleDarkmode(darkmodeButton) {
   if (localStorage.getItem("theme")) {
     if (localStorage.getItem("theme") == "dark") {
       localStorage.setItem("theme", "light");
@@ -34,7 +34,7 @@ function toggleDarkmode(darkmodeButton){
     document.documentElement.setAttribute("data-theme", "dark");
   }
   console.log("darkmode   " + localStorage.getItem("theme"))
-  if(theme == "dark")
+  if (theme == "dark")
     darkmodeButton.style.transform = "rotate(180deg)";
   else
     darkmodeButton.style.transform = "rotate(0deg)";
@@ -84,6 +84,7 @@ function verzweifle() {
           toggleDarkmode();
           break;
         case "rainbow":
+          console.log("-> rainbow")
           let hue = 0;
           let tmpColor = document.documentElement.style.getProperty('--font-color');
           const intervalId = setInterval(() => {
@@ -108,6 +109,8 @@ function verzweifle() {
     }
     commentInput.value = "";
   } else { // Click
+    statsDisplay.session++;
+    // sessionClicks++;
     socket.emit("click", {
       "name": name,
       "comment": comment,
@@ -117,7 +120,6 @@ function verzweifle() {
 
   // Purely Visual
   // Display creative and original message
-  sessionClicks++;
   randomButtonLabel();
   displayRing();
 }
@@ -126,21 +128,26 @@ function verzweifle() {
 // Socket.io
 socket.on("stats", (stats) => {
   console.log(`stats(${stats["total"]}, ${stats["day"]})`);
-  currentStats = stats;
-  displayStats(currentStats["total"], currentStats["day"]);
+  statsDisplay.total = stats["total"];
+  statsDisplay.day = stats["day"];
+  // currentStats = stats;
+  // displayStats(currentStats["total"], currentStats["day"]);
 });
 
 socket.on("users", (users) => {
   console.log(`users(${users["count"]})`);
-  displayOnlineUsers(users["count"]);
+  statsDisplay.online = users["count"];
+  // displayOnlineUsers(users["count"]);
 });
 
 socket.on("click", (click) => {
   console.log(`click(${click["name"]}, ${click["comment"]}, ${click["style"]})`);
 
-  displayClick(click["name"], click["comment"], click["style"])
-  incrementStats();
-  displayStats(currentStats["total"], currentStats["day"]);
+  displayClick(click["name"], click["comment"], click["style"]);
+  statsDisplay.total++;
+  statsDisplay.day++;
+  // incrementStats();
+  // displayStats(currentStats["total"], currentStats["day"]);
 });
 
 socket.on("event", (event) => {
