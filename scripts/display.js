@@ -102,11 +102,6 @@ const statsDisplay = new StatsDisplay(leftDisp, rightDisp)
 
 // Utils
 
-function incrementStats() {
-  currentStats["total"]++;
-  currentStats["day"]++;
-}
-
 /** Display a popup. */
 function popup(text, cssClass) {
   const pop = document.createElement("div")
