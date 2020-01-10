@@ -90,25 +90,6 @@ class StatsDisplay {
 
 const statsDisplay = new StatsDisplay(leftDisp, rightDisp)
 
-// function displayStats(total, day) {
-//   leftDisp.innerText = "gesamt\n" + currentStats["total"] + "\nonline\n" + currentUsers;
-//   rightDisp.innerText = "heute\n" + currentStats["day"] + "\nsitzung\n" + sessionClicks;
-
-
-//   if (total % 10000 == 0) {
-//     popup("+10.000")
-//   } else if (total % 1000 == 0) {
-//     popup("+1.000")
-//   }
-// }
-
-// function displayOnlineUsers(num) {
-//   currentUsers = num;
-//   leftDisp.innerText = "gesamt\n" + currentStats["total"] + "\nonline\n" + currentUsers;
-//   rightDisp.innerText = "heute\n" + currentStats["day"] + "\nsitzung\n" + sessionClicks;
-//   //usersDisp.innerText = "online\n" + num;
-// }
-
 // Utils
 
 function incrementStats() {

@@ -13,12 +13,6 @@ const socket = io({
   path: "/api/socket.io"
 });
 
-// Stats
-// var currentStats = {
-//   "total": 0,
-//   "day": 0
-// };
-// var sessionClicks = 0;
 
 function toggleDarkmode(darkmodeButton) {
   if (localStorage.getItem("theme")) {
@@ -110,7 +104,6 @@ function verzweifle() {
     commentInput.value = "";
   } else { // Click
     statsDisplay.session++;
-    // sessionClicks++;
     socket.emit("click", {
       "name": name,
       "comment": comment,
@@ -130,8 +123,6 @@ socket.on("stats", (stats) => {
   console.log(`stats(${stats["total"]}, ${stats["day"]})`);
   statsDisplay.total = stats["total"];
   statsDisplay.day = stats["day"];
-  // currentStats = stats;
-  // displayStats(currentStats["total"], currentStats["day"]);
 });
 
 socket.on("users", (users) => {
@@ -146,8 +137,6 @@ socket.on("click", (click) => {
   displayClick(click["name"], click["comment"], click["style"]);
   statsDisplay.total++;
   statsDisplay.day++;
-  // incrementStats();
-  // displayStats(currentStats["total"], currentStats["day"]);
 });
 
 socket.on("event", (event) => {
