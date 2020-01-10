@@ -559,7 +559,6 @@ h3 {
   background: transparent;
   border: none !important;
   outline: none;
-  transform: rotate(0deg);
   -webkit-transition: 250ms ease;
   -moz-transition: 250ms ease;
   -o-transition: 250ms ease;
@@ -569,10 +568,6 @@ h3 {
 #adjustButton {
   left: auto;
   right: 0.5em;
-}
-
-#adjustButton.dark {
-  transform: rotate(180deg);
 }
 
 #githubButton:active, #adjustButton:active {
