@@ -20,7 +20,7 @@ var currentStats = {
 };
 var sessionClicks = 0;
 
-function toggleDarkmode(){
+function toggleDarkmode(darkmodeButton){
   if (localStorage.getItem("theme")) {
     if (localStorage.getItem("theme") == "dark") {
       localStorage.setItem("theme", "light");
@@ -34,6 +34,10 @@ function toggleDarkmode(){
     document.documentElement.setAttribute("data-theme", "dark");
   }
   console.log("darkmode   " + localStorage.getItem("theme"))
+  if(theme == "dark")
+    darkmodeButton.style.transform = "rotate(180deg)";
+  else
+    darkmodeButton.style.transform = "rotate(0deg)";
 }
 
 /** The main button action. */
