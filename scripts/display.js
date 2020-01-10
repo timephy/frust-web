@@ -8,6 +8,7 @@ const rightDisp = document.getElementById("rightDisp");
 const leftDisp = document.getElementById("leftDisp");
 const usersDisp = document.getElementById("stats");
 
+/** The possible label alternatives for the main button. */
 const possibleButtonLabels = [
   "Exmatrikulation",
   "GOP",
@@ -24,6 +25,7 @@ const possibleButtonLabels = [
   "?????"
 ];
 
+/** The message displayed by "help" command. */
 const HELP_MESSAGE = [
   "Click colors:",
   "    " + ["green", "purple", "blue", "yellow", "black", "white"].join(", "),
@@ -41,6 +43,7 @@ var toastType = "toast";
 
 var tfrag = document.createDocumentFragment();
 
+/** A helper class to manage and update current stats. */
 class StatsDisplay {
   constructor(leftDisp, rightDisp) {
     this.leftDisp = leftDisp;
