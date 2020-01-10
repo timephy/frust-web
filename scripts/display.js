@@ -31,7 +31,7 @@ var toastType = "toast";
 
 var tfrag = document.createDocumentFragment();
 
-function displayStats(total, day) {
+function displayStats() {
   total.innerText = currentStats["total"];
   today.innerText = currentStats["day"];
   session.innerText = sessionClicks;
@@ -141,8 +141,8 @@ function displayToast(string, effectClass) {
 
 function step(timestamp) {
   window.requestAnimationFrame(step);
-  if (tfrag.childElementCount > 0)
-    console.log(tfrag.childElementCount)
+  if (tfrag.childElementCount > 1)
+    console.log("saved "+tfrag.childElementCount-1+" reflows")
   anker.prepend(tfrag);
   tfrag = document.createDocumentFragment();
 }

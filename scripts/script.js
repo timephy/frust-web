@@ -126,7 +126,7 @@ function verzweifle() {
 socket.on("stats", (stats) => {
   console.log(`stats(${stats["total"]}, ${stats["day"]})`);
   currentStats = stats;
-  displayStats(currentStats["total"], currentStats["day"]);
+  displayStats();
 });
 
 socket.on("users", (users) => {
@@ -139,7 +139,7 @@ socket.on("click", (click) => {
 
   displayClick(click["name"], click["comment"], click["style"])
   incrementStats();
-  displayStats(currentStats["total"], currentStats["day"]);
+  displayStats();
 });
 
 socket.on("event", (event) => {
