@@ -42,7 +42,7 @@ class StatsDisplay {
   }
 
   updateRightDisplay() {
-    this.rightDisp.innerHTML = `heute<br>${this.day}<br>session<br>${this.session}`;
+    this.rightDisp.innerHTML = `heute<br>${this.day}<br>sitzung<br>${this.session}`;
   }
 
   // total
