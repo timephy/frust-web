@@ -106,13 +106,15 @@ function openComment(commentButton) {
     //nameInput.focus()
   }
 }
+
 /** Displays the buttom click animation. */
+var ringBase;
+ringBase = document.createElement("div");
+ringBase.className = "ring";
+
 function displayRing() {
-  const ring = document.createElement("div");
-  ring.className = "ring";
+  const ring = ringBase.cloneNode(true);
   button.parentElement.appendChild(ring);
-  window.getComputedStyle(ring).opacity;
-  ring.classList.add("show");
   destroyDelay(ring, 700);
 }
 
@@ -141,8 +143,6 @@ function displayToast(string, effectClass) {
 
 function step(timestamp) {
   window.requestAnimationFrame(step);
-  if (tfrag.childElementCount > 1)
-    console.log("saved " + (tfrag.childElementCount - 1).toString() + " reflows")
   anker.prepend(tfrag);
   tfrag = document.createDocumentFragment();
 }

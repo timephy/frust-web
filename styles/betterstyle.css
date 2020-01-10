@@ -492,6 +492,8 @@ td{
   color: var(--primary-color);
 }
 
+
+
 .ring:before, .ring:after, .ringStart:after, .ringStart:before {
   pointer-events: none;
   content: '';
@@ -499,17 +501,40 @@ td{
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border: 0.2em solid var(--primary-color);
+  border: 0.2em solid var(--primary-color, red);
   left: -0.1em;
   top: -0.1em;
   opacity: 1;
-  filter: blur(0);
   transform: scale(0.8);
   z-index: -1;
-  -webkit-transition: 700ms transform ease, 200ms blur ease, 700ms opacity ease;
-  -moz-transition: 700ms transform ease, 200ms blur ease, 700ms opacity ease;
-  -o-transition: 700ms transform ease, 200ms blur ease, 700ms opacity ease;
-  transition: 700ms transform ease, 200ms blur ease, 700ms opacity ease;
+}
+
+@keyframes ringAnim {
+  0% {
+    opacity: 1;
+    transform: scale(0.8);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(2.5);
+  }
+}
+
+.ring:before {
+  opacity: 0;
+  -webkit-animation: 0.7s ease-out 0s 1 ringAnim;
+  -moz-animation: 0.7s ease-out 0s 1 ringAnim;
+  -o-animation: 0.7s ease-out 0s 1 ringAnim;
+  animation: 0.7s ease-out 0s 1 ringAnim;
+}
+
+.ring:after {
+  opacity: 0;
+  -webkit-animation: 0.7s ease-out 0.1s 1 ringAnim;
+  -moz-animation: 0.7s ease-out 0.1s 1 ringAnim;
+  -o-animation: 0.7s ease-out 0.1s 1 ringAnim;
+  animation: 0.7s ease-out 0.1s 1 ringAnim;
 }
 
 .ring:after, .ringStart:after {
@@ -519,27 +544,19 @@ td{
   transition-delay: 100ms;
 }
 
-.ring.show:before, .ring.show:after {
-  opacity: 0;
-  transform: scale(2.5);
-}
-
 @keyframes ringStartAnim {
   0% {
-    filter: blur(0);
     opacity: 1;
     transform: scale(0.8);
   }
 
   100% {
-    filter: blur(0.1em);
     opacity: 0;
     transform: scale(1.5);
   }
 }
 
 .ringStart:before {
-  filter: blur(0.1em);
   opacity: 0;
   -webkit-animation: 1.5s ease-out 0s 1 ringStartAnim;
   -moz-animation: 1.5s ease-out 0s 1 ringStartAnim;
@@ -579,6 +596,19 @@ td{
   width: 1.3em;
 }
 
+
+@keyframes ringAnimDesktop {
+  0% {
+    opacity: 1;
+    transform: scale(0.8);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
 @media(min-width: 1000px) {
   .statsCont {
     padding-left: 10vmin;
@@ -602,8 +632,20 @@ td{
     font-size: 4vmin;
   }
 
-  .ring.show:before, .ring.show:after, .ringStart:before, .ringStart:after {
-    transform: scale(1.5);
+  .ring:before {
+    opacity: 0;
+    -webkit-animation: 0.7s ease-out 0s 1 ringAnimDesktop;
+    -moz-animation: 0.7s ease-out 0s 1 ringAnimDesktop;
+    -o-animation: 0.7s ease-out 0s 1 ringAnimDesktop;
+    animation: 0.7s ease-out 0s 1 ringAnimDesktop;
+  }
+
+  .ring:after {
+    opacity: 0;
+    -webkit-animation: 0.7s ease-out 0.1s 1 ringAnimDesktop;
+    -moz-animation: 0.7s ease-out 0.1s 1 ringAnimDesktop;
+    -o-animation: 0.7s ease-out 0.1s 1 ringAnimDesktop;
+    animation: 0.7s ease-out 0.1s 1 ringAnimDesktop;
   }
 }
 
