@@ -20,7 +20,7 @@ var currentStats = {
 };
 var sessionClicks = 0;
 
-function toggleDarkmode(darkmodeButton){
+function toggleDarkmode(){
   if (localStorage.getItem("theme")) {
     if (localStorage.getItem("theme") == "dark") {
       localStorage.setItem("theme", "light");
@@ -34,10 +34,6 @@ function toggleDarkmode(darkmodeButton){
     document.documentElement.setAttribute("data-theme", "dark");
   }
   console.log("darkmode   " + localStorage.getItem("theme"))
-  if(theme == "dark")
-    darkmodeButton.classList.add("dark");
-  else
-    darkmodeButton.classList.remove("dark");
 }
 
 /** The main button action. */
@@ -85,7 +81,7 @@ function verzweifle() {
           break;
         case "rainbow":
           let hue = 0;
-          let tmpColor = document.documentElement.style.getProperty('--font-color');
+          let tmpColor = getComputedStyle(document.documentElement).getPropertyValue('--font-color');
           const intervalId = setInterval(() => {
             hue++;
             hue = hue % 360;
