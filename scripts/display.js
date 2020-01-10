@@ -139,8 +139,8 @@ function einstein() {
 }
 
 /** Returns a randomized button label. */
-function randomButtonLabel() {
-  return Math.random() < 0.9 ?
+function displayRandomButtonLabel() {
+  button.innerText = Math.random() < 0.9 ?
     "ich verzweifle" :
     possibleButtonLabels[Math.floor(Math.random() * possibleButtonLabels.length)];
 }

@@ -104,6 +104,7 @@ function verzweifle() {
           break;
       }
     }
+    // remove comment to "hide command"
     commentInput.value = "";
   } else { // Click
     statsDisplay.session++;
@@ -116,7 +117,7 @@ function verzweifle() {
 
   // Purely Visual
   // Display creative and original message
-  randomButtonLabel();
+  displayRandomButtonLabel();
   displayRing();
 }
 
