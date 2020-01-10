@@ -55,6 +55,7 @@ function verzweifle() {
 
   if (comment.startsWith("/")) { // Command
     command = comment.substring(1);
+    console.log(`command: "${command}"`)
 
     if (["green", "purple", "blue", "yellow", "black", "white"].includes(command)) {
       // Color
@@ -94,6 +95,9 @@ function verzweifle() {
         case "clear":
           storage.color = ""
           storage.underlineType = ""
+          break;
+        case "help":
+          alert(HELP_MESSAGE)
           break;
         default:
           // No command matched

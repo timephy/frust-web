@@ -24,6 +24,17 @@ const possibleButtonLabels = [
   "?????"
 ];
 
+const HELP_MESSAGE = [
+  "Click colors:",
+  "    " + ["green", "purple", "blue", "yellow", "black", "white"].join(", "),
+  "Click lines:",
+  "    " + ["small", "big", "dotted", "dashed"].join(", "),
+  "Events:",
+  "    " + ["fuck", "einstein", "satan", "666", "pride", "fireworks", "rainbow"].join(", "),
+  "Manage:",
+  "    " + ["vibrate", "darkmode", "clear"].join(", ")
+].join("\n")
+
 /** effect variables */
 var resetableTimers = {};
 var toastType = "toast";
