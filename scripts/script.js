@@ -132,7 +132,6 @@ socket.on("stats", (stats) => {
 socket.on("users", (users) => {
   console.log(`users(${users["count"]})`);
   statsDisplay.online = users["count"];
-  // displayOnlineUsers(users["count"]);
 });
 
 socket.on("click", (click) => {
