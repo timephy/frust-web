@@ -4,9 +4,10 @@ const wrapper = document.getElementById("wrapper");
 const panker = document.getElementById("popupAnker");
 const nameInput = document.getElementById("nameInput");
 const commentInput = document.getElementById("commentInput");
-const rightDisp = document.getElementById("rightDisp");
-const leftDisp = document.getElementById("leftDisp");
-const usersDisp = document.getElementById("stats");
+const today = document.getElementById("today");
+const online = document.getElementById("online");
+const session = document.getElementById("session");
+const total = document.getElementById("total");
 
 const possibleButtonLabels = [
   "Exmatrikulation",
@@ -27,14 +28,13 @@ const possibleButtonLabels = [
 /** effect variables */
 var resetableTimers = {};
 var toastType = "toast";
-var currentUsers = 0;
 
 var tfrag = document.createDocumentFragment();
 
 function displayStats(total, day) {
-  leftDisp.innerText = "gesamt\n" + currentStats["total"] + "\nonline\n" + currentUsers;
-  rightDisp.innerText = "heute\n" + currentStats["day"] + "\nsitzung\n" + sessionClicks;
-
+  total.innerText = currentStats["total"];
+  today.innerText = currentStats["day"];
+  session.innerText = sessionClicks;
 
   if (total % 10000 == 0) {
     popup("+10.000")
@@ -44,14 +44,10 @@ function displayStats(total, day) {
 }
 
 function displayOnlineUsers(num) {
-  currentUsers = num;
-  leftDisp.innerText = "gesamt\n" + currentStats["total"] + "\nonline\n" + currentUsers;
-  rightDisp.innerText = "heute\n" + currentStats["day"] + "\nsitzung\n" + sessionClicks;
-  //usersDisp.innerText = "online\n" + num;
+  online.innerText = num;
 }
 
 // Utils
-
 function incrementStats() {
   currentStats["total"]++;
   currentStats["day"]++;
@@ -145,7 +141,7 @@ function displayToast(string, effectClass) {
 
 function step(timestamp) {
   window.requestAnimationFrame(step);
-  if(tfrag.childElementCount>0)
+  if (tfrag.childElementCount > 0)
     console.log(tfrag.childElementCount)
   anker.prepend(tfrag);
   tfrag = document.createDocumentFragment();
