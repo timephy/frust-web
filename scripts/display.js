@@ -38,7 +38,6 @@ const HELP_MESSAGE = [
 /** effect variables */
 var resetableTimers = {};
 var toastType = "toast";
-var currentUsers = 0;
 
 var tfrag = document.createDocumentFragment();
 
