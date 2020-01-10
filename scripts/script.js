@@ -79,6 +79,8 @@ function verzweifle() {
         case "darkmode":
           toggleDarkmode();
           break;
+        case "stats":window.location.href = "/stats.html";
+          break;
         case "rainbow":
           let hue = 0;
           const intervalId = setInterval(() => {
