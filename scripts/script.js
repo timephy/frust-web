@@ -81,7 +81,6 @@ function verzweifle() {
           break;
         case "rainbow":
           let hue = 0;
-          let tmpColor = getComputedStyle(document.documentElement).getPropertyValue('--font-color');
           const intervalId = setInterval(() => {
             hue++;
             hue = hue % 360;
@@ -89,7 +88,7 @@ function verzweifle() {
           }, 16);
           setTimeout(() => {
             clearInterval(intervalId);
-            document.documentElement.style.setProperty('--font-color', tmpColor);
+            document.documentElement.style.removeProperty('--font-color');
           }, 10000);
           break;
         case "clear":
