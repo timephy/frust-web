@@ -37,9 +37,8 @@ function toggleDarkmode(darkmodeButton) {
 /** The main button action. */
 function verzweifle() {
 
-  if (navigator.vibrate && storage.vibration) { // vibration API supported
+  if (navigator.vibrate && storage.vibration) // vibration API supported
     navigator.vibrate(100);
-  }
 
   // Inputs
   let sanitizedName = sanitizeInput(nameInput.value);
