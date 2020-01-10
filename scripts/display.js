@@ -29,6 +29,8 @@ var resetableTimers = {};
 var toastType = "toast";
 var currentUsers = 0;
 
+var tfrag = document.createDocumentFragment();
+
 function displayStats(total, day) {
   leftDisp.innerText = "gesamt\n" + currentStats["total"] + "\nonline\n" + currentUsers;
   rightDisp.innerText = "heute\n" + currentStats["day"] + "\nsitzung\n" + sessionClicks;
@@ -43,8 +45,8 @@ function displayStats(total, day) {
 
 function displayOnlineUsers(num) {
   currentUsers = num;
-    leftDisp.innerText = "gesamt\n" + currentStats["total"] + "\nonline\n" + currentUsers;
-    rightDisp.innerText = "heute\n" + currentStats["day"] + "\nsitzung\n" + sessionClicks;
+  leftDisp.innerText = "gesamt\n" + currentStats["total"] + "\nonline\n" + currentUsers;
+  rightDisp.innerText = "heute\n" + currentStats["day"] + "\nsitzung\n" + sessionClicks;
   //usersDisp.innerText = "online\n" + num;
 }
 
@@ -69,14 +71,8 @@ function popup(text, cssClass) {
 
 function fireworks() {
   const pyro = document.createElement("div")
-  pyro.className = "pyro"
-  let t = document.createElement("div")
-  t.className = "before";
-  pyro.appendChild(t)
-  t = document.createElement("div")
-  t.className = "after"
-  pyro.appendChild(t)
-
+  pyro.className = "pyro";
+  pyro.innerHTML = '<div class="before"></div> <div class="after"></div>';
   panker.appendChild(pyro);
   destroyDelay(pyro, 5000);
 }
@@ -141,8 +137,17 @@ function displayToast(string, effectClass) {
 
   const toast = document.createElement("div")
   toast.className = [toastType, effectClass].join(" ");
-  toast.appendChild(document.createTextNode(string));
-  anker.prepend(toast);
+  toast.innerText = string;
+  tfrag.prepend(toast);
   hideDelay(toast, 2500);
   destroyDelay(toast, 3000);
 }
+
+function step(timestamp) {
+  window.requestAnimationFrame(step);
+  if(tfrag.childElementCount>0)
+    console.log(tfrag.childElementCount)
+  anker.prepend(tfrag);
+  tfrag = document.createDocumentFragment();
+}
+window.requestAnimationFrame(step);

@@ -329,8 +329,8 @@ h3 {
 
 @media (hover: hover) {
   .hoverline:hover:before, .hoverline:hover:after {
-    width: 100%;
     opacity: 1;
+    width: 100%;
   }
 
   #commentButton.hide:hover {
@@ -338,8 +338,8 @@ h3 {
   }
 
   .bigButton:hover {
-    transform: scale(1.02);
     box-shadow: var(--thick-material-shadow);
+    transform: scale(1.02);
   }
 
   .nameInput:hover {
@@ -356,7 +356,7 @@ h3 {
 }
 
 .hoverline.hide:before, .hoverline.hide:after {
-  width: 0px;
+  width: 0;
 }
 
 /*big button stuff*/
@@ -379,7 +379,7 @@ h3 {
   -moz-animation: 0.5s ease buttonStart;
   -o-animation: 0.5s ease buttonStart;
   animation: 0.5s ease buttonStart;
-  padding: 0px;
+  padding: 0;
   font-size: 7vmin;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
   letter-spacing: 0.1em;
@@ -391,7 +391,9 @@ h3 {
   border: none;
   border-radius: 50%;
   outline: none;
-  background-color: var(--primary-color);
+  background-color: #B71C1C;
+  background-image: -moz-linear-gradient(-45deg, var(--dark-red), var(--primary-color));
+  background-image: -o-linear-gradient(-45deg, var(--dark-red), var(--primary-color));
   background-image: -webkit-linear-gradient(-45deg, var(--dark-red), var(--primary-color));
   background-image: linear-gradient(-45deg, var(--dark-red), var(--primary-color));
   color: white;
@@ -404,29 +406,29 @@ h3 {
 }
 
 .bigButton:focus {
-  transform: scale(1.02);
   box-shadow: var(--thick-material-shadow);
+  transform: scale(1.02);
 }
 
 .bigButton:active {
-  transform: scale(0.98);
   box-shadow: var(--thin-material-shadow);
+  transform: scale(0.98);
 }
 
 .elmo {
   background-image: url('/images/elmo.jpg');
-  height: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  height: 100%;
 }
 
 .teemo {
   background-image: url('/images/teemo.jpg');
-  height: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  height: 100%;
 }
 
 @keyframes popupAnim {
@@ -456,7 +458,7 @@ h3 {
 
 #popupAnker {
   position: fixed;
-  top: 0%;
+  top: 0;
   left: 50%;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -489,8 +491,6 @@ h3 {
   pointer-events: none;
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   border-radius: 50%;
@@ -521,15 +521,15 @@ h3 {
 
 @keyframes ringStartAnim {
   0% {
-    transform: scale(0.8);
-    opacity: 1;
     filter: blur(0);
+    opacity: 1;
+    transform: scale(0.8);
   }
 
   100% {
-    transform: scale(1.5);
-    opacity: 0;
     filter: blur(0.1em);
+    opacity: 0;
+    transform: scale(1.5);
   }
 }
 
@@ -556,14 +556,13 @@ h3 {
   bottom: 0.5em;
   width: 2em;
   height: auto;
-    background: transparent;
-    border: none !important;
-    outline: none;
-
-  -webkit-transition:  250ms ease;
-  -moz-transition:  250ms ease;
-  -o-transition:  250ms ease;
-  transition:  250ms ease;
+  background: transparent;
+  border: none !important;
+  outline: none;
+  -webkit-transition: 250ms ease;
+  -moz-transition: 250ms ease;
+  -o-transition: 250ms ease;
+  transition: 250ms ease;
 }
 
 #adjustButton {
@@ -589,8 +588,8 @@ h3 {
 
   .mainBtnCont {
     height: 40vmin;
-    max-height: 60vmax-6em;
-    max-width: 60vmax-6em;
+    max-height: 60vmax;
+    max-width: 60vmax;
     width: 40vmin;
   }
 
@@ -1058,18 +1057,6 @@ h3 {
   }
 }
 
-@-ms-keyframes bang {
-  from {
-    box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white;
-  }
-}
-
-@keyframes bang {
-  from {
-    box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white;
-  }
-}
-
 @-webkit-keyframes gravity {
   to {
     transform: translateY(200px);
@@ -1093,17 +1080,6 @@ h3 {
 }
 
 @-o-keyframes gravity {
-  to {
-    transform: translateY(200px);
-    -moz-transform: translateY(200px);
-    -webkit-transform: translateY(200px);
-    -o-transform: translateY(200px);
-    -ms-transform: translateY(200px);
-    opacity: 0;
-  }
-}
-
-@-ms-keyframes gravity {
   to {
     transform: translateY(200px);
     -moz-transform: translateY(200px);
@@ -1180,33 +1156,6 @@ h3 {
 }
 
 @-o-keyframes position {
-  0%, 19.9% {
-    margin-top: 10%;
-    margin-left: 40%;
-  }
-
-  20%, 39.9% {
-    margin-top: 40%;
-    margin-left: 30%;
-  }
-
-  40%, 59.9% {
-    margin-top: 20%;
-    margin-left: 70%;
-  }
-
-  60%, 79.9% {
-    margin-top: 30%;
-    margin-left: 20%;
-  }
-
-  80%, 99.9% {
-    margin-top: 30%;
-    margin-left: 80%;
-  }
-}
-
-@-ms-keyframes position {
   0%, 19.9% {
     margin-top: 10%;
     margin-left: 40%;
