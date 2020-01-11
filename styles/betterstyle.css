@@ -131,11 +131,11 @@ td{
 
 @keyframes toastAnim {
   0% {
-    transform: translateX(-100%);
+    transform: translateY(-100%);
   }
 
   100% {
-    transform: translateX(0);
+    transform: translateY(0);
   }
 }
 
@@ -186,7 +186,7 @@ td{
 }
 
 .toast {
-  will-change: padding, margin, bottom, max-height;
+  will-change: transform;
   -webkit-animation: 0.2s ease-in-out toastAnim;
   -moz-animation: 0.2s ease-in-out toastAnim;
   -o-animation: 0.2s ease-in-out toastAnim;
@@ -218,7 +218,7 @@ td{
   opacity: 0;
   max-height: 0px;
   bottom: 2.4em;**/
-  transform: translateX(100%);
+  transform: translateY(100%);
 }
 
 /*the user name box*/
