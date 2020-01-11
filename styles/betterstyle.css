@@ -131,27 +131,11 @@ td{
 
 @keyframes toastAnim {
   0% {
-    transform: translateY(100%);
+    transform: translateY(200%);
   }
 
   100% {
     transform: translateY(0);
-  }
-}
-
-@keyframes toastAnimOld {
-  0% {
-    padding: 0em;
-    margin: 0em;
-    bottom: -2.4em;
-    max-height: 0em;
-  }
-
-  100% {
-    padding: 0.5em 0em 0.5em 0em;
-    margin: 0.2em;
-    max-height: 4em;
-    bottom: 1em;
   }
 }
 
@@ -271,10 +255,14 @@ td{
   left: 0;
   width: 100%;
   transform-origin: 0% 50%;
-  -webkit-transition: opacity, transform 0.5s ease-in-out;
-  -moz-transition: opacity, transform 0.5s ease-in-out;
-  -o-transition: opacity, transform 0.5s ease-in-out;
-  transition: opacity, transform 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-transition-property: opacity, transform;
+  -moz-transition-property: opacity, transform;
+  -o-transition-property: opacity, transform;
+  transition-property: opacity, transform;
   transform: scaleX(10%);
 }
 
