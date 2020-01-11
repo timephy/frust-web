@@ -275,7 +275,7 @@ td{
   -moz-transition: opacity, transform 0.5s ease-in-out;
   -o-transition: opacity, transform 0.5s ease-in-out;
   transition: opacity, transform 0.5s ease-in-out;
-  
+  transform: scaleX(0);
 }
 
 @keyframes toastUnderlineAnim {
@@ -297,10 +297,16 @@ td{
   animation: 0.5s ease-in-out toastUnderlineAnim;
   bottom: 0;
   opacity: 1;
+  transform: scaleX(100%);
 }
 
 .toast.hide:after, .hoverline:after {
   transform-origin: 100% 50%;
+  transform: scaleX(0);
+}
+
+.hoverline:after {
+  bottom: 0;
 }
 
 .hoverline:focus-within:before, .hoverline:focus-within:after {
