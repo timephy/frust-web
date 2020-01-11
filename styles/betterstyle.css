@@ -275,7 +275,7 @@ td{
   -moz-transition: opacity, transform 0.5s ease-in-out;
   -o-transition: opacity, transform 0.5s ease-in-out;
   transition: opacity, transform 0.5s ease-in-out;
-  transform: scaleX(0);
+  transform: scaleX(10%);
 }
 
 @keyframes toastUnderlineAnim {
