@@ -14,7 +14,7 @@ const socket = io({
 });
 
 
-function toggleDarkmode(darkmodeButton) {
+function toggleDarkmode() {
   if (localStorage.getItem("theme")) {
     if (localStorage.getItem("theme") == "dark") {
       localStorage.setItem("theme", "light");
@@ -28,10 +28,6 @@ function toggleDarkmode(darkmodeButton) {
     document.documentElement.setAttribute("data-theme", "dark");
   }
   console.log("darkmode   " + localStorage.getItem("theme"))
-  if (theme == "dark")
-    darkmodeButton.style.transform = "rotate(180deg)";
-  else
-    darkmodeButton.style.transform = "rotate(0deg)";
 }
 
 /** The main button action. */
@@ -62,7 +58,7 @@ function verzweifle() {
     } else if (["small", "big", "dotted", "dashed"].includes(command)) {
       // Underline, Size
       storage.underlineType = command;
-    } else if (["fuck", "einstein", "satan", "666", "gaypride", "fireworks", "rickroll"].includes(command)) {
+    } else if (["fuck", "einstein", "satan", "666", "pride", "fireworks", "rickroll"].includes(command)) {
       // Global events
       socket.emit("event", {
         "name": name,
@@ -77,10 +73,13 @@ function verzweifle() {
         case "darkmode":
           toggleDarkmode();
           break;
+        case "stats":
+        case "users":
+          window.location.href = "/stats.html";
+          break;
         case "rainbow":
           console.log("-> rainbow")
           let hue = 0;
-          let tmpColor = document.documentElement.style.getProperty('--font-color');
           const intervalId = setInterval(() => {
             hue++;
             hue = hue % 360;
@@ -88,7 +87,7 @@ function verzweifle() {
           }, 16);
           setTimeout(() => {
             clearInterval(intervalId);
-            document.documentElement.style.setProperty('--font-color', tmpColor);
+            document.documentElement.style.removeProperty('--font-color');
           }, 10000);
           break;
         case "clear":
@@ -149,7 +148,7 @@ socket.on("event", (event) => {
 
   // Reacting to "everyone events"
   switch (event["id"]) {
-    case "gaypride":
+    case "pride":
       addTemporaryClass(button, "rainbow", 8000);
       break;
     case "satan":
@@ -168,7 +167,7 @@ socket.on("event", (event) => {
       einstein();
       break;
     case "rickroll":
-      open("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+      window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
       break;
   }
 });

@@ -4,9 +4,10 @@ const wrapper = document.getElementById("wrapper");
 const panker = document.getElementById("popupAnker");
 const nameInput = document.getElementById("nameInput");
 const commentInput = document.getElementById("commentInput");
-const rightDisp = document.getElementById("rightDisp");
-const leftDisp = document.getElementById("leftDisp");
-const usersDisp = document.getElementById("stats");
+const today = document.getElementById("today");
+const online = document.getElementById("online");
+const session = document.getElementById("session");
+const total = document.getElementById("total");
 
 /** The possible label alternatives for the main button. */
 const possibleButtonLabels = [
@@ -43,6 +44,7 @@ var toastType = "toast";
 
 var tfrag = document.createDocumentFragment();
 
+<<<<<<< HEAD
 /** A helper class to manage and update current stats. */
 class StatsDisplay {
   constructor(leftDisp, rightDisp) {
@@ -53,11 +55,18 @@ class StatsDisplay {
   updateLeftDisplay() {
     this.leftDisp.innerHTML = `gesamt<br>${this.total}<br>online<br>${this.online}`;
   }
+=======
+function displayStats() {
+  total.innerText = currentStats["total"];
+  today.innerText = currentStats["day"];
+  session.innerText = sessionClicks;
+>>>>>>> 841b66a8a29b06c5b45ac57cfc126fee5465bcae
 
   updateRightDisplay() {
     this.rightDisp.innerHTML = `heute<br>${this.day}<br>sitzung<br>${this.session}`;
   }
 
+<<<<<<< HEAD
   // total
   get total() {
     return this._total || 0;
@@ -99,6 +108,16 @@ class StatsDisplay {
     this._online = value;
     this.updateLeftDisplay();
   }
+=======
+function displayOnlineUsers(num) {
+  online.innerText = num;
+}
+
+// Utils
+function incrementStats() {
+  currentStats["total"]++;
+  currentStats["day"]++;
+>>>>>>> 841b66a8a29b06c5b45ac57cfc126fee5465bcae
 }
 
 const statsDisplay = new StatsDisplay(leftDisp, rightDisp)
@@ -161,13 +180,15 @@ function openComment(commentButton) {
     //nameInput.focus()
   }
 }
+
 /** Displays the buttom click animation. */
+var ringBase;
+ringBase = document.createElement("div");
+ringBase.className = "ring";
+
 function displayRing() {
-  const ring = document.createElement("div");
-  ring.className = "ring";
+  const ring = ringBase.cloneNode(true);
   button.parentElement.appendChild(ring);
-  window.getComputedStyle(ring).opacity;
-  ring.classList.add("show");
   destroyDelay(ring, 700);
 }
 
@@ -196,8 +217,11 @@ function displayToast(string, effectClass) {
 
 function step(timestamp) {
   window.requestAnimationFrame(step);
+<<<<<<< HEAD
   if (tfrag.childElementCount > 0)
     console.log(tfrag.childElementCount)
+=======
+>>>>>>> 841b66a8a29b06c5b45ac57cfc126fee5465bcae
   anker.prepend(tfrag);
   tfrag = document.createDocumentFragment();
 }

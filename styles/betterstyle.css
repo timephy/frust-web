@@ -36,6 +36,7 @@ body {
 body * {
   font-family: 'Roboto', 'Monserrat', sans-serif;
   font-weight: 300;
+  color: var(--font-color, black);
 }
 
 ::-moz-selection {
@@ -56,10 +57,6 @@ a:visited {
 
 a:active {
   color: var(--primary-color);
-}
-
-li, input, h1, h2, h3, h4, div, textarea {
-  color: var(--font-color);
 }
 
 /*containers*/
@@ -91,7 +88,21 @@ li, input, h1, h2, h3, h4, div, textarea {
   justify-content: space-between;
   align-self: stretch;
   padding-top: 0.2em;
-  margin-bottom: -3.5em;
+    font-size: 1.5em;
+}
+
+h3 {
+  font-size: 1em;
+  margin: 0.2em 1em 0.2em 1em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.24);
+}
+
+table{
+  width: 100%;
+}
+td{
+  font-size: 0.8em;
+  text-align: center;
 }
 
 .mainBtnCont {
@@ -100,15 +111,9 @@ li, input, h1, h2, h3, h4, div, textarea {
   justify-content: center;
   position: relative;
   height: 60vmin;
-  max-height: 80vmax - 6em;
-  max-width: 80vmax - 6em;
+  max-height: 80vmax;
+  max-width: 80vmax;
   width: 60vmin;
-}
-
-h3 {
-  font-size: 1em;
-  margin: 0.2em 1em 0.2em 1em;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.24);
 }
 
 /*toast messages*/
@@ -347,7 +352,7 @@ h3 {
   }
 
   #githubButton:hover, #adjustButton:hover {
-    width: 2.2em;
+    width: 1.7em;
   }
 }
 
@@ -487,6 +492,8 @@ h3 {
   color: var(--primary-color);
 }
 
+
+
 .ring:before, .ring:after, .ringStart:after, .ringStart:before {
   pointer-events: none;
   content: '';
@@ -494,17 +501,40 @@ h3 {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border: 0.2em solid var(--primary-color);
+  border: 0.2em solid var(--primary-color, red);
   left: -0.1em;
   top: -0.1em;
   opacity: 1;
-  filter: blur(0);
   transform: scale(0.8);
   z-index: -1;
-  -webkit-transition: 700ms transform ease, 200ms blur ease, 700ms opacity ease;
-  -moz-transition: 700ms transform ease, 200ms blur ease, 700ms opacity ease;
-  -o-transition: 700ms transform ease, 200ms blur ease, 700ms opacity ease;
-  transition: 700ms transform ease, 200ms blur ease, 700ms opacity ease;
+}
+
+@keyframes ringAnim {
+  0% {
+    opacity: 1;
+    transform: scale(0.8);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(2.5);
+  }
+}
+
+.ring:before {
+  opacity: 0;
+  -webkit-animation: 0.7s ease-out 0s 1 ringAnim;
+  -moz-animation: 0.7s ease-out 0s 1 ringAnim;
+  -o-animation: 0.7s ease-out 0s 1 ringAnim;
+  animation: 0.7s ease-out 0s 1 ringAnim;
+}
+
+.ring:after {
+  opacity: 0;
+  -webkit-animation: 0.7s ease-out 0.1s 1 ringAnim;
+  -moz-animation: 0.7s ease-out 0.1s 1 ringAnim;
+  -o-animation: 0.7s ease-out 0.1s 1 ringAnim;
+  animation: 0.7s ease-out 0.1s 1 ringAnim;
 }
 
 .ring:after, .ringStart:after {
@@ -514,27 +544,19 @@ h3 {
   transition-delay: 100ms;
 }
 
-.ring.show:before, .ring.show:after {
-  opacity: 0;
-  transform: scale(2.5);
-}
-
 @keyframes ringStartAnim {
   0% {
-    filter: blur(0);
     opacity: 1;
     transform: scale(0.8);
   }
 
   100% {
-    filter: blur(0.1em);
     opacity: 0;
     transform: scale(1.5);
   }
 }
 
 .ringStart:before {
-  filter: blur(0.1em);
   opacity: 0;
   -webkit-animation: 1.5s ease-out 0s 1 ringStartAnim;
   -moz-animation: 1.5s ease-out 0s 1 ringStartAnim;
@@ -554,7 +576,7 @@ h3 {
   position: fixed;
   left: 0.5em;
   bottom: 0.5em;
-  width: 2em;
+  width: 1.5em;
   height: auto;
   background: transparent;
   border: none !important;
@@ -571,7 +593,20 @@ h3 {
 }
 
 #githubButton:active, #adjustButton:active {
-  width: 1.8em;
+  width: 1.3em;
+}
+
+
+@keyframes ringAnimDesktop {
+  0% {
+    opacity: 1;
+    transform: scale(0.8);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
 }
 
 @media(min-width: 1000px) {
@@ -597,8 +632,20 @@ h3 {
     font-size: 4vmin;
   }
 
-  .ring.show:before, .ring.show:after, .ringStart:before, .ringStart:after {
-    transform: scale(1.5);
+  .ring:before {
+    opacity: 0;
+    -webkit-animation: 0.7s ease-out 0s 1 ringAnimDesktop;
+    -moz-animation: 0.7s ease-out 0s 1 ringAnimDesktop;
+    -o-animation: 0.7s ease-out 0s 1 ringAnimDesktop;
+    animation: 0.7s ease-out 0s 1 ringAnimDesktop;
+  }
+
+  .ring:after {
+    opacity: 0;
+    -webkit-animation: 0.7s ease-out 0.1s 1 ringAnimDesktop;
+    -moz-animation: 0.7s ease-out 0.1s 1 ringAnimDesktop;
+    -o-animation: 0.7s ease-out 0.1s 1 ringAnimDesktop;
+    animation: 0.7s ease-out 0.1s 1 ringAnimDesktop;
   }
 }
 
