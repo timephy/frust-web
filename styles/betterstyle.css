@@ -131,7 +131,7 @@ td{
 
 @keyframes toastAnim {
   0% {
-    transform: translateY(-100%);
+    transform: translateY(100%);
   }
 
   100% {
@@ -153,36 +153,6 @@ td{
     max-height: 4em;
     bottom: 1em;
   }
-}
-
-.litetoast {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  pointer-events: none;
-  position: relative;
-  width: auto;
-  text-align: center;
-  padding: 0.5em 0em 0.5em 0em;
-  margin: 0.2em;
-  max-height: 4em;
-  bottom: 1em;
-}
-
-.litetoast::after {
-  content: "";
-  position: absolute;
-  background-color: var(--primary-color);
-  height: 0.2em;
-  width: 100%;
-  left: 0;
-  bottom: 0;
-}
-
-.litetoast.hide {
-  max-height: 0px;
-  bottom: 2.4em;
 }
 
 .toast {
@@ -218,7 +188,7 @@ td{
   opacity: 0;
   max-height: 0px;
   bottom: 2.4em;**/
-  transform: translateY(100%);
+  transform: translateY(-100%);
 }
 
 /*the user name box*/
@@ -294,25 +264,28 @@ td{
 .hoverline:before, .hoverline:after, .toast:after {
   content: "";
   position: absolute;
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
   opacity: 0.2;
+  will-change: opacity, transform;
   background-color: var(--primary-color);
   height: 0.2em;
-  width: 0px;
-  /*box-shadow: var(--thin-material-shadow);*/
+  left: 0;
+  width: 100%;
+  transform-origin: 0% 50%;
+  -webkit-transition: opacity, transform 0.5s ease-in-out;
+  -moz-transition: opacity, transform 0.5s ease-in-out;
+  -o-transition: opacity, transform 0.5s ease-in-out;
+  transition: opacity, transform 0.5s ease-in-out;
+  
 }
 
 @keyframes toastUnderlineAnim {
   0% {
-    width: 0px;
+    transform: scaleX(0);
     opacity: 0.2;
   }
 
   100% {
-    width: 100%;
+    transform: scaleX(100%);
     opacity: 1;
   }
 }
@@ -322,32 +295,23 @@ td{
   -moz-animation: 0.5s ease-in-out toastUnderlineAnim;
   -o-animation: 0.5s ease-in-out toastUnderlineAnim;
   animation: 0.5s ease-in-out toastUnderlineAnim;
-  left: 0;
   bottom: 0;
-  width: 100%;
   opacity: 1;
 }
 
-.toast.hide:after {
-  width: 0px;
-  right: 0;
-  left: auto;
-}
-
-.hoverline:after {
-  right: 0;
-  bottom: 0;
+.toast.hide:after, .hoverline:after {
+  transform-origin: 100% 50%;
 }
 
 .hoverline:focus-within:before, .hoverline:focus-within:after {
-  width: 100%;
+  transform: scaleX(100%);
   opacity: 1;
 }
 
 @media (hover: hover) {
   .hoverline:hover:before, .hoverline:hover:after {
-    opacity: 1;
-    width: 100%;
+    opacity: 0.5;
+    transform: scaleX(100%);
   }
 
   #commentButton.hide:hover {
@@ -373,7 +337,7 @@ td{
 }
 
 .hoverline.hide:before, .hoverline.hide:after {
-  width: 0;
+  transform: scaleX(0);
 }
 
 /*big button stuff*/
@@ -507,6 +471,7 @@ td{
 
 
 .ring:before, .ring:after, .ringStart:after, .ringStart:before {
+  will-change: transform;
   pointer-events: none;
   content: '';
   position: absolute;
