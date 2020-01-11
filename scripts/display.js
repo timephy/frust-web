@@ -46,26 +46,13 @@ var tfrag = document.createDocumentFragment();
 
 /** A helper class to manage and update current stats. */
 class StatsDisplay {
-  constructor(leftDisp, rightDisp) {
-    this.leftDisp = leftDisp;
-    this.rightDisp = rightDisp;
-  }
-
-  updateLeftDisplay() {
-    this.leftDisp.innerHTML = `gesamt<br>${this.total}<br>online<br>${this.online}`;
-  }
-
-  updateRightDisplay() {
-    this.rightDisp.innerHTML = `heute<br>${this.day}<br>sitzung<br>${this.session}`;
-  }
-
   // total
   get total() {
     return this._total || 0;
   }
   set total(value) {
     this._total = value;
-    this.updateLeftDisplay();
+    total.innerHTML = this.total;
 
     if (value % 10000 == 0) {
       popup("+10.000")
@@ -80,7 +67,7 @@ class StatsDisplay {
   }
   set day(value) {
     this._today = value;
-    this.updateRightDisplay();
+    today.innerHTML = this.day;
   }
 
   // session
@@ -89,7 +76,7 @@ class StatsDisplay {
   }
   set session(value) {
     this._session = value;
-    this.updateRightDisplay();
+    session.innerHTML = this.session;
   }
 
   // online
@@ -98,11 +85,11 @@ class StatsDisplay {
   }
   set online(value) {
     this._online = value;
-    this.updateLeftDisplay();
+    online.innerHTML = this.online;
   }
 }
 
-const statsDisplay = new StatsDisplay(leftDisp, rightDisp)
+const statsDisplay = new StatsDisplay()
 
 // Utils
 
