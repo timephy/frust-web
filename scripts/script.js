@@ -13,20 +13,28 @@ const socket = io({
   path: "/api/socket.io"
 });
 
-// Stats
-var currentStats = {
-  "total": 0,
-  "day": 0
-};
-var sessionClicks = 0;
 
+function toggleDarkmode() {
+  if (localStorage.getItem("theme")) {
+    if (localStorage.getItem("theme") == "dark") {
+      localStorage.setItem("theme", "light");
+      document.documentElement.setAttribute("data-theme", "light");
+    } else {
+      localStorage.setItem("theme", "dark");
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
+  } else {
+    localStorage.setItem("theme", "dark");
+    document.documentElement.setAttribute("data-theme", "dark");
+  }
+  console.log("darkmode   " + localStorage.getItem("theme"))
+}
 
 /** The main button action. */
 function verzweifle() {
 
-  if (navigator.vibrate && storage.vibration) { // vibration API supported
+  if (navigator.vibrate && storage.vibration) // vibration API supported
     navigator.vibrate(100);
-  }
 
   // Inputs
   let sanitizedName = sanitizeInput(nameInput.value);
@@ -42,6 +50,7 @@ function verzweifle() {
 
   if (comment.startsWith("/")) { // Command
     command = comment.substring(1);
+    console.log(`command: "${command}"`)
 
     if (["green", "purple", "blue", "yellow", "black", "white"].includes(command)) {
       // Color
@@ -49,7 +58,7 @@ function verzweifle() {
     } else if (["small", "big", "dotted", "dashed"].includes(command)) {
       // Underline, Size
       storage.underlineType = command;
-    } else if (["fuck", "einstein", "satan", "gaypride", "fireworks"].includes(command)) {
+    } else if (["fuck", "einstein", "satan", "666", "pride", "fireworks", "rickroll"].includes(command)) {
       // Global events
       socket.emit("event", {
         "name": name,
@@ -62,20 +71,31 @@ function verzweifle() {
           console.log("vibrationsActive   " + storage.vibration)
           break;
         case "darkmode":
-          if (localStorage.getItem("theme")) {
-            if (localStorage.getItem("theme") == "dark")
-              localStorage.setItem("theme", "light");
-            else
-              localStorage.setItem("theme", "dark");
-          }
-          console.log("darkmode   " + localStorage.getItem("theme"))
+          toggleDarkmode();
+          break;
+        case "stats":
+        case "users":
+          window.location.href = "/stats.html";
           break;
         case "rainbow":
-          addTemporaryClass(wrapper, "rainbowColor", 8000);
+          console.log("-> rainbow")
+          let hue = 0;
+          const intervalId = setInterval(() => {
+            hue++;
+            hue = hue % 360;
+            document.documentElement.style.setProperty('--font-color', 'hsl(' + hue + ', 60%, 50%)');
+          }, 16);
+          setTimeout(() => {
+            clearInterval(intervalId);
+            document.documentElement.style.removeProperty('--font-color');
+          }, 10000);
           break;
         case "clear":
           storage.color = ""
           storage.underlineType = ""
+          break;
+        case "help":
+          alert(HELP_MESSAGE)
           break;
         default:
           // No command matched
@@ -83,8 +103,10 @@ function verzweifle() {
           break;
       }
     }
+    // remove comment to "hide command"
     commentInput.value = "";
   } else { // Click
+    statsDisplay.session++;
     socket.emit("click", {
       "name": name,
       "comment": comment,
@@ -94,8 +116,7 @@ function verzweifle() {
 
   // Purely Visual
   // Display creative and original message
-  sessionClicks++;
-  button.innerText = randomButtonLabel() + '\n' + sessionClicks;
+  displayRandomButtonLabel();
   displayRing();
 }
 
@@ -103,36 +124,38 @@ function verzweifle() {
 // Socket.io
 socket.on("stats", (stats) => {
   console.log(`stats(${stats["total"]}, ${stats["day"]})`);
-  currentStats = stats;
-  displayStats(stats["total"], stats["day"]);
+  statsDisplay.total = stats["total"];
+  statsDisplay.day = stats["day"];
 });
 
 socket.on("users", (users) => {
   console.log(`users(${users["count"]})`);
-  displayOnlineUsers(users["count"]);
+  statsDisplay.online = users["count"];
 });
 
 socket.on("click", (click) => {
   console.log(`click(${click["name"]}, ${click["comment"]}, ${click["style"]})`);
 
-  displayClick(click["name"], click["comment"], click["style"])
-  incrementStats()
-  displayStats(currentStats["total"], currentStats["day"]);
+  displayClick(click["name"], click["comment"], click["style"]);
+  statsDisplay.total++;
+  statsDisplay.day++;
 });
 
 socket.on("event", (event) => {
   console.log(`event(${event["name"]}, ${event["id"]})`);
 
-  // FIXME: for testing displayClick
-  displayClick(event["name"], "triggered " + event["id"], "")
+  displayToast(`${event["name"]} triggered ${event["id"]}!`)
 
   // Reacting to "everyone events"
   switch (event["id"]) {
-    case "gaypride":
+    case "pride":
       addTemporaryClass(button, "rainbow", 8000);
       break;
     case "satan":
       addTemporaryClass(button, "teemo", 5000);
+      break;
+    case "666":
+      addTemporaryClass(button, "elmo", 3000);
       break;
     case "fuck":
       popup("Fuck you", "fu");
@@ -142,6 +165,9 @@ socket.on("event", (event) => {
       break;
     case "einstein":
       einstein();
+      break;
+    case "rickroll":
+      window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
       break;
   }
 });
