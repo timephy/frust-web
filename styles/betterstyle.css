@@ -263,7 +263,7 @@ td{
   -moz-transition-property: opacity, transform;
   -o-transition-property: opacity, transform;
   transition-property: opacity, transform;
-  transform: scaleX(10%);
+  transform: scaleX(0);
 }
 
 @keyframes toastUnderlineAnim {
@@ -363,6 +363,7 @@ td{
   position: absolute;
   height: 100%;
   width: 100%;
+  will-change: transform, box-shadow;
   border: none;
   border-radius: 50%;
   outline: none;
@@ -627,8 +628,8 @@ td{
 }
 
 @media(max-width: 350px) {
-  h3 {
-    margin: 0.2em 0.5em 0.2em 0.5em;
+  body {
+    font-size: 75%;
   }
 }
 
