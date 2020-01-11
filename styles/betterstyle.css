@@ -125,11 +125,21 @@ td{
   position: fixed;
   z-index: -1;
   display: flex;
-  flex-flow: nowrap column;
+  flex-flow: nowrap column-reverse;
   align-items: center;
 }
 
 @keyframes toastAnim {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes toastAnimOld {
   0% {
     padding: 0em;
     margin: 0em;
@@ -201,13 +211,14 @@ td{
   -moz-transition: all 0.2s ease-in 0.3s, height 0.2s ease-in 0.5s;
   -o-transition: all 0.2s ease-in 0.3s, height 0.2s ease-in 0.5s;
   transition: all 0.2s ease-in 0.3s, height 0.2s ease-in 0.5s;
-  -webkit-transition-property: opacity, max-height, bottom;
+  /**-webkit-transition-property: opacity, max-height, bottom;
   -moz-transition-property: opacity, max-height, bottom;
   -o-transition-property: opacity, max-height, bottom;
   transition-property: opacity, max-height, bottom;
   opacity: 0;
   max-height: 0px;
-  bottom: 2.4em;
+  bottom: 2.4em;**/
+  transform: translateX(100%);
 }
 
 /*the user name box*/
