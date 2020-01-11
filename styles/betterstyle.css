@@ -88,7 +88,7 @@ a:active {
   justify-content: space-between;
   align-self: stretch;
   padding-top: 0.2em;
-    font-size: 1.5em;
+  font-size: 1.5em;
 }
 
 h3 {
@@ -97,10 +97,11 @@ h3 {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.24);
 }
 
-table{
+table {
   width: 100%;
 }
-td{
+
+td {
   font-size: 0.8em;
   text-align: center;
 }
@@ -254,7 +255,7 @@ td{
   height: 0.2em;
   left: 0;
   width: 100%;
-  transform-origin: 0% 50%;
+  transform-origin: 0 50%;
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
@@ -268,13 +269,13 @@ td{
 
 @keyframes toastUnderlineAnim {
   0% {
-    transform: scaleX(0);
     opacity: 0.2;
+    transform: scaleX(0);
   }
 
   100% {
-    transform: scaleX(100%);
     opacity: 1;
+    transform: scaleX(1);
   }
 }
 
@@ -285,7 +286,7 @@ td{
   animation: 0.5s ease-in-out toastUnderlineAnim;
   bottom: 0;
   opacity: 1;
-  transform: scaleX(100%);
+  transform: scaleX(1);
 }
 
 .toast.hide:after, .hoverline:after {
@@ -298,14 +299,14 @@ td{
 }
 
 .hoverline:focus-within:before, .hoverline:focus-within:after {
-  transform: scaleX(100%);
+  transform: scaleX(1);
   opacity: 1;
 }
 
 @media (hover: hover) {
   .hoverline:hover:before, .hoverline:hover:after {
     opacity: 0.5;
-    transform: scaleX(100%);
+    transform: scaleX(1);
   }
 
   #commentButton.hide:hover {
@@ -463,8 +464,6 @@ td{
   color: var(--primary-color);
 }
 
-
-
 .ring:before, .ring:after, .ringStart:after, .ringStart:before {
   will-change: transform;
   pointer-events: none;
@@ -568,7 +567,6 @@ td{
   width: 1.3em;
 }
 
-
 @keyframes ringAnimDesktop {
   0% {
     opacity: 1;
@@ -587,10 +585,6 @@ td{
     padding-right: 10vmin;
     padding-top: 2vmin;
     justify-content: space-around;
-  }
-
-  h3 {
-    font-size: 1.5em;
   }
 
   .mainBtnCont {

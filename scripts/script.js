@@ -33,6 +33,8 @@ function toggleDarkmode() {
 /** The main button action. */
 function verzweifle() {
 
+  displayToast("some toast, ", "");
+
   if (navigator.vibrate && storage.vibration) // vibration API supported
     navigator.vibrate(100);
 
