@@ -44,7 +44,6 @@ var toastType = "toast";
 
 var tfrag = document.createDocumentFragment();
 
-<<<<<<< HEAD
 /** A helper class to manage and update current stats. */
 class StatsDisplay {
   constructor(leftDisp, rightDisp) {
@@ -55,18 +54,11 @@ class StatsDisplay {
   updateLeftDisplay() {
     this.leftDisp.innerHTML = `gesamt<br>${this.total}<br>online<br>${this.online}`;
   }
-=======
-function displayStats() {
-  total.innerText = currentStats["total"];
-  today.innerText = currentStats["day"];
-  session.innerText = sessionClicks;
->>>>>>> 841b66a8a29b06c5b45ac57cfc126fee5465bcae
 
   updateRightDisplay() {
     this.rightDisp.innerHTML = `heute<br>${this.day}<br>sitzung<br>${this.session}`;
   }
 
-<<<<<<< HEAD
   // total
   get total() {
     return this._total || 0;
@@ -108,16 +100,6 @@ function displayStats() {
     this._online = value;
     this.updateLeftDisplay();
   }
-=======
-function displayOnlineUsers(num) {
-  online.innerText = num;
-}
-
-// Utils
-function incrementStats() {
-  currentStats["total"]++;
-  currentStats["day"]++;
->>>>>>> 841b66a8a29b06c5b45ac57cfc126fee5465bcae
 }
 
 const statsDisplay = new StatsDisplay(leftDisp, rightDisp)
@@ -217,11 +199,6 @@ function displayToast(string, effectClass) {
 
 function step(timestamp) {
   window.requestAnimationFrame(step);
-<<<<<<< HEAD
-  if (tfrag.childElementCount > 0)
-    console.log(tfrag.childElementCount)
-=======
->>>>>>> 841b66a8a29b06c5b45ac57cfc126fee5465bcae
   anker.prepend(tfrag);
   tfrag = document.createDocumentFragment();
 }
