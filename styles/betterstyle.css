@@ -125,7 +125,7 @@ td{
   position: fixed;
   z-index: -1;
   display: flex;
-  flex-flow: nowrap column-reverse;
+  flex-flow: nowrap column;
   align-items: center;
 }
 
@@ -176,6 +176,7 @@ td{
 }
 
 .toast {
+  will-change: padding, margin, bottom, max-height;
   -webkit-animation: 0.2s ease-in-out toastAnim;
   -moz-animation: 0.2s ease-in-out toastAnim;
   -o-animation: 0.2s ease-in-out toastAnim;
