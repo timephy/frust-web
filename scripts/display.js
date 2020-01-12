@@ -52,7 +52,7 @@ class StatsDisplay {
   }
   set total(value) {
     this._total = value;
-    total.innerHTML = this.total;
+    total.textContent = this.total;
 
     if (value % 10000 == 0) {
       popup("+10.000")
@@ -67,7 +67,7 @@ class StatsDisplay {
   }
   set day(value) {
     this._today = value;
-    today.innerHTML = this.day;
+    today.textContent = this.day;
   }
 
   // session
@@ -76,7 +76,7 @@ class StatsDisplay {
   }
   set session(value) {
     this._session = value;
-    session.innerHTML = this.session;
+    session.textContent = this.session;
   }
 
   // online
@@ -85,7 +85,7 @@ class StatsDisplay {
   }
   set online(value) {
     this._online = value;
-    online.innerHTML = this.online;
+    online.textContent = this.online;
   }
 }
 
@@ -128,7 +128,7 @@ function einstein() {
 
 /** Returns a randomized button label. */
 function displayRandomButtonLabel() {
-  button.innerText = Math.random() < 0.9 ?
+  button.textContent = Math.random() < 0.9 ?
     "ich verzweifle" :
     possibleButtonLabels[Math.floor(Math.random() * possibleButtonLabels.length)];
 }
@@ -178,7 +178,7 @@ function displayToast(string, effectClass) {
 
   const toast = document.createElement("div")
   toast.className = [toastType, effectClass].join(" ");
-  toast.innerText = string;
+  toast.textContent  = string;
   tfrag.prepend(toast);
   hideDelay(toast, 2500);
   destroyDelay(toast, 3000);
