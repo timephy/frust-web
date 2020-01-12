@@ -240,7 +240,9 @@ td {
   height: 100%;
 }
 
-.hoverline:before, .hoverline:after, .toast:after {
+.hoverline:before,
+.hoverline:after,
+.toast:after {
   content: "";
   position: absolute;
   opacity: 0.2;
@@ -283,7 +285,8 @@ td {
   transform: scaleX(1);
 }
 
-.toast.hide:after, .hoverline:after {
+.toast.hide:after,
+.hoverline:after {
   transform-origin: 100% 50%;
   transform: scaleX(0);
 }
@@ -292,13 +295,16 @@ td {
   bottom: 0;
 }
 
-.hoverline:focus-within:before, .hoverline:focus-within:after {
+.hoverline:focus-within:before,
+.hoverline:focus-within:after {
   transform: scaleX(1);
   opacity: 1;
 }
 
 @media (hover: hover) {
-  .hoverline:hover:before, .hoverline:hover:after {
+
+  .hoverline:hover:before,
+  .hoverline:hover:after {
     opacity: 0.5;
     transform: scaleX(1);
   }
@@ -316,7 +322,8 @@ td {
     box-shadow: var(--thick-material-shadow);
   }
 
-  #githubButton:hover, #adjustButton:hover {
+  #githubButton:hover,
+  #adjustButton:hover {
     width: 1.7em;
   }
 }
@@ -325,7 +332,8 @@ td {
   position: relative;
 }
 
-.hoverline.hide:before, .hoverline.hide:after {
+.hoverline.hide:before,
+.hoverline.hide:after {
   transform: scaleX(0);
 }
 
@@ -458,7 +466,10 @@ td {
   color: var(--primary-color);
 }
 
-.ring:before, .ring:after, .ringStart:after, .ringStart:before {
+.ring:before,
+.ring:after,
+.ringStart:after,
+.ringStart:before {
   will-change: transform;
   pointer-events: none;
   content: '';
@@ -502,7 +513,8 @@ td {
   animation: 0.7s ease-out 0.1s 1 ringAnim;
 }
 
-.ring:after, .ringStart:after {
+.ring:after,
+.ringStart:after {
   -webkit-transition-delay: 100ms;
   -moz-transition-delay: 100ms;
   -o-transition-delay: 100ms;
@@ -537,7 +549,8 @@ td {
   animation: 0.5s ease-out 0.2s 1 ringStartAnim;
 }
 
-#githubButton, #adjustButton {
+#githubButton,
+#adjustButton {
   position: fixed;
   left: 0.5em;
   bottom: 0.5em;
@@ -557,7 +570,8 @@ td {
   right: 0.5em;
 }
 
-#githubButton:active, #adjustButton:active {
+#githubButton:active,
+#adjustButton:active {
   width: 1.3em;
 }
 
@@ -645,7 +659,9 @@ td {
 
 /*copy pasta snowflakes*/
 @-webkit-keyframes snowflakes-shake {
-  0%, 100% {
+
+  0%,
+  100% {
     -webkit-transform: translateX(0);
     transform: translateX(0)
   }
@@ -941,7 +957,7 @@ td {
 
 .fu {
   -webkit-animation: shadowAnim 0.25s ease-in-out infinite;
-  -moz-animation: : shadowAnim 0.25s ease-in-out infinite;
+  -moz-animation: shadowAnim 0.25s ease-in-out infinite;
   -o-animation: shadowAnim 0.25s ease-in-out infinite;
   animation: shadowAnim 0.25s ease-in-out infinite;
   position: static;
@@ -1019,7 +1035,8 @@ td {
 }
 
 /*******more copypasta****/
-.pyro>.before, .pyro>.after {
+.pyro>.before,
+.pyro>.after {
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1109,108 +1126,132 @@ td {
 }
 
 @-webkit-keyframes position {
-  0%, 19.9% {
+
+  0%,
+  19.9% {
     margin-top: 10%;
     margin-left: 40%;
   }
 
-  20%, 39.9% {
+  20%,
+  39.9% {
     margin-top: 40%;
     margin-left: 30%;
   }
 
-  40%, 59.9% {
+  40%,
+  59.9% {
     margin-top: 20%;
     margin-left: 70%;
   }
 
-  60%, 79.9% {
+  60%,
+  79.9% {
     margin-top: 30%;
     margin-left: 20%;
   }
 
-  80%, 99.9% {
+  80%,
+  99.9% {
     margin-top: 30%;
     margin-left: 80%;
   }
 }
 
 @-moz-keyframes position {
-  0%, 19.9% {
+
+  0%,
+  19.9% {
     margin-top: 10%;
     margin-left: 40%;
   }
 
-  20%, 39.9% {
+  20%,
+  39.9% {
     margin-top: 40%;
     margin-left: 30%;
   }
 
-  40%, 59.9% {
+  40%,
+  59.9% {
     margin-top: 20%;
     margin-left: 70%;
   }
 
-  60%, 79.9% {
+  60%,
+  79.9% {
     margin-top: 30%;
     margin-left: 20%;
   }
 
-  80%, 99.9% {
+  80%,
+  99.9% {
     margin-top: 30%;
     margin-left: 80%;
   }
 }
 
 @-o-keyframes position {
-  0%, 19.9% {
+
+  0%,
+  19.9% {
     margin-top: 10%;
     margin-left: 40%;
   }
 
-  20%, 39.9% {
+  20%,
+  39.9% {
     margin-top: 40%;
     margin-left: 30%;
   }
 
-  40%, 59.9% {
+  40%,
+  59.9% {
     margin-top: 20%;
     margin-left: 70%;
   }
 
-  60%, 79.9% {
+  60%,
+  79.9% {
     margin-top: 30%;
     margin-left: 20%;
   }
 
-  80%, 99.9% {
+  80%,
+  99.9% {
     margin-top: 30%;
     margin-left: 80%;
   }
 }
 
 @keyframes position {
-  0%, 19.9% {
+
+  0%,
+  19.9% {
     margin-top: 10%;
     margin-left: 40%;
   }
 
-  20%, 39.9% {
+  20%,
+  39.9% {
     margin-top: 40%;
     margin-left: 30%;
   }
 
-  40%, 59.9% {
+  40%,
+  59.9% {
     margin-top: 20%;
     margin-left: 70%;
   }
 
-  60%, 79.9% {
+  60%,
+  79.9% {
     margin-top: 30%;
     margin-left: 20%;
   }
 
-  80%, 99.9% {
+  80%,
+  99.9% {
     margin-top: 30%;
     margin-left: 80%;
   }
