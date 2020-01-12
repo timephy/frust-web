@@ -571,6 +571,7 @@ td {
   -moz-transition: 250ms ease;
   -o-transition: 250ms ease;
   transition: 250ms ease;
+  cursor: pointer;
 }
 
 #adjustButton {
