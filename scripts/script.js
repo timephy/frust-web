@@ -15,19 +15,10 @@ const socket = io({
 
 
 function toggleDarkmode() {
-  if (localStorage.getItem("theme")) {
-    if (localStorage.getItem("theme") == "dark") {
-      localStorage.setItem("theme", "light");
-      document.documentElement.setAttribute("data-theme", "light");
-    } else {
-      localStorage.setItem("theme", "dark");
-      document.documentElement.setAttribute("data-theme", "dark");
-    }
-  } else {
-    localStorage.setItem("theme", "dark");
-    document.documentElement.setAttribute("data-theme", "dark");
-  }
-  console.log("darkmode   " + localStorage.getItem("theme"))
+  const newTheme = localStorage.getItem("theme") == "dark" ? "light" : "dark";
+  localStorage.setItem("theme", newTheme);
+  document.documentElement.setAttribute("data-theme", newTheme);
+  console.log("darkmode   " + localStorage.getItem("theme"));
 }
 
 /** The main button action. */
