@@ -410,6 +410,14 @@ td {
   height: 100%;
 }
 
+.fu-meme {
+  background-image: url('/images/fu-meme.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+}
+
 @keyframes popupAnim {
   0% {
     font-size: 2em;
