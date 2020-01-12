@@ -91,12 +91,6 @@ a:active {
   font-size: 1.5em;
 }
 
-h3 {
-  font-size: 1em;
-  margin: 0.2em 1em 0.2em 1em;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.24);
-}
-
 table {
   width: 100%;
 }
