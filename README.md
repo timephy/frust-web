@@ -2,7 +2,7 @@
 
 A website for fellow Physics students at TUM to show their frustration.
 
-**This is a fun project.**
+**This project is just for fun.**
 
 ## To our fellow students
 
