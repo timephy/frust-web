@@ -1,6 +1,6 @@
 navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
 
-const MAX_TOASTS = 35; //please increase if you find any device that needs it
+const MAX_TOASTS = 30; //please increase if you find any device that needs it
 
 
 document.body.onload = () => {
@@ -79,7 +79,8 @@ function verzweifle() {
           const tintervalId = setInterval(() => {
             test++;
               displayToast(`${test} test message num ${test}`, "")
-          }, 7);
+              displayRing();
+          }, 5);
           setTimeout(() => {
             clearInterval(tintervalId);
           }, 5000);
