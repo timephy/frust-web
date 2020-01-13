@@ -26,6 +26,37 @@ const possibleButtonLabels = [
   "?????"
 ];
 
+
+navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+
+const MAX_TOASTS = 35; //please increase if you find any device that needs it
+
+
+document.body.onload = () => {
+  // set name, comment
+  nameInput.value = storage.name;
+  commentInput.value = storage.comment;
+};
+
+function verzweifle() {
+  if (navigator.vibrate && storage.vibration) // vibration API supported
+    navigator.vibrate(100);
+  displayRandomButtonLabel();
+  displayRing();
+}
+
+function toggleDarkmode() {
+  const newTheme = localStorage.getItem("theme") == "dark" ? "light" : "dark";
+  localStorage.setItem("theme", newTheme);
+  document.documentElement.setAttribute("data-theme", newTheme);
+
+  console.log("darkmode   " + localStorage.getItem("theme"));
+
+  document.documentElement.style.display = 'none';
+  document.documentElement.offsetHeight; // no need to store this anywhere, the reference is enough
+  document.documentElement.style.display = 'block';
+}
+
 /** The message displayed by "help" command. */
 const HELP_MESSAGE = [
   "Click colors:",
@@ -181,7 +212,7 @@ function displayToast(string, effectClass) {
   toast.className = [toastType, effectClass].join(" ");
   toast.textContent  = string;
   tfrag.prepend(toast);
-  hideDelay(toast, 2500);
+  hideDelay(toast, 2300);
   destroyDelay(toast, 3000);
 }
 
