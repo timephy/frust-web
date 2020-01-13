@@ -77,23 +77,23 @@ function verzweifle() {
             fpsElem.textContent = "000";
             panker.appendChild(fpsElem);
             break;
-          case "test":
+          case "ctest":
             let ctest = 0;
             const cintervalId = setInterval(() => {
               ctest++;
-              displayToast(`${ctest} test message num ${ctest}`, "")
-              displayRing();
+              constrainClicks(`${test} test ${test}`, "", "")
             }, 5);
             setTimeout(() => {
               clearInterval(cintervalId);
-            }, 5000);
+            }, 8000);
             break;
-          case "ctest":
+          case "test":
             let test = 0;
             const tintervalId = setInterval(() => {
               test++;
-              constrainClicks(`${test} test ${test}`, "", "")
-            }, 5);
+              displayToast(`${ctest} test message num ${ctest}`, "")
+              displayRing();
+              }, 5);
             setTimeout(() => {
               clearInterval(tintervalId);
             }, 5000);
