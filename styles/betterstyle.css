@@ -293,12 +293,6 @@ td {
   bottom: 0;
 }
 
-.hoverline:focus-within:before,
-.hoverline:focus-within:after {
-  transform: scaleX(1);
-  opacity: 1;
-}
-
 @media (hover: hover) {
 
   .hoverline:hover:before,
@@ -324,6 +318,12 @@ td {
   #adjustButton:hover {
     width: 1.7em;
   }
+}
+
+.hoverline:focus-within:before,
+.hoverline:focus-within:after {
+opacity: 1;
+  transform: scaleX(1);
 }
 
 .hoverline {
