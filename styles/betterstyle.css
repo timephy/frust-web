@@ -13,8 +13,8 @@
 }
 
 [data-theme="dark"] {
-  --primary-color: #B71C1C;
   --font-color: #E8F8F9;
+  --primary-color: #B71C1C;
   --bg-color: #121212;
   --bg-shade: #1d1d1d;
 }
@@ -31,6 +31,10 @@ body {
   margin: 0;
   font-size: 150%;
   background: var(--bg-color);
+  -webkit-transition: 250ms ease;
+  -moz-transition: 250ms ease;
+  -o-transition: 250ms ease;
+  transition: 250ms ease;
 }
 
 body * {
@@ -89,12 +93,6 @@ a:active {
   align-self: stretch;
   padding-top: 0.2em;
   font-size: 1.5em;
-}
-
-h3 {
-  font-size: 1em;
-  margin: 0.2em 1em 0.2em 1em;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.24);
 }
 
 table {
@@ -246,7 +244,9 @@ td {
   height: 100%;
 }
 
-.hoverline:before, .hoverline:after, .toast:after {
+.hoverline:before,
+.hoverline:after,
+.toast:after {
   content: "";
   position: absolute;
   opacity: 0.2;
@@ -289,7 +289,8 @@ td {
   transform: scaleX(1);
 }
 
-.toast.hide:after, .hoverline:after {
+.toast.hide:after,
+.hoverline:after {
   transform-origin: 100% 50%;
   transform: scaleX(0);
 }
@@ -298,13 +299,16 @@ td {
   bottom: 0;
 }
 
-.hoverline:focus-within:before, .hoverline:focus-within:after {
+.hoverline:focus-within:before,
+.hoverline:focus-within:after {
   transform: scaleX(1);
   opacity: 1;
 }
 
 @media (hover: hover) {
-  .hoverline:hover:before, .hoverline:hover:after {
+
+  .hoverline:hover:before,
+  .hoverline:hover:after {
     opacity: 0.5;
     transform: scaleX(1);
   }
@@ -322,7 +326,8 @@ td {
     box-shadow: var(--thick-material-shadow);
   }
 
-  #githubButton:hover, #adjustButton:hover {
+  #githubButton:hover,
+  #adjustButton:hover {
     width: 1.7em;
   }
 }
@@ -331,7 +336,8 @@ td {
   position: relative;
 }
 
-.hoverline.hide:before, .hoverline.hide:after {
+.hoverline.hide:before,
+.hoverline.hide:after {
   transform: scaleX(0);
 }
 
@@ -351,10 +357,10 @@ td {
 }
 
 .bigButton {
-  -webkit-animation: 0.5s ease buttonStart;
-  -moz-animation: 0.5s ease buttonStart;
-  -o-animation: 0.5s ease buttonStart;
-  animation: 0.5s ease buttonStart;
+  -webkit-animation: 0.5s ease buttonStart 0.2s;
+  -moz-animation: 0.5s ease buttonStart 0.2s;
+  -o-animation: 0.5s ease buttonStart 0.2s;
+  animation: 0.5s ease buttonStart 0.2s;
   padding: 0;
   font-size: 7vmin;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
@@ -402,6 +408,14 @@ td {
 
 .teemo {
   background-image: url('/images/teemo.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+}
+
+.fu-meme {
+  background-image: url('/images/fu-meme.jpg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -464,7 +478,10 @@ td {
   color: var(--primary-color);
 }
 
-.ring:before, .ring:after, .ringStart:after, .ringStart:before {
+.ring:before,
+.ring:after,
+.ringStart:after,
+.ringStart:before {
   will-change: transform;
   pointer-events: none;
   content: '';
@@ -508,7 +525,8 @@ td {
   animation: 0.7s ease-out 0.1s 1 ringAnim;
 }
 
-.ring:after, .ringStart:after {
+.ring:after,
+.ringStart:after {
   -webkit-transition-delay: 100ms;
   -moz-transition-delay: 100ms;
   -o-transition-delay: 100ms;
@@ -529,21 +547,22 @@ td {
 
 .ringStart:before {
   opacity: 0;
-  -webkit-animation: 1.5s ease-out 0s 1 ringStartAnim;
-  -moz-animation: 1.5s ease-out 0s 1 ringStartAnim;
-  -o-animation: 1.5s ease-out 0s 1 ringStartAnim;
-  animation: 1.5s ease-out 0s 1 ringStartAnim;
+  -webkit-animation: 1.5s ease-out 0.2s 1 ringStartAnim;
+  -moz-animation: 1.5s ease-out 0.2s 1 ringStartAnim;
+  -o-animation: 1.5s ease-out 0.2s 1 ringStartAnim;
+  animation: 1.5s ease-out 0.2s 1 ringStartAnim;
 }
 
 .ringStart:after {
   opacity: 0;
-  -webkit-animation: 0.5s ease-out 0.2s 1 ringStartAnim;
-  -moz-animation: 0.5s ease-out 0.2s 1 ringStartAnim;
-  -o-animation: 0.5s ease-out 0.2s 1 ringStartAnim;
-  animation: 0.5s ease-out 0.2s 1 ringStartAnim;
+  -webkit-animation: 0.5s ease-out 0.4s 1 ringStartAnim;
+  -moz-animation: 0.5s ease-out 0.4s 1 ringStartAnim;
+  -o-animation: 0.5s ease-out 0.4s 1 ringStartAnim;
+  animation: 0.5s ease-out 0.4s 1 ringStartAnim;
 }
 
-#githubButton, #adjustButton {
+#githubButton,
+#adjustButton {
   position: fixed;
   left: 0.5em;
   bottom: 0.5em;
@@ -556,6 +575,7 @@ td {
   -moz-transition: 250ms ease;
   -o-transition: 250ms ease;
   transition: 250ms ease;
+  cursor: pointer;
 }
 
 #adjustButton {
@@ -563,7 +583,8 @@ td {
   right: 0.5em;
 }
 
-#githubButton:active, #adjustButton:active {
+#githubButton:active,
+#adjustButton:active {
   width: 1.3em;
 }
 
@@ -651,7 +672,9 @@ td {
 
 /*copy pasta snowflakes*/
 @-webkit-keyframes snowflakes-shake {
-  0%, 100% {
+
+  0%,
+  100% {
     -webkit-transform: translateX(0);
     transform: translateX(0)
   }
@@ -947,7 +970,7 @@ td {
 
 .fu {
   -webkit-animation: shadowAnim 0.25s ease-in-out infinite;
-  -moz-animation: : shadowAnim 0.25s ease-in-out infinite;
+  -moz-animation: shadowAnim 0.25s ease-in-out infinite;
   -o-animation: shadowAnim 0.25s ease-in-out infinite;
   animation: shadowAnim 0.25s ease-in-out infinite;
   position: static;
@@ -1025,7 +1048,8 @@ td {
 }
 
 /*******more copypasta****/
-.pyro>.before, .pyro>.after {
+.pyro>.before,
+.pyro>.after {
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1115,108 +1139,132 @@ td {
 }
 
 @-webkit-keyframes position {
-  0%, 19.9% {
+
+  0%,
+  19.9% {
     margin-top: 10%;
     margin-left: 40%;
   }
 
-  20%, 39.9% {
+  20%,
+  39.9% {
     margin-top: 40%;
     margin-left: 30%;
   }
 
-  40%, 59.9% {
+  40%,
+  59.9% {
     margin-top: 20%;
     margin-left: 70%;
   }
 
-  60%, 79.9% {
+  60%,
+  79.9% {
     margin-top: 30%;
     margin-left: 20%;
   }
 
-  80%, 99.9% {
+  80%,
+  99.9% {
     margin-top: 30%;
     margin-left: 80%;
   }
 }
 
 @-moz-keyframes position {
-  0%, 19.9% {
+
+  0%,
+  19.9% {
     margin-top: 10%;
     margin-left: 40%;
   }
 
-  20%, 39.9% {
+  20%,
+  39.9% {
     margin-top: 40%;
     margin-left: 30%;
   }
 
-  40%, 59.9% {
+  40%,
+  59.9% {
     margin-top: 20%;
     margin-left: 70%;
   }
 
-  60%, 79.9% {
+  60%,
+  79.9% {
     margin-top: 30%;
     margin-left: 20%;
   }
 
-  80%, 99.9% {
+  80%,
+  99.9% {
     margin-top: 30%;
     margin-left: 80%;
   }
 }
 
 @-o-keyframes position {
-  0%, 19.9% {
+
+  0%,
+  19.9% {
     margin-top: 10%;
     margin-left: 40%;
   }
 
-  20%, 39.9% {
+  20%,
+  39.9% {
     margin-top: 40%;
     margin-left: 30%;
   }
 
-  40%, 59.9% {
+  40%,
+  59.9% {
     margin-top: 20%;
     margin-left: 70%;
   }
 
-  60%, 79.9% {
+  60%,
+  79.9% {
     margin-top: 30%;
     margin-left: 20%;
   }
 
-  80%, 99.9% {
+  80%,
+  99.9% {
     margin-top: 30%;
     margin-left: 80%;
   }
 }
 
 @keyframes position {
-  0%, 19.9% {
+
+  0%,
+  19.9% {
     margin-top: 10%;
     margin-left: 40%;
   }
 
-  20%, 39.9% {
+  20%,
+  39.9% {
     margin-top: 40%;
     margin-left: 30%;
   }
 
-  40%, 59.9% {
+  40%,
+  59.9% {
     margin-top: 20%;
     margin-left: 70%;
   }
 
-  60%, 79.9% {
+  60%,
+  79.9% {
     margin-top: 30%;
     margin-left: 20%;
   }
 
-  80%, 99.9% {
+  80%,
+  99.9% {
     margin-top: 30%;
     margin-left: 80%;
   }
