@@ -3,7 +3,7 @@ self.addEventListener('install', function(event) {
 });
 
 var CACHE_NAME = 'frustrated-cache';
-const OFFLINE_URL = 'offline.html';
+const OFFLINE_URL = '/offline.html';
 var urlsToCache = [
   '/',
   '/index.html',
