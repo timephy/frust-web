@@ -4,6 +4,7 @@ const MAX_TOASTS = 30; //please increase if you find any device that needs it
 const MAX_TOAST_BUFFER = 60;
 const BUFFER_DURATION = 1000;
 var EMIT_DURATION = BUFFER_DURATION / MAX_TOAST_BUFFER;
+var savedByBuffer = 0;
 
 document.body.onload = () => {
   // set name, comment
@@ -76,6 +77,10 @@ function verzweifle() {
             fpsElem.id = "fps";
             fpsElem.textContent = "000";
             panker.appendChild(fpsElem);
+            break;
+          case "buffer":
+            alert(savedByBuffer + " toasts have been prevented by the buffer");
+            savedByBuffer = 0;
             break;
           case "ctest":
             let ctest = 0;
@@ -185,8 +190,10 @@ function constrainClicks(n, c, s) {
       comment: c,
       style: s
     });
-  else
+  else {
     console.log("a click got dismissed (buffer full)");
+    savedByBuffer++;
+  }
 }
 setInterval(emitClicks, EMIT_DURATION);
 
