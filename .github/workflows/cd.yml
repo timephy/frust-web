@@ -35,7 +35,7 @@ jobs:
           ssh-keyscan $SERVER > ~/.ssh/known_hosts
           # no / behind directories, otherwise only contents will be copied
           rsync -r -v --delete-after \
-            *.html scripts styles images manifest.json \
+            *.html scripts styles images manifest.json sw.js \
             cd@$SERVER:$DEPLOY_PATH
         env:
           SERVER: timephy.com
