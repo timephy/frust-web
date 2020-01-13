@@ -28,105 +28,110 @@ function toggleDarkmode() {
 
 /** The main button action. */
 function verzweifle() {
+  if (navigator.onLine) {
 
-  if (navigator.vibrate && storage.vibration) // vibration API supported
-    navigator.vibrate(100);
+    if (navigator.vibrate && storage.vibration) // vibration API supported
+      navigator.vibrate(100);
 
-  // Inputs
-  let sanitizedName = sanitizeInput(nameInput.value);
-  if (sanitizedName != storage.name)
-    storage.name = sanitizedName;
-  let name = sanitizedName || "Gast"; // or default name
+    // Inputs
+    let sanitizedName = sanitizeInput(nameInput.value);
+    if (sanitizedName != storage.name)
+      storage.name = sanitizedName;
+    let name = sanitizedName || "Gast"; // or default name
 
-  let sanitizedComment = sanitizeInput(commentInput.value);
-  // commands are not saved
-  if (sanitizedComment != storage.comment && !sanitizedComment.startsWith("/"))
-    storage.comment = sanitizedComment;
-  let comment = sanitizedComment || "";
+    let sanitizedComment = sanitizeInput(commentInput.value);
+    // commands are not saved
+    if (sanitizedComment != storage.comment && !sanitizedComment.startsWith("/"))
+      storage.comment = sanitizedComment;
+    let comment = sanitizedComment || "";
 
-  if (comment.startsWith("/")) { // Command
-    command = comment.substring(1);
-    console.log(`command: "${command}"`)
+    if (comment.startsWith("/")) { // Command
+      command = comment.substring(1);
+      console.log(`command: "${command}"`)
 
-    if (["green", "purple", "blue", "yellow", "black", "white"].includes(command)) {
-      // Color
-      storage.color = command;
-    } else if (["small", "big", "dotted", "dashed"].includes(command)) {
-      // Underline, Size
-      storage.underlineType = command;
-    } else if (["fuck", "einstein", "satan", "666", "fu", "pride", "fireworks", "rickroll"].includes(command)) {
-      // Global events
-      socket.emit("event", {
-        "name": name,
-        "id": command
-      });
-    } else {
-      switch (command) {
-        case "vibrate":
-          storage.vibration = !storage.vibration;
-          console.log("vibrationsActive   " + storage.vibration)
-          break;
-        case "fps":
-          refreshLoop();
-          setInterval(updateFps, 500);
-          const fpsElem = document.createElement("div")
-          fpsElem.id = "fps";
-          fpsElem.textContent = "000";
-          panker.appendChild(fpsElem);
-          break;
-        case "test":
-          let test = 0;
-          const tintervalId = setInterval(() => {
-            test++;
+      if (["green", "purple", "blue", "yellow", "black", "white"].includes(command)) {
+        // Color
+        storage.color = command;
+      } else if (["small", "big", "dotted", "dashed"].includes(command)) {
+        // Underline, Size
+        storage.underlineType = command;
+      } else if (["fuck", "einstein", "satan", "666", "fu", "pride", "fireworks", "rickroll"].includes(command)) {
+        // Global events
+        socket.emit("event", {
+          "name": name,
+          "id": command
+        });
+      } else {
+        switch (command) {
+          case "vibrate":
+            storage.vibration = !storage.vibration;
+            console.log("vibrationsActive   " + storage.vibration)
+            break;
+          case "fps":
+            refreshLoop();
+            setInterval(updateFps, 500);
+            const fpsElem = document.createElement("div")
+            fpsElem.id = "fps";
+            fpsElem.textContent = "000";
+            panker.appendChild(fpsElem);
+            break;
+          case "test":
+            let test = 0;
+            const tintervalId = setInterval(() => {
+              test++;
               displayToast(`${test} test message num ${test}`, "")
               displayRing();
-          }, 5);
-          setTimeout(() => {
-            clearInterval(tintervalId);
-          }, 5000);
-          break;
-        case "darkmode":
-          toggleDarkmode();
-          break;
-        case "stats":
-        case "users":
-          window.location.href = "/stats.html";
-          break;
-        case "rainbow":
-          console.log("-> rainbow")
-          let hue = 0;
-          const intervalId = setInterval(() => {
-            hue++;
-            hue = hue % 360;
-            document.documentElement.style.setProperty('--font-color', 'hsl(' + hue + ', 60%, 50%)');
-          }, 16);
-          setTimeout(() => {
-            clearInterval(intervalId);
-            document.documentElement.style.removeProperty('--font-color');
-          }, 10000);
-          break;
-        case "clear":
-          storage.color = ""
-          storage.underlineType = ""
-          break;
-        case "help":
-          alert(HELP_MESSAGE)
-          break;
-        default:
-          // No command matched
-          alert("Kommando nicht valide.");
-          break;
+            }, 5);
+            setTimeout(() => {
+              clearInterval(tintervalId);
+            }, 5000);
+            break;
+          case "darkmode":
+            toggleDarkmode();
+            break;
+          case "stats":
+          case "users":
+            window.location.href = "/stats.html";
+            break;
+          case "rainbow":
+            console.log("-> rainbow")
+            let hue = 0;
+            const intervalId = setInterval(() => {
+              hue++;
+              hue = hue % 360;
+              document.documentElement.style.setProperty('--font-color', 'hsl(' + hue + ', 60%, 50%)');
+            }, 16);
+            setTimeout(() => {
+              clearInterval(intervalId);
+              document.documentElement.style.removeProperty('--font-color');
+            }, 10000);
+            break;
+          case "clear":
+            storage.color = ""
+            storage.underlineType = ""
+            break;
+          case "help":
+            alert(HELP_MESSAGE)
+            break;
+          default:
+            // No command matched
+            alert("Kommando nicht valide.");
+            break;
+        }
       }
+      // remove comment to "hide command"
+      commentInput.value = "";
+    } else { // Click
+      statsDisplay.session++;
+      socket.emit("click", {
+        "name": name,
+        "comment": comment,
+        "style": [storage.underlineType, storage.color].join(" ")
+      });
+
     }
-    // remove comment to "hide command"
-    commentInput.value = "";
-  } else { // Click
-    statsDisplay.session++;
-    socket.emit("click", {
-      "name": name,
-      "comment": comment,
-      "style": [storage.underlineType, storage.color].join(" ")
-    });
+  } else {
+    displayToast("Du bist OFFLINE und verzweifelst alleine", "");
   }
 
   // Purely Visual
@@ -190,16 +195,6 @@ socket.on("event", (event) => {
   }
 });
 
-var deferredPrompt;
-window.addEventListener('beforeinstallprompt', function(e) {
-  // Prevent Chrome 67 and earlier from automatically showing the prompt
-  console.log('before install promt has been triggered')
-  /*e.preventDefault();
-  // Stash the event so it can be triggered later.
-  deferredPrompt = e;
-  prompt();*/
-});
-
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
     navigator.serviceWorker.register('/sw.js').then(function(registration) {
@@ -211,5 +206,15 @@ if ('serviceWorker' in navigator) {
     });
   });
 }
+
+function updateOnlineStatus(event) {
+  if (navigator.onLine)
+    document.getElementById("offlineMessage").style.display = "none";
+  else
+    document.getElementById("offlineMessage").style.display = "block";
+}
+
+window.addEventListener('online', updateOnlineStatus);
+window.addEventListener('offline', updateOnlineStatus);
 
 socket.connect();
