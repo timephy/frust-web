@@ -74,6 +74,16 @@ function verzweifle() {
           fpsElem.textContent = "000";
           panker.appendChild(fpsElem);
           break;
+        case "test":
+          let test = 0;
+          const tintervalId = setInterval(() => {
+            test++;
+              displayToast(`${test} test message num ${test}`, "")
+          }, 7);
+          setTimeout(() => {
+            clearInterval(tintervalId);
+          }, 5000);
+          break;
         case "darkmode":
           toggleDarkmode();
           break;
