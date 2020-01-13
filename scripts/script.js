@@ -174,6 +174,7 @@ socket.on("click", (click) => {
   statsDisplay.day++;
 });
 
+//buffering logic, allows a maximum of 60 toasts/second
 let bufferedClicks = [];
 
 function constrainClicks(n, c, s) {
