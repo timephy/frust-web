@@ -353,10 +353,10 @@ td {
 }
 
 .bigButton {
-  -webkit-animation: 0.5s ease buttonStart;
-  -moz-animation: 0.5s ease buttonStart;
-  -o-animation: 0.5s ease buttonStart;
-  animation: 0.5s ease buttonStart;
+  -webkit-animation: 0.5s ease buttonStart 0.2s;
+  -moz-animation: 0.5s ease buttonStart 0.2s;
+  -o-animation: 0.5s ease buttonStart 0.2s;
+  animation: 0.5s ease buttonStart 0.2s;
   padding: 0;
   font-size: 7vmin;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
@@ -543,18 +543,18 @@ td {
 
 .ringStart:before {
   opacity: 0;
-  -webkit-animation: 1.5s ease-out 0s 1 ringStartAnim;
-  -moz-animation: 1.5s ease-out 0s 1 ringStartAnim;
-  -o-animation: 1.5s ease-out 0s 1 ringStartAnim;
-  animation: 1.5s ease-out 0s 1 ringStartAnim;
+  -webkit-animation: 1.5s ease-out 0.2s 1 ringStartAnim;
+  -moz-animation: 1.5s ease-out 0.2s 1 ringStartAnim;
+  -o-animation: 1.5s ease-out 0.2s 1 ringStartAnim;
+  animation: 1.5s ease-out 0.2s 1 ringStartAnim;
 }
 
 .ringStart:after {
   opacity: 0;
-  -webkit-animation: 0.5s ease-out 0.2s 1 ringStartAnim;
-  -moz-animation: 0.5s ease-out 0.2s 1 ringStartAnim;
-  -o-animation: 0.5s ease-out 0.2s 1 ringStartAnim;
-  animation: 0.5s ease-out 0.2s 1 ringStartAnim;
+  -webkit-animation: 0.5s ease-out 0.4s 1 ringStartAnim;
+  -moz-animation: 0.5s ease-out 0.4s 1 ringStartAnim;
+  -o-animation: 0.5s ease-out 0.4s 1 ringStartAnim;
+  animation: 0.5s ease-out 0.4s 1 ringStartAnim;
 }
 
 #githubButton,
