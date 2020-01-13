@@ -166,7 +166,7 @@ socket.on("users", (users) => {
 });
 
 socket.on("click", (click) => {
-  console.log(`click(${click["name"]}, ${click["comment"]}, ${click["style"]})`);
+  //console.log(`click(${click["name"]}, ${click["comment"]}, ${click["style"]})`);
 
   constrainClicks(click["name"], click["comment"], click["style"]);
 
@@ -177,6 +177,7 @@ socket.on("click", (click) => {
 //buffering logic, allows a maximum of 60 toasts/second
 let bufferedClicks = [];
 
+//collects all the incoming clicks
 function constrainClicks(n, c, s) {
   if (bufferedClicks.length < MAX_TOAST_BUFFER)
     bufferedClicks.push({
@@ -184,12 +185,15 @@ function constrainClicks(n, c, s) {
       comment: c,
       style: s
     });
+    else
+    console.log("a click got dismissed (buffer full)");
 }
 setInterval(emitClicks, EMIT_DURATION);
 
+//emits the buffered clicks over an extended period of time
 function emitClicks() {
   if (bufferedClicks.length > 0) {
-    console.log(bufferedClicks.length + " clicks are in the buffer");
+    //console.log(bufferedClicks.length + " clicks are in the buffer");
     displayClick(bufferedClicks.shift());
   }
 }
