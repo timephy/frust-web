@@ -1,7 +1,9 @@
 navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
 
-const MAX_TOASTS = 35; //please increase if you find any device that needs it
-
+const MAX_TOASTS = 30; //please increase if you find any device that needs it
+const MAX_TOAST_BUFFER = 60;
+const BUFFER_DURATION = 1000;
+var EMIT_DURATION = BUFFER_DURATION / MAX_TOAST_BUFFER;
 
 document.body.onload = () => {
   // set name, comment
@@ -15,103 +17,133 @@ const socket = io({
 
 
 function toggleDarkmode() {
-  if (localStorage.getItem("theme")) {
-    if (localStorage.getItem("theme") == "dark") {
-      localStorage.setItem("theme", "light");
-      document.documentElement.setAttribute("data-theme", "light");
-    } else {
-      localStorage.setItem("theme", "dark");
-      document.documentElement.setAttribute("data-theme", "dark");
-    }
-  } else {
-    localStorage.setItem("theme", "dark");
-    document.documentElement.setAttribute("data-theme", "dark");
-  }
-  console.log("darkmode   " + localStorage.getItem("theme"))
+  const newTheme = localStorage.getItem("theme") == "dark" ? "light" : "dark";
+  localStorage.setItem("theme", newTheme);
+  document.documentElement.setAttribute("data-theme", newTheme);
+
+  console.log("darkmode   " + localStorage.getItem("theme"));
+
+  document.documentElement.style.display = 'none';
+  document.documentElement.offsetHeight; // no need to store this anywhere, the reference is enough
+  document.documentElement.style.display = 'block';
 }
 
 /** The main button action. */
 function verzweifle() {
+  if (navigator.onLine) {
 
-  if (navigator.vibrate && storage.vibration) // vibration API supported
-    navigator.vibrate(100);
+    if (navigator.vibrate && storage.vibration) // vibration API supported
+      navigator.vibrate(100);
 
-  // Inputs
-  let sanitizedName = sanitizeInput(nameInput.value);
-  if (sanitizedName != storage.name)
-    storage.name = sanitizedName;
-  let name = sanitizedName || "Gast"; // or default name
+    // Inputs
+    let sanitizedName = sanitizeInput(nameInput.value);
+    if (sanitizedName != storage.name)
+      storage.name = sanitizedName;
+    let name = sanitizedName || "Gast"; // or default name
 
-  let sanitizedComment = sanitizeInput(commentInput.value);
-  // commands are not saved
-  if (sanitizedComment != storage.comment && !sanitizedComment.startsWith("/"))
-    storage.comment = sanitizedComment;
-  let comment = sanitizedComment || "";
+    let sanitizedComment = sanitizeInput(commentInput.value);
+    // commands are not saved
+    if (sanitizedComment != storage.comment && !sanitizedComment.startsWith("/"))
+      storage.comment = sanitizedComment;
+    let comment = sanitizedComment || "";
 
-  if (comment.startsWith("/")) { // Command
-    command = comment.substring(1);
-    console.log(`command: "${command}"`)
+    if (comment.startsWith("/")) { // Command
+      command = comment.substring(1);
+      console.log(`command: "${command}"`)
 
-    if (["green", "purple", "blue", "yellow", "black", "white"].includes(command)) {
-      // Color
-      storage.color = command;
-    } else if (["small", "big", "dotted", "dashed"].includes(command)) {
-      // Underline, Size
-      storage.underlineType = command;
-    } else if (["fuck", "einstein", "satan", "666", "pride", "fireworks", "rickroll"].includes(command)) {
-      // Global events
-      socket.emit("event", {
-        "name": name,
-        "id": command
-      });
-    } else {
-      switch (command) {
-        case "vibrate":
-          storage.vibration = !storage.vibration;
-          console.log("vibrationsActive   " + storage.vibration)
-          break;
-        case "darkmode":
-          toggleDarkmode();
-          break;
-        case "stats":
-        case "users":
-          window.location.href = "/stats.html";
-          break;
-        case "rainbow":
-          console.log("-> rainbow")
-          let hue = 0;
-          const intervalId = setInterval(() => {
-            hue++;
-            hue = hue % 360;
-            document.documentElement.style.setProperty('--font-color', 'hsl(' + hue + ', 60%, 50%)');
-          }, 16);
-          setTimeout(() => {
-            clearInterval(intervalId);
-            document.documentElement.style.removeProperty('--font-color');
-          }, 10000);
-          break;
-        case "clear":
-          storage.color = ""
-          storage.underlineType = ""
-          break;
-        case "help":
-          alert(HELP_MESSAGE)
-          break;
-        default:
-          // No command matched
-          alert("Kommando nicht valide.");
-          break;
+      if (["green", "purple", "blue", "yellow", "black", "white"].includes(command)) {
+        // Color
+        storage.color = command;
+      } else if (["small", "big", "dotted", "dashed"].includes(command)) {
+        // Underline, Size
+        storage.underlineType = command;
+      } else if (["fuck", "einstein", "satan", "666", "fu", "pride", "fireworks", "rickroll"].includes(command)) {
+        // Global events
+        socket.emit("event", {
+          "name": name,
+          "id": command
+        });
+      } else {
+        switch (command) {
+          case "vibrate":
+            storage.vibration = !storage.vibration;
+            console.log("vibrationsActive   " + storage.vibration)
+            break;
+          case "fps":
+            refreshLoop();
+            setInterval(updateFps, 500);
+            const fpsElem = document.createElement("div")
+            fpsElem.id = "fps";
+            fpsElem.textContent = "000";
+            panker.appendChild(fpsElem);
+            break;
+          case "ctest":
+            let ctest = 0;
+            const cintervalId = setInterval(() => {
+              ctest++;
+              constrainClicks(`${test} test ${test}`, "", "")
+            }, 5);
+            setTimeout(() => {
+              clearInterval(cintervalId);
+            }, 8000);
+            break;
+          case "test":
+            let test = 0;
+            const tintervalId = setInterval(() => {
+              test++;
+              displayToast(`${ctest} test message num ${ctest}`, "")
+              displayRing();
+              }, 5);
+            setTimeout(() => {
+              clearInterval(tintervalId);
+            }, 5000);
+            break;
+          case "darkmode":
+            toggleDarkmode();
+            break;
+          case "stats":
+          case "users":
+            window.location.href = "/stats.html";
+            break;
+          case "rainbow":
+            console.log("-> rainbow")
+            let hue = 0;
+            const intervalId = setInterval(() => {
+              hue++;
+              hue = hue % 360;
+              document.documentElement.style.setProperty('--font-color', 'hsl(' + hue + ', 60%, 50%)');
+            }, 16);
+            setTimeout(() => {
+              clearInterval(intervalId);
+              document.documentElement.style.removeProperty('--font-color');
+            }, 10000);
+            break;
+          case "clear":
+            storage.color = ""
+            storage.underlineType = ""
+            break;
+          case "help":
+            alert(HELP_MESSAGE)
+            break;
+          default:
+            // No command matched
+            alert("Kommando nicht valide.");
+            break;
+        }
       }
+      // remove comment to "hide command"
+      commentInput.value = "";
+    } else { // Click
+      statsDisplay.session++;
+      socket.emit("click", {
+        "name": name,
+        "comment": comment,
+        "style": [storage.underlineType, storage.color].join(" ")
+      });
+
     }
-    // remove comment to "hide command"
-    commentInput.value = "";
-  } else { // Click
-    statsDisplay.session++;
-    socket.emit("click", {
-      "name": name,
-      "comment": comment,
-      "style": [storage.underlineType, storage.color].join(" ")
-    });
+  } else {
+    displayToast("Du bist OFFLINE und verzweifelst alleine", "");
   }
 
   // Purely Visual
@@ -134,12 +166,37 @@ socket.on("users", (users) => {
 });
 
 socket.on("click", (click) => {
-  console.log(`click(${click["name"]}, ${click["comment"]}, ${click["style"]})`);
+  //console.log(`click(${click["name"]}, ${click["comment"]}, ${click["style"]})`);
 
-  displayClick(click["name"], click["comment"], click["style"]);
+  constrainClicks(click["name"], click["comment"], click["style"]);
+
   statsDisplay.total++;
   statsDisplay.day++;
 });
+
+//buffering logic, allows a maximum of 60 toasts/second
+let bufferedClicks = [];
+
+//collects all the incoming clicks
+function constrainClicks(n, c, s) {
+  if (bufferedClicks.length < MAX_TOAST_BUFFER)
+    bufferedClicks.push({
+      name: n,
+      comment: c,
+      style: s
+    });
+    else
+    console.log("a click got dismissed (buffer full)");
+}
+setInterval(emitClicks, EMIT_DURATION);
+
+//emits the buffered clicks over an extended period of time
+function emitClicks() {
+  if (bufferedClicks.length > 0) {
+    //console.log(bufferedClicks.length + " clicks are in the buffer");
+    displayClick(bufferedClicks.shift());
+  }
+}
 
 socket.on("event", (event) => {
   console.log(`event(${event["name"]}, ${event["id"]})`);
@@ -155,7 +212,10 @@ socket.on("event", (event) => {
       addTemporaryClass(button, "teemo", 5000);
       break;
     case "666":
-      addTemporaryClass(button, "elmo", 3000);
+      addTemporaryClass(button, "elmo", 5000);
+      break;
+    case "fu":
+      addTemporaryClass(button, "fu-meme", 5000);
       break;
     case "fuck":
       popup("Fuck you", "fu");
@@ -171,5 +231,27 @@ socket.on("event", (event) => {
       break;
   }
 });
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').then(function(registration) {
+      // Registration was successful
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }, function(err) {
+      // registration failed :(
+      console.log('ServiceWorker registration failed: ', err);
+    });
+  });
+}
+
+function updateOnlineStatus(event) {
+  if (navigator.onLine)
+    document.getElementById("offlineMessage").style.display = "none";
+  else
+    document.getElementById("offlineMessage").style.display = "block";
+}
+
+window.addEventListener('online', updateOnlineStatus);
+window.addEventListener('offline', updateOnlineStatus);
 
 socket.connect();

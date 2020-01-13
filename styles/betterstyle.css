@@ -6,15 +6,14 @@
   /*******static variables*****/
   --dark-red: #7f0000;
   --bright-red: #f05545;
-  --dark-background: #121212;
   --thin-material-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   --medium-material-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   --thick-material-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
 [data-theme="dark"] {
-  --primary-color: #B71C1C;
   --font-color: #E8F8F9;
+  --primary-color: #B71C1C;
   --bg-color: #121212;
   --bg-shade: #1d1d1d;
 }
@@ -31,6 +30,10 @@ body {
   margin: 0;
   font-size: 150%;
   background: var(--bg-color);
+  -webkit-transition: 250ms ease;
+  -moz-transition: 250ms ease;
+  -o-transition: 250ms ease;
+  transition: 250ms ease;
 }
 
 body * {
@@ -88,19 +91,14 @@ a:active {
   justify-content: space-between;
   align-self: stretch;
   padding-top: 0.2em;
-    font-size: 1.5em;
+  font-size: 1.5em;
 }
 
-h3 {
-  font-size: 1em;
-  margin: 0.2em 1em 0.2em 1em;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.24);
-}
-
-table{
+table {
   width: 100%;
 }
-td{
+
+td {
   font-size: 0.8em;
   text-align: center;
 }
@@ -131,51 +129,16 @@ td{
 
 @keyframes toastAnim {
   0% {
-    padding: 0em;
-    margin: 0em;
-    bottom: -2.4em;
-    max-height: 0em;
+    transform: translateY(3em);
   }
 
   100% {
-    padding: 0.5em 0em 0.5em 0em;
-    margin: 0.2em;
-    max-height: 4em;
-    bottom: 1em;
+    transform: translateY(0);
   }
 }
 
-.litetoast {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  pointer-events: none;
-  position: relative;
-  width: auto;
-  text-align: center;
-  padding: 0.5em 0em 0.5em 0em;
-  margin: 0.2em;
-  max-height: 4em;
-  bottom: 1em;
-}
-
-.litetoast::after {
-  content: "";
-  position: absolute;
-  background-color: var(--primary-color);
-  height: 0.2em;
-  width: 100%;
-  left: 0;
-  bottom: 0;
-}
-
-.litetoast.hide {
-  max-height: 0px;
-  bottom: 2.4em;
-}
-
 .toast {
+  will-change: transform;
   -webkit-animation: 0.2s ease-in-out toastAnim;
   -moz-animation: 0.2s ease-in-out toastAnim;
   -o-animation: 0.2s ease-in-out toastAnim;
@@ -196,17 +159,12 @@ td{
 }
 
 .toast.hide {
-  -webkit-transition: all 0.2s ease-in 0.3s, height 0.2s ease-in 0.5s;
-  -moz-transition: all 0.2s ease-in 0.3s, height 0.2s ease-in 0.5s;
-  -o-transition: all 0.2s ease-in 0.3s, height 0.2s ease-in 0.5s;
-  transition: all 0.2s ease-in 0.3s, height 0.2s ease-in 0.5s;
-  -webkit-transition-property: opacity, max-height, bottom;
-  -moz-transition-property: opacity, max-height, bottom;
-  -o-transition-property: opacity, max-height, bottom;
-  transition-property: opacity, max-height, bottom;
+  -webkit-transition: opacity 0.2s ease-in 0.5s, transform 0.2s ease-in 0.5s;
+  -moz-transition: opacity 0.2s ease-in 0.5s, transform 0.2s ease-in 0.5s;
+  -o-transition: opacity 0.2s ease-in 0.5s, transform 0.2s ease-in 0.5s;
+  transition: opacity 0.2s ease-in 0.5s, transform 0.2s ease-in 0.5s;
   opacity: 0;
-  max-height: 0px;
-  bottom: 2.4em;
+  transform: translateY(-100%);
 }
 
 /*the user name box*/
@@ -244,11 +202,14 @@ td{
   -moz-transition: 0.25s ease-in-out;
   -o-transition: 0.25s ease-in-out;
   transition: 0.25s ease-in-out;
-  width: 1.5em;
   padding-top: 0.25em;
   padding-right: 0.5em;
+  padding-left: 0.5em;
   text-align: center;
   align-content: center;
+  background: transparent;
+  border: none;
+  outline: none;
 }
 
 .commentInput {
@@ -279,29 +240,38 @@ td{
   height: 100%;
 }
 
-.hoverline:before, .hoverline:after, .toast:after {
+.hoverline:before,
+.hoverline:after,
+.toast:after {
   content: "";
   position: absolute;
+  opacity: 0.2;
+  will-change: opacity, transform;
+  background-color: var(--primary-color);
+  height: 0.2em;
+  left: 0;
+  width: 100%;
+  transform-origin: 0 50%;
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
-  opacity: 0.2;
-  background-color: var(--primary-color);
-  height: 0.2em;
-  width: 0px;
-  /*box-shadow: var(--thin-material-shadow);*/
+  -webkit-transition-property: opacity, transform;
+  -moz-transition-property: opacity, transform;
+  -o-transition-property: opacity, transform;
+  transition-property: opacity, transform;
+  transform: scaleX(0);
 }
 
 @keyframes toastUnderlineAnim {
   0% {
-    width: 0px;
     opacity: 0.2;
+    transform: scaleX(0);
   }
 
   100% {
-    width: 100%;
     opacity: 1;
+    transform: scaleX(1);
   }
 }
 
@@ -310,32 +280,27 @@ td{
   -moz-animation: 0.5s ease-in-out toastUnderlineAnim;
   -o-animation: 0.5s ease-in-out toastUnderlineAnim;
   animation: 0.5s ease-in-out toastUnderlineAnim;
-  left: 0;
   bottom: 0;
-  width: 100%;
   opacity: 1;
+  transform: scaleX(1);
 }
 
-.toast.hide:after {
-  width: 0px;
-  right: 0;
-  left: auto;
+.toast.hide:after,
+.hoverline:after {
+  transform-origin: 100% 50%;
+  transform: scaleX(0);
 }
 
 .hoverline:after {
-  right: 0;
   bottom: 0;
 }
 
-.hoverline:focus-within:before, .hoverline:focus-within:after {
-  width: 100%;
-  opacity: 1;
-}
-
 @media (hover: hover) {
-  .hoverline:hover:before, .hoverline:hover:after {
-    opacity: 1;
-    width: 100%;
+
+  .hoverline:hover:before,
+  .hoverline:hover:after {
+    opacity: 0.5;
+    transform: scaleX(1);
   }
 
   #commentButton.hide:hover {
@@ -351,17 +316,25 @@ td{
     box-shadow: var(--thick-material-shadow);
   }
 
-  #githubButton:hover, #adjustButton:hover {
+  #githubButton:hover,
+  #adjustButton:hover {
     width: 1.7em;
   }
+}
+
+.hoverline:focus-within:before,
+.hoverline:focus-within:after {
+opacity: 1;
+  transform: scaleX(1);
 }
 
 .hoverline {
   position: relative;
 }
 
-.hoverline.hide:before, .hoverline.hide:after {
-  width: 0;
+.hoverline.hide:before,
+.hoverline.hide:after {
+  transform: scaleX(0);
 }
 
 /*big button stuff*/
@@ -380,10 +353,10 @@ td{
 }
 
 .bigButton {
-  -webkit-animation: 0.5s ease buttonStart;
-  -moz-animation: 0.5s ease buttonStart;
-  -o-animation: 0.5s ease buttonStart;
-  animation: 0.5s ease buttonStart;
+  -webkit-animation: 0.5s ease buttonStart 0.2s;
+  -moz-animation: 0.5s ease buttonStart 0.2s;
+  -o-animation: 0.5s ease buttonStart 0.2s;
+  animation: 0.5s ease buttonStart 0.2s;
   padding: 0;
   font-size: 7vmin;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
@@ -393,6 +366,7 @@ td{
   position: absolute;
   height: 100%;
   width: 100%;
+  will-change: transform, box-shadow;
   border: none;
   border-radius: 50%;
   outline: none;
@@ -430,6 +404,14 @@ td{
 
 .teemo {
   background-image: url('/images/teemo.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+}
+
+.fu-meme {
+  background-image: url('/images/fu-meme.jpg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -492,9 +474,20 @@ td{
   color: var(--primary-color);
 }
 
+#fps{
+  position: fixed;
+  top: 10%;
+  right: 5%;
+  color: var(--primary-color);
+  font-size: 2em;
+  font-weight: bold;
+}
 
-
-.ring:before, .ring:after, .ringStart:after, .ringStart:before {
+.ring:before,
+.ring:after,
+.ringStart:after,
+.ringStart:before {
+  will-change: transform;
   pointer-events: none;
   content: '';
   position: absolute;
@@ -537,7 +530,8 @@ td{
   animation: 0.7s ease-out 0.1s 1 ringAnim;
 }
 
-.ring:after, .ringStart:after {
+.ring:after,
+.ringStart:after {
   -webkit-transition-delay: 100ms;
   -moz-transition-delay: 100ms;
   -o-transition-delay: 100ms;
@@ -558,21 +552,22 @@ td{
 
 .ringStart:before {
   opacity: 0;
-  -webkit-animation: 1.5s ease-out 0s 1 ringStartAnim;
-  -moz-animation: 1.5s ease-out 0s 1 ringStartAnim;
-  -o-animation: 1.5s ease-out 0s 1 ringStartAnim;
-  animation: 1.5s ease-out 0s 1 ringStartAnim;
+  -webkit-animation: 1.5s ease-out 0.2s 1 ringStartAnim;
+  -moz-animation: 1.5s ease-out 0.2s 1 ringStartAnim;
+  -o-animation: 1.5s ease-out 0.2s 1 ringStartAnim;
+  animation: 1.5s ease-out 0.2s 1 ringStartAnim;
 }
 
 .ringStart:after {
   opacity: 0;
-  -webkit-animation: 0.5s ease-out 0.2s 1 ringStartAnim;
-  -moz-animation: 0.5s ease-out 0.2s 1 ringStartAnim;
-  -o-animation: 0.5s ease-out 0.2s 1 ringStartAnim;
-  animation: 0.5s ease-out 0.2s 1 ringStartAnim;
+  -webkit-animation: 0.5s ease-out 0.4s 1 ringStartAnim;
+  -moz-animation: 0.5s ease-out 0.4s 1 ringStartAnim;
+  -o-animation: 0.5s ease-out 0.4s 1 ringStartAnim;
+  animation: 0.5s ease-out 0.4s 1 ringStartAnim;
 }
 
-#githubButton, #adjustButton {
+#githubButton,
+#adjustButton {
   position: fixed;
   left: 0.5em;
   bottom: 0.5em;
@@ -585,6 +580,7 @@ td{
   -moz-transition: 250ms ease;
   -o-transition: 250ms ease;
   transition: 250ms ease;
+  cursor: pointer;
 }
 
 #adjustButton {
@@ -592,10 +588,10 @@ td{
   right: 0.5em;
 }
 
-#githubButton:active, #adjustButton:active {
+#githubButton:active,
+#adjustButton:active {
   width: 1.3em;
 }
-
 
 @keyframes ringAnimDesktop {
   0% {
@@ -615,10 +611,6 @@ td{
     padding-right: 10vmin;
     padding-top: 2vmin;
     justify-content: space-around;
-  }
-
-  h3 {
-    font-size: 1.5em;
   }
 
   .mainBtnCont {
@@ -656,8 +648,8 @@ td{
 }
 
 @media(max-width: 350px) {
-  h3 {
-    margin: 0.2em 0.5em 0.2em 0.5em;
+  body {
+    font-size: 75%;
   }
 }
 
@@ -685,7 +677,9 @@ td{
 
 /*copy pasta snowflakes*/
 @-webkit-keyframes snowflakes-shake {
-  0%, 100% {
+
+  0%,
+  100% {
     -webkit-transform: translateX(0);
     transform: translateX(0)
   }
@@ -981,7 +975,7 @@ td{
 
 .fu {
   -webkit-animation: shadowAnim 0.25s ease-in-out infinite;
-  -moz-animation: : shadowAnim 0.25s ease-in-out infinite;
+  -moz-animation: shadowAnim 0.25s ease-in-out infinite;
   -o-animation: shadowAnim 0.25s ease-in-out infinite;
   animation: shadowAnim 0.25s ease-in-out infinite;
   position: static;
@@ -1059,7 +1053,8 @@ td{
 }
 
 /*******more copypasta****/
-.pyro>.before, .pyro>.after {
+.pyro>.before,
+.pyro>.after {
   position: absolute;
   width: 5px;
   height: 5px;
@@ -1149,108 +1144,132 @@ td{
 }
 
 @-webkit-keyframes position {
-  0%, 19.9% {
+
+  0%,
+  19.9% {
     margin-top: 10%;
     margin-left: 40%;
   }
 
-  20%, 39.9% {
+  20%,
+  39.9% {
     margin-top: 40%;
     margin-left: 30%;
   }
 
-  40%, 59.9% {
+  40%,
+  59.9% {
     margin-top: 20%;
     margin-left: 70%;
   }
 
-  60%, 79.9% {
+  60%,
+  79.9% {
     margin-top: 30%;
     margin-left: 20%;
   }
 
-  80%, 99.9% {
+  80%,
+  99.9% {
     margin-top: 30%;
     margin-left: 80%;
   }
 }
 
 @-moz-keyframes position {
-  0%, 19.9% {
+
+  0%,
+  19.9% {
     margin-top: 10%;
     margin-left: 40%;
   }
 
-  20%, 39.9% {
+  20%,
+  39.9% {
     margin-top: 40%;
     margin-left: 30%;
   }
 
-  40%, 59.9% {
+  40%,
+  59.9% {
     margin-top: 20%;
     margin-left: 70%;
   }
 
-  60%, 79.9% {
+  60%,
+  79.9% {
     margin-top: 30%;
     margin-left: 20%;
   }
 
-  80%, 99.9% {
+  80%,
+  99.9% {
     margin-top: 30%;
     margin-left: 80%;
   }
 }
 
 @-o-keyframes position {
-  0%, 19.9% {
+
+  0%,
+  19.9% {
     margin-top: 10%;
     margin-left: 40%;
   }
 
-  20%, 39.9% {
+  20%,
+  39.9% {
     margin-top: 40%;
     margin-left: 30%;
   }
 
-  40%, 59.9% {
+  40%,
+  59.9% {
     margin-top: 20%;
     margin-left: 70%;
   }
 
-  60%, 79.9% {
+  60%,
+  79.9% {
     margin-top: 30%;
     margin-left: 20%;
   }
 
-  80%, 99.9% {
+  80%,
+  99.9% {
     margin-top: 30%;
     margin-left: 80%;
   }
 }
 
 @keyframes position {
-  0%, 19.9% {
+
+  0%,
+  19.9% {
     margin-top: 10%;
     margin-left: 40%;
   }
 
-  20%, 39.9% {
+  20%,
+  39.9% {
     margin-top: 40%;
     margin-left: 30%;
   }
 
-  40%, 59.9% {
+  40%,
+  59.9% {
     margin-top: 20%;
     margin-left: 70%;
   }
 
-  60%, 79.9% {
+  60%,
+  79.9% {
     margin-top: 30%;
     margin-left: 20%;
   }
 
-  80%, 99.9% {
+  80%,
+  99.9% {
     margin-top: 30%;
     margin-left: 80%;
   }
