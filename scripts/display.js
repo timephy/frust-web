@@ -159,6 +159,7 @@ function displayRing() {
   const ring = ringBase.cloneNode(true);
   button.parentElement.appendChild(ring);
   destroyDelay(ring, 700);
+  displayToast("test,","");
 }
 
 /** Displays a click (Killfeed-like-style). */
@@ -180,7 +181,7 @@ function displayToast(string, effectClass) {
   toast.className = [toastType, effectClass].join(" ");
   toast.textContent  = string;
   tfrag.prepend(toast);
-  hideDelay(toast, 2500);
+  hideDelay(toast, 2300);
   destroyDelay(toast, 3000);
 }
 
@@ -190,3 +191,24 @@ function step(timestamp) {
   tfrag = document.createDocumentFragment();
 }
 window.requestAnimationFrame(step);
+
+
+//code for the fps counter
+const times = [];
+let fps;
+
+function refreshLoop() {
+  window.requestAnimationFrame(() => {
+    const now = performance.now();
+    while (times.length > 0 && times[0] <= now - 1000) {
+      times.shift();
+    }
+    times.push(now);
+    fps = times.length;
+    refreshLoop();
+  });
+}
+
+function updateFps(){
+  document.getElementById("fps").textContent = fps;
+}

@@ -159,7 +159,7 @@ function displayRing() {
   const ring = ringBase.cloneNode(true);
   button.parentElement.appendChild(ring);
   destroyDelay(ring, 700);
-  displayToast("Du bist OFFLINE und verzweifelst alleine");
+  displayToast("Du bist OFFLINE und verzweifelst alleine","");
 }
 
 /** Displays a click (Killfeed-like-style). */

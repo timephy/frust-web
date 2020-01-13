@@ -130,7 +130,7 @@ td {
 
 @keyframes toastAnim {
   0% {
-    transform: translateY(200%);
+    transform: translateY(3em);
   }
 
   100% {
@@ -160,17 +160,11 @@ td {
 }
 
 .toast.hide {
-  -webkit-transition: all 0.2s ease-in 0.3s, height 0.2s ease-in 0.5s;
-  -moz-transition: all 0.2s ease-in 0.3s, height 0.2s ease-in 0.5s;
-  -o-transition: all 0.2s ease-in 0.3s, height 0.2s ease-in 0.5s;
-  transition: all 0.2s ease-in 0.3s, height 0.2s ease-in 0.5s;
-  /**-webkit-transition-property: opacity, max-height, bottom;
-  -moz-transition-property: opacity, max-height, bottom;
-  -o-transition-property: opacity, max-height, bottom;
-  transition-property: opacity, max-height, bottom;
+  -webkit-transition: opacity 0.2s ease-in 0.5s, transform 0.2s ease-in 0.5s;
+  -moz-transition: opacity 0.2s ease-in 0.5s, transform 0.2s ease-in 0.5s;
+  -o-transition: opacity 0.2s ease-in 0.5s, transform 0.2s ease-in 0.5s;
+  transition: opacity 0.2s ease-in 0.5s, transform 0.2s ease-in 0.5s;
   opacity: 0;
-  max-height: 0px;
-  bottom: 2.4em;**/
   transform: translateY(-100%);
 }
 
@@ -476,6 +470,15 @@ td {
   font-size: 4em;
   opacity: 0;
   color: var(--primary-color);
+}
+
+#fps{
+  position: fixed;
+  top: 10%;
+  right: 5%;
+  color: var(--primary-color);
+  font-size: 2em;
+  font-weight: bold;
 }
 
 .ring:before,

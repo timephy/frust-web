@@ -66,6 +66,14 @@ function verzweifle() {
           storage.vibration = !storage.vibration;
           console.log("vibrationsActive   " + storage.vibration)
           break;
+        case "fps":
+          refreshLoop();
+          setInterval(updateFps, 500);
+          const fpsElem = document.createElement("div")
+          fpsElem.id = "fps";
+          fpsElem.textContent = "000";
+          panker.appendChild(fpsElem);
+          break;
         case "darkmode":
           toggleDarkmode();
           break;
