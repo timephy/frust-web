@@ -1,5 +1,5 @@
 self.addEventListener('install', function(event) {
-  alert('a service worker has successfully been installed')
+  window.alert('a service worker has successfully been installed')
 });
 
 var CACHE_NAME = 'frustrated-cache';
