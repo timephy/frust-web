@@ -159,7 +159,6 @@ function displayRing() {
   const ring = ringBase.cloneNode(true);
   button.parentElement.appendChild(ring);
   destroyDelay(ring, 700);
-  displayToast("test,","");
 }
 
 /** Displays a click (Killfeed-like-style). */
