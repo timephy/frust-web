@@ -18,7 +18,12 @@ function toggleDarkmode() {
   const newTheme = localStorage.getItem("theme") == "dark" ? "light" : "dark";
   localStorage.setItem("theme", newTheme);
   document.documentElement.setAttribute("data-theme", newTheme);
+
   console.log("darkmode   " + localStorage.getItem("theme"));
+
+  document.documentElement.style.display = 'none';
+  document.documentElement.offsetHeight; // no need to store this anywhere, the reference is enough
+  document.documentElement.style.display = 'block';
 }
 
 /** The main button action. */
@@ -168,7 +173,7 @@ socket.on("event", (event) => {
 
 var deferredPrompt;
 
-window.addEventListener('beforeinstallprompt', function (e) {
+window.addEventListener('beforeinstallprompt', function(e) {
   // Prevent Chrome 67 and earlier from automatically showing the prompt
   console.log('before install promt has been triggered')
   /*e.preventDefault();
