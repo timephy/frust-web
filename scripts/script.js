@@ -1,7 +1,9 @@
 navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
 
 const MAX_TOASTS = 30; //please increase if you find any device that needs it
-
+const MAX_TOAST_BUFFER = 60;
+const BUFFER_DURATION = 1000;
+var EMIT_DURATION = BUFFER_DURATION / MAX_TOAST_BUFFER;
 
 document.body.onload = () => {
   // set name, comment
@@ -76,11 +78,21 @@ function verzweifle() {
             panker.appendChild(fpsElem);
             break;
           case "test":
+            let ctest = 0;
+            const cintervalId = setInterval(() => {
+              ctest++;
+              displayToast(`${ctest} test message num ${ctest}`, "")
+              displayRing();
+            }, 5);
+            setTimeout(() => {
+              clearInterval(cintervalId);
+            }, 5000);
+            break;
+          case "ctest":
             let test = 0;
             const tintervalId = setInterval(() => {
               test++;
-              displayToast(`${test} test message num ${test}`, "")
-              displayRing();
+              constrainClicks(`${test} test ${test}`, "", "")
             }, 5);
             setTimeout(() => {
               clearInterval(tintervalId);
@@ -156,10 +168,30 @@ socket.on("users", (users) => {
 socket.on("click", (click) => {
   console.log(`click(${click["name"]}, ${click["comment"]}, ${click["style"]})`);
 
-  displayClick(click["name"], click["comment"], click["style"]);
+  constrainClicks(click["name"], click["comment"], click["style"]);
+
   statsDisplay.total++;
   statsDisplay.day++;
 });
+
+let bufferedClicks = [];
+
+function constrainClicks(n, c, s) {
+  if (bufferedClicks.length < MAX_TOAST_BUFFER)
+    bufferedClicks.push({
+      name: n,
+      comment: c,
+      style: s
+    });
+}
+setInterval(emitClicks, EMIT_DURATION);
+
+function emitClicks() {
+  if (bufferedClicks.length > 0) {
+    console.log(bufferedClicks.length + " clicks are in the buffer");
+    displayClick(bufferedClicks.shift());
+  }
+}
 
 socket.on("event", (event) => {
   console.log(`event(${event["name"]}, ${event["id"]})`);

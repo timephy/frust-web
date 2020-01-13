@@ -33,9 +33,11 @@ const HELP_MESSAGE = [
   "Click lines:",
   "    " + ["small", "big", "dotted", "dashed"].join(", "),
   "Events:",
-  "    " + ["fuck", "einstein", "satan", "666", "pride", "fireworks", "rainbow"].join(", "),
-  "Manage:",
-  "    " + ["vibrate", "darkmode", "clear"].join(", ")
+  "    " + ["fuck", "einstein", "satan", "666", "pride", "fireworks", "rainbow", "fu"].join(", "),
+  "Options:",
+  "    " + ["vibrate", "darkmode", "clear"].join(", "),
+  "Dev options:",
+  "    " + ["ctest", "test", "fps"].join(", ")
 ].join("\n")
 
 /** effect variables */
@@ -67,7 +69,6 @@ class StatsDisplay {
   }
   set day(value) {
     this._today = value;
-    today.textContent = this.day;
   }
 
   // session
@@ -76,7 +77,6 @@ class StatsDisplay {
   }
   set session(value) {
     this._session = value;
-    session.textContent = this.session;
   }
 
   // online
@@ -85,7 +85,6 @@ class StatsDisplay {
   }
   set online(value) {
     this._online = value;
-    online.textContent = this.online;
   }
 }
 
@@ -162,13 +161,13 @@ function displayRing() {
 }
 
 /** Displays a click (Killfeed-like-style). */
-function displayClick(name, comment, effectClass) {
-  let text = `${name} verzweifelt...`
+function displayClick(click) {
+  let text = `${click.name} verzweifelt...`
   // add comment in braces if present
-  if (comment != undefined && comment != "") {
-    text = text.concat(` (${comment})`);
+  if (click.comment != undefined && click.comment != "") {
+    text = text.concat(` (${click.comment})`);
   }
-  displayToast(text, effectClass);
+  displayToast(text, click.FeffectClass);
 }
 
 function displayToast(string, effectClass) {
@@ -178,16 +177,20 @@ function displayToast(string, effectClass) {
 
   const toast = document.createElement("div")
   toast.className = [toastType, effectClass].join(" ");
-  toast.textContent  = string;
+  toast.textContent = string;
   tfrag.prepend(toast);
   hideDelay(toast, 2300);
   destroyDelay(toast, 3000);
 }
 
 function step(timestamp) {
-  window.requestAnimationFrame(step);
   anker.prepend(tfrag);
   tfrag = document.createDocumentFragment();
+  today.textContent = statsDisplay.day;
+  session.textContent = statsDisplay.session;
+  online.textContent = statsDisplay.online;
+
+  window.requestAnimationFrame(step);
 }
 window.requestAnimationFrame(step);
 
@@ -208,6 +211,6 @@ function refreshLoop() {
   });
 }
 
-function updateFps(){
+function updateFps() {
   document.getElementById("fps").textContent = fps;
 }
