@@ -4,6 +4,7 @@ const MAX_TOASTS = 30; //please increase if you find any device that needs it
 const MAX_TOAST_BUFFER = 60;
 const BUFFER_DURATION = 1000;
 var EMIT_DURATION = BUFFER_DURATION / MAX_TOAST_BUFFER;
+var savedByBuffer = 0;
 
 document.body.onload = () => {
   // set name, comment
@@ -77,11 +78,15 @@ function verzweifle() {
             fpsElem.textContent = "000";
             panker.appendChild(fpsElem);
             break;
+          case "buffer":
+            alert(savedByBuffer + " toasts have been prevented by the buffer");
+            savedByBuffer = 0;
+            break;
           case "ctest":
             let ctest = 0;
             const cintervalId = setInterval(() => {
               ctest++;
-              constrainClicks(`${test} test ${test}`, "", "")
+              constrainClicks(`${ctest} test ${ctest}`, "", "")
             }, 5);
             setTimeout(() => {
               clearInterval(cintervalId);
@@ -91,9 +96,9 @@ function verzweifle() {
             let test = 0;
             const tintervalId = setInterval(() => {
               test++;
-              displayToast(`${ctest} test message num ${ctest}`, "")
+              displayToast(`${test} test message num ${test}`, "")
               displayRing();
-              }, 5);
+            }, 5);
             setTimeout(() => {
               clearInterval(tintervalId);
             }, 5000);
@@ -185,8 +190,10 @@ function constrainClicks(n, c, s) {
       comment: c,
       style: s
     });
-    else
+  else {
     console.log("a click got dismissed (buffer full)");
+    savedByBuffer++;
+  }
 }
 setInterval(emitClicks, EMIT_DURATION);
 
@@ -232,6 +239,8 @@ socket.on("event", (event) => {
   }
 });
 
+socket.connect();
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
     navigator.serviceWorker.register('/sw.js').then(function(registration) {
@@ -253,5 +262,3 @@ function updateOnlineStatus(event) {
 
 window.addEventListener('online', updateOnlineStatus);
 window.addEventListener('offline', updateOnlineStatus);
-
-socket.connect();
