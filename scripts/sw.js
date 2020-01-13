@@ -10,8 +10,8 @@ var urlsToCache = [
   '/offline.html',
   '/styles/betterstyle.css',
   '/scripts/storage.js',
-  '/scripts/script.js'
-  '/scripts/utils.js'
+  '/scripts/script.js',
+  '/scripts/utils.js',
   '/scripts/offlineDisplay.js'
 ];
 
