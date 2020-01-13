@@ -203,12 +203,14 @@ td {
   -moz-transition: 0.25s ease-in-out;
   -o-transition: 0.25s ease-in-out;
   transition: 0.25s ease-in-out;
-  width: 1.5em;
   padding-top: 0.25em;
   padding-right: 0.5em;
   padding-left: 0.5em;
   text-align: center;
   align-content: center;
+  background: transparent;
+  border: none;
+  outline: none;
 }
 
 .commentInput {
