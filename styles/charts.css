@@ -2,7 +2,8 @@ body {
   padding: 1em
 }
 
-th, td {
+th,
+td {
   border-bottom: 1px solid var(--dark-red);
   border-left: none;
   border-right: none;
@@ -10,11 +11,23 @@ th, td {
   text-align: left;
 }
 
+h2 {
+  font-size: 0.5em;
+  bottom: 1em;
+  margin: 0.5em;
+}
+
 th {
   background-color: var(--primary-color);
   background-image: -webkit-linear-gradient(0deg, var(--dark-red), var(--primary-color));
   background-image: linear-gradient(0deg, var(--dark-red), var(--primary-color));
   color: white;
+}
+
+table {
+  max-height: 20em;
+  min-height: 5em;
+  overflow-y: auto;
 }
 
 tr:hover {
