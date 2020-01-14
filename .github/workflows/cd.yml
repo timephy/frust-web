@@ -27,6 +27,7 @@ jobs:
 
       - name: rsync
         run: |
+          node get-version.js > version
           mkdir -p ~/.ssh
           # "" required, otherwise multiline secret is not treated correctly
           echo "${{ secrets.id_rsa }}" > ~/.ssh/id_rsa
@@ -35,7 +36,7 @@ jobs:
           ssh-keyscan $SERVER > ~/.ssh/known_hosts
           # no / behind directories, otherwise only contents will be copied
           rsync -r -v --delete-after \
-            *.html scripts styles images manifest.json sw.js \
+            *.html scripts styles images manifest.json sw.js version \
             cd@$SERVER:$DEPLOY_PATH
         env:
           SERVER: timephy.com
