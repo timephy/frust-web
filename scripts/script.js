@@ -290,11 +290,8 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-function updateOnlineStatus(event) {
-  if (navigator.onLine)
-    document.getElementById("offlineMessage").style.display = "none";
-  else
-    document.getElementById("offlineMessage").style.display = "block";
+function updateOnlineStatus() {
+  document.getElementById("offlineMessage").style.display = navigator.onLine ? "none" : "block";
 }
 
 function process(e) {
