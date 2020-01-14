@@ -212,16 +212,25 @@ let bufferedClicks = [];
 
 //collects all the incoming clicks
 function constrainClicks(n, c, s) {
-  if (bufferedClicks.length < MAX_TOAST_BUFFER)
-    bufferedClicks.push({
+  if (bufferActive) {
+    if (bufferedClicks.length < MAX_TOAST_BUFFER) {
+      bufferedClicks.push({
+        name: n,
+        comment: c,
+        style: s
+      });
+    } else {
+      console.log("a click got dismissed (buffer full)");
+      savedByBuffer++;
+    }
+  } else {
+    displayClick({
       name: n,
       comment: c,
       style: s
-    });
-  else {
-    console.log("a click got dismissed (buffer full)");
-    savedByBuffer++;
+    })
   }
+
 }
 setInterval(emitClicks, EMIT_DURATION);
 
@@ -270,11 +279,11 @@ socket.on("event", (event) => {
 socket.connect();
 
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js').then(function (registration) {
       // Registration was successful
       console.log('ServiceWorker registration successful with scope: ', registration.scope);
-    }, function(err) {
+    }, function (err) {
       // registration failed :(
       console.log('ServiceWorker registration failed: ', err);
     });
