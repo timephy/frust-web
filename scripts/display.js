@@ -176,7 +176,6 @@ ringBase = document.createElement("div");
 ringBase.className = "ring";
 
 function displayRing() {
-  displayToast("some tast", "")
   const ring = ringBase.cloneNode(true);
   button.parentElement.appendChild(ring);
   anime({

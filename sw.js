@@ -79,7 +79,7 @@ self.addEventListener('install', function(event) {
   );
 });
 
-self.addEventListener('fetch', (event) => {
+/*self.addEventListener('fetch', (event) => {
   if (event.request.url.endsWith('version')) {
     console.log('requesting version');
     event.respondWith(
@@ -108,4 +108,13 @@ self.addEventListener('fetch', (event) => {
     );
     return;
   }
+});*/
+
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request)
+    // Cache hit - return response, or a new version is available, then get
+    .then((response) => (response && !navigator.onLine) ? response : fetch(event.request))
+  );
+  return;
 });
