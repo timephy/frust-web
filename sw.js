@@ -52,6 +52,8 @@ self.addEventListener('activate', function(event) {
               })
           })
         );
+      }else{
+        console.log('version hasnt changed, keep cache as is');
       }
     })
     .catch((error, json) => {
