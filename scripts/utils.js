@@ -62,7 +62,7 @@ function CreateUserTableFromJSON(jsonData, eid) {
 
   // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
   var divContainer = document.getElementById(eid);
-  divContainer.innerHTML = "user count: " + jsonData.user_count + "<br><br>";
+  divContainer.innerHTML = "user count: " + jsonData.userCount + "<br><br>";
   divContainer.appendChild(table);
 }
 
@@ -82,5 +82,5 @@ function loadJson(callback, path) {
     .then(json => callback(null, json))
     .catch(error => callback(error, {
       "error": "while fetching data, sorry"
-    }))
+    }));
 }
