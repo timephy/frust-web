@@ -135,15 +135,39 @@ function displayRandomButtonLabel() {
 /** Toggle comment field. */
 function openComment(commentButton) {
   if (commentInput.classList.contains("hide")) {
-    commentButton.classList.remove("hide")
     commentInput.classList.remove("hide")
     commentInput.parentElement.classList.remove("hide")
+    anime({
+      targets: '#commentExpandPath',
+      d: [{
+          value: "m 0,25 L 50,75 L 100,25"
+        },
+        {
+          value: "m 0,75 L 50,25 L 100,75"
+        }
+      ],
+      easing: 'easeInOutSine',
+      duration: 200,
+      loop: 1
+    });
     //nameInput.blur()
     //commentInput.focus()
   } else {
-    commentButton.classList.add("hide")
     commentInput.classList.add("hide")
     commentInput.parentElement.classList.add("hide")
+    anime({
+      targets: '#commentExpandPath',
+      d: [{
+          value: "m 0,75 L 50,25 L 100,75"
+        },
+        {
+          value: "m 0,25 L 50,75 L 100,25"
+        }
+      ],
+      easing: 'easeInOutSine',
+      duration: 200,
+      loop: 1
+    });
     //commentInput.blur()
     //nameInput.focus()
   }
@@ -157,7 +181,15 @@ ringBase.className = "ring";
 function displayRing() {
   const ring = ringBase.cloneNode(true);
   button.parentElement.appendChild(ring);
-  destroyDelay(ring, 700);
+  anime({
+    targets: '.ring',
+    scale: 2.5,
+    opacity: 0,
+    easing: 'easeInOutSine',
+    duration: 500
+  }).finished.then(() => {
+    ring.remove()
+  });
 }
 
 /** Displays a click (Killfeed-like-style). */
