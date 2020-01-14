@@ -167,7 +167,7 @@ function displayClick(click) {
   if (click.comment != undefined && click.comment != "") {
     text = text.concat(` (${click.comment})`);
   }
-  displayToast(text, click.effectClass);
+  displayToast(text, click.style);
 }
 
 function displayToast(string, effectClass) {
