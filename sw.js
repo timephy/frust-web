@@ -19,7 +19,11 @@ const urlsToCache = [
 
 var prevVersionResponse;
 let versionJson = {
-  commit_sha: "512fa2e5e1dcbac584562356a8e51f23aa1727fd",
+  commit_sha: "512fa2e5e1dcbac584562356a8e51f23aa1727fd",  //fallback value
+  timestamp: new Date(2010 - 01 - 5) //fallback value
+};
+let prevVersionJson = {
+  commit_sha: "512fa2e5e1dcbac584562356a8e51f23aa1727fd",  //fallback value
   timestamp: new Date(2010 - 01 - 1) //fallback value
 };
 
