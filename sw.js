@@ -9,7 +9,12 @@ const urlsToCache = [
   '/scripts/script.js',
   '/scripts/socket.io.js',
   '/scripts/display.js',
-  '/scripts/utils.js'
+  '/scripts/utils.js',
+  '/images/teemo.jpg',
+  '/images/elmo.jpg',
+  '/images/einstein.svg',
+  '/images/einsteinBW.svg',
+  '/images/fu-meme.jpg'
 ];
 
 self.addEventListener('activate', function (event) {
