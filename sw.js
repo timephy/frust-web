@@ -18,13 +18,14 @@ const urlsToCache = [
 ];
 
 var prevVersionResponse;
-let versionJson = {
-  commit_sha: "512fa2e5e1dcbac584562356a8e51f23aa1727fd",  //fallback value
-  timestamp: new Date(2010 - 01 - 5) //fallback value
-};
+var cacheError = false;
 let prevVersionJson = {
-  commit_sha: "512fa2e5e1dcbac584562356a8e51f23aa1727fd",  //fallback value
-  timestamp: new Date(2010 - 01 - 1) //fallback value
+  commit_sha: "512fa2e5e1dcbac584562356a8e51f23aa1727fd", //fallback value
+  timestamp: "2005-01-14T20:24:21.644Z" //fallback value
+};
+let currentVersionJson = {
+  commit_sha: "512fa2e5e1dcbac584562356a8e51f23aa1727fd", //fallback value
+  timestamp: "2010-01-14T20:24:21.644Z" //fallback value
 };
 
 self.addEventListener('activate', function(event) {
@@ -32,8 +33,8 @@ self.addEventListener('activate', function(event) {
 
   fetch('/version').then(response => response.json())
     .then(json => {
-      versionJson = json;
-      console.log(versionJson);
+      prevVersionJson = json;
+      console.log(prevVersionJson);
 
       if (newVersion()) {
         event.waitUntil(
@@ -52,18 +53,18 @@ self.addEventListener('activate', function(event) {
               })
           })
         );
-      }else{
+      } else {
         console.log('version hasnt changed, keep cache as is');
       }
     })
     .catch((error, json) => {
       console.log('couldnt get version ' + error);
-      alert('couldnt get version ' + error);
+      cacheError = true;
     });
 });
 
 function newVersion() {
-  return (versionJson.timestamp > prevVersionJson.timestamp)
+  return (prevVersionJson.timestamp > currentVersionJson.timestamp) || cacheError;
 }
 
 self.addEventListener('install', function(event) {
@@ -87,11 +88,12 @@ self.addEventListener('fetch', (event) => {
         prevVersionResponse = response;
         prevVersionResponse.then(response => response.json())
           .then(json => {
-            prevVersionJson = json;
-            console.log('prevVersionJson '+prevVersionJson);
+            currentVersionJson = json;
+            console.log('currentVersionJson ' + currentVersionJson);
           }).catch((error, json) => {
             console.log('couldnt get cached version ' + error);
             alert('couldnt get cached version ' + error);
+            cacheError = true;
           });
 
         return fetch(event.request);
