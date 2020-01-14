@@ -297,5 +297,13 @@ function updateOnlineStatus(event) {
     document.getElementById("offlineMessage").style.display = "block";
 }
 
+function process(e) {
+  const code = e.keyCode ? e.keyCode : e.which;
+  if (code == 13) {
+    verzweifle();
+    e.preventDefault();
+  }
+}
+
 window.addEventListener('online', updateOnlineStatus);
 window.addEventListener('offline', updateOnlineStatus);
