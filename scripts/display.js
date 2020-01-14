@@ -42,7 +42,6 @@ const HELP_MESSAGE = [
 
 /** effect variables */
 var resetableTimers = {};
-var toastType = "toast";
 
 var tfrag = document.createDocumentFragment();
 
@@ -147,8 +146,7 @@ function openComment(commentButton) {
         }
       ],
       easing: 'easeInOutSine',
-      duration: 200,
-      loop: 1
+      duration: 200
     });
     //nameInput.blur()
     //commentInput.focus()
@@ -165,8 +163,7 @@ function openComment(commentButton) {
         }
       ],
       easing: 'easeInOutSine',
-      duration: 200,
-      loop: 1
+      duration: 200
     });
     //commentInput.blur()
     //nameInput.focus()
@@ -179,10 +176,11 @@ ringBase = document.createElement("div");
 ringBase.className = "ring";
 
 function displayRing() {
+  displayToast("some tast", "")
   const ring = ringBase.cloneNode(true);
   button.parentElement.appendChild(ring);
   anime({
-    targets: '.ring',
+    targets: ring,
     scale: 2.5,
     opacity: 0,
     easing: 'easeInOutSine',
@@ -201,30 +199,42 @@ function displayClick(click) {
   }
   displayToast(text, click.style);
 }
+var toastBase;
+toastBase = document.createElement("div");
+toastBase.className = "toast";
 
 function displayToast(string, effectClass) {
   // prevent extreme amounts of comment messages
   if (anker.childElementCount > MAX_TOASTS)
     anker.lastElementChild.remove();
 
-  const toast = document.createElement("div")
-  toast.className = [toastType, effectClass].join(" ");
+  const toast = toastBase.cloneNode(true);
+  toast.className = [effectClass, "toast"].join("");
   toast.textContent = string;
-  tfrag.prepend(toast);
-  hideDelay(toast, 2300);
-  destroyDelay(toast, 3000);
+  //tfrag.prepend(toast);
+  anker.prepend(toast);
+  anime.set(toast, {translateY:'100%'})
+  var animation = anime.timeline({
+    targets: toast,
+    duration: 500,
+    endDelay: 1000
+  }).add({
+    translateY: 0,
+    translateX: 50,
+    opacity: 1,
+  }).add({
+    translateX: -50,
+    endDelay: 0
+  }).add({
+    translateY: '-100%',
+    opacity: 0
+  })
+  animation.finished.then(() => {
+    toast.remove();
+  });
+  hideDelay(toast, 1500);
+  //destroyDelay(toast, 3000);
 }
-
-function step(timestamp) {
-  anker.prepend(tfrag);
-  tfrag = document.createDocumentFragment();
-  today.textContent = statsDisplay.day;
-  session.textContent = statsDisplay.session;
-  online.textContent = statsDisplay.online;
-
-  window.requestAnimationFrame(step);
-}
-window.requestAnimationFrame(step);
 
 
 //code for the fps counter
@@ -239,9 +249,14 @@ function refreshLoop() {
     }
     times.push(now);
     fps = times.length;
+
+    today.textContent = statsDisplay.day;
+    session.textContent = statsDisplay.session;
+    online.textContent = statsDisplay.online;
     refreshLoop();
   });
 }
+refreshLoop();
 
 function updateFps() {
   document.getElementById("fps").textContent = fps;

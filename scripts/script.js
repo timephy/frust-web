@@ -75,7 +75,6 @@ function verzweifle() {
             console.log("vibrationsActive   " + storage.vibration)
             break;
           case "fps":
-            refreshLoop();
             setInterval(updateFps, 500);
             const fpsElem = document.createElement("div")
             fpsElem.id = "fps";
