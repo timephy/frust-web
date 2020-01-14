@@ -14,6 +14,7 @@ const urlsToCache = [
   '/images/elmo.jpg',
   '/images/einstein.svg',
   '/images/einsteinBW.svg',
+  '/version',
   '/images/fu-meme.jpg'
 ];
 
