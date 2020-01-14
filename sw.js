@@ -78,7 +78,7 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.url.includes('/version')) {
+  if (event.request.url.endsWith('version')) {
     console.log('requesting version');
     event.respondWith(
       caches.match(event.request)
