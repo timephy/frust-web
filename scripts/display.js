@@ -183,7 +183,7 @@ function displayClick(click) {
 }
 
 function displayToast(string, effectClass) {
-  if (string in activeToasts) {
+  if (activeToasts[string] !== undefined) {
     atoast = activeToasts[string];
     clearTimeout(atoast[2])
     //create a new timer instance
@@ -214,9 +214,9 @@ function displayToast(string, effectClass) {
       duration: 1000
     });
   } else {
-    newToast(string, effectClass);
     console.log("is string in object: ", string in activeToasts);
     console.log(Object.keys(activeToasts));
+    newToast(string, effectClass);
   }
 }
 
@@ -234,6 +234,7 @@ function newToast(string, effectClass) {
   var funkyFunc = function() {
     toast.classList.add("hide")
     count.remove()
+    delete activeToasts[string];
     var animation = anime({
       targets: toast,
       delay: 500,
@@ -243,7 +244,6 @@ function newToast(string, effectClass) {
       easing: 'easeInSine'
     })
     animation.finished.then(() => {
-      delete activeToasts[string];
       toast.remove()
     });
   }

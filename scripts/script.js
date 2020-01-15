@@ -118,6 +118,11 @@ function verzweifle() {
             const tintervalId = setInterval(() => {
               test++;
               displayToast(`${test} test message num ${test}`, "")
+              displayToast(`${test} test message num ${test}`, "")
+              displayToast(`${test} test message num ${test}`, "")
+              displayToast(`${test} test message num ${test}`, "")
+              displayToast(`${test} test message num ${test}`, "")
+              displayToast(`${test} test message num ${test}`, "")
               displayRing();
             }, 5);
             setTimeout(() => {
