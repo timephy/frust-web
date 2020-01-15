@@ -136,6 +136,27 @@ td {
   position: relative;
   display: inherit;
   width: auto;
+  /*is this better or the jumping animejs animation?????*/
+  -webkit-animation: 0.2s ease-in-out toastAnim;
+  -moz-animation: 0.2s ease-in-out toastAnim;
+  -o-animation: 0.2s ease-in-out toastAnim;
+  animation: 0.2s ease-in-out toastAnim;
+}
+
+@keyframes toastAnim {
+  0% {
+    padding: 0;
+    margin: 0;
+    bottom: -2.4em;
+    max-height: 0em;
+  }
+
+  100% {
+    padding: 0.5em 0em 0.5em 0em;
+    margin: 0.2em;
+    max-height: 4em;
+    bottom: 1em;
+  }
 }
 
 .clickCounter {

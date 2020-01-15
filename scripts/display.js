@@ -255,15 +255,14 @@ function newToast(string, effectClass) {
   toast.textContent = string;
   toast.appendChild(count)
   tfrag.prepend(toast);
-  anime.set(toast, {
-    translateY: '100%'
-  })
+  /* currently using the css animation from before
   anime({
     targets: toast,
+    maxheight: [0,'4em'],
     duration: 500,
     opacity: 1,
-    translateY: 0
-  })
+    translateY: ['100%',0]
+  })*/
 }
 
 
