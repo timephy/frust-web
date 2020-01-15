@@ -99,7 +99,7 @@ table {
 }
 
 td {
-  font-size: 0.8em;
+  font-size: 0.7em;
   text-align: center;
 }
 
@@ -385,6 +385,11 @@ td {
   -moz-transition: 250ms ease;
   -o-transition: 250ms ease;
   transition: 250ms ease;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .bigButton:focus {
