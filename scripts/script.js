@@ -5,6 +5,8 @@ const MAX_TOAST_BUFFER = 60;
 const BUFFER_DURATION = 1000;
 var EMIT_DURATION = BUFFER_DURATION / MAX_TOAST_BUFFER;
 var savedByBuffer = 0;
+var bufferActive = true;
+var devMode = false;
 
 document.body.onload = () => {
   // set name, comment
@@ -24,6 +26,7 @@ function toggleDarkmode() {
 
   console.log("darkmode   " + localStorage.getItem("theme"));
 
+  //forces a redraw of the background... supposedly
   document.documentElement.style.display = 'none';
   document.documentElement.offsetHeight; // no need to store this anywhere, the reference is enough
   document.documentElement.style.display = 'block';
@@ -31,7 +34,7 @@ function toggleDarkmode() {
 
 /** The main button action. */
 function verzweifle() {
-  if (navigator.onLine) {
+  if (navigator.onLine && !devMode) {
 
     if (navigator.vibrate && storage.vibration) // vibration API supported
       navigator.vibrate(100);
@@ -50,6 +53,8 @@ function verzweifle() {
 
     if (comment.startsWith("/")) { // Command
       command = comment.substring(1);
+      // remove comment to "hide command"
+      commentInput.value = "";
       console.log(`command: "${command}"`)
 
       if (["green", "purple", "blue", "yellow", "black", "white"].includes(command)) {
@@ -68,10 +73,9 @@ function verzweifle() {
         switch (command) {
           case "vibrate":
             storage.vibration = !storage.vibration;
-            console.log("vibrationsActive   " + storage.vibration)
+            console.log("vibrationsActive   ", storage.vibration)
             break;
           case "fps":
-            refreshLoop();
             setInterval(updateFps, 500);
             const fpsElem = document.createElement("div")
             fpsElem.id = "fps";
@@ -79,10 +83,11 @@ function verzweifle() {
             panker.appendChild(fpsElem);
             break;
           case "buffer":
-            alert(savedByBuffer + " toasts have been prevented by the buffer");
+            alert(savedByBuffer + " toasts have been prevented by the buffer\n" + (bufferActive ? "deactivating buffer" : "activating buffer"));
             savedByBuffer = 0;
+            bufferActive = !bufferActive;
             break;
-          case "ctest":
+          case "ctest": //testing buffered performance (locally)
             let ctest = 0;
             const cintervalId = setInterval(() => {
               ctest++;
@@ -90,17 +95,48 @@ function verzweifle() {
             }, 5);
             setTimeout(() => {
               clearInterval(cintervalId);
-            }, 8000);
+            }, 5000);
             break;
-          case "test":
+          case "gtest": //testing performance if glogal clicks are emitted
+            let gtest = 0;
+            const gintervalId = setInterval(() => {
+              for (var i = 0; i < 5; i++) {
+                gtest++;
+                socket.emit("click", {
+                  "name": `${gtest} gtest `,
+                  "comment": `${gtest}`,
+                  "style": [storage.underlineType, storage.color].join(" ")
+                });
+              }
+            }, 20);
+            setTimeout(() => {
+              clearInterval(gintervalId);
+            }, 2000);
+            break;
+          case "test": //testing the combined toast ring performance
             let test = 0;
             const tintervalId = setInterval(() => {
               test++;
+              displayToast(`${test} test message num ${test}`, "")
+              displayToast(`${test} test message num ${test}`, "")
+              displayToast(`${test} test message num ${test}`, "")
+              displayToast(`${test} test message num ${test}`, "")
+              displayToast(`${test} test message num ${test}`, "")
               displayToast(`${test} test message num ${test}`, "")
               displayRing();
             }, 5);
             setTimeout(() => {
               clearInterval(tintervalId);
+            }, 5000);
+            break;
+          case "rtest": //testing the ring performance
+            let rtest = 0;
+            const rintervalId = setInterval(() => {
+              rtest++;
+              displayRing();
+            }, 5);
+            setTimeout(() => {
+              clearInterval(rintervalId);
             }, 5000);
             break;
           case "darkmode":
@@ -136,8 +172,6 @@ function verzweifle() {
             break;
         }
       }
-      // remove comment to "hide command"
-      commentInput.value = "";
     } else { // Click
       statsDisplay.session++;
       socket.emit("click", {
@@ -145,10 +179,18 @@ function verzweifle() {
         "comment": comment,
         "style": [storage.underlineType, storage.color].join(" ")
       });
-
     }
   } else {
-    displayToast("Du bist OFFLINE und verzweifelst alleine", "");
+    if (devMode) {
+      displayClick({
+        name: "dev",
+        comment: commentInput.value,
+        style: ""
+      });
+    } else {
+
+      displayToast("Du bist OFFLINE und verzweifelst alleine", "");
+    }
   }
 
   // Purely Visual
@@ -171,8 +213,6 @@ socket.on("users", (users) => {
 });
 
 socket.on("click", (click) => {
-  //console.log(`click(${click["name"]}, ${click["comment"]}, ${click["style"]})`);
-
   constrainClicks(click["name"], click["comment"], click["style"]);
 
   statsDisplay.total++;
@@ -184,16 +224,25 @@ let bufferedClicks = [];
 
 //collects all the incoming clicks
 function constrainClicks(n, c, s) {
-  if (bufferedClicks.length < MAX_TOAST_BUFFER)
-    bufferedClicks.push({
+  if (bufferActive) {
+    if (bufferedClicks.length < MAX_TOAST_BUFFER) {
+      bufferedClicks.push({
+        name: n,
+        comment: c,
+        style: s
+      });
+    } else {
+      console.log("a click got dismissed (buffer full)");
+      savedByBuffer++;
+    }
+  } else {
+    displayClick({
       name: n,
       comment: c,
       style: s
-    });
-  else {
-    console.log("a click got dismissed (buffer full)");
-    savedByBuffer++;
+    })
   }
+
 }
 setInterval(emitClicks, EMIT_DURATION);
 
@@ -207,8 +256,7 @@ function emitClicks() {
 
 socket.on("event", (event) => {
   console.log(`event(${event["name"]}, ${event["id"]})`);
-
-  displayToast(`${event["name"]} triggered ${event["id"]}!`)
+  displayToast(`${event["name"]} triggered ${event["id"]}!`, "")
 
   // Reacting to "everyone events"
   switch (event["id"]) {
@@ -253,12 +301,19 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-function updateOnlineStatus(event) {
-  if (navigator.onLine)
-    document.getElementById("offlineMessage").style.display = "none";
-  else
-    document.getElementById("offlineMessage").style.display = "block";
+function updateOnlineStatus() {
+  document.getElementById("offlineMessage").style.display = navigator.onLine ? "none" : "block";
 }
 
+function process(e) {
+  const code = e.keyCode ? e.keyCode : e.which;
+  if (code == 13) {
+    verzweifle();
+    e.preventDefault();
+  }
+}
+
+devMode = !window.location.href.includes('https');
+console.log("dev mode: ", devMode);
 window.addEventListener('online', updateOnlineStatus);
 window.addEventListener('offline', updateOnlineStatus);

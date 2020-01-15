@@ -17,15 +17,15 @@
   <meta name="msapplication-config" content="/images/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
 
-  <meta name="description" content="Here you can find some Stats about your fellow physicists frustrations... Have fun!">
+  <meta name="description"
+    content="Here you can find some Stats about your fellow physicists frustrations... Have fun!">
 
   <link rel="stylesheet" href="styles/betterstyle.css">
   <link rel="stylesheet" href="styles/charts.css">
-  <title>Frustrated Physicists - Stats</title>
+  <title>Statistiken für frustrierte Physiker</title>
   <meta name="viewport" content="width=device-width, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
-
 
   <script type="text/javascript">
     var theme = "light";
@@ -59,20 +59,34 @@
 <body>
 
   <div id="showData">Loading data...</div>
-  <div class="spacer">
+  <div class="spacer" />
+  <div id="showData2">Loading data...</div>
+  <div class="spacer" />
+  <div id="showData3">Loading data...</div>
+  <div class="spacer" />
 
-  </div>
-  <div>Icon based on a svg made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+  <h2>Icon based on a svg made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from
+    <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></h2>
 
 </body>
 
 <script src="scripts/utils.js"></script>
 <script type="text/javascript">
-  loadJsonList((error, result) => {
+  loadJson((error, result) => {
     if (error)
       console.log(error);
-    CreateTableFromJSON(result);
-  });
+    CreateUserTableFromJSON(result, 'showData');
+  }, '/api/list');
+  loadJson((error, result) => {
+    if (error)
+      console.log(error);
+    CreateTextFromJSON(result, 'showData2');
+  }, '/version');
+  loadJson((error, result) => {
+    if (error)
+      console.log(error);
+    CreateTextFromJSON(result, 'showData3');
+  }, '/api');
 </script>
 
 </html>

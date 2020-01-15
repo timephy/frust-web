@@ -2,13 +2,13 @@
 
 A website for fellow Physics students at TUM to show their frustration.
 
-**This project is just for fun.**
+*This project is just for fun.*
 
 ## To our fellow students
 
-Please feel free to contact us directly about the project or contribute by creating pull requests.
-We would be happy to cooperate with you.
-Happy frustrated studying!
+To keep this fun project going we count on you to create an Issue or a Pull Request with your suggestion(s).
+
+*Happy frustrated studying!*
 
 ## Main contributors
 

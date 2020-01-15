@@ -33,16 +33,17 @@ const HELP_MESSAGE = [
   "Click lines:",
   "    " + ["small", "big", "dotted", "dashed"].join(", "),
   "Events:",
-  "    " + ["fuck", "einstein", "satan", "666", "pride", "fireworks", "rainbow", "fu"].join(", "),
+  "    " + ["fuck", "einstein", "satan", "666", "pride", "rainbow", "fu"].join(", "),
   "Options:",
   "    " + ["vibrate", "darkmode", "clear"].join(", "),
   "Dev options:",
-  "    " + ["ctest", "test", "fps", "buffer"].join(", ")
+  "    " + ["buffer", "fps", "test", "ctest", "gtest", "rtest"].join(", ")
 ].join("\n")
 
 /** effect variables */
 var resetableTimers = {};
-var toastType = "toast";
+const RESET_TIME = 4000;
+var activeToasts = {}
 
 var tfrag = document.createDocumentFragment();
 
@@ -56,10 +57,10 @@ class StatsDisplay {
     this._total = value;
     total.textContent = this.total;
 
-    if (value % 10000 == 0) {
+    if (value % 100000 == 0) {
+      popup("+100.000")
+    } else if (value % 10000 == 0) {
       popup("+10.000")
-    } else if (value % 1000 == 0) {
-      popup("+1.000")
     }
   }
 
@@ -105,15 +106,6 @@ function popup(text, cssClass) {
   destroyDelay(pop, 5000);
 }
 
-/** Fireworks effect. */
-function fireworks() {
-  const pyro = document.createElement("div")
-  pyro.className = "pyro";
-  pyro.innerHTML = '<div class="before"></div> <div class="after"></div>';
-  panker.appendChild(pyro);
-  destroyDelay(pyro, 5000);
-}
-
 /** Einstein effect. */
 function einstein() {
   var einstein = document.createElement("img")
@@ -135,17 +127,37 @@ function displayRandomButtonLabel() {
 /** Toggle comment field. */
 function openComment(commentButton) {
   if (commentInput.classList.contains("hide")) {
-    commentButton.classList.remove("hide")
     commentInput.classList.remove("hide")
     commentInput.parentElement.classList.remove("hide")
-    //nameInput.blur()
-    //commentInput.focus()
+    anime({
+      targets: '#commentExpandPath',
+      d: [{
+          value: "m 0,25 L 50,75 L 100,25"
+        },
+        {
+          value: "m 0,75 L 50,25 L 100,75"
+        }
+      ],
+      duration: 500,
+      delay: -150,
+      easing: 'easeInOutExpo'
+    });
   } else {
-    commentButton.classList.add("hide")
     commentInput.classList.add("hide")
     commentInput.parentElement.classList.add("hide")
-    //commentInput.blur()
-    //nameInput.focus()
+    anime({
+      targets: '#commentExpandPath',
+      d: [{
+          value: "m 0,75 L 50,25 L 100,75"
+        },
+        {
+          value: "m 0,25 L 50,75 L 100,25"
+        }
+      ],
+      duration: 500,
+      delay: -150,
+      easing: 'easeInOutExpo'
+    });
   }
 }
 
@@ -157,7 +169,7 @@ ringBase.className = "ring";
 function displayRing() {
   const ring = ringBase.cloneNode(true);
   button.parentElement.appendChild(ring);
-  destroyDelay(ring, 700);
+  destroyDelay(ring, 700)
 }
 
 /** Displays a click (Killfeed-like-style). */
@@ -167,32 +179,92 @@ function displayClick(click) {
   if (click.comment != undefined && click.comment != "") {
     text = text.concat(` (${click.comment})`);
   }
-  displayToast(text, click.FeffectClass);
+  displayToast(text, click.style);
 }
 
 function displayToast(string, effectClass) {
+  if (activeToasts[string] !== undefined) {
+    atoast = activeToasts[string];
+    clearTimeout(atoast[2])
+    //create a new timer instance
+    atoast[2] = setTimeout(atoast[3], RESET_TIME)
+    if (atoast[4] == 1)
+      anime.set(atoast[1], {
+        display: 'block'
+      });
+    atoast[4]++;
+    atoast[1].textContent = atoast[4];
+
+    //set counter position
+    anime.set(atoast[1], {
+      right: (-1 * anime.get(atoast[1], 'width', 'rem') - 1.2) + 'rem'
+    })
+
+    anime.timeline({
+      targets: atoast[1],
+      duration: 500
+    }).add({
+      scale: [0.7, 1],
+      endDelay: RESET_TIME - 1500,
+      opacity: 1
+    }).add({
+      easing: 'easeInSine',
+      scale: 0.2,
+      opacity: 0,
+      duration: 1000
+    });
+  } else {
+    console.log("is string in object: ", string in activeToasts);
+    console.log(Object.keys(activeToasts));
+    newToast(string, effectClass);
+  }
+}
+
+var toastBase = document.createElement("div");
+var clickCounter = document.createElement("div");
+
+function newToast(string, effectClass) {
   // prevent extreme amounts of comment messages
   if (anker.childElementCount > MAX_TOASTS)
     anker.lastElementChild.remove();
 
-  const toast = document.createElement("div")
-  toast.className = [toastType, effectClass].join(" ");
+  const toast = toastBase.cloneNode(true);
+  const count = clickCounter.cloneNode(true);
+  //function that hides, animates and deletes the toast when executed
+  var funkyFunc = function() {
+    toast.classList.add("hide")
+    count.remove()
+    delete activeToasts[string];
+    var animation = anime({
+      targets: toast,
+      delay: 500,
+      duration: 250,
+      translateY: '-100%',
+      opacity: 0,
+      easing: 'easeInSine'
+    })
+    animation.finished.then(() => {
+      toast.remove()
+    });
+  }
+
+  // save the toast with his resetable timer and removal function
+  activeToasts[string] = [toast, count, setTimeout(funkyFunc, RESET_TIME), funkyFunc, 1];
+
+  toast.className = [effectClass, "toast"].join(" ");
+  count.className = [effectClass, "clickCounter"].join(" ");
   toast.textContent = string;
+  toast.appendChild(count)
   tfrag.prepend(toast);
-  hideDelay(toast, 2300);
-  destroyDelay(toast, 3000);
+  /* currently using the css animation from before
+  anime({
+    targets: toast,
+    maxheight: [0,'4em'],
+    duration: 500,
+    opacity: 1,
+    translateY: ['100%',0]
+  })*/
 }
-
-function step(timestamp) {
-  anker.prepend(tfrag);
-  tfrag = document.createDocumentFragment();
-  today.textContent = statsDisplay.day;
-  session.textContent = statsDisplay.session;
-  online.textContent = statsDisplay.online;
-
-  window.requestAnimationFrame(step);
-}
-window.requestAnimationFrame(step);
 
 
 //code for the fps counter
@@ -207,9 +279,16 @@ function refreshLoop() {
     }
     times.push(now);
     fps = times.length;
+
+    anker.prepend(tfrag);
+
+    today.textContent = statsDisplay.day;
+    session.textContent = statsDisplay.session;
+    online.textContent = statsDisplay.online;
     refreshLoop();
   });
 }
+refreshLoop();
 
 function updateFps() {
   document.getElementById("fps").textContent = fps;

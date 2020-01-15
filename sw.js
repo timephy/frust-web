@@ -1,10 +1,6 @@
-self.addEventListener('install', function(event) {
-  console.log('a service worker has successfully been installed')
-});
+const CACHE_NAME = 'frustrated-cache';
 
-var CACHE_NAME = 'frustrated-cache';
-const OFFLINE_URL = '/offline.html';
-var urlsToCache = [
+const urlsToCache = [
   '/',
   '/index.html',
   '/styles/betterstyle.css',
@@ -12,8 +8,15 @@ var urlsToCache = [
   '/scripts/script.js',
   '/scripts/socket.io.js',
   '/scripts/display.js',
-  '/scripts/utils.js'
+  '/scripts/utils.js',
+  '/images/teemo.jpg',
+  '/images/elmo.jpg',
+  '/images/einstein.svg',
+  '/images/einsteinBW.svg',
+  '/version',
+  '/images/fu-meme.jpg'
 ];
+
 
 self.addEventListener('install', function(event) {
   // Perform install steps
@@ -26,15 +29,11 @@ self.addEventListener('install', function(event) {
   );
 });
 
-self.addEventListener('fetch', function(event) {
+self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request)
-    .then(function(response) {
-      // Cache hit - return response
-      if (response) {
-        return response;
-      }
-      return fetch(event.request);
-    })
+    // Cache hit - return response, or a new version is available, then get
+    .then((response) => (response && !navigator.onLine) ? response : fetch(event.request))
   );
+  return;
 });

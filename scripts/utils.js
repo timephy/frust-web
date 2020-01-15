@@ -24,12 +24,12 @@ function addTemporaryClass(targetElem, cssClass, time) {
   console.log(cssClass + ": timer " + resetableTimers[cssClass])
 }
 
-function CreateTableFromJSON(jsonData) {
-
+function CreateUserTableFromJSON(jsonData, eid) {
+  console.log(jsonData);
   // EXTRACT VALUE FOR HTML HEADER.
   var col = [];
-  for (var i = 0; i < jsonData.identified_users.length; i++) {
-    for (var key in jsonData.identified_users[i]) {
+  for (var i = 0; i < jsonData.identifiedUsers.length; i++) {
+    for (var key in jsonData.identifiedUsers[i]) {
       if (col.indexOf(key) === -1) {
         col.push(key);
       }
@@ -50,29 +50,37 @@ function CreateTableFromJSON(jsonData) {
   }
 
   // ADD JSON DATA TO THE TABLE AS ROWS.
-  for (var i = 0; i < jsonData.identified_users.length; i++) {
+  for (var i = 0; i < jsonData.identifiedUsers.length; i++) {
 
     tr = table.insertRow(-1);
 
     for (var j = 0; j < col.length; j++) {
       var tabCell = tr.insertCell(-1);
-      tabCell.innerHTML = jsonData.identified_users[i][col[j]];
+      tabCell.innerHTML = jsonData.identifiedUsers[i][col[j]];
     }
   }
 
   // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
-  var divContainer = document.getElementById("showData");
-  divContainer.innerHTML = "user count: "+jsonData.user_count+"<br><br>";
+  var divContainer = document.getElementById(eid);
+  divContainer.innerHTML = "user count: " + jsonData.userCount + "<br><br>";
   divContainer.appendChild(table);
 }
 
-function loadJsonList(callback) {
-    fetch('/api/list')
-       .then(response => response.json())
-       .then(json => callback(null, json))
-       .catch(error => callback(error, [
-           {
-               "error while fetching data": "sorry"
-           }
-       ]))
+function CreateTextFromJSON(jsonData, eid) {
+  console.log(jsonData);
+
+  var txt = document.createElement("h2");
+  txt.textContent = JSON.stringify(jsonData, null, 4);
+  var divContainer = document.getElementById(eid);
+  divContainer.innerHTML = "";
+  divContainer.appendChild(txt);
+}
+
+function loadJson(callback, path) {
+  fetch(path)
+    .then(response => response.json())
+    .then(json => callback(null, json))
+    .catch(error => callback(error, {
+      "error": "while fetching data, sorry"
+    }));
 }
