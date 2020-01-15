@@ -788,40 +788,6 @@ td {
 }
 
 /***effects****/
-@keyframes colorchange {
-  0% {
-    color: violet;
-  }
-
-  14.5% {
-    color: indigo;
-  }
-
-  29% {
-    color: #00AFB5;
-  }
-
-  43% {
-    color: #306B34;
-  }
-
-  56% {
-    color: #F1D302;
-  }
-
-  70% {
-    color: orange;
-  }
-
-  85% {
-    color: red;
-  }
-
-  100% {
-    color: violet;
-  }
-}
-
 @keyframes bcolorchange {
   0% {
     background-color: red;
@@ -915,6 +881,10 @@ td {
 .toast.white:after, .clickCounter.white {
   background-color: white;
   border-bottom-color: white;
+}
+
+.clickCounter.yellow, .clickCounter.white {
+  color: black;
 }
 
 /*****random insults**/

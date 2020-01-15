@@ -215,7 +215,7 @@ function displayToast(string, effectClass) {
     });
   } else {
     newToast(string, effectClass);
-    console.log(activeToasts);
+    console.log(Object.keys(activeToasts));
   }
 }
 

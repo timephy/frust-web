@@ -73,7 +73,7 @@ function verzweifle() {
         switch (command) {
           case "vibrate":
             storage.vibration = !storage.vibration;
-            console.log("vibrationsActive   " + storage.vibration)
+            console.log("vibrationsActive   ", storage.vibration)
             break;
           case "fps":
             setInterval(updateFps, 500);
@@ -309,6 +309,6 @@ function process(e) {
 }
 
 devMode = !window.location.href.includes('https');
-console.log("dev mode: " + devMode);
+console.log("dev mode: ", devMode);
 window.addEventListener('online', updateOnlineStatus);
 window.addEventListener('offline', updateOnlineStatus);
