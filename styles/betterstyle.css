@@ -798,15 +798,15 @@ td {
   }
 
   29% {
-    color: blue;
+    color: #00AFB5;
   }
 
   43% {
-    color: green;
+    color: #306B34;
   }
 
   56% {
-    color: yellow;
+    color: #F1D302;
   }
 
   70% {
@@ -836,15 +836,15 @@ td {
   }
 
   43% {
-    background-color: blue;
+    background-color: #00AFB5;
   }
 
   56% {
-    background-color: green;
+    background-color: #306B34;
   }
 
   70% {
-    background-color: yellow;
+    background-color: #F1D302;
   }
 
   85% {
@@ -888,23 +888,23 @@ td {
 /**** colors ****/
 /** toast **/
 .toast.blue:after, .clickCounter.blue {
-  background-color: blue;
-  border-bottom-color: blue;
+  background-color: #00AFB5;
+  border-bottom-color: #00AFB5;
 }
 
 .toast.green:after, .clickCounter.green {
-  background-color: green;
-  border-bottom-color: green;
+  background-color: #306B34;
+  border-bottom-color: #306B34;
 }
 
 .toast.yellow:after, .clickCounter.yellow {
-  background-color: yellow;
-  border-bottom-color: yellow;
+  background-color: #F1D302;
+  border-bottom-color: #F1D302;
 }
 
 .toast.purple:after, .clickCounter.purple {
-  background-color: purple;
-  border-bottom-color: purple;
+  background-color: #58355E;
+  border-bottom-color: #58355E;
 }
 
 .toast.black:after, .clickCounter.black {
