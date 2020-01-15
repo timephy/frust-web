@@ -33,7 +33,7 @@ const HELP_MESSAGE = [
   "Click lines:",
   "    " + ["small", "big", "dotted", "dashed"].join(", "),
   "Events:",
-  "    " + ["fuck", "einstein", "satan", "666", "pride", "fireworks", "rainbow", "fu"].join(", "),
+  "    " + ["fuck", "einstein", "satan", "666", "pride", "rainbow", "fu"].join(", "),
   "Options:",
   "    " + ["vibrate", "darkmode", "clear"].join(", "),
   "Dev options:",
@@ -42,6 +42,7 @@ const HELP_MESSAGE = [
 
 /** effect variables */
 var resetableTimers = {};
+const RESET_TIME = 4000;
 var activeToasts = {}
 
 var tfrag = document.createDocumentFragment();
@@ -56,10 +57,10 @@ class StatsDisplay {
     this._total = value;
     total.textContent = this.total;
 
-    if (value % 10000 == 0) {
+    if (value % 100000 == 0) {
+      popup("+100.000")
+    } else if (value % 10000 == 0) {
       popup("+10.000")
-    } else if (value % 1000 == 0) {
-      popup("+1.000")
     }
   }
 
@@ -103,15 +104,6 @@ function popup(text, cssClass) {
   pop.appendChild(document.createTextNode(text));
   panker.appendChild(pop);
   destroyDelay(pop, 5000);
-}
-
-/** Fireworks effect. */
-function fireworks() {
-  const pyro = document.createElement("div")
-  pyro.className = "pyro";
-  pyro.innerHTML = '<div class="before"></div> <div class="after"></div>';
-  panker.appendChild(pyro);
-  destroyDelay(pyro, 5000);
 }
 
 /** Einstein effect. */
@@ -195,22 +187,32 @@ function displayToast(string, effectClass) {
     atoast = activeToasts[string];
     clearTimeout(atoast[2])
     //create a new timer instance
-    atoast[2] = setTimeout(atoast[3], 300000)
-    atoast[1].textContent = atoast[4];
+    atoast[2] = setTimeout(atoast[3], RESET_TIME)
     if (atoast[4] == 1)
       anime.set(atoast[1], {
         display: 'block'
       });
     atoast[4]++;
+    atoast[1].textContent = atoast[4];
 
     //set counter position
     anime.set(atoast[1], {
-      right: (-1 * anime.get(atoast[1], 'width', 'em') - 1) + 'em'
+      right: (-1 * anime.get(atoast[1], 'width', 'rem') - 1.2) + 'rem'
     })
-    anime({
+
+    anime.timeline({
       targets: atoast[1],
-      scale: [0.5, 1]
-    })
+      duration: 500
+    }).add({
+      scale: [0.7, 1],
+      endDelay: RESET_TIME - 1500,
+      opacity: 1
+    }).add({
+      easing: 'easeInSine',
+      scale: 0.2,
+      opacity: 0,
+      duration: 1000
+    });
   } else {
     newToast(string, effectClass);
     console.log(activeToasts);
@@ -233,6 +235,7 @@ function newToast(string, effectClass) {
     count.remove()
     var animation = anime({
       targets: toast,
+      delay: 500,
       duration: 250,
       translateY: '-100%',
       opacity: 0,
@@ -245,7 +248,7 @@ function newToast(string, effectClass) {
   }
 
   // save the toast with his resetable timer and removal function
-  activeToasts[string] = [toast, count, setTimeout(funkyFunc, 3000), funkyFunc, 1];
+  activeToasts[string] = [toast, count, setTimeout(funkyFunc, RESET_TIME), funkyFunc, 1];
 
   toast.className = [effectClass, "toast"].join(" ");
   count.className = [effectClass, "clickCounter"].join(" ");
