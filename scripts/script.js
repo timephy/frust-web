@@ -6,6 +6,7 @@ const BUFFER_DURATION = 1000;
 var EMIT_DURATION = BUFFER_DURATION / MAX_TOAST_BUFFER;
 var savedByBuffer = 0;
 var bufferActive = true;
+var devMode = false;
 
 document.body.onload = () => {
   // set name, comment
@@ -33,7 +34,7 @@ function toggleDarkmode() {
 
 /** The main button action. */
 function verzweifle() {
-  if (navigator.onLine) {
+  if (navigator.onLine && !devMode) {
 
     if (navigator.vibrate && storage.vibration) // vibration API supported
       navigator.vibrate(100);
@@ -175,7 +176,16 @@ function verzweifle() {
       });
     }
   } else {
-    displayToast("Du bist OFFLINE und verzweifelst alleine", "");
+    if (devMode) {
+      displayClick({
+        name: "dev",
+        comment: commentInput.value,
+        style: ""
+      });
+    } else {
+
+      displayToast("Du bist OFFLINE und verzweifelst alleine", "");
+    }
   }
 
   // Purely Visual
@@ -198,8 +208,6 @@ socket.on("users", (users) => {
 });
 
 socket.on("click", (click) => {
-  //console.log(`click(${click["name"]}, ${click["comment"]}, ${click["style"]})`);
-
   constrainClicks(click["name"], click["comment"], click["style"]);
 
   statsDisplay.total++;
@@ -243,8 +251,7 @@ function emitClicks() {
 
 socket.on("event", (event) => {
   console.log(`event(${event["name"]}, ${event["id"]})`);
-
-  displayToast(`${event["name"]} triggered ${event["id"]}!`)
+  displayToast(`${event["name"]} triggered ${event["id"]}!`, "")
 
   // Reacting to "everyone events"
   switch (event["id"]) {
@@ -278,11 +285,11 @@ socket.on("event", (event) => {
 socket.connect();
 
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function () {
-    navigator.serviceWorker.register('/sw.js').then(function (registration) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').then(function(registration) {
       // Registration was successful
       console.log('ServiceWorker registration successful with scope: ', registration.scope);
-    }, function (err) {
+    }, function(err) {
       // registration failed :(
       console.log('ServiceWorker registration failed: ', err);
     });
@@ -301,5 +308,7 @@ function process(e) {
   }
 }
 
+devMode = !window.location.href.includes('https');
+console.log("dev mode: " + devMode);
 window.addEventListener('online', updateOnlineStatus);
 window.addEventListener('offline', updateOnlineStatus);

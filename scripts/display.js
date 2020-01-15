@@ -42,6 +42,7 @@ const HELP_MESSAGE = [
 
 /** effect variables */
 var resetableTimers = {};
+var activeToasts = {}
 
 var tfrag = document.createDocumentFragment();
 
@@ -145,11 +146,10 @@ function openComment(commentButton) {
           value: "m 0,75 L 50,25 L 100,75"
         }
       ],
-      easing: 'easeInOutSine',
-      duration: 200
+      duration: 500,
+      delay: -150,
+      easing: 'easeInOutExpo'
     });
-    //nameInput.blur()
-    //commentInput.focus()
   } else {
     commentInput.classList.add("hide")
     commentInput.parentElement.classList.add("hide")
@@ -162,11 +162,10 @@ function openComment(commentButton) {
           value: "m 0,25 L 50,75 L 100,25"
         }
       ],
-      easing: 'easeInOutSine',
-      duration: 200
+      duration: 500,
+      delay: -150,
+      easing: 'easeInOutExpo'
     });
-    //commentInput.blur()
-    //nameInput.focus()
   }
 }
 
@@ -178,15 +177,7 @@ ringBase.className = "ring";
 function displayRing() {
   const ring = ringBase.cloneNode(true);
   button.parentElement.appendChild(ring);
-  anime({
-    targets: ring,
-    scale: 2.5,
-    opacity: 0,
-    easing: 'easeInOutSine',
-    duration: 500
-  }).finished.then(() => {
-    ring.remove()
-  });
+  destroyDelay(ring, 700)
 }
 
 /** Displays a click (Killfeed-like-style). */
@@ -198,41 +189,78 @@ function displayClick(click) {
   }
   displayToast(text, click.style);
 }
-var toastBase;
-toastBase = document.createElement("div");
-toastBase.className = "toast";
 
 function displayToast(string, effectClass) {
+  if (string in activeToasts) {
+    atoast = activeToasts[string];
+    clearTimeout(atoast[2])
+    //create a new timer instance
+    atoast[2] = setTimeout(atoast[3], 300000)
+    atoast[1].textContent = atoast[4];
+    if (atoast[4] == 1)
+      anime.set(atoast[1], {
+        display: 'block'
+      });
+    atoast[4]++;
+
+    //set counter position
+    anime.set(atoast[1], {
+      right: (-1 * anime.get(atoast[1], 'width', 'em') - 1) + 'em'
+    })
+    anime({
+      targets: atoast[1],
+      scale: [0.5, 1]
+    })
+  } else {
+    newToast(string, effectClass);
+    console.log(activeToasts);
+  }
+}
+
+var toastBase = document.createElement("div");
+var clickCounter = document.createElement("div");
+
+function newToast(string, effectClass) {
   // prevent extreme amounts of comment messages
   if (anker.childElementCount > MAX_TOASTS)
     anker.lastElementChild.remove();
 
   const toast = toastBase.cloneNode(true);
-  toast.className = [effectClass, "toast"].join("");
+  const count = clickCounter.cloneNode(true);
+  //function that hides, animates and deletes the toast when executed
+  var funkyFunc = function() {
+    toast.classList.add("hide")
+    count.remove()
+    var animation = anime({
+      targets: toast,
+      duration: 250,
+      translateY: '-100%',
+      opacity: 0,
+      easing: 'easeInSine'
+    })
+    animation.finished.then(() => {
+      delete activeToasts[string];
+      toast.remove()
+    });
+  }
+
+  // save the toast with his resetable timer and removal function
+  activeToasts[string] = [toast, count, setTimeout(funkyFunc, 3000), funkyFunc, 1];
+
+  toast.className = [effectClass, "toast"].join(" ");
+  count.className = [effectClass, "clickCounter"].join(" ");
   toast.textContent = string;
-  //tfrag.prepend(toast);
-  anker.prepend(toast);
-  anime.set(toast, {translateY:'100%'})
-  var animation = anime.timeline({
+  toast.appendChild(count)
+  tfrag.prepend(toast);
+  anime.set(toast, {
+    translateY: '100%'
+  })
+  anime({
     targets: toast,
     duration: 500,
-    endDelay: 1000
-  }).add({
-    translateY: 0,
-    translateX: 50,
     opacity: 1,
-  }).add({
-    translateX: -50,
-    endDelay: 0
-  }).add({
-    translateY: '-100%',
-    opacity: 0
+    translateY: 0
   })
-  animation.finished.then(() => {
-    toast.remove();
-  });
-  hideDelay(toast, 1500);
-  //destroyDelay(toast, 3000);
 }
 
 
@@ -248,6 +276,8 @@ function refreshLoop() {
     }
     times.push(now);
     fps = times.length;
+
+    anker.prepend(tfrag);
 
     today.textContent = statsDisplay.day;
     session.textContent = statsDisplay.session;

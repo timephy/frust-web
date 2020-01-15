@@ -128,24 +128,30 @@ td {
 }
 
 .toast {
-  /*will-change: transform;
-  -webkit-animation: 0.2s ease-in-out toastAnim;
-  -moz-animation: 0.2s ease-in-out toastAnim;
-  -o-animation: 0.2s ease-in-out toastAnim;
-  animation: 0.2s ease-in-out toastAnim;*/
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  pointer-events: none;
-  position: relative;
-  width: auto;
   text-align: center;
-  padding: 0.5em 0em 0.5em 0em;
+  padding: 0.5em 0 0.5em 0;
   margin: 0.2em;
   max-height: 4em;
   bottom: 1em;
-  opacity: 0;
+  position: relative;
+  display: inherit;
+  width: auto;
+
+  /*
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;*/
+}
+
+.clickCounter {
+  position: absolute;
+  border-radius: 2em;
+  min-width: 1em;
+  display: none;
+  padding: 0.2em;
+  background-color: var(--primary-color);
 }
 
 /*the user name box*/
@@ -184,13 +190,14 @@ td {
   -o-transition: 0.25s ease-in-out;
   transition: 0.25s ease-in-out;
   padding-top: 0.25em;
-  padding-right: 0.5em;
+  padding-right: 0.75em;
   padding-left: 0.5em;
   text-align: center;
   align-content: center;
   background: transparent;
   border: none;
   outline: none;
+    font-size: 1rem;
 }
 
 .commentInput {
@@ -305,7 +312,7 @@ td {
 
 .hoverline:focus-within:before,
 .hoverline:focus-within:after {
-opacity: 1;
+  opacity: 1;
   transform: scaleX(1);
 }
 
@@ -455,7 +462,7 @@ opacity: 1;
   color: var(--primary-color);
 }
 
-#fps{
+#fps {
   position: fixed;
   top: 10%;
   right: 5%;
@@ -464,18 +471,59 @@ opacity: 1;
   font-weight: bold;
 }
 
-.ring{
+.ring:before,
+.ring:after,
+.ringStart:after,
+.ringStart:before {
+  will-change: transform;
   pointer-events: none;
   content: '';
   position: absolute;
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border: 1em double var(--primary-color, red);
-  left: -1em;
-  top: -1em;
+  border: 0.2em solid var(--primary-color, red);
+  left: -0.2em;
+  top: -0.2em;
   opacity: 1;
+  transform: scale(0.8);
   z-index: -1;
+}
+
+@keyframes ringAnim {
+  0% {
+    opacity: 1;
+    transform: scale(0.8);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+
+.ring:before {
+  opacity: 0;
+  -webkit-animation: 0.7s ease-out 0s 1 ringAnim;
+  -moz-animation: 0.7s ease-out 0s 1 ringAnim;
+  -o-animation: 0.7s ease-out 0s 1 ringAnim;
+  animation: 0.7s ease-out 0s 1 ringAnim;
+}
+
+.ring:after {
+  opacity: 0;
+  -webkit-animation: 0.7s ease-out 0.1s 1 ringAnim;
+  -moz-animation: 0.7s ease-out 0.1s 1 ringAnim;
+  -o-animation: 0.7s ease-out 0.1s 1 ringAnim;
+  animation: 0.7s ease-out 0.1s 1 ringAnim;
+}
+
+.ring:after,
+.ringStart:after {
+  -webkit-transition-delay: 100ms;
+  -moz-transition-delay: 100ms;
+  -o-transition-delay: 100ms;
+  transition-delay: 100ms;
 }
 
 @keyframes ringStartAnim {
@@ -533,6 +581,18 @@ opacity: 1;
   width: 1.3em;
 }
 
+@keyframes ringAnimDesktop {
+  0% {
+    opacity: 1;
+    transform: scale(0.8);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
 @media(min-width: 1000px) {
   .statsCont {
     padding-left: 10vmin;
@@ -550,6 +610,22 @@ opacity: 1;
 
   .bigButton {
     font-size: 4vmin;
+  }
+
+  .ring:before {
+    opacity: 0;
+    -webkit-animation: 0.7s ease-out 0s 1 ringAnimDesktop;
+    -moz-animation: 0.7s ease-out 0s 1 ringAnimDesktop;
+    -o-animation: 0.7s ease-out 0s 1 ringAnimDesktop;
+    animation: 0.7s ease-out 0s 1 ringAnimDesktop;
+  }
+
+  .ring:after {
+    opacity: 0;
+    -webkit-animation: 0.7s ease-out 0.1s 1 ringAnimDesktop;
+    -moz-animation: 0.7s ease-out 0.1s 1 ringAnimDesktop;
+    -o-animation: 0.7s ease-out 0.1s 1 ringAnimDesktop;
+    animation: 0.7s ease-out 0.1s 1 ringAnimDesktop;
   }
 }
 
@@ -817,32 +893,32 @@ opacity: 1;
 
 /**** colors ****/
 /** toast **/
-.toast.blue:after {
+.toast.blue:after, .clickCounter.blue {
   background-color: blue;
   border-bottom-color: blue;
 }
 
-.toast.green:after {
+.toast.green:after, .clickCounter.green {
   background-color: green;
   border-bottom-color: green;
 }
 
-.toast.yellow:after {
+.toast.yellow:after, .clickCounter.yellow {
   background-color: yellow;
   border-bottom-color: yellow;
 }
 
-.toast.purple:after {
+.toast.purple:after, .clickCounter.purple {
   background-color: purple;
   border-bottom-color: purple;
 }
 
-.toast.black:after {
+.toast.black:after, .clickCounter.black {
   background-color: black;
   border-bottom-color: black;
 }
 
-.toast.white:after {
+.toast.white:after, .clickCounter.white {
   background-color: white;
   border-bottom-color: white;
 }
@@ -851,37 +927,37 @@ opacity: 1;
 @keyframes shadowAnim {
   50% {
     text-shadow:
-      #7f0000 1px 1px,
-      #7f0000 2px 2px,
-      #7f0000 3px 3px,
-      #7f0000 4px 4px,
-      #7f0000 5px 5px,
-      #7f0000 6px 6px,
-      #7f0000 7px 7px,
-      #7f0000 8px 8px,
-      #7f0000 9px 9px,
-      #7f0000 10px 10px,
-      #7f0000 11px 11px,
-      #7f0000 12px 12px,
-      #7f0000 13px 13px,
-      #7f0000 14px 14px,
-      #7f0000 15px 15px;
+      var(--primary-color) 1px 1px,
+      var(--primary-color) 2px 2px,
+      var(--primary-color) 3px 3px,
+      var(--primary-color) 4px 4px,
+      var(--primary-color) 5px 5px,
+      var(--primary-color) 6px 6px,
+      var(--primary-color) 7px 7px,
+      var(--primary-color) 8px 8px,
+      var(--primary-color) 9px 9px,
+      var(--primary-color) 10px 10px,
+      var(--primary-color) 11px 11px,
+      var(--primary-color) 12px 12px,
+      var(--primary-color) 13px 13px,
+      var(--primary-color) 14px 14px,
+      var(--primary-color) 15px 15px;
   }
 
   0% {
     text-shadow:
-      #7f0000 1px 1px,
-      #7f0000 2px 2px,
-      #7f0000 3px 3px,
-      #7f0000 4px 4px;
+      var(--primary-color) 1px 1px,
+      var(--primary-color) 2px 2px,
+      var(--primary-color) 3px 3px,
+      var(--primary-color) 4px 4px;
   }
 
   100% {
     text-shadow:
-      #7f0000 1px 1px,
-      #7f0000 2px 2px,
-      #7f0000 3px 3px,
-      #7f0000 4px 4px;
+      var(--primary-color) 1px 1px,
+      var(--primary-color) 2px 2px,
+      var(--primary-color) 3px 3px,
+      var(--primary-color) 4px 4px;
   }
 }
 
@@ -911,6 +987,7 @@ opacity: 1;
   width: 20vmin;
   height: 20vmin;
   transform-origin: center;
+  outline: none;
   background: url('/images/einstein.svg') no-repeat top left;
   -webkit-animation: scalespinIn 1s linear, spin 1s linear 3 1s, scalespinOut 1s linear 4s;
   -moz-animation: scalespinIn 1s linear, spin 1s linear 3 1s, scalespinOut 1s linear 4s;
