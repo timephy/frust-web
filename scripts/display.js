@@ -200,8 +200,7 @@ function displayToast(string, effectClass) {
     })
 
     anime.timeline({
-      targets: atoast[1],
-      duration: 500
+      targets: atoast[1]
     }).add({
       scale: [0.5, 1],
       translateY: (anime.random(-100, 100) / 200) + 'rem',
@@ -215,7 +214,7 @@ function displayToast(string, effectClass) {
       opacity: 1,
       duration: 100,
       easing: 'easeOutSine',
-      endDelay: RESET_TIME - 1800,
+      endDelay: RESET_TIME - 1200,
     }).add({
       easing: 'easeInSine',
       scale: 0.2,
