@@ -19,9 +19,9 @@ const socket = io({
 
 if (matchMedia) {
 const pd = window.matchMedia("(prefers-color-scheme: dark)");
-pd.addEventListener("change", updateDark("dark"));
+pd.addEventListener("change", ()=>{if(pd.matches)updateDark("dark")});
 const pl = window.matchMedia("(prefers-color-scheme: light)");
-pl.addEventListener("change", updateDark("light"));
+pl.addEventListener("change", ()=>{if(pl.matches)updateDark("light")});
 }
 
 function toggleDarkmode() {
