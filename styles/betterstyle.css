@@ -165,8 +165,9 @@ td {
   min-width: 1em;
   display: none;
   color: white;
-  padding: 0.2em;
+  padding: 0.2em 0.3em 0.2em 0.2em;
   background-color: var(--primary-color);
+  top: 0.3em;
 }
 
 /*the user name box*/
@@ -874,37 +875,44 @@ td {
 
 /**** colors ****/
 /** toast **/
-.toast.blue:after, .clickCounter.blue {
+.toast.blue:after,
+.clickCounter.blue {
   background-color: #00AFB5;
   border-bottom-color: #00AFB5;
 }
 
-.toast.green:after, .clickCounter.green {
+.toast.green:after,
+.clickCounter.green {
   background-color: #306B34;
   border-bottom-color: #306B34;
 }
 
-.toast.yellow:after, .clickCounter.yellow {
+.toast.yellow:after,
+.clickCounter.yellow {
   background-color: #F1D302;
   border-bottom-color: #F1D302;
 }
 
-.toast.purple:after, .clickCounter.purple {
+.toast.purple:after,
+.clickCounter.purple {
   background-color: #58355E;
   border-bottom-color: #58355E;
 }
 
-.toast.black:after, .clickCounter.black {
+.toast.black:after,
+.clickCounter.black {
   background-color: black;
   border-bottom-color: black;
 }
 
-.toast.white:after, .clickCounter.white {
+.toast.white:after,
+.clickCounter.white {
   background-color: white;
   border-bottom-color: white;
 }
 
-.clickCounter.yellow, .clickCounter.white {
+.clickCounter.yellow,
+.clickCounter.white {
   color: black;
 }
 
