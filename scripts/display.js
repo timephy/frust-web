@@ -247,11 +247,14 @@ function newToast(string, effectClass) {
       targets: toast,
       delay: 500,
       duration: 250,
-      translateY: '-100%',
+      padding: 0,
+      margin: 0,
+      'max-height': 0,
       opacity: 0,
       easing: 'easeInSine'
     })
-    animation.finished.then(toast.remove);
+    // animation.finished.then(toast.remove());
+    animation.finished.then(() => toast.remove());
   }
 
   // save the toast with his resetable timer and removal function
