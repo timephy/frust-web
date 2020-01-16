@@ -6,7 +6,6 @@ const BUFFER_DURATION = 1000;
 var EMIT_DURATION = BUFFER_DURATION / MAX_TOAST_BUFFER;
 var savedByBuffer = 0;
 var bufferActive = true;
-var devMode = false;
 
 document.body.onload = () => {
   // set name, comment
@@ -34,7 +33,7 @@ function toggleDarkmode() {
 
 /** The main button action. */
 function verzweifle() {
-  if (navigator.onLine && !devMode) {
+  if (navigator.onLine) {
 
     if (navigator.vibrate && storage.vibration) // vibration API supported
       navigator.vibrate(100);
@@ -181,16 +180,7 @@ function verzweifle() {
       });
     }
   } else {
-    if (devMode) {
-      displayClick({
-        name: "dev",
-        comment: commentInput.value,
-        style: ""
-      });
-    } else {
-
-      displayToast("Du bist OFFLINE und verzweifelst alleine", "");
-    }
+    displayToast("Du bist OFFLINE und verzweifelst alleine", "");
   }
 
   // Purely Visual
@@ -290,11 +280,11 @@ socket.on("event", (event) => {
 socket.connect();
 
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/sw.js').then(function(registration) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js').then(function (registration) {
       // Registration was successful
       console.log('ServiceWorker registration successful with scope: ', registration.scope);
-    }, function(err) {
+    }, function (err) {
       // registration failed :(
       console.log('ServiceWorker registration failed: ', err);
     });
@@ -313,7 +303,5 @@ function process(e) {
   }
 }
 
-devMode = !window.location.href.includes('https');
-console.log("dev mode: ", devMode);
 window.addEventListener('online', updateOnlineStatus);
 window.addEventListener('offline', updateOnlineStatus);
