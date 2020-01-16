@@ -91,7 +91,7 @@ a:active {
   justify-content: space-between;
   align-self: stretch;
   padding-top: 0.2em;
-  font-size: 1.5em;
+  font-size: 1em;
 }
 
 table {
@@ -212,7 +212,7 @@ td {
   background: transparent;
   border: none;
   outline: none;
-  font-size: 1rem;
+  font-size: 0.7rem;
 }
 
 .commentInput {
@@ -226,11 +226,6 @@ td {
 .commentInput.hide {
   font-size: 0;
   height: 0;
-}
-
-.commentInput:focus {
-  /*keep the letter spacing as it was*/
-  letter-spacing: 0.1em;
 }
 
 #stats {
