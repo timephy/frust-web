@@ -41,11 +41,11 @@ const HELP_MESSAGE = [
 ].join("\n")
 
 /** effect variables */
-var resetableTimers = {};
+const resetableTimers = {};
 const RESET_TIME = 4000;
-var activeToasts = {}
+const activeToasts = {}
 
-var tfrag = document.createDocumentFragment();
+const tfrag = document.createDocumentFragment();
 
 /** A helper class to manage and update current stats. */
 class StatsDisplay {
@@ -108,7 +108,7 @@ function popup(text, cssClass) {
 
 /** Einstein effect. */
 function einstein() {
-  var einstein = document.createElement("img")
+  const einstein = document.createElement("img")
   einstein.className = "einstein"
   einstein.style.left = Math.random() * 90 + "%"
   einstein.style.top = Math.random() * 90 + "%"
@@ -162,8 +162,7 @@ function openComment(commentButton) {
 }
 
 /** Displays the buttom click animation. */
-var ringBase;
-ringBase = document.createElement("div");
+const ringBase = document.createElement("div");
 ringBase.className = "ring";
 
 function displayRing() {
@@ -230,8 +229,8 @@ function displayToast(string, effectClass) {
   }
 }
 
-var toastBase = document.createElement("div");
-var clickCounter = document.createElement("div");
+const toastBase = document.createElement("div");
+const clickCounter = document.createElement("div");
 
 function newToast(string, effectClass) {
   // prevent extreme amounts of comment messages
@@ -241,11 +240,11 @@ function newToast(string, effectClass) {
   const toast = toastBase.cloneNode(true);
   const count = clickCounter.cloneNode(true);
   //function that hides, animates and deletes the toast when executed
-  var funkyFunc = function () {
+  function funkyFunc() {
     toast.classList.add("hide")
     count.remove()
     delete activeToasts[string];
-    var animation = anime({
+    const animation = anime({
       targets: toast,
       delay: 500,
       duration: 250,
@@ -253,9 +252,7 @@ function newToast(string, effectClass) {
       opacity: 0,
       easing: 'easeInSine'
     })
-    animation.finished.then(() => {
-      toast.remove()
-    });
+    animation.finished.then(toast.remove);
   }
 
   // save the toast with his resetable timer and removal function
