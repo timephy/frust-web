@@ -19,7 +19,7 @@ const socket = io({
 
 if (matchMedia) {
 const pd = window.matchMedia("(prefers-color-scheme: dark)");
-pd.addEventListener("change", ()=>{if(pd.matches)updateDark("dark");popup("dark","")});
+pd.addEventListener("change", ()=>{if(pd.matches)updateDark("dark") alert("dark")});
 const pl = window.matchMedia("(prefers-color-scheme: light)");
 pl.addEventListener("change", ()=>{if(pl.matches)updateDark("light")});
 }
