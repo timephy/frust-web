@@ -220,10 +220,8 @@ function displayToast(string, effectClass) {
       scale: 0.2,
       opacity: 0,
       duration: 1000
-    });
+    })
   } else {
-    console.log("is string in object: ", string in activeToasts);
-    console.log(Object.keys(activeToasts));
     newToast(string, effectClass);
   }
 }
@@ -253,7 +251,7 @@ function newToast(string, effectClass) {
       opacity: 0,
       easing: 'easeInSine'
     })
-    // animation.finished.then(toast.remove());
+    // toast.remove has to be evaluated while in DOM, otherwise undefined?
     animation.finished.then(() => toast.remove());
   }
 
