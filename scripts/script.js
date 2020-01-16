@@ -17,12 +17,21 @@ const socket = io({
   path: "/api/socket.io"
 });
 
+if (matchMedia) {
+const pd = window.matchMedia("(prefers-color-scheme: dark)");
+pd.addEventListener("change", updateDark("dark"));
+const pl = window.matchMedia("(prefers-color-scheme: light)");
+pl.addEventListener("change", updateDark("light"));
+}
 
 function toggleDarkmode() {
   const newTheme = localStorage.getItem("theme") == "dark" ? "light" : "dark";
+  updateDark(newTheme);
+}
+
+function updateDark(newTheme){ 
   localStorage.setItem("theme", newTheme);
   document.documentElement.setAttribute("data-theme", newTheme);
-
   console.log("darkmode   " + localStorage.getItem("theme"));
 
   //forces a redraw of the background... supposedly
@@ -30,6 +39,7 @@ function toggleDarkmode() {
   document.documentElement.offsetHeight; // no need to store this anywhere, the reference is enough
   document.documentElement.style.display = 'block';
 }
+
 
 /** The main button action. */
 function verzweifle() {
