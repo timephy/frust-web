@@ -197,16 +197,26 @@ function displayToast(string, effectClass) {
 
     //set counter position
     anime.set(atoast[1], {
-      right: (-1 * anime.get(atoast[1], 'width', 'rem') - 1.2) + 'rem'
+      right: (-anime.get(atoast[1], 'width', 'rem') - 1.2) + 'rem'
     })
 
     anime.timeline({
       targets: atoast[1],
       duration: 500
     }).add({
-      scale: [0.7, 1],
-      endDelay: RESET_TIME - 1500,
-      opacity: 1
+      scale: [0.5, 1],
+      translateY: (anime.random(-100, 100) / 200) + 'rem',
+      translateX: (anime.random(-100, 100) / 200) + 'rem',
+      opacity: 1,
+      duration: 100,
+      easing: 'easeOutSine',
+    }).add({
+      translateY: 0,
+      translateX: 0,
+      opacity: 1,
+      duration: 100,
+      easing: 'easeOutSine',
+      endDelay: RESET_TIME - 1800,
     }).add({
       easing: 'easeInSine',
       scale: 0.2,
@@ -231,7 +241,7 @@ function newToast(string, effectClass) {
   const toast = toastBase.cloneNode(true);
   const count = clickCounter.cloneNode(true);
   //function that hides, animates and deletes the toast when executed
-  var funkyFunc = function() {
+  var funkyFunc = function () {
     toast.classList.add("hide")
     count.remove()
     delete activeToasts[string];
