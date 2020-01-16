@@ -852,13 +852,15 @@ td {
   animation: 5s linear bcolorchange infinite;
 }
 
-.big {
-  font-size: 200%;
+.toast.small {
+  transform: scale(0.5);
 }
 
-.small {
-  font-size: 50%;
+.toast.big {
+  font-size: 200%;
+  max-height: 10em;
 }
+
 
 /** underline effect types **/
 .toast.dashed:after {
