@@ -29,6 +29,7 @@ table {
   max-height: 20em;
   min-height: 5em;
   overflow-y: auto;
+  border-collapse: collapse;
 }
 
 tr:hover {
