@@ -2,13 +2,15 @@
 
 A website for fellow Physics students at TUM to show their frustration.
 
-*This project is just for fun.*
+_This project is just for fun._
+
+Please make use of the `Add to Home Screen` feature.
 
 ## To our fellow students
 
 To keep this fun project going we count on you to create an Issue or a Pull Request with your suggestion(s).
 
-*Happy frustrated studying!*
+_Happy frustrated studying!_
 
 ## Main contributors
 
