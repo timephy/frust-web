@@ -17,24 +17,13 @@ const socket = io({
   path: "/api/socket.io"
 });
 
-if (window.matchMedia) {
-  console.log("adding matchmedia listener");
-  const pd = window.matchMedia("(prefers-color-scheme: dark)");
-  pd.addEventListener("change", ()=>{
-    console.log("theme change detected: "+pd.matches);
-    if(pd.matches)
-      updateDark("dark")
-    else 
-      updateDark("light")
-  });
-}
 
 function toggleDarkmode() {
   const newTheme = localStorage.getItem("theme") == "dark" ? "light" : "dark";
   updateDark(newTheme);
 }
 
-function updateDark(newTheme){ 
+function updateDark(newTheme) {
   localStorage.setItem("theme", newTheme);
   document.documentElement.setAttribute("data-theme", newTheme);
   console.log("darkmode   " + localStorage.getItem("theme"));
@@ -295,11 +284,11 @@ socket.on("event", (event) => {
 socket.connect();
 
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function () {
-    navigator.serviceWorker.register('/sw.js').then(function (registration) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').then(function(registration) {
       // Registration was successful
       console.log('ServiceWorker registration successful with scope: ', registration.scope);
-    }, function (err) {
+    }, function(err) {
       // registration failed :(
       console.log('ServiceWorker registration failed: ', err);
     });
@@ -320,3 +309,25 @@ function process(e) {
 
 window.addEventListener('online', updateOnlineStatus);
 window.addEventListener('offline', updateOnlineStatus);
+
+if (window.matchMedia) {
+  console.log("adding matchmedia listener");
+  try {
+    const pd = window.matchMedia("(prefers-color-scheme: dark)");
+    pd.addEventListener("change", () => {
+      console.log("theme change detected: " + pd.matches);
+      try {
+        if (pd.matches)
+          updateDark("dark")
+        else
+          updateDark("light")
+      } catch (e) {
+        popup("failed updating Theme", "fu")
+        setTimeout(alert(e), 1000)
+      }
+    });
+  } catch (e) {
+    popup("couldn't add matchmedia listener", "fu")
+    setTimeout(alert(e), 1000)
+  }
+}
