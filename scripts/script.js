@@ -17,11 +17,16 @@ const socket = io({
   path: "/api/socket.io"
 });
 
-if (matchMedia) {
-const pd = window.matchMedia("(prefers-color-scheme: dark)");
-pd.addEventListener("change", ()=>{if(pd.matches)updateDark("dark")});
-const pl = window.matchMedia("(prefers-color-scheme: light)");
-pl.addEventListener("change", ()=>{if(pl.matches)updateDark("light")});
+if (window.matchMedia) {
+  console.log("adding matchmedia listener");
+  const pd = window.matchMedia("(prefers-color-scheme: dark)");
+  pd.addEventListener("change", ()=>{
+    console.log("theme change detected: "+pd.matches);
+    if(pd.matches)
+      updateDark("dark")
+    else 
+      updateDark("light")
+  });
 }
 
 function toggleDarkmode() {
