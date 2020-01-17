@@ -37,7 +37,6 @@
       } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
         //OS theme setting detected as dark
         theme = "dark";
-        localStorage.setItem("theme", "dark");
       }
       //dark theme preferred, set document with a `data-theme` attribute
       document.documentElement.setAttribute("data-theme", theme);

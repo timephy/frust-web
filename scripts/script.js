@@ -309,25 +309,3 @@ function process(e) {
 
 window.addEventListener('online', updateOnlineStatus);
 window.addEventListener('offline', updateOnlineStatus);
-
-if (window.matchMedia) {
-  console.log("adding matchmedia listener");
-  try {
-    const pd = window.matchMedia("(prefers-color-scheme: dark)");
-    pd.addEventListener("change", () => {
-      console.log("theme change detected: " + pd.matches);
-      try {
-        if (pd.matches)
-          updateDark("dark")
-        else
-          updateDark("light")
-      } catch (e) {
-        popup("failed updating Theme", "fu")
-        setTimeout(alert(e), 1000)
-      }
-    });
-  } catch (e) {
-    popup("couldn't add matchmedia listener", "fu")
-    setTimeout(alert(e), 1000)
-  }
-}
