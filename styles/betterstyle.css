@@ -90,8 +90,8 @@ a:active {
   display: flex;
   justify-content: space-between;
   align-self: stretch;
-  padding-top: 0.2em;
-  font-size: 1.5em;
+  padding-top: 0.4em;
+  font-size: 1.2em;
 }
 
 table {
@@ -99,8 +99,8 @@ table {
 }
 
 td {
-  font-size: 0.8em;
   text-align: center;
+  font-size: 0.9em;
 }
 
 .mainBtnCont {
@@ -165,8 +165,9 @@ td {
   min-width: 1em;
   display: none;
   color: white;
-  padding: 0.2em;
+  padding: 0.2em 0.3em 0.2em 0.2em;
   background-color: var(--primary-color);
+  top: 0.3em;
 }
 
 /*the user name box*/
@@ -212,7 +213,7 @@ td {
   background: transparent;
   border: none;
   outline: none;
-  font-size: 1rem;
+  font-size: 0.7rem;
 }
 
 .commentInput {
@@ -226,11 +227,6 @@ td {
 .commentInput.hide {
   font-size: 0;
   height: 0;
-}
-
-.commentInput:focus {
-  /*keep the letter spacing as it was*/
-  letter-spacing: 0.1em;
 }
 
 #stats {
@@ -385,6 +381,11 @@ td {
   -moz-transition: 250ms ease;
   -o-transition: 250ms ease;
   transition: 250ms ease;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .bigButton:focus {
@@ -851,13 +852,15 @@ td {
   animation: 5s linear bcolorchange infinite;
 }
 
-.big {
-  font-size: 200%;
+.toast.small {
+  transform: scale(0.5);
 }
 
-.small {
-  font-size: 50%;
+.toast.big {
+  font-size: 200%;
+  max-height: 10em;
 }
+
 
 /** underline effect types **/
 .toast.dashed:after {
@@ -874,37 +877,44 @@ td {
 
 /**** colors ****/
 /** toast **/
-.toast.blue:after, .clickCounter.blue {
+.toast.blue:after,
+.clickCounter.blue {
   background-color: #00AFB5;
   border-bottom-color: #00AFB5;
 }
 
-.toast.green:after, .clickCounter.green {
+.toast.green:after,
+.clickCounter.green {
   background-color: #306B34;
   border-bottom-color: #306B34;
 }
 
-.toast.yellow:after, .clickCounter.yellow {
+.toast.yellow:after,
+.clickCounter.yellow {
   background-color: #F1D302;
   border-bottom-color: #F1D302;
 }
 
-.toast.purple:after, .clickCounter.purple {
+.toast.purple:after,
+.clickCounter.purple {
   background-color: #58355E;
   border-bottom-color: #58355E;
 }
 
-.toast.black:after, .clickCounter.black {
+.toast.black:after,
+.clickCounter.black {
   background-color: black;
   border-bottom-color: black;
 }
 
-.toast.white:after, .clickCounter.white {
+.toast.white:after,
+.clickCounter.white {
   background-color: white;
   border-bottom-color: white;
 }
 
-.clickCounter.yellow, .clickCounter.white {
+.clickCounter.yellow,
+.clickCounter.white {
   color: black;
 }
 

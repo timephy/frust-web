@@ -41,11 +41,11 @@ const HELP_MESSAGE = [
 ].join("\n")
 
 /** effect variables */
-var resetableTimers = {};
+const resetableTimers = {};
 const RESET_TIME = 4000;
-var activeToasts = {}
+const activeToasts = {}
 
-var tfrag = document.createDocumentFragment();
+const tfrag = document.createDocumentFragment();
 
 /** A helper class to manage and update current stats. */
 class StatsDisplay {
@@ -108,7 +108,7 @@ function popup(text, cssClass) {
 
 /** Einstein effect. */
 function einstein() {
-  var einstein = document.createElement("img")
+  const einstein = document.createElement("img")
   einstein.className = "einstein"
   einstein.style.left = Math.random() * 90 + "%"
   einstein.style.top = Math.random() * 90 + "%"
@@ -162,8 +162,7 @@ function openComment(commentButton) {
 }
 
 /** Displays the buttom click animation. */
-var ringBase;
-ringBase = document.createElement("div");
+const ringBase = document.createElement("div");
 ringBase.className = "ring";
 
 function displayRing() {
@@ -197,31 +196,38 @@ function displayToast(string, effectClass) {
 
     //set counter position
     anime.set(atoast[1], {
-      right: (-1 * anime.get(atoast[1], 'width', 'rem') - 1.2) + 'rem'
+      right: (-anime.get(atoast[1], 'width', 'rem') - 1.2) + 'rem'
     })
 
     anime.timeline({
-      targets: atoast[1],
-      duration: 500
+      targets: atoast[1]
     }).add({
-      scale: [0.7, 1],
-      endDelay: RESET_TIME - 1500,
-      opacity: 1
+      scale: [0.5, 1],
+      translateY: (anime.random(-100, 100) / 200) + 'rem',
+      translateX: (anime.random(-100, 100) / 200) + 'rem',
+      opacity: 1,
+      duration: 100,
+      easing: 'easeOutSine',
+    }).add({
+      translateY: 0,
+      translateX: 0,
+      opacity: 1,
+      duration: 100,
+      easing: 'easeOutSine',
+      endDelay: RESET_TIME - 1200,
     }).add({
       easing: 'easeInSine',
       scale: 0.2,
       opacity: 0,
       duration: 1000
-    });
+    })
   } else {
-    console.log("is string in object: ", string in activeToasts);
-    console.log(Object.keys(activeToasts));
     newToast(string, effectClass);
   }
 }
 
-var toastBase = document.createElement("div");
-var clickCounter = document.createElement("div");
+const toastBase = document.createElement("div");
+const clickCounter = document.createElement("div");
 
 function newToast(string, effectClass) {
   // prevent extreme amounts of comment messages
@@ -231,21 +237,22 @@ function newToast(string, effectClass) {
   const toast = toastBase.cloneNode(true);
   const count = clickCounter.cloneNode(true);
   //function that hides, animates and deletes the toast when executed
-  var funkyFunc = function() {
+  function funkyFunc() {
     toast.classList.add("hide")
     count.remove()
     delete activeToasts[string];
-    var animation = anime({
+    const animation = anime({
       targets: toast,
       delay: 500,
       duration: 250,
-      translateY: '-100%',
+      padding: 0,
+      margin: 0,
+      'max-height': 0,
       opacity: 0,
       easing: 'easeInSine'
     })
-    animation.finished.then(() => {
-      toast.remove()
-    });
+    // toast.remove has to be evaluated while in DOM, otherwise undefined?
+    animation.finished.then(() => toast.remove());
   }
 
   // save the toast with his resetable timer and removal function

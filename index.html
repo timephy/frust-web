@@ -37,7 +37,6 @@
       } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
         //OS theme setting detected as dark
         theme = "dark";
-        localStorage.setItem("theme", "dark");
       }
       //dark theme preferred, set document with a `data-theme` attribute
       document.documentElement.setAttribute("data-theme", theme);
@@ -73,7 +72,7 @@
 
     <nav class="tinyWrapper">
       <span style="display: flex; flex-direction: row;" class="hoverline">
-        <input id="nameInput" maxlength="15" tabindex="1" pattern=".{1,15}"
+        <input id="nameInput" maxlength="15" tabindex="1" pattern=".{1,15}" onkeypress="process(event, this)"
           title="Wähle einen bis zu 15 Zeichen langen Namen" type="text" name="name_input" placeholder="Gast"
           class="nameInput" autocomplete="off" />
         <button id="commentButton" class="hide" onclick="openComment(this)" tabindex="2">

@@ -6,7 +6,6 @@ const BUFFER_DURATION = 1000;
 var EMIT_DURATION = BUFFER_DURATION / MAX_TOAST_BUFFER;
 var savedByBuffer = 0;
 var bufferActive = true;
-var devMode = false;
 
 document.body.onload = () => {
   // set name, comment
@@ -21,9 +20,12 @@ const socket = io({
 
 function toggleDarkmode() {
   const newTheme = localStorage.getItem("theme") == "dark" ? "light" : "dark";
+  updateDark(newTheme);
+}
+
+function updateDark(newTheme) {
   localStorage.setItem("theme", newTheme);
   document.documentElement.setAttribute("data-theme", newTheme);
-
   console.log("darkmode   " + localStorage.getItem("theme"));
 
   //forces a redraw of the background... supposedly
@@ -32,9 +34,10 @@ function toggleDarkmode() {
   document.documentElement.style.display = 'block';
 }
 
+
 /** The main button action. */
 function verzweifle() {
-  if (navigator.onLine && !devMode) {
+  if (navigator.onLine) {
 
     if (navigator.vibrate && storage.vibration) // vibration API supported
       navigator.vibrate(100);
@@ -181,16 +184,7 @@ function verzweifle() {
       });
     }
   } else {
-    if (devMode) {
-      displayClick({
-        name: "dev",
-        comment: commentInput.value,
-        style: ""
-      });
-    } else {
-
-      displayToast("Du bist OFFLINE und verzweifelst alleine", "");
-    }
+    displayToast("Du bist OFFLINE und verzweifelst alleine", "");
   }
 
   // Purely Visual
@@ -313,7 +307,5 @@ function process(e) {
   }
 }
 
-devMode = !window.location.href.includes('https');
-console.log("dev mode: ", devMode);
 window.addEventListener('online', updateOnlineStatus);
 window.addEventListener('offline', updateOnlineStatus);
