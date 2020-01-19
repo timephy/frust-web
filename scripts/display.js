@@ -28,6 +28,7 @@ const possibleButtonLabels = [
 
 /** The message displayed by "help" command. */
 const HELP_MESSAGE = [
+  "Type  / followed by the command into the comment box",
   "Click colors:",
   "    " + ["green", "purple", "blue", "yellow", "black", "white"].join(", "),
   "Click lines:",
