@@ -315,9 +315,9 @@ td {
     box-shadow: var(--thick-material-shadow);
   }
 
-  #githubButton:hover,
-  #adjustButton:hover {
+  .iconButton:hover {
     width: 1.7em;
+    height: 1.7em;
   }
 }
 
@@ -570,13 +570,18 @@ td {
   animation: 0.5s ease-out 0.4s 1 ringStartAnim;
 }
 
-#githubButton,
-#adjustButton {
-  position: fixed;
+.iconCont {
+  position: absolute;
+  display: flex;
+  flex-flow: column;
+
   left: 0.5em;
   bottom: 0.5em;
+}
+
+.iconButton {
   width: 1.5em;
-  height: auto;
+  height: 1.5em;
   background: transparent;
   border: none !important;
   outline: none;
@@ -585,16 +590,17 @@ td {
   -o-transition: 250ms ease;
   transition: 250ms ease;
   cursor: pointer;
+  margin: 0.2em;
 }
 
-#adjustButton {
+.rightCont {
   left: auto;
   right: 0.5em;
 }
 
-#githubButton:active,
-#adjustButton:active {
+.iconButton:active {
   width: 1.3em;
+  height: 1.3em;
 }
 
 @keyframes ringAnimDesktop {
@@ -860,7 +866,6 @@ td {
   font-size: 200%;
   max-height: 10em;
 }
-
 
 /** underline effect types **/
 .toast.dashed:after {

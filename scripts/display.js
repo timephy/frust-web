@@ -37,7 +37,7 @@ const HELP_MESSAGE = [
   "Options:",
   "    " + ["vibrate", "darkmode", "clear"].join(", "),
   "Dev options:",
-  "    " + ["buffer", "fps", "test", "ctest", "gtest", "rtest"].join(", ")
+  "    " + ["buffer", "fps", "test", "rtest"].join(", ")
 ].join("\n")
 
 /** effect variables */
