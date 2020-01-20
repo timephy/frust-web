@@ -316,8 +316,9 @@ td {
   }
 
   .iconButton:hover {
-    width: 1.7em;
-    height: 1.7em;
+    padding: 0.1em;
+    width: 2.6em;
+    height: 2.6em;
   }
 }
 
@@ -574,14 +575,22 @@ td {
   position: absolute;
   display: flex;
   flex-flow: column;
-
   left: 0.5em;
   bottom: 0.5em;
 }
 
+.iconButtonWrapper {
+  display: inline-flex;
+  align-items: center;
+}
+
+.bigScreenVisibleText {
+  display: none;
+}
+
 .iconButton {
-  width: 1.5em;
-  height: 1.5em;
+  width: 2.2em;
+  height: 2.2em;
   background: transparent;
   border: none !important;
   outline: none;
@@ -590,17 +599,19 @@ td {
   -o-transition: 250ms ease;
   transition: 250ms ease;
   cursor: pointer;
-  margin: 0.3em;
+  padding: 0.3em;
 }
 
 .rightCont {
   left: auto;
   right: 0.5em;
+  align-items: flex-end;
 }
 
 .iconButton:active {
-  width: 1.3em;
-  height: 1.3em;
+  padding: 0.5em;
+  width: 1.8em;
+  height: 1.8em;
 }
 
 @keyframes ringAnimDesktop {
@@ -621,6 +632,10 @@ td {
     padding-right: 10vmin;
     padding-top: 2vmin;
     justify-content: space-around;
+  }
+
+  .bigScreenVisibleText {
+    display: block;
   }
 
   .mainBtnCont {
