@@ -11,6 +11,13 @@
   --thick-material-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
+@media(prefers-color-scheme:dark) {
+  --font-color: #E8F8F9;
+  --primary-color: #B71C1C;
+  --bg-color: #121212;
+  --bg-shade: #1d1d1d;
+}
+
 [data-theme="dark"] {
   --font-color: #E8F8F9;
   --primary-color: #B71C1C;
@@ -622,6 +629,11 @@ td {
     transform: scale(1.5);
   }
 }
+@media(min-width: 1000px) and (orientation:landscape){
+  .bigScreenVisibleText {
+    display: block;
+  }
+}
 
 @media(min-width: 1000px) {
   .statsCont {
@@ -629,10 +641,6 @@ td {
     padding-right: 10vmin;
     padding-top: 2vmin;
     justify-content: space-around;
-  }
-
-  .bigScreenVisibleText {
-    display: block;
   }
 
   .mainBtnCont {
@@ -663,7 +671,19 @@ td {
   }
 }
 
-@media(max-width: 500px) {
+@media(max-width: 1000px) and (orientation:landscape) {
+  body {
+    font-size: 100%;
+  }
+}
+
+@media(max-width: 500px) and (orientation:landscape) {
+  body {
+    font-size: 75%;
+  }
+}
+
+@media(max-width: 500px) and (orientation:portrait){
   body {
     font-size: 100%;
   }
