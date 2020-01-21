@@ -316,9 +316,7 @@ td {
   }
 
   .iconButton:hover {
-    padding: 0.1em;
-    width: 2.6em;
-    height: 2.6em;
+    transform: scale(1.15);
   }
 }
 
@@ -589,8 +587,8 @@ td {
 }
 
 .iconButton {
-  width: 2.2em;
-  height: 2.2em;
+  width: 2em;
+  height: 2em;
   background: transparent;
   border: none !important;
   outline: none;
@@ -600,6 +598,7 @@ td {
   transition: 250ms ease;
   cursor: pointer;
   padding: 0.3em;
+  transform: scale(1);
 }
 
 .rightCont {
@@ -609,9 +608,7 @@ td {
 }
 
 .iconButton:active {
-  padding: 0.5em;
-  width: 1.8em;
-  height: 1.8em;
+  transform: scale(0.85);
 }
 
 @keyframes ringAnimDesktop {
