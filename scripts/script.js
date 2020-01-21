@@ -1,11 +1,12 @@
-navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
-
 const MAX_TOASTS = 30; //please increase if you find any device that needs it
 const MAX_TOAST_BUFFER = 60;
 const BUFFER_DURATION = 1000;
 var EMIT_DURATION = BUFFER_DURATION / MAX_TOAST_BUFFER;
 var savedByBuffer = 0;
 var bufferActive = true;
+
+navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+
 
 document.body.onload = () => {
   // set name, comment
@@ -40,7 +41,7 @@ function verzweifle() {
   if (navigator.onLine) {
 
     if (navigator.vibrate && storage.vibration) // vibration API supported
-      navigator.vibrate(100);
+      navigator.vibrate(50);
 
     // Inputs
     let sanitizedName = sanitizeInput(nameInput.value);
@@ -89,16 +90,6 @@ function verzweifle() {
             alert(savedByBuffer + " toasts have been prevented by the buffer\n" + (bufferActive ? "deactivating buffer" : "activating buffer"));
             savedByBuffer = 0;
             bufferActive = !bufferActive;
-            break;
-          case "ctest": //testing buffered performance (locally)
-            let ctest = 0;
-            const cintervalId = setInterval(() => {
-              ctest++;
-              constrainClicks(`${ctest} test ${ctest}`, "", "")
-            }, 5);
-            setTimeout(() => {
-              clearInterval(cintervalId);
-            }, 5000);
             break;
           case "gtest": //testing performance if glogal clicks are emitted
             let gtest = 0;
@@ -165,6 +156,7 @@ function verzweifle() {
           case "clear":
             storage.color = ""
             storage.underlineType = ""
+            localStorage.removeItem("theme")
             break;
           case "help":
             alert(HELP_MESSAGE)

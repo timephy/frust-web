@@ -28,16 +28,17 @@ const possibleButtonLabels = [
 
 /** The message displayed by "help" command. */
 const HELP_MESSAGE = [
+  "Syntax:  /{command}",
   "Click colors:",
   "    " + ["green", "purple", "blue", "yellow", "black", "white"].join(", "),
   "Click lines:",
   "    " + ["small", "big", "dotted", "dashed"].join(", "),
   "Events:",
-  "    " + ["fuck", "einstein", "satan", "666", "pride", "rainbow", "fu"].join(", "),
+  "    " + ["einstein", "satan", "666", "pride", "rainbow", "fu"].join(", "),
   "Options:",
   "    " + ["vibrate", "darkmode", "clear"].join(", "),
   "Dev options:",
-  "    " + ["buffer", "fps", "test", "ctest", "gtest", "rtest"].join(", ")
+  "    " + ["buffer", "fps", "test", "rtest"].join(", ")
 ].join("\n")
 
 /** effect variables */

@@ -11,6 +11,13 @@
   --thick-material-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
+@media(prefers-color-scheme:dark) {
+  --font-color: #E8F8F9;
+  --primary-color: #B71C1C;
+  --bg-color: #121212;
+  --bg-shade: #1d1d1d;
+}
+
 [data-theme="dark"] {
   --font-color: #E8F8F9;
   --primary-color: #B71C1C;
@@ -315,9 +322,8 @@ td {
     box-shadow: var(--thick-material-shadow);
   }
 
-  #githubButton:hover,
-  #adjustButton:hover {
-    width: 1.7em;
+  .iconButton:hover {
+    transform: scale(1.15);
   }
 }
 
@@ -570,13 +576,26 @@ td {
   animation: 0.5s ease-out 0.4s 1 ringStartAnim;
 }
 
-#githubButton,
-#adjustButton {
-  position: fixed;
+.iconCont {
+  position: absolute;
+  display: flex;
+  flex-flow: column;
   left: 0.5em;
   bottom: 0.5em;
-  width: 1.5em;
-  height: auto;
+}
+
+.iconButtonWrapper {
+  display: inline-flex;
+  align-items: center;
+}
+
+.bigScreenVisibleText {
+  display: none;
+}
+
+.iconButton {
+  width: 2em;
+  height: 2em;
   background: transparent;
   border: none !important;
   outline: none;
@@ -585,16 +604,18 @@ td {
   -o-transition: 250ms ease;
   transition: 250ms ease;
   cursor: pointer;
+  padding: 0.3em;
+  transform: scale(1);
 }
 
-#adjustButton {
+.rightCont {
   left: auto;
   right: 0.5em;
+  align-items: flex-end;
 }
 
-#githubButton:active,
-#adjustButton:active {
-  width: 1.3em;
+.iconButton:active {
+  transform: scale(0.85);
 }
 
 @keyframes ringAnimDesktop {
@@ -606,6 +627,11 @@ td {
   100% {
     opacity: 0;
     transform: scale(1.5);
+  }
+}
+@media(min-width: 1000px) and (orientation:landscape){
+  .bigScreenVisibleText {
+    display: block;
   }
 }
 
@@ -645,7 +671,19 @@ td {
   }
 }
 
-@media(max-width: 500px) {
+@media(max-width: 1000px) and (orientation:landscape) {
+  body {
+    font-size: 100%;
+  }
+}
+
+@media(max-width: 500px) and (orientation:landscape) {
+  body {
+    font-size: 75%;
+  }
+}
+
+@media(max-width: 500px) and (orientation:portrait){
   body {
     font-size: 100%;
   }
@@ -860,7 +898,6 @@ td {
   font-size: 200%;
   max-height: 10em;
 }
-
 
 /** underline effect types **/
 .toast.dashed:after {
