@@ -67,41 +67,36 @@ function CreateUserTableFromJSON(jsonData, eid) {
 }
 
 function CreateTableFromJSON(jsonData, eid) {
-  var col = [];
-  for (var i = 0; i < jsonData.length; i++) {
-    for (var key in jsonData[i]) {
-      if (col.indexOf(key) === -1) {
+  const col = [];
+  for (const i = 0; i < jsonData.length; i++)
+    for (const key in jsonData[i])
+      if (col.indexOf(key) === -1)
         col.push(key);
-      }
-    }
-  }
 
   // CREATE DYNAMIC TABLE.
-  var table = document.createElement("table");
+  const table = document.createElement("table");
 
   // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+  const tr = table.insertRow(-1); // TABLE ROW.
 
-  var tr = table.insertRow(-1); // TABLE ROW.
-
-  for (var i = 0; i < col.length; i++) {
-    var th = document.createElement("th"); // TABLE HEADER.
+  for (const i = 0; i < col.length; i++) {
+    const th = document.createElement("th"); // TABLE HEADER.
     th.innerHTML = col[i];
     tr.appendChild(th);
   }
 
   // ADD JSON DATA TO THE TABLE AS ROWS.
-  for (var i = 0; i < jsonData.length; i++) {
-
+  for (const i = 0; i < jsonData.length; i++) {
     tr = table.insertRow(-1);
 
-    for (var j = 0; j < col.length; j++) {
-      var tabCell = tr.insertCell(-1);
+    for (const j = 0; j < col.length; j++) {
+      const tabCell = tr.insertCell(-1);
       tabCell.innerHTML = jsonData[i][col[j]];
     }
   }
 
   // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
-  var divContainer = document.getElementById(eid);
+  const divContainer = document.getElementById(eid);
   divContainer.innerHTML = "";
   divContainer.appendChild(table);
 }
@@ -109,9 +104,9 @@ function CreateTableFromJSON(jsonData, eid) {
 function CreateTextFromJSON(jsonData, eid) {
   console.log(jsonData);
 
-  var txt = document.createElement("h2");
+  const txt = document.createElement("h2");
   txt.textContent = JSON.stringify(jsonData, null, 4);
-  var divContainer = document.getElementById(eid);
+  const divContainer = document.getElementById(eid);
   divContainer.innerHTML = "";
   divContainer.appendChild(txt);
 }
