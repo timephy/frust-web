@@ -34,7 +34,7 @@ const HELP_MESSAGE = [
   "Click lines:",
   "    " + ["small", "big", "dotted", "dashed"].join(", "),
   "Events:",
-  "    " + ["einstein", "satan", "666", "pride", "rainbow", "fu"].join(", "),
+  "    " + ["einstein", "belasto", "fireworks", "satan", "666", "pride", "rainbow", "fu"].join(", "),
   "Options:",
   "    " + ["vibrate", "darkmode", "clear"].join(", "),
   "Dev options:",
@@ -116,6 +116,24 @@ function einstein() {
 
   panker.appendChild(einstein);
   destroyDelay(einstein, 5000);
+}
+
+function belasto() {
+  const belasto = document.createElement("div")
+  belasto.className = "belasto"
+  anime.set(belasto, {
+    top: anime.random(0, 100)+ '%',
+    left: anime.random(0, 100) + '%',
+  });
+
+  anime({
+    targets: belasto,
+    rotate: anime.random(-30, 30)+'deg',
+    scale: [0.4, 1]
+  })
+  destroyDelay(belasto, 30000);
+
+  wrapper.appendChild(belasto);
 }
 
 /** Returns a randomized button label. */

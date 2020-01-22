@@ -14,6 +14,11 @@ const urlsToCache = [
 ];
 
 
+self.addEventListener('started', function(event) {
+
+
+});
+
 self.addEventListener('install', function(event) {
   // Perform install steps
   event.waitUntil(
@@ -26,10 +31,7 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request)
-    // Cache hit - return response, or a new version is available, then get
-    .then((response) => (response /*&& !navigator.onLine*/) ? response : fetch(event.request))
-  );
-  return;
+  event.respondWith(async function() {
+    return (await caches.match(event.request)) || fetch(event.request);
+  });
 });

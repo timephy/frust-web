@@ -67,7 +67,7 @@ function verzweifle() {
       } else if (["small", "big", "dotted", "dashed"].includes(command)) {
         // Underline, Size
         storage.underlineType = command;
-      } else if (["fuck", "einstein", "satan", "666", "fu", "pride", "fireworks", "rickroll"].includes(command)) {
+      } else if (["fuck", "belasto", "einstein", "satan", "666", "fu", "pride", "fireworks", "rickroll"].includes(command)) {
         // Global events
         socket.emit("event", {
           "name": name,
@@ -78,6 +78,14 @@ function verzweifle() {
           case "vibrate":
             storage.vibration = !storage.vibration;
             console.log("vibrationsActive   ", storage.vibration)
+            break;
+          case "belastos":
+            for (var i = 0; i < 20; i++) {
+              socket.emit("event", {
+                "name": "God",
+                "id": "belasto"
+              });
+            }
             break;
           case "fps":
             setInterval(updateFps, 500);
@@ -266,6 +274,9 @@ socket.on("event", (event) => {
       break;
     case "einstein":
       einstein();
+      break;
+    case "belasto":
+      belasto();
       break;
     case "rickroll":
       window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";

@@ -67,30 +67,30 @@ function CreateUserTableFromJSON(jsonData, eid) {
 }
 
 function CreateTableFromJSON(jsonData, eid) {
-  const col = [];
-  for (const i = 0; i < jsonData.length; i++)
-    for (const key in jsonData[i])
+  var col = [];
+  for (var i = 0; i < jsonData.length; i++)
+    for (var key in jsonData[i])
       if (col.indexOf(key) === -1)
         col.push(key);
 
   // CREATE DYNAMIC TABLE.
-  const table = document.createElement("table");
+  var table = document.createElement("table");
 
   // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
-  const tr = table.insertRow(-1); // TABLE ROW.
+  var tr = table.insertRow(-1); // TABLE ROW.
 
-  for (const i = 0; i < col.length; i++) {
-    const th = document.createElement("th"); // TABLE HEADER.
+  for (var i = 0; i < col.length; i++) {
+    var th = document.createElement("th"); // TABLE HEADER.
     th.innerHTML = col[i];
     tr.appendChild(th);
   }
 
   // ADD JSON DATA TO THE TABLE AS ROWS.
-  for (const i = 0; i < jsonData.length; i++) {
+  for (var i = 0; i < jsonData.length; i++) {
     tr = table.insertRow(-1);
 
-    for (const j = 0; j < col.length; j++) {
-      const tabCell = tr.insertCell(-1);
+    for (var j = 0; j < col.length; j++) {
+      var tabCell = tr.insertCell(-1);
       tabCell.innerHTML = jsonData[i][col[j]];
     }
   }

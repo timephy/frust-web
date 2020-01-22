@@ -629,7 +629,8 @@ td {
     transform: scale(1.5);
   }
 }
-@media(min-width: 1000px) and (orientation:landscape){
+
+@media(min-width: 1000px) and (orientation:landscape) {
   .bigScreenVisibleText {
     display: block;
   }
@@ -683,7 +684,7 @@ td {
   }
 }
 
-@media(max-width: 500px) and (orientation:portrait){
+@media(max-width: 500px) and (orientation:portrait) {
   body {
     font-size: 100%;
   }
@@ -1018,12 +1019,25 @@ td {
   left: 0%;
   padding: 0.2em;
   background-repeat: round;
-  background-image: url('D:/UserD/Programming/JS/frustrated-physicists-frontend/images/fireworks.gif')
+  background-image: url('/images/fireworks.gif');
+}
+
+.belasto {
+  position: fixed;
+  z-index: -10;
+  background-image: url('/images/belasto.png');
+  background-repeat: no-repeat;
+  width: auto;
+  width: 20vmin;
+  height: 20vmin;
+  z-index: -2;
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
 }
 
 .einstein {
   position: fixed;
-  z-index: 999;
   top: 50%;
   left: 50%;
   width: 20vmin;
