@@ -312,3 +312,4 @@ function process(e) {
 
 window.addEventListener('online', updateOnlineStatus);
 window.addEventListener('offline', updateOnlineStatus);
+updateOnlineStatus();
