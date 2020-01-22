@@ -1,4 +1,4 @@
-const testTable = {
+const testTable = [{
     "Name": "Einstein",
     "Nachricht": "Lineare Algebra",
     "Clicks": "258",
@@ -29,7 +29,8 @@ const testTable = {
     "Nachricht": "Hab mich wieder übergeben...",
     "Clicks": "197",
     "Events": "0"
-  };
+  }];
+
 window.addEventListener('load', () => {
   loadJson((error, result) => {
     if (error)
@@ -37,7 +38,7 @@ window.addEventListener('load', () => {
     CreateUserTableFromJSON(result, 'showData');
   }, '/api/list');
 
-  CreateTableFromJSON([testTable], 'showData2');
+  CreateTableFromJSON(testTable, 'showData2');
 
   loadJson((error, result) => {
     if (error)
