@@ -8,7 +8,9 @@ const urlsToCache = [
   '/images/einstein.svg',
   '/images/einsteinBW.svg',
   '/images/belasto.png',
-  '/images/fireworks.gif'
+  '/images/fireworks.gif',
+  '/version.json',
+  '/images/fu-meme.jpg'
 ];
 
 

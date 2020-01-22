@@ -34,7 +34,7 @@ const HELP_MESSAGE = [
   "Click lines:",
   "    " + ["small", "big", "dotted", "dashed"].join(", "),
   "Events:",
-  "    " + ["fuck", "einstein", "satan", "666", "pride", "rainbow", "fu"].join(", "),
+  "    " + ["einstein", "satan", "666", "pride", "rainbow", "fu"].join(", "),
   "Options:",
   "    " + ["vibrate", "darkmode", "clear"].join(", "),
   "Dev options:",

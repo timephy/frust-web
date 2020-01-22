@@ -158,6 +158,7 @@ function verzweifle() {
           case "clear":
             storage.color = ""
             storage.underlineType = ""
+            localStorage.removeItem("theme")
             break;
           case "help":
             alert(HELP_MESSAGE)
