@@ -22,16 +22,54 @@
   <title>Page Not Found</title>
 
   <style media="screen">
+    :root {
+      --font-color: black;
+      --primary-color: #B71C1C;
+      --bg-color: #ffffff;
+      --bg-shade: #ECEFF1;
+      /*******static variables*****/
+      --dark-red: #7f0000;
+      --bright-red: #f05545;
+      --thin-material-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      --medium-material-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      --thick-material-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    }
+
+    @media(prefers-color-scheme:dark) {
+      :root {
+        --font-color: #E8F8F9;
+        --primary-color: #B71C1C;
+        --bg-color: #121212;
+        --bg-shade: #1d1d1d;
+      }
+    }
+
+    [data-theme="dark"] {
+      --font-color: #E8F8F9;
+      --primary-color: #B71C1C;
+      --bg-color: #121212;
+      --bg-shade: #1d1d1d;
+    }
+
+    [data-theme="light"] {
+      --font-color: black;
+      --primary-color: #B71C1C;
+      --bg-color: #ffffff;
+      --bg-shade: #ECEFF1;
+    }
+
     body {
       height: 100%;
       margin: 0;
       font-size: 150%;
+      background-color: var(--bg-shade)
     }
 
     body * {
       font-family: 'Roboto', 'Monserrat', sans-serif;
       font-weight: 300;
     }
+
 
     ::-moz-selection {
       background: var(--bright-red);
@@ -57,11 +95,17 @@
       -o-transition: all 0.5s ease-in-out;
       transition: all 0.5s ease-in-out;
       opacity: 0.2;
-      background-color: var(--red);
+      background-color: var(--primary-color);
       height: 0.2em;
       width: 0px;
       /*box-shadow: var(--thin-material-shadow);*/
     }
+
+
+        .hoverline:before {
+          top: 0;
+          left: 0;
+        }
 
     .hoverline:after {
       right: 0;
@@ -88,206 +132,103 @@
       padding: 0;
     }
 
-    @media (prefers-color-scheme: dark) {
+    li,
+    input,
+    h1,
+    h2,
+    h3,
+    h4,
+    p {
+      color: var(--font-color);
+    }
 
-      li,
-      input,
-      h1,
-      h2,
-      h3,
-      h4,
-      p {
-        color: white;
-      }
+    h2
+    {
+      color: var(--primary-color);
+    }
 
-      /*link styling*/
-      a:link {
-        color: white;
-      }
+    /*link styling*/
+    a:link {
+      color: var(--font-color);
+    }
 
-      a:visited {
-        color: white;
-      }
+    a:visited {
+      color: var(--primary-color);
+    }
 
-      a:active {
-        color: #b71c1c;
+    a:active {
+      color: var(--primary-color);
+    }
+
+    #message {
+      background: var(--bg-color);
+      max-width: 360px;
+      margin: 100px auto 16px;
+      padding: 32px 24px 16px;
+      border-radius: 3px;
+    }
+
+    #message h3 {
+      color: var(--font-color);
+      font-weight: normal;
+      font-size: 16px;
+      margin: 16px 0 12px;
+      text-shadow: none;
+    }
+
+    #message h2 {
+      font-weight: bold;
+      font-size: 16px;
+      margin: 0 0 8px;
+    }
+
+    #message h1 {
+      font-size: 22px;
+      font-weight: 300;
+      margin: 0 0 16px;
+    }
+
+    #message p {
+      line-height: 140%;
+      margin: 16px 0 24px;
+      font-size: 14px;
+    }
+
+    #message a {
+      display: flex;
+      text-align: center;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+      background: var(--bg-shade);
+      text-transform: lowercase;
+      height: 3em;
+      margin-top: 16px;
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    }
+
+    #message {
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    }
+
+    #load {
+      color: rgba(0, 0, 0, 0.4);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+
+      body,
+      #message {
+        margin-top: 0;
+        background: var(--bg-color);
+        box-shadow: none;
       }
 
       body {
-        background: #121212;
-      }
-
-      #message {
-        background: #1d1d1d;
-        max-width: 360px;
-        margin: 100px auto 16px;
-        padding: 32px 24px 16px;
-        border-radius: 3px;
-      }
-
-      #message h3 {
-        font-weight: normal;
-        font-size: 16px;
-        margin: 16px 0 12px;
-        text-shadow: none;
-      }
-
-      #message h2 {
-        color: #b71c1c;
-        font-weight: bold;
-        font-size: 16px;
-        margin: 0 0 8px;
-      }
-
-      #message h1 {
-        font-size: 22px;
-        font-weight: 300;
-        margin: 0 0 16px;
-      }
-
-      #message p {
-        line-height: 140%;
-        margin: 16px 0 24px;
-        font-size: 14px;
-      }
-
-      #message a {
-        display: flex;
-        text-align: center;
-        align-items: center;
-        align-content: center;
-        justify-content: center;
-        background: #2d2d2d;
-        text-transform: lowercase;
-        height: 3em;
-        margin-top: 16px;
-        border-radius: 4px;
-      }
-
-      #message {
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-      }
-
-      #load {
-        color: rgba(0, 0, 0, 0.4);
-        text-align: center;
-        font-size: 13px;
-      }
-
-      @media (max-width: 600px) {
-
-        body,
-        #message {
-          margin-top: 0;
-          background: #121212;
-          box-shadow: none;
-        }
-
-        #message a {
-          background: #1d1d1d;
-        }
-
-        body {
-          border-top: 16px solid #b71c1c;
-        }
-      }
-    }
-
-    @media (prefers-color-scheme: light) {
-
-      li,
-      input,
-      h1,
-      h2,
-      h3,
-      h4,
-      p {
-        color: black;
-      }
-
-      /*link styling*/
-      a:link {
-        color: black;
-      }
-
-      a:visited {
-        color: black;
-      }
-
-      a:active {
-        color: #b71c1c;
-      }
-
-      #message {
-        background: white;
-        max-width: 360px;
-        margin: 100px auto 16px;
-        padding: 32px 24px 16px;
-        border-radius: 3px;
-      }
-
-      #message h3 {
-        color: black;
-        font-weight: normal;
-        font-size: 16px;
-        margin: 16px 0 12px;
-        text-shadow: none;
-      }
-
-      #message h2 {
-        font-weight: bold;
-        font-size: 16px;
-        margin: 0 0 8px;
-      }
-
-      #message h1 {
-        font-size: 22px;
-        font-weight: 300;
-        margin: 0 0 16px;
-      }
-
-      #message p {
-        line-height: 140%;
-        margin: 16px 0 24px;
-        font-size: 14px;
-      }
-
-      #message a {
-        display: flex;
-        text-align: center;
-        align-items: center;
-        align-content: center;
-        justify-content: center;
-        background: #ECEFF1;
-        text-transform: lowercase;
-        height: 3em;
-        margin-top: 16px;
-        border-radius: 4px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-      }
-
-      #message {
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-      }
-
-      #load {
-        color: rgba(0, 0, 0, 0.4);
-        text-align: center;
-        font-size: 13px;
-      }
-
-      @media (max-width: 600px) {
-
-        body,
-        #message {
-          margin-top: 0;
-          background: white;
-          box-shadow: none;
-        }
-
-        body {
-          border-top: 16px solid #b71c1c;
-        }
+        border-top: 16px solid var(--primary-color, red);
       }
     }
   </style>
@@ -299,18 +240,17 @@
       //don't use the storage object, this has to happen in the header and we want to minimize loading times!!!!!!
       if (localStorage.getItem("theme") == "dark") {
         theme = "dark";
+        document.documentElement.setAttribute("data-theme", theme);
+        console.log("automatically set darkmode to " + theme)
       } else if (!window.matchMedia) {
         //matchMedia method not supported
         console.log("matchMedia method not supported")
-        // return false;
+        document.documentElement.setAttribute("data-theme", theme);
+        console.log("automatically set darkmode to " + theme)
       } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
         //OS theme setting detected as dark
         theme = "dark";
-        localStorage.setItem("theme", "dark");
       }
-      //dark theme preferred, set document with a `data-theme` attribute
-      document.documentElement.setAttribute("data-theme", theme);
-      console.log("automatically set darkmode to " + theme)
     }
     detectColorScheme();
   </script>

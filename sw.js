@@ -1,4 +1,4 @@
-const CACHE_NAME = 'frustrated_cache';
+const CACHE_NAME = 'frustrated_cache_1';
 
 const urlsToCache = [
   '/',
@@ -10,13 +10,24 @@ const urlsToCache = [
   '/images/belasto.png',
   '/images/fireworks.gif',
   '/version.json',
-  '/images/fu-meme.jpg'
+  '/images/fu-meme.jpg',
+  '/index.html',
+  '/scripts/storage.js',
+  '/scripts/utils.js'
 ];
 
 
-self.addEventListener('started', function(event) {
-
-
+self.addEventListener('activate', function(event) {
+  var keepCache = [CACHE_NAME];
+      event.waitUntil(
+          caches.keys().then( keyList => {
+              return Promise.all(keyList.map( key => {
+                  if (keepCache.indexOf(key) === -1) {
+                      return caches.delete(key);
+                  }
+              }));
+          })
+  .then(self.clients.claim()));
 });
 
 self.addEventListener('install', function(event) {

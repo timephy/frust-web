@@ -28,30 +28,25 @@
   <meta name="mobile-web-app-capable" content="yes">
 
   <script type="text/javascript">
-    var theme = "light";
+  var theme = "light";
 
-    function detectColorScheme() {
-      //don't use the storage object, this has to happen in the header and we want to minimize loading times!!!!!!
-      if (localStorage.getItem("theme")) {
-        if (localStorage.getItem("theme") == "dark")
-          theme = "dark";
-      } else if (!window.matchMedia) {
-        //matchMedia method not supported
-        console.log("matchMedia method not supported")
-        return false;
-      } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        //OS theme setting detected as dark
-        theme = "dark";
-        localStorage.setItem('theme', 'dark');
-      }
-      //dark theme preferred, set document with a `data-theme` attribute
-      if (theme == "dark")
-        document.documentElement.setAttribute("data-theme", "dark");
-      else
-        document.documentElement.setAttribute("data-theme", "light");
+  function detectColorScheme() {
+    //don't use the storage object, this has to happen in the header and we want to minimize loading times!!!!!!
+    if (localStorage.getItem("theme") == "dark") {
+      theme = "dark";
+      document.documentElement.setAttribute("data-theme", theme);
       console.log("automatically set darkmode to " + theme)
+    } else if (!window.matchMedia) {
+      //matchMedia method not supported
+      console.log("matchMedia method not supported")
+      document.documentElement.setAttribute("data-theme", theme);
+      console.log("automatically set darkmode to " + theme)
+    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      //OS theme setting detected as dark
+      theme = "dark";
     }
-    detectColorScheme();
+  }
+  detectColorScheme();
   </script>
 
 </head>
