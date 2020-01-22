@@ -17,8 +17,7 @@
   <meta name="msapplication-config" content="/images/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
 
-  <meta name="description"
-    content="Here you can find some Stats about your fellow physicists frustrations... Have fun!">
+  <meta name="description" content="Here you can find some Stats about your fellow physicists frustrations... Have fun!">
 
   <link rel="stylesheet" href="styles/betterstyle.css">
   <link rel="stylesheet" href="styles/charts.css">
@@ -28,25 +27,25 @@
   <meta name="mobile-web-app-capable" content="yes">
 
   <script type="text/javascript">
-  var theme = "light";
+    var theme = "light";
 
-  function detectColorScheme() {
-    //don't use the storage object, this has to happen in the header and we want to minimize loading times!!!!!!
-    if (localStorage.getItem("theme") == "dark") {
-      theme = "dark";
-      document.documentElement.setAttribute("data-theme", theme);
-      console.log("automatically set darkmode to " + theme)
-    } else if (!window.matchMedia) {
-      //matchMedia method not supported
-      console.log("matchMedia method not supported")
-      document.documentElement.setAttribute("data-theme", theme);
-      console.log("automatically set darkmode to " + theme)
-    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      //OS theme setting detected as dark
-      theme = "dark";
+    function detectColorScheme() {
+      //don't use the storage object, this has to happen in the header and we want to minimize loading times!!!!!!
+      if (localStorage.getItem("theme") == "dark") {
+        theme = "dark";
+        document.documentElement.setAttribute("data-theme", theme);
+        console.log("automatically set darkmode to " + theme)
+      } else if (!window.matchMedia) {
+        //matchMedia method not supported
+        console.log("matchMedia method not supported")
+        document.documentElement.setAttribute("data-theme", theme);
+        console.log("automatically set darkmode to " + theme)
+      } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        //OS theme setting detected as dark
+        theme = "dark";
+      }
     }
-  }
-  detectColorScheme();
+    detectColorScheme();
   </script>
 
 </head>
@@ -66,7 +65,7 @@
     <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></h2>
 
 </body>
-
+<script src="scripts/storage.js"></script>
 <script src="scripts/utils.js"></script>
 <script type="text/javascript">
   loadJson((error, result) => {
@@ -75,37 +74,38 @@
     CreateUserTableFromJSON(result, 'showData');
   }, '/api/list');
   CreateTableFromJSON([{
-    "Name": "Einstein",
-    "Nachricht": "Lineare Algebra",
-    "Clicks": "258",
-    "Events": "5"
-  },
-  {
-    "Name": "Newton",
-    "Nachricht": "",
-    "Clicks": "467",
-    "Events": "5"
-  }, {
-    "Name": "Newton",
-    "Nachricht": "Exphy :(",
-    "Clicks": "47",
-    "Events": "1"
-  }, {
-    "Name": "Weierstrass",
-    "Nachricht": "Mathe...",
-    "Clicks": "100",
-    "Events": "14"
-  }, {
-    "Name": "Heisenberg",
-    "Nachricht": "Alles so unscharf",
-    "Clicks": "20",
-    "Events": "0"
-  }, {
-    "Name": "Marie Curie",
-    "Nachricht": "Hab mich wieder übergeben...",
-    "Clicks": "197",
-    "Events": "0"
-  }], 'showData2');
+      "Name": "Einstein",
+      "Nachricht": "Lineare Algebra",
+      "Clicks": "258",
+      "Events": "5"
+    },
+    {
+      "Name": "Newton",
+      "Nachricht": "",
+      "Clicks": "467",
+      "Events": "5"
+    }, {
+      "Name": "Newton",
+      "Nachricht": "Exphy :(",
+      "Clicks": "47",
+      "Events": "1"
+    }, {
+      "Name": "Weierstrass",
+      "Nachricht": "Mathe...",
+      "Clicks": "100",
+      "Events": "14"
+    }, {
+      "Name": "Heisenberg",
+      "Nachricht": "Alles so unscharf",
+      "Clicks": "20",
+      "Events": "0"
+    }, {
+      "Name": "Marie Curie",
+      "Nachricht": "Hab mich wieder übergeben...",
+      "Clicks": "197",
+      "Events": "0"
+    }
+  ], 'showData2');
   loadJson((error, result) => {
     if (error)
       console.log(error);

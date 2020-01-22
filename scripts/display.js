@@ -109,21 +109,23 @@ function popup(text, cssClass) {
 
 /** Einstein effect. */
 function einstein() {
-  const einstein = document.createElement("img")
-  einstein.className = "einstein"
-  einstein.style.left = Math.random() * 90 + "%"
-  einstein.style.top = Math.random() * 90 + "%"
+  const einstein = document.createElement("span")
+  einstein.className = "einstein";
+  anime.set(einstein, {
+    top: anime.random(-10, 90)+ '%',
+    left: anime.random(-10, 90) + '%',
+  });
 
   panker.appendChild(einstein);
   destroyDelay(einstein, 5000);
 }
 
 function belasto() {
-  const belasto = document.createElement("div")
+  const belasto = document.createElement("span")
   belasto.className = "belasto"
   anime.set(belasto, {
-    top: anime.random(0, 100)+ '%',
-    left: anime.random(0, 100) + '%',
+    top: anime.random(-10, 90)+ '%',
+    left: anime.random(-10, 90) + '%',
   });
 
   anime({

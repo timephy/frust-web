@@ -1026,10 +1026,9 @@ td {
 
 .belasto {
   position: fixed;
-  z-index: -10;
   background-image: url('/images/belasto.png');
+  background-size: contain;
   background-repeat: no-repeat;
-  width: auto;
   width: 20vmin;
   height: 20vmin;
   z-index: -2;
