@@ -1,20 +1,14 @@
-const CACHE_NAME = 'frustrated-cache';
+const CACHE_NAME = 'frustrated_cache';
 
 const urlsToCache = [
   '/',
-  '/index.html',
-  '/styles/betterstyle.css',
-  '/scripts/storage.js',
-  '/scripts/script.js',
   '/scripts/socket.io.js',
-  '/scripts/display.js',
-  '/scripts/utils.js',
   '/images/teemo.jpg',
   '/images/elmo.jpg',
   '/images/einstein.svg',
   '/images/einsteinBW.svg',
-  '/version',
-  '/images/fu-meme.jpg'
+  '/images/belasto.png',
+  '/images/fireworks.gif'
 ];
 
 
@@ -33,7 +27,7 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request)
     // Cache hit - return response, or a new version is available, then get
-    .then((response) => (response && !navigator.onLine) ? response : fetch(event.request))
+    .then((response) => (response /*&& !navigator.onLine*/) ? response : fetch(event.request))
   );
   return;
 });

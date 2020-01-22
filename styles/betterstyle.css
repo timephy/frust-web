@@ -994,6 +994,16 @@ td {
   font-family: 'Helvetica Neue', serif;
 }
 
+.fireworks {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0%;
+  padding: 0.2em;
+  background-repeat: round;
+  background-image: url('D:/UserD/Programming/JS/frustrated-physicists-frontend/images/fireworks.gif')
+}
+
 .einstein {
   position: fixed;
   z-index: 999;

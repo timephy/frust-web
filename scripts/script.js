@@ -38,6 +38,8 @@ function updateDark(newTheme) {
 
 /** The main button action. */
 function verzweifle() {
+
+    popup("", "fireworks");
   if (navigator.onLine) {
 
     if (navigator.vibrate && storage.vibration) // vibration API supported
@@ -261,7 +263,7 @@ socket.on("event", (event) => {
       popup("Fuck you", "fu");
       break;
     case "fireworks":
-      fireworks()
+      popup("", "fireworks");
       break;
     case "einstein":
       einstein();
