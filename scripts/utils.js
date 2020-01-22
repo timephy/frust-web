@@ -27,12 +27,10 @@ function addTemporaryClass(targetElem, cssClass, time) {
 function CreateUserTableFromJSON(jsonData, eid) {
   jsonData.userCount++;
   ownuser = {
-    Name: storage.name,
-    Nachricht: storage.comment
+    Name: storage.name || "Ich",
+    Nachricht: storage.comment || ""
   }
-  jsonData.identifiedUsers.push({
-    ownuser
-  });
+  jsonData.identifiedUsers.push(ownuser);
   console.log(jsonData);
   // EXTRACT VALUE FOR HTML HEADER.
   var col = [];
