@@ -18,6 +18,7 @@ const urlsToCache = [
 
 
 self.addEventListener('activate', function(event) {
+  console.log("clearing old caches");
   var keepCache = [CACHE_NAME];
       event.waitUntil(
           caches.keys().then( keyList => {
