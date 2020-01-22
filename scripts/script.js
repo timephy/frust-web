@@ -38,8 +38,6 @@ function updateDark(newTheme) {
 
 /** The main button action. */
 function verzweifle() {
-
-    popup("", "fireworks");
   if (navigator.onLine) {
 
     if (navigator.vibrate && storage.vibration) // vibration API supported
