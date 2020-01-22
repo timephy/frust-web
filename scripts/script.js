@@ -20,7 +20,6 @@ const socket = io({
 
 
 function toggleDarkmode() {
-  belasto();einstein();
   const newTheme = localStorage.getItem("theme") == "dark" ? "light" : "dark";
   updateDark(newTheme);
 }
