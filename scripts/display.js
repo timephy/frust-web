@@ -28,16 +28,17 @@ const possibleButtonLabels = [
 
 /** The message displayed by "help" command. */
 const HELP_MESSAGE = [
+  "Syntax:  /{command}",
   "Click colors:",
   "    " + ["green", "purple", "blue", "yellow", "black", "white"].join(", "),
   "Click lines:",
   "    " + ["small", "big", "dotted", "dashed"].join(", "),
   "Events:",
-  "    " + ["fuck", "einstein", "satan", "666", "pride", "rainbow", "fu"].join(", "),
+  "    " + ["einstein", "belasto", "fireworks", "satan", "666", "pride", "rainbow", "fu"].join(", "),
   "Options:",
   "    " + ["vibrate", "darkmode", "clear"].join(", "),
   "Dev options:",
-  "    " + ["buffer", "fps", "test", "ctest", "gtest", "rtest"].join(", ")
+  "    " + ["buffer", "fps", "test", "rtest"].join(", ")
 ].join("\n")
 
 /** effect variables */
@@ -108,13 +109,33 @@ function popup(text, cssClass) {
 
 /** Einstein effect. */
 function einstein() {
-  const einstein = document.createElement("img")
-  einstein.className = "einstein"
-  einstein.style.left = Math.random() * 90 + "%"
-  einstein.style.top = Math.random() * 90 + "%"
+  const einstein = document.createElement("span")
+  einstein.className = "einstein";
+  anime.set(einstein, {
+    top: anime.random(-10, 90)+ '%',
+    left: anime.random(-10, 90) + '%',
+  });
 
   panker.appendChild(einstein);
   destroyDelay(einstein, 5000);
+}
+
+function belasto() {
+  const belasto = document.createElement("span")
+  belasto.className = "belasto"
+  anime.set(belasto, {
+    top: anime.random(-10, 90)+ '%',
+    left: anime.random(-10, 90) + '%',
+  });
+
+  anime({
+    targets: belasto,
+    rotate: anime.random(-30, 30)+'deg',
+    scale: [0.4, 1]
+  })
+  destroyDelay(belasto, 30000);
+
+  wrapper.appendChild(belasto);
 }
 
 /** Returns a randomized button label. */

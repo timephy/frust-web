@@ -31,24 +31,19 @@
 
     function detectColorScheme() {
       //don't use the storage object, this has to happen in the header and we want to minimize loading times!!!!!!
-      if (localStorage.getItem("theme")) {
-        if (localStorage.getItem("theme") == "dark")
-          theme = "dark";
+      if (localStorage.getItem("theme") == "dark") {
+        theme = "dark";
+        document.documentElement.setAttribute("data-theme", theme);
+        console.log("automatically set darkmode to " + theme)
       } else if (!window.matchMedia) {
         //matchMedia method not supported
         console.log("matchMedia method not supported")
-        return false;
+        document.documentElement.setAttribute("data-theme", theme);
+        console.log("automatically set darkmode to " + theme)
       } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
         //OS theme setting detected as dark
         theme = "dark";
-        localStorage.setItem('theme', 'dark');
       }
-      //dark theme preferred, set document with a `data-theme` attribute
-      if (theme == "dark")
-        document.documentElement.setAttribute("data-theme", "dark");
-      else
-        document.documentElement.setAttribute("data-theme", "light");
-      console.log("automatically set darkmode to " + theme)
     }
     detectColorScheme();
   </script>
@@ -58,69 +53,22 @@
 <body>
 
   <div id="showData">Loading user data...</div>
-  <div class="spacer" />
+  <div class="spacer"></div>
   <div id="showData2">Loading more data...</div>
-  <div class="spacer" />
+  <div class="largeSpacer"></div>
   <div id="versionData">Loading version...</div>
-  <div class="spacer" />
+  <div class="spacer"></div>
   <div id="apiv">Loading API version...</div>
-  <div class="spacer" />
+  <div class="spacer"></div>
 
   <h2>Icon based on a svg made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from
     <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></h2>
 
 </body>
+<script src="/scripts/storage.js"></script>
+<script src="/scripts/utils.js"></script>
+<script src="/scripts/stats.js">
 
-<script src="scripts/utils.js"></script>
-<script type="text/javascript">
-  loadJson((error, result) => {
-    if (error)
-      console.log(error);
-    CreateUserTableFromJSON(result, 'showData');
-  }, '/api/list');
-  CreateTableFromJSON([{
-      "Name": "Einstein",
-      "Nachricht": "Lineare Algebra",
-      "Clicks": "258",
-      "Events": "5"
-    },
-    {
-      "Name": "Newton",
-      "Nachricht": "",
-      "Clicks": "467",
-      "Events": "5"
-    }, {
-      "Name": "Newton",
-      "Nachricht": "Exphy :(",
-      "Clicks": "47",
-      "Events": "1"
-    }, {
-      "Name": "Weierstrass",
-      "Nachricht": "Mathe...",
-      "Clicks": "100",
-      "Events": "14"
-    }, {
-      "Name": "Heisenberg",
-      "Nachricht": "Alles so unscharf",
-      "Clicks": "20",
-      "Events": "0"
-    }, {
-      "Name": "Marie Curie",
-      "Nachricht": "Hab mich wieder übergeben...",
-      "Clicks": "197",
-      "Events": "0"
-    }
-  ], 'showData2');
-  loadJson((error, result) => {
-    if (error)
-      console.log(error);
-    CreateTextFromJSON(result, 'versionData');
-  }, '/version');
-  loadJson((error, result) => {
-    if (error)
-      console.log(error);
-    CreateTextFromJSON(result, 'apiv');
-  }, '/api');
 </script>
 
 </html>

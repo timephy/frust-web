@@ -8,7 +8,7 @@ Please make use of the `Add to Home Screen` feature.
 
 ## To our fellow students
 
-To keep this fun project going we count on you to create an Issue or a Pull Request with your suggestion(s).
+To keep this fun project going we count on you to create Issues or Pull Requests with your suggestions.
 
 _Happy frustrated studying!_
 

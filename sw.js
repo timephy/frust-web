@@ -1,22 +1,35 @@
-const CACHE_NAME = 'frustrated-cache';
+const CACHE_NAME = 'frustrated_cache_2';
 
 const urlsToCache = [
   '/',
-  '/index.html',
-  '/styles/betterstyle.css',
-  '/scripts/storage.js',
-  '/scripts/script.js',
   '/scripts/socket.io.js',
-  '/scripts/display.js',
-  '/scripts/utils.js',
   '/images/teemo.jpg',
   '/images/elmo.jpg',
   '/images/einstein.svg',
   '/images/einsteinBW.svg',
-  '/version',
-  '/images/fu-meme.jpg'
+  '/images/belasto.png',
+  '/images/fireworks.gif',
+  '/version.json',
+  '/images/fu-meme.jpg',
+  '/index.html',
+  '/scripts/storage.js',
+  '/scripts/utils.js'
 ];
 
+
+self.addEventListener('activate', function(event) {
+  console.log("clearing old caches");
+  var keepCache = [CACHE_NAME];
+      event.waitUntil(
+          caches.keys().then( keyList => {
+              return Promise.all(keyList.map( key => {
+                  if (keepCache.indexOf(key) === -1) {
+                      return caches.delete(key);
+                  }
+              }));
+          })
+  .then(self.clients.claim()));
+});
 
 self.addEventListener('install', function(event) {
   // Perform install steps
@@ -31,9 +44,13 @@ self.addEventListener('install', function(event) {
 
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request)
-    // Cache hit - return response, or a new version is available, then get
-    .then((response) => (response && !navigator.onLine) ? response : fetch(event.request))
+    caches.open(CACHE_NAME).then(function(cache) {
+      return cache.match(event.request).then(function (response) {
+        return response || fetch(event.request).then(function(response) {
+          cache.put(event.request, response.clone());
+          return response;
+        });
+      });
+    })
   );
-  return;
 });

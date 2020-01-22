@@ -35,3 +35,7 @@ table {
 tr:hover {
   background-color: var(--bg-shade);
 }
+
+.largeSpacer{
+  height: 5em;
+}

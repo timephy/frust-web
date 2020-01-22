@@ -1,11 +1,12 @@
-navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
-
 const MAX_TOASTS = 30; //please increase if you find any device that needs it
 const MAX_TOAST_BUFFER = 60;
 const BUFFER_DURATION = 1000;
 var EMIT_DURATION = BUFFER_DURATION / MAX_TOAST_BUFFER;
 var savedByBuffer = 0;
 var bufferActive = true;
+
+navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+
 
 document.body.onload = () => {
   // set name, comment
@@ -40,7 +41,7 @@ function verzweifle() {
   if (navigator.onLine) {
 
     if (navigator.vibrate && storage.vibration) // vibration API supported
-      navigator.vibrate(100);
+      navigator.vibrate(50);
 
     // Inputs
     let sanitizedName = sanitizeInput(nameInput.value);
@@ -66,7 +67,7 @@ function verzweifle() {
       } else if (["small", "big", "dotted", "dashed"].includes(command)) {
         // Underline, Size
         storage.underlineType = command;
-      } else if (["fuck", "einstein", "satan", "666", "fu", "pride", "fireworks", "rickroll"].includes(command)) {
+      } else if (["fuck", "belasto", "einstein", "satan", "666", "fu", "pride", "fireworks", "rickroll"].includes(command)) {
         // Global events
         socket.emit("event", {
           "name": name,
@@ -77,6 +78,14 @@ function verzweifle() {
           case "vibrate":
             storage.vibration = !storage.vibration;
             console.log("vibrationsActive   ", storage.vibration)
+            break;
+          case "belastos":
+            for (var i = 0; i < 20; i++) {
+              socket.emit("event", {
+                "name": "God",
+                "id": "belasto"
+              });
+            }
             break;
           case "fps":
             setInterval(updateFps, 500);
@@ -89,16 +98,6 @@ function verzweifle() {
             alert(savedByBuffer + " toasts have been prevented by the buffer\n" + (bufferActive ? "deactivating buffer" : "activating buffer"));
             savedByBuffer = 0;
             bufferActive = !bufferActive;
-            break;
-          case "ctest": //testing buffered performance (locally)
-            let ctest = 0;
-            const cintervalId = setInterval(() => {
-              ctest++;
-              constrainClicks(`${ctest} test ${ctest}`, "", "")
-            }, 5);
-            setTimeout(() => {
-              clearInterval(cintervalId);
-            }, 5000);
             break;
           case "gtest": //testing performance if glogal clicks are emitted
             let gtest = 0;
@@ -165,6 +164,7 @@ function verzweifle() {
           case "clear":
             storage.color = ""
             storage.underlineType = ""
+            localStorage.removeItem("theme")
             break;
           case "help":
             alert(HELP_MESSAGE)
@@ -270,10 +270,13 @@ socket.on("event", (event) => {
       popup("Fuck you", "fu");
       break;
     case "fireworks":
-      fireworks()
+      popup("", "fireworks");
       break;
     case "einstein":
       einstein();
+      break;
+    case "belasto":
+      belasto();
       break;
     case "rickroll":
       window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
@@ -309,3 +312,4 @@ function process(e) {
 
 window.addEventListener('online', updateOnlineStatus);
 window.addEventListener('offline', updateOnlineStatus);
+updateOnlineStatus();
