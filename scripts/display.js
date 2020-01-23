@@ -203,8 +203,9 @@ function displayClick(click) {
 }
 
 function displayToast(string, effectClass) {
-  if (activeToasts[string] !== undefined) {
-    atoast = activeToasts[string];
+  var tid = string.concat("__",effectClass);
+  if (activeToasts[tid] !== undefined) {
+    atoast = activeToasts[tid];
     clearTimeout(atoast[2])
     //create a new timer instance
     atoast[2] = setTimeout(atoast[3], RESET_TIME)
