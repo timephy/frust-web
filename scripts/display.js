@@ -203,9 +203,8 @@ function displayClick(click) {
 }
 
 function displayToast(string, effectClass) {
-  var tid = string+effectClass;
-  if (activeToasts[tid] !== undefined) {
-    atoast = activeToasts[tid];
+  if (activeToasts[string] !== undefined) {
+    atoast = activeToasts[string];
     clearTimeout(atoast[2])
     //create a new timer instance
     atoast[2] = setTimeout(atoast[3], RESET_TIME)
@@ -278,7 +277,7 @@ function newToast(string, effectClass) {
   }
 
   // save the toast with his resetable timer and removal function
-  activeToasts[string+effectClass] = [toast, count, setTimeout(funkyFunc, RESET_TIME), funkyFunc, 1];
+  activeToasts[string] = [toast, count, setTimeout(funkyFunc, RESET_TIME), funkyFunc, 1];
 
   toast.className = [effectClass, "toast"].join(" ");
   count.className = [effectClass, "clickCounter"].join(" ");
