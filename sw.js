@@ -1,4 +1,4 @@
-const CACHE_NAME = 'frustrated_cache_3';
+const CACHE_NAME = 'frustrated_cache_4';
 
 const urlsToCache = [
   '/',
