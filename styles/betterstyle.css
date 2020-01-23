@@ -125,14 +125,14 @@ td {
 
 /*toast messages*/
 .toastAnker {
-  height: 100%;
-  width: 100%;
+  height: 90%;
+  width: 90%;
   overflow-y: hidden;
   bottom: 0px;
   position: fixed;
   z-index: -1;
   display: flex;
-  flex-flow: nowrap column-reverse;
+  flex-flow: nowrap column;
   align-items: center;
 }
 
@@ -141,11 +141,11 @@ td {
   padding: 0.5em 0 0.5em 0;
   margin: 0.2em;
   max-height: 4em;
-  bottom: 1em;
+  /*bottom: 1em;*/
+  top: 1em;
   position: relative;
   display: inherit;
   width: auto;
-  /*is this better or the jumping animejs animation?????*/
   -webkit-animation: 0.2s ease-in-out toastAnim;
   -moz-animation: 0.2s ease-in-out toastAnim;
   -o-animation: 0.2s ease-in-out toastAnim;
@@ -156,18 +156,23 @@ td {
   0% {
     padding: 0;
     margin: 0;
-    bottom: -2.4em;
+    opacity: 0;
+    /*bottom: -2.4em;*/
+    top: -2.4em;
     max-height: 0em;
   }
 
   100% {
     padding: 0.5em 0em 0.5em 0em;
     margin: 0.2em;
+    opacity: 1;
     max-height: 4em;
-    bottom: 1em;
+    /*bottom: 1em;*/
+    top: 1em;
   }
 }
 
+/*the small counter next to toasts*/
 .clickCounter {
   position: absolute;
   border-radius: 2em;
