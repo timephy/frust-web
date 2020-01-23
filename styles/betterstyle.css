@@ -709,7 +709,7 @@ td {
 }
 
 .snowflake {
-  color: #fff;
+  color: var(--font-color);
   font-size: 1em;
   font-family: Arial, sans-serif;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
