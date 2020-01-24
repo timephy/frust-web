@@ -196,18 +196,21 @@ function verzweifle() {
 
 // Socket.io
 socket.on("stats", stats => {
-  console.log(`stats(${stats})`);
+  console.log("stats", stats);
+
   statsDisplay.total = stats["click_count_total"];
   statsDisplay.day = stats["click_count_today"];
 });
 
 socket.on("status", status => {
-  console.log(`status(${status})`);
+  console.log("status", status);
+
   statsDisplay.online = status["user_count"];
 });
 
 socket.on("message", message => {
-  console.log(`message(${message})`);
+  console.log("message", message);
+
   if (message["type"] == "toast") {
     displayToast(message["text"], message["style"]);
   } else if (message["type"] == "popup") {
@@ -216,6 +219,7 @@ socket.on("message", message => {
 });
 
 socket.on("click", click => {
+  console.log("click", click);
   constrainClicks(click["user"], click["comment"], click["style"]);
 
   statsDisplay.total++;
@@ -257,7 +261,7 @@ function emitClicks() {
 }
 
 socket.on("event", event => {
-  console.log(`event(${event})`);
+  console.log("event", event);
 
   // Reacting to "everyone events"
   ({
@@ -275,20 +279,23 @@ socket.on("event", event => {
   }[event["name"]]());
 });
 
+socket.on("connect", () => {
+  console.log("connect");
+
+  // Send name to server
+  socket.emit("auth", storage.name || "Gast")
+});
+
 socket.connect();
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", function() {
     navigator.serviceWorker.register("/sw.js").then(
-      function(registration) { // Registration was successful
-        console.log(
-          "ServiceWorker registration successful with scope: ",
-          registration.scope
-        );
-      },
-      function(err) { // registration failed :(
-        console.log("ServiceWorker registration failed: ", err);
-      }
+      registration => console.log(
+        "ServiceWorker registration successful with scope: ",
+        registration.scope
+      ),
+      err => console.log("ServiceWorker registration failed: ", err)
     );
   });
 }
