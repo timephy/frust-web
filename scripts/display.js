@@ -58,10 +58,12 @@ class StatsDisplay {
     this._total = value;
     total.textContent = this.total;
 
-    if (value % 100000 == 0) {
-      popup("+100.000")
-    } else if (value % 10000 == 0) {
-      popup("+10.000")
+    if (value !== 0) {
+      if (value % 100000 == 0) {
+        popup("+100.000")
+      } else if (value % 10000 == 0) {
+        popup("+10.000")
+      }
     }
   }
 
