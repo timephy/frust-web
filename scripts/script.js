@@ -142,8 +142,7 @@ function verzweifle() {
             toggleDarkmode();
             break;
           case "exmatrikulation":
-            window.location.href =
-              "https://www.tum.de/studium/studienabschluss/exmatrikulation/";
+            window.location.href = "https://www.tum.de/studium/studienabschluss/exmatrikulation/";
             break;
           case "stats":
           case "users":

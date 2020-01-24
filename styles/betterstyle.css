@@ -125,24 +125,24 @@ td {
 
 /*toast messages*/
 .toastAnker {
-  height: 90%;
-  width: 90%;
+  height: 100%;
+  width: 100%;
   overflow-y: hidden;
   bottom: 0px;
   position: fixed;
   z-index: -1;
   display: flex;
-  flex-flow: nowrap column;
+  flex-flow: nowrap column-reverse;
   align-items: center;
 }
 
 .toast {
   text-align: center;
-  padding: 0.5em 0 0.5em 0;
-  margin: 0.2em;
+  padding: 0.5rem 0 0.5rem 0;
+  margin: 0.2rem;
   max-height: 4em;
-  /*bottom: 1em;*/
-  top: 1em;
+  bottom: 1em;
+  /*top: 1em;*/
   position: relative;
   display: inherit;
   width: auto;
@@ -157,18 +157,18 @@ td {
     padding: 0;
     margin: 0;
     opacity: 0;
-    /*bottom: -2.4em;*/
-    top: -2.4em;
+    bottom: -2.4em;
+    /*top: -2.4em;*/
     max-height: 0em;
   }
 
   100% {
-    padding: 0.5em 0em 0.5em 0em;
-    margin: 0.2em;
+    padding: 0.5rem 0 0.5rem 0;
+    margin: 0.2rem;
     opacity: 1;
     max-height: 4em;
-    /*bottom: 1em;*/
-    top: 1em;
+    bottom: 1em;
+    /*top: 1em;*/
   }
 }
 
