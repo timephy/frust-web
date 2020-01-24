@@ -203,8 +203,8 @@ function displayClick(click) {
 }
 
 function displayToast(string, effectClass) {
-  if (activeToasts[string] !== undefined) {
-    atoast = activeToasts[string];
+  if (activeToasts[string+effectClass] !== undefined) {
+    atoast = activeToasts[string+effectClass];
     clearTimeout(atoast[2])
     //create a new timer instance
     atoast[2] = setTimeout(atoast[3], RESET_TIME)
@@ -261,7 +261,7 @@ function newToast(string, effectClass) {
   function funkyFunc() {
     toast.classList.add("hide")
     count.remove()
-    delete activeToasts[string];
+    delete activeToasts[string+effectClass];
     const animation = anime({
       targets: toast,
       delay: 500,
@@ -277,7 +277,7 @@ function newToast(string, effectClass) {
   }
 
   // save the toast with his resetable timer and removal function
-  activeToasts[string] = [toast, count, setTimeout(funkyFunc, RESET_TIME), funkyFunc, 1];
+  activeToasts[string+effectClass] = [toast, count, setTimeout(funkyFunc, RESET_TIME), funkyFunc, 1];
 
   toast.className = [effectClass, "toast"].join(" ");
   count.className = [effectClass, "clickCounter"].join(" ");
