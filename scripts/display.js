@@ -32,9 +32,9 @@ const HELP_MESSAGE = [
   "Click colors:",
   "    " + ["green", "purple", "blue", "yellow", "black", "white"].join(", "),
   "Click lines:",
-  "    " + ["small", "big", "dotted", "dashed"].join(", "),
+  "    " + ["small", "big", "dotted", "dashed", "highlight", "fire"].join(", "),
   "Events:",
-  "    " + ["einstein", "belasto", "fireworks", "satan", "666", "pride", "rainbow", "fu"].join(", "),
+  "    " + ["exmatrikulation", "einstein", "belasto", "fireworks", "satan", "666", "pride", "rainbow", "fu"].join(", "),
   "Options:",
   "    " + ["vibrate", "darkmode", "clear"].join(", "),
   "Dev options:",
@@ -58,10 +58,12 @@ class StatsDisplay {
     this._total = value;
     total.textContent = this.total;
 
-    if (value % 100000 == 0) {
-      popup("+100.000")
-    } else if (value % 10000 == 0) {
-      popup("+10.000")
+    if (value !== 0) {
+      if (value % 100000 == 0) {
+        popup("+100.000")
+      } else if (value % 10000 == 0) {
+        popup("+10.000")
+      }
     }
   }
 
@@ -112,7 +114,7 @@ function einstein() {
   const einstein = document.createElement("span")
   einstein.className = "einstein";
   anime.set(einstein, {
-    top: anime.random(-10, 90)+ '%',
+    top: anime.random(-10, 90) + '%',
     left: anime.random(-10, 90) + '%',
   });
 
@@ -124,13 +126,13 @@ function belasto() {
   const belasto = document.createElement("span")
   belasto.className = "belasto"
   anime.set(belasto, {
-    top: anime.random(-10, 90)+ '%',
+    top: anime.random(-10, 90) + '%',
     left: anime.random(-10, 90) + '%',
   });
 
   anime({
     targets: belasto,
-    rotate: anime.random(-30, 30)+'deg',
+    rotate: anime.random(-30, 30) + 'deg',
     scale: [0.4, 1]
   })
   destroyDelay(belasto, 30000);
@@ -159,9 +161,8 @@ function openComment(commentButton) {
           value: "m 0,75 L 50,25 L 100,75"
         }
       ],
-      duration: 500,
-      delay: -150,
-      easing: 'easeInOutExpo'
+      duration: 250,
+      easing: 'easeInOutSine'
     });
   } else {
     commentInput.classList.add("hide")
@@ -175,9 +176,8 @@ function openComment(commentButton) {
           value: "m 0,25 L 50,75 L 100,25"
         }
       ],
-      duration: 500,
-      delay: -150,
-      easing: 'easeInOutExpo'
+      duration: 250,
+      easing: 'easeInOutSine'
     });
   }
 }
@@ -202,9 +202,9 @@ function displayClick(click) {
   displayToast(text, click.style);
 }
 
-function displayToast(string, effectClass) {
-  if (activeToasts[string] !== undefined) {
-    atoast = activeToasts[string];
+function displayToast(string, effectClass, unstackable=false) {
+  if (activeToasts[string + effectClass] !== undefined && !unstackable) {
+    atoast = activeToasts[string + effectClass];
     clearTimeout(atoast[2])
     //create a new timer instance
     atoast[2] = setTimeout(atoast[3], RESET_TIME)
@@ -216,9 +216,22 @@ function displayToast(string, effectClass) {
     atoast[1].textContent = atoast[4];
 
     //set counter position
-    anime.set(atoast[1], {
-      right: (-anime.get(atoast[1], 'width', 'rem') - 1.2) + 'rem'
-    })
+    if (anime.get(atoast[1], 'width', 'rem') != atoast[5]) {
+      atoast[5] = anime.get(atoast[1], 'width', 'rem');
+
+      //set the width of our message counter
+      anime.set(atoast[1], {
+        right: (-atoast[5] - 1.2) + 'rem'
+      })
+
+      //ease the width of our toast message
+      anime({
+        targets: atoast[0],
+        'margin-right': (atoast[5] + 1.2) + 'rem',
+        duration: 250,
+        easing: 'easeInOutSine'
+      })
+    }
 
     anime.timeline({
       targets: atoast[1]
@@ -260,14 +273,14 @@ function newToast(string, effectClass) {
   //function that hides, animates and deletes the toast when executed
   function funkyFunc() {
     toast.classList.add("hide")
-    count.remove()
-    delete activeToasts[string];
+    delete activeToasts[string + effectClass];
     const animation = anime({
       targets: toast,
       delay: 500,
       duration: 250,
       padding: 0,
-      margin: 0,
+      'margin-top': 0,
+      'margin-bottom': 0,
       'max-height': 0,
       opacity: 0,
       easing: 'easeInSine'
@@ -277,7 +290,7 @@ function newToast(string, effectClass) {
   }
 
   // save the toast with his resetable timer and removal function
-  activeToasts[string] = [toast, count, setTimeout(funkyFunc, RESET_TIME), funkyFunc, 1];
+  activeToasts[string + effectClass] = [toast, count, setTimeout(funkyFunc, RESET_TIME), funkyFunc, 1, 0];
 
   toast.className = [effectClass, "toast"].join(" ");
   count.className = [effectClass, "clickCounter"].join(" ");

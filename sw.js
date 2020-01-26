@@ -1,5 +1,37 @@
-const CACHE_NAME = 'frustrated_cache_4';
+function loadJson(callback, path) {
+  fetch(path)
+    .then(response => response.json())
+    .then(json => callback(null, json))
+    .catch(error => callback(error, {
+      "error": "while fetching data, sorry"
+    }));
+}
 
+function deleteCaches(error, json) {
+  if (error) {
+    console.error(error);
+    console.log('custom error');
+  } else {
+    CACHE_NAME = json.commit_sha || 'frustratedCacheFallback';
+    console.log(CACHE_NAME);
+    caches.keys().then(keyList => {
+      return Promise.all(keyList.map(key => {
+        if (key != CACHE_NAME) {
+          return caches.delete(key);
+        }
+      }));
+
+      console.log('add new items to cache');
+      caches.open(CACHE_NAME)
+        .then(function(cache) {
+          console.log('Opened cache');
+          return cache.addAll(urlsToCache);
+        })
+    });
+  }
+}
+
+var CACHE_NAME = 'frustratedCache';
 const urlsToCache = [
   '/',
   '/scripts/socket.io.js',
@@ -9,8 +41,8 @@ const urlsToCache = [
   '/images/einsteinBW.svg',
   '/images/belasto.png',
   '/images/fireworks.gif',
-  '/version.json',
   '/images/fu-meme.jpg',
+  '/images/fire.gif',
   '/index.html',
   '/scripts/storage.js',
   '/scripts/utils.js'
@@ -18,21 +50,13 @@ const urlsToCache = [
 
 
 self.addEventListener('activate', function(event) {
-  console.log("clearing old caches");
-  var keepCache = [CACHE_NAME];
-      event.waitUntil(
-          caches.keys().then( keyList => {
-              return Promise.all(keyList.map( key => {
-                  if (keepCache.indexOf(key) === -1) {
-                      return caches.delete(key);
-                  }
-              }));
-          })
-  .then(self.clients.claim()));
+  console.log('activating service worker');
+  loadJson(deleteCaches, '/version.json?' + Math.random());
 });
 
 self.addEventListener('install', function(event) {
   // Perform install steps
+  loadJson(deleteCaches, '/version.json?' + Math.random());
   event.waitUntil(
     caches.open(CACHE_NAME)
     .then(function(cache) {
@@ -41,16 +65,16 @@ self.addEventListener('install', function(event) {
     })
   );
 });
-
-self.addEventListener('fetch', (event) => {
+/*
+self.addEventListener('fetch', function(event) {
   event.respondWith(
     caches.open(CACHE_NAME).then(function(cache) {
-      return cache.match(event.request).then(function (response) {
-        return response || fetch(event.request).then(function(response) {
-          cache.put(event.request, response.clone());
+      cache.match(event.request).then(function(response) {
+
+        return response || fetch(event.request).then((response) => {
           return response;
         });
-      });
+      })
     })
   );
-});
+});*/

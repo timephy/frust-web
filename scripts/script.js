@@ -7,7 +7,6 @@ var bufferActive = true;
 
 navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
 
-
 document.body.onload = () => {
   // set name, comment
   nameInput.value = storage.name;
@@ -17,7 +16,6 @@ document.body.onload = () => {
 const socket = io({
   path: "/api/socket.io"
 });
-
 
 function toggleDarkmode() {
   const newTheme = localStorage.getItem("theme") == "dark" ? "light" : "dark";
@@ -30,11 +28,10 @@ function updateDark(newTheme) {
   console.log("darkmode   " + localStorage.getItem("theme"));
 
   //forces a redraw of the background... supposedly
-  document.documentElement.style.display = 'none';
+  document.documentElement.style.display = "none";
   document.documentElement.offsetHeight; // no need to store this anywhere, the reference is enough
-  document.documentElement.style.display = 'block';
+  document.documentElement.style.display = "block";
 }
-
 
 /** The main button action. */
 function verzweifle() {
@@ -59,37 +56,37 @@ function verzweifle() {
       command = comment.substring(1);
       // remove comment to "hide command"
       commentInput.value = "";
-      console.log(`command: "${command}"`)
+      console.log(`command: "${command}"`);
 
       if (["green", "purple", "blue", "yellow", "black", "white"].includes(command)) {
         // Color
         storage.color = command;
-      } else if (["small", "big", "dotted", "dashed"].includes(command)) {
+      } else if (["small", "big", "dotted", "dashed", "highlight", "fire"].includes(command)) {
         // Underline, Size
         storage.underlineType = command;
       } else if (["fuck", "belasto", "einstein", "satan", "666", "fu", "pride", "fireworks", "rickroll"].includes(command)) {
         // Global events
         socket.emit("event", {
-          "name": name,
-          "id": command
+          "user": name,
+          "name": command
         });
       } else {
         switch (command) {
           case "vibrate":
             storage.vibration = !storage.vibration;
-            console.log("vibrationsActive   ", storage.vibration)
+            console.log("vibrationsActive   ", storage.vibration);
             break;
-          case "belastos":
-            for (var i = 0; i < 20; i++) {
-              socket.emit("event", {
-                "name": "God",
-                "id": "belasto"
-              });
-            }
-            break;
+          // case "belastos":
+          //   for (var i = 0; i < 20; i++) {
+          //     socket.emit("event", {
+          //       "user": "God",
+          //       "name": "belasto"
+          //     });
+          //   }
+          //   break;
           case "fps":
             setInterval(updateFps, 500);
-            const fpsElem = document.createElement("div")
+            const fpsElem = document.createElement("div");
             fpsElem.id = "fps";
             fpsElem.textContent = "000";
             panker.appendChild(fpsElem);
@@ -105,7 +102,7 @@ function verzweifle() {
               for (var i = 0; i < 5; i++) {
                 gtest++;
                 socket.emit("click", {
-                  "name": `${gtest} gtest `,
+                  "user": `${gtest} gtest `,
                   "comment": `${gtest}`,
                   "style": [storage.underlineType, storage.color].join(" ")
                 });
@@ -119,12 +116,12 @@ function verzweifle() {
             let test = 0;
             const tintervalId = setInterval(() => {
               test++;
-              displayToast(`${test} test message num ${test}`, "")
-              displayToast(`${test} test message num ${test}`, "")
-              displayToast(`${test} test message num ${test}`, "")
-              displayToast(`${test} test message num ${test}`, "")
-              displayToast(`${test} test message num ${test}`, "")
-              displayToast(`${test} test message num ${test}`, "")
+              displayToast(`${test} test message num ${test}`, "");
+              displayToast(`${test} test message num ${test}`, "");
+              displayToast(`${test} test message num ${test}`, "");
+              displayToast(`${test} test message num ${test}`, "");
+              displayToast(`${test} test message num ${test}`, "");
+              displayToast(`${test} test message num ${test}`, "");
               displayRing();
             }, 5);
             setTimeout(() => {
@@ -144,12 +141,16 @@ function verzweifle() {
           case "darkmode":
             toggleDarkmode();
             break;
+          case "exmatrikulation":
+          case "zudummfürtum":
+            window.location.href = "https://www.tum.de/studium/studienabschluss/exmatrikulation/";
+            break;
           case "stats":
           case "users":
             window.location.href = "/stats.html";
             break;
           case "rainbow":
-            console.log("-> rainbow")
+            console.log("-> rainbow");
             let hue = 0;
             const intervalId = setInterval(() => {
               hue++;
@@ -158,16 +159,16 @@ function verzweifle() {
             }, 16);
             setTimeout(() => {
               clearInterval(intervalId);
-              document.documentElement.style.removeProperty('--font-color');
+              document.documentElement.style.removeProperty("--font-color");
             }, 10000);
             break;
           case "clear":
-            storage.color = ""
-            storage.underlineType = ""
-            localStorage.removeItem("theme")
+            storage.color = "";
+            storage.underlineType = "";
+            localStorage.removeItem("theme");
             break;
           case "help":
-            alert(HELP_MESSAGE)
+            alert(HELP_MESSAGE);
             break;
           default:
             // No command matched
@@ -178,7 +179,7 @@ function verzweifle() {
     } else { // Click
       statsDisplay.session++;
       socket.emit("click", {
-        "name": name,
+        "user": name,
         "comment": comment,
         "style": [storage.underlineType, storage.color].join(" ")
       });
@@ -193,21 +194,33 @@ function verzweifle() {
   displayRing();
 }
 
-
 // Socket.io
-socket.on("stats", (stats) => {
-  console.log(`stats(${stats["total"]}, ${stats["day"]})`);
-  statsDisplay.total = stats["total"];
-  statsDisplay.day = stats["day"];
+socket.on("stats", stats => {
+  console.log("stats", stats);
+
+  statsDisplay.total = stats["click_count_total"];
+  statsDisplay.day = stats["click_count_today"];
 });
 
-socket.on("users", (users) => {
-  console.log(`users(${users["count"]})`);
-  statsDisplay.online = users["count"];
+socket.on("status", status => {
+  console.log("status", status);
+
+  statsDisplay.online = status["user_count"];
 });
 
-socket.on("click", (click) => {
-  constrainClicks(click["name"], click["comment"], click["style"]);
+socket.on("message", message => {
+  console.log("message", message);
+
+  if (message["type"] == "toast") {
+    displayToast(message["text"], message["style"]);
+  } else if (message["type"] == "popup") {
+    popup(message["text"], "fu");
+  }
+});
+
+socket.on("click", click => {
+  console.log("click", click);
+  constrainClicks(click["user"], click["comment"], click["style"]);
 
   statsDisplay.total++;
   statsDisplay.day++;
@@ -231,12 +244,11 @@ function constrainClicks(n, c, s) {
     }
   } else {
     displayClick({
-      name: n,
-      comment: c,
-      style: s
-    })
+      "name": n,
+      "comment": c,
+      "style": s
+    });
   }
-
 }
 setInterval(emitClicks, EMIT_DURATION);
 
@@ -248,53 +260,43 @@ function emitClicks() {
   }
 }
 
-socket.on("event", (event) => {
-  console.log(`event(${event["name"]}, ${event["id"]})`);
-  displayToast(`${event["name"]} triggered ${event["id"]}!`, "")
+socket.on("event", event => {
+  console.log("event", event);
 
   // Reacting to "everyone events"
-  switch (event["id"]) {
-    case "pride":
-      addTemporaryClass(button, "rainbow", 8000);
-      break;
-    case "satan":
-      addTemporaryClass(button, "teemo", 5000);
-      break;
-    case "666":
-      addTemporaryClass(button, "elmo", 5000);
-      break;
-    case "fu":
-      addTemporaryClass(button, "fu-meme", 5000);
-      break;
-    case "fuck":
-      popup("Fuck you", "fu");
-      break;
-    case "fireworks":
-      popup("", "fireworks");
-      break;
-    case "einstein":
-      einstein();
-      break;
-    case "belasto":
-      belasto();
-      break;
-    case "rickroll":
+  ({
+    pride: () => addTemporaryClass(button, "rainbow", 8000),
+    satan: () => addTemporaryClass(button, "teemo", 5000),
+    666: () => addTemporaryClass(button, "elmo", 5000),
+    fu: () => addTemporaryClass(button, "fu-meme", 5000),
+    fuck: () => popup("Fuck you", "fu"),
+    fireworks: () => popup("", "fireworks"),
+    einstein: () => einstein(),
+    belasto: () => belasto(),
+    rickroll: () => {
       window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-      break;
-  }
+    }
+  } [event["name"]]());
+});
+
+socket.on("connect", () => {
+  console.log("connect");
+
+  // Send name to server
+  socket.emit("auth", storage.name || "Gast")
 });
 
 socket.connect();
 
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/sw.js').then(function(registration) {
-      // Registration was successful
-      console.log('ServiceWorker registration successful with scope: ', registration.scope);
-    }, function(err) {
-      // registration failed :(
-      console.log('ServiceWorker registration failed: ', err);
-    });
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker.register("/sw.js").then(
+      registration => console.log(
+        "ServiceWorker registration successful with scope: ",
+        registration.scope
+      ),
+      err => console.log("ServiceWorker registration failed: ", err)
+    );
   });
 }
 
@@ -310,6 +312,6 @@ function process(e) {
   }
 }
 
-window.addEventListener('online', updateOnlineStatus);
-window.addEventListener('offline', updateOnlineStatus);
+window.addEventListener("online", updateOnlineStatus);
+window.addEventListener("offline", updateOnlineStatus);
 updateOnlineStatus();
