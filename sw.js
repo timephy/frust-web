@@ -17,31 +17,37 @@ const urlsToCache = [
   '/scripts/utils.js'
 ];
 
+function loadJson(callback, path) {
+  fetch(path)
+    .then(response => response.json())
+    .then(json => callback(null, json))
+    .catch(error => callback(error, {
+      "error": "while fetching data, sorry"
+    }));
+}
 
 self.addEventListener('activate', function(event) {
-  event.waitUntil(deleteCaches().then(self.clients.claim()));
+
+  loadJson(deleteCaches, '/version.json?' + Math.random())
+
+  self.clients.claim();
 });
 
-function deleteCaches() {
 
-  return new Promise((resolve, reject) => {
-    console.log("clearing old caches");
-    fetch('/version.json?' + Math.random()).json().then((json => {
-      CACHE_NAME = json;
-      console.log(CACHE_NAME);
-      var keepCache = [CACHE_NAME];
-      caches.keys().then(keyList => {
-        return Promise.all(keyList.map(key => {
-          if (keepCache.indexOf(key) === -1) {
-            return caches.delete(key);
-          }
-        }));
-        resolve("Success!")
-      })
-    })).catch(reject("error!"));
+function deleteCaches(error, json) {
+  if (error)
+    console.error(error);
+
+  CACHE_NAME = json;
+  console.log(CACHE_NAME);
+  var keepCache = [CACHE_NAME];
+  caches.keys().then(keyList => {
+    return Promise.all(keyList.map(key => {
+      if (keepCache.indexOf(key) === -1) {
+        return caches.delete(key);
+      }
+    }));
   })
-
-
 }
 
 self.addEventListener('install', function(event) {
@@ -49,7 +55,7 @@ self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open(CACHE_NAME)
     .then(function(cache) {
-      console.log('Opened cache  ',CACHE_NAME);
+      console.log('Opened cache  ', CACHE_NAME);
       return cache.addAll(urlsToCache);
     })
   );
