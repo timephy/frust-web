@@ -20,6 +20,13 @@ function deleteCaches(error, json) {
           return caches.delete(key);
         }
       }));
+
+console.log('add new items to cache');
+      caches.open(CACHE_NAME)
+        .then(function(cache) {
+          console.log('Opened cache');
+          return cache.addAll(urlsToCache);
+        })
     });
   }
 }
