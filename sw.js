@@ -1,4 +1,4 @@
-var CACHE_NAME = 'frustratedCache';
+const CACHE_NAME = 'frustratedCache';
 
 // don't ever cache /version.json
 const urlsToCache = [
