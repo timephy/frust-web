@@ -21,7 +21,7 @@ function deleteCaches(error, json) {
         }
       }));
 
-console.log('add new items to cache');
+      console.log('add new items to cache');
       caches.open(CACHE_NAME)
         .then(function(cache) {
           console.log('Opened cache');
@@ -73,6 +73,6 @@ self.addEventListener('fetch', function(event) {
           return response;
         });
       })
-    })
+    }).catch(returnfetch(event.request))
   );
 });
