@@ -26,9 +26,6 @@ function loadJson(callback, path) {
     }));
 }
 
-self.addEventListener('activate', function(event) {});
-
-
 function deleteCaches(error, json) {
   if (error) {
     console.error(error);
