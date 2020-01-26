@@ -60,7 +60,9 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.open(CACHE_NAME).then(function(cache) {
       return cache.match(event.request).then(function(response) {
-        return response || fetch(event.request);
+        return response || fetch(event.request).then((response) => {
+          return response;
+        });
       });
     })
   );
