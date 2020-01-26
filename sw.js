@@ -27,7 +27,7 @@ function deleteCaches(error, json) {
 
 
   loadJson(deleteCaches, '/version.json?' + Math.random());*/
-const CACHE_NAME = 'frustrated_cache_4';
+const CACHE_NAME = 'frustrated_cache_8';
 const urlsToCache = [
   '/',
   '/scripts/socket.io.js',
@@ -55,7 +55,8 @@ self.addEventListener('activate', function(event) {
           return caches.delete(key);
         }
       }));
-    }).then(self.clients.claim()));
+    })
+    .then(self.clients.claim()));
 });
 
 self.addEventListener('install', function(event) {
@@ -69,13 +70,12 @@ self.addEventListener('install', function(event) {
   );
 });
 
-
 self.addEventListener('fetch', function(event) {
   event.respondWith(
     caches.open(CACHE_NAME).then(function(cache) {
       cache.match(event.request).then(function(response) {
         return response || fetch(event.request);
       })
-    });
+    })
   );
 });
