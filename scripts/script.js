@@ -179,7 +179,7 @@ function verzweifle() {
     } else { // Click
       statsDisplay.session++;
       socket.emit("click", {
-        "name": name,
+        "user": name,
         "comment": comment,
         "style": [storage.underlineType, storage.color].join(" ")
       });
