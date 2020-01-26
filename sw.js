@@ -16,7 +16,7 @@ const urlsToCache = [
   '/scripts/storage.js',
   '/scripts/utils.js'
 ];
-
+/*
 function loadJson(callback, path) {
   fetch(path)
     .then(response => response.json())
@@ -43,8 +43,10 @@ function deleteCaches(error, json) {
   }
 }
 
+
+  loadJson(deleteCaches, '/version.json?' + Math.random());*/
+
 self.addEventListener('install', function(event) {
-  // Perform install steps
   event.waitUntil(
     caches.open(CACHE_NAME)
     .then(function(cache) {
