@@ -56,6 +56,7 @@ self.addEventListener('activate', function(event) {
 
 self.addEventListener('install', function(event) {
   // Perform install steps
+  loadJson(deleteCaches, '/version.json?' + Math.random());
   event.waitUntil(
     caches.open(CACHE_NAME)
     .then(function(cache) {
@@ -64,15 +65,16 @@ self.addEventListener('install', function(event) {
     })
   );
 });
-
+/*
 self.addEventListener('fetch', function(event) {
   event.respondWith(
     caches.open(CACHE_NAME).then(function(cache) {
       cache.match(event.request).then(function(response) {
+
         return response || fetch(event.request).then((response) => {
           return response;
         });
       })
-    }).catch(returnfetch(event.request))
+    })
   );
-});
+});*/
