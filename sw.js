@@ -11,7 +11,7 @@ const urlsToCache = [
   '/images/belasto.png',
   '/images/fireworks.gif',
   '/images/fu-meme.jpg', ,
-  '/images/fire.gif'
+  '/images/fire.gif',
   '/index.html',
   '/scripts/storage.js',
   '/scripts/utils.js'
