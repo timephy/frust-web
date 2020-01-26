@@ -27,24 +27,24 @@ function loadJson(callback, path) {
 }
 
 self.addEventListener('activate', function(event) {
-  loadJson(deleteCaches, '/version.json?' + Math.random());
 });
 
 
 function deleteCaches(error, json) {
   if (error)
     console.error(error);
-
-  CACHE_NAME = json.commit_sha || 'frustratedCacheFallback';
-  console.log(CACHE_NAME);
-  var keepCache = [CACHE_NAME];
-  caches.keys().then(keyList => {
-    return Promise.all(keyList.map(key => {
-      if (key != CACHE_NAME) {
-        return caches.delete(key);
-      }
-    }));
-  })
+    console.log('custom error');
+  else {
+    CACHE_NAME = json.commit_sha || 'frustratedCacheFallback';
+    console.log(CACHE_NAME);
+    caches.keys().then(keyList => {
+      return Promise.all(keyList.map(key => {
+        if (key != CACHE_NAME) {
+          return caches.delete(key);
+        }
+      }));
+    });
+  }
 }
 
 self.addEventListener('install', function(event) {
