@@ -26,15 +26,14 @@ function loadJson(callback, path) {
     }));
 }
 
-self.addEventListener('activate', function(event) {
-});
+self.addEventListener('activate', function(event) {});
 
 
 function deleteCaches(error, json) {
-  if (error)
+  if (error) {
     console.error(error);
     console.log('custom error');
-  else {
+  } else {
     CACHE_NAME = json.commit_sha || 'frustratedCacheFallback';
     console.log(CACHE_NAME);
     caches.keys().then(keyList => {
