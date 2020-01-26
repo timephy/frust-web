@@ -61,7 +61,7 @@ function verzweifle() {
       if (["green", "purple", "blue", "yellow", "black", "white"].includes(command)) {
         // Color
         storage.color = command;
-      } else if (["small", "big", "dotted", "dashed"].includes(command)) {
+      } else if (["small", "big", "dotted", "dashed", "highlight", "fire"].includes(command)) {
         // Underline, Size
         storage.underlineType = command;
       } else if (["fuck", "belasto", "einstein", "satan", "666", "fu", "pride", "fireworks", "rickroll"].includes(command)) {
@@ -142,6 +142,7 @@ function verzweifle() {
             toggleDarkmode();
             break;
           case "exmatrikulation":
+          case "zudummfürtum":
             window.location.href = "https://www.tum.de/studium/studienabschluss/exmatrikulation/";
             break;
           case "stats":
@@ -275,14 +276,14 @@ socket.on("event", event => {
     rickroll: () => {
       window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
     }
-  }[event["name"]]());
+  } [event["name"]]());
 });
 
 socket.on("connect", () => {
   console.log("connect");
 
   // Send name to server
-  socket.emit("auth", storage.name || "Gast")
+  socket.emit("auth", storage.name || "Gast")
 });
 
 socket.connect();

@@ -32,7 +32,7 @@ const HELP_MESSAGE = [
   "Click colors:",
   "    " + ["green", "purple", "blue", "yellow", "black", "white"].join(", "),
   "Click lines:",
-  "    " + ["small", "big", "dotted", "dashed"].join(", "),
+  "    " + ["small", "big", "dotted", "dashed", "highlight", "fire"].join(", "),
   "Events:",
   "    " + ["exmatrikulation", "einstein", "belasto", "fireworks", "satan", "666", "pride", "rainbow", "fu"].join(", "),
   "Options:",
@@ -203,7 +203,7 @@ function displayClick(click) {
 }
 
 function displayToast(string, effectClass, unstackable=false) {
-  if (activeToasts[string + effectClass] !== undefined %% !unstackable) {
+  if (activeToasts[string + effectClass] !== undefined && !unstackable) {
     atoast = activeToasts[string + effectClass];
     clearTimeout(atoast[2])
     //create a new timer instance

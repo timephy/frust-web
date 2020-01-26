@@ -25,6 +25,7 @@ self.addEventListener('activate', function(event) {
 function deleteCaches() {
   console.log("clearing old caches");
   CACHE_NAME = await fetch('/version.json?' + Math.random()).json() || 'frustratedCache';
+
   var keepCache = [CACHE_NAME];
   caches.keys().then(keyList => {
     return Promise.all(keyList.map(key => {
