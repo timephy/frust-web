@@ -24,7 +24,7 @@ function deleteCaches(error, json) {
   }
 }
 
-const CACHE_NAME = 'frustrated_cache_8';
+const CACHE_NAME = 'frustratedCache';
 const urlsToCache = [
   '/',
   '/scripts/socket.io.js',
