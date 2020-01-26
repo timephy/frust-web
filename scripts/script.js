@@ -76,14 +76,14 @@ function verzweifle() {
             storage.vibration = !storage.vibration;
             console.log("vibrationsActive   ", storage.vibration);
             break;
-          case "belastos":
-            for (var i = 0; i < 20; i++) {
-              socket.emit("event", {
-                "user": "God",
-                "name": "belasto"
-              });
-            }
-            break;
+          // case "belastos":
+          //   for (var i = 0; i < 20; i++) {
+          //     socket.emit("event", {
+          //       "user": "God",
+          //       "name": "belasto"
+          //     });
+          //   }
+          //   break;
           case "fps":
             setInterval(updateFps, 500);
             const fpsElem = document.createElement("div");
