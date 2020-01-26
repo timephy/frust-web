@@ -1,4 +1,3 @@
-/*
 function loadJson(callback, path) {
   fetch(path)
     .then(response => response.json())
@@ -25,8 +24,6 @@ function deleteCaches(error, json) {
   }
 }
 
-
-  loadJson(deleteCaches, '/version.json?' + Math.random());*/
 const CACHE_NAME = 'frustrated_cache_8';
 const urlsToCache = [
   '/',
@@ -46,17 +43,7 @@ const urlsToCache = [
 
 
 self.addEventListener('activate', function(event) {
-  console.log("clearing old caches");
-  var keepCache = [CACHE_NAME];
-  event.waitUntil(
-    caches.keys().then(keyList => {
-      return Promise.all(keyList.map(key => {
-        if (keepCache.indexOf(key) === -1) {
-          return caches.delete(key);
-        }
-      }));
-    })
-    .then(self.clients.claim()));
+  loadJson(deleteCaches, '/version.json?' + Math.random());
 });
 
 self.addEventListener('install', function(event) {
