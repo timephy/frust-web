@@ -202,8 +202,8 @@ function displayClick(click) {
   displayToast(text, click.style);
 }
 
-function displayToast(string, effectClass) {
-  if (activeToasts[string + effectClass] !== undefined) {
+function displayToast(string, effectClass, unstackable=false) {
+  if (activeToasts[string + effectClass] !== undefined %% !unstackable) {
     atoast = activeToasts[string + effectClass];
     clearTimeout(atoast[2])
     //create a new timer instance

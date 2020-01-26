@@ -1,5 +1,6 @@
-const CACHE_NAME = 'frustrated_cache_6';
+var CACHE_NAME = 'frustratedCache';
 
+// don't ever cache /version.json
 const urlsToCache = [
   '/',
   '/scripts/socket.io.js',
@@ -9,7 +10,6 @@ const urlsToCache = [
   '/images/einsteinBW.svg',
   '/images/belasto.png',
   '/images/fireworks.gif',
-  '/version.json',
   '/images/fu-meme.jpg',
   '/index.html',
   '/scripts/storage.js',
@@ -18,18 +18,22 @@ const urlsToCache = [
 
 
 self.addEventListener('activate', function(event) {
-  console.log("clearing old caches");
-  var keepCache = [CACHE_NAME];
-      event.waitUntil(
-          caches.keys().then( keyList => {
-              return Promise.all(keyList.map( key => {
-                  if (keepCache.indexOf(key) === -1) {
-                      return caches.delete(key);
-                  }
-              }));
-          })
-  .then(self.clients.claim()));
+  event.waitUntil(
+    deleteCaches().then(self.clients.claim()));
 });
+
+function deleteCaches() {
+  console.log("clearing old caches");
+  CACHE_NAME = await fetch('/version.json?' + Math.random()).json() || 'frustratedCache';
+  var keepCache = [CACHE_NAME];
+  caches.keys().then(keyList => {
+    return Promise.all(keyList.map(key => {
+      if (keepCache.indexOf(key) === -1) {
+        return caches.delete(key);
+      }
+    }));
+  })
+}
 
 self.addEventListener('install', function(event) {
   // Perform install steps
@@ -45,11 +49,8 @@ self.addEventListener('install', function(event) {
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.open(CACHE_NAME).then(function(cache) {
-      return cache.match(event.request).then(function (response) {
-        return response || fetch(event.request).then(function(response) {
-          cache.put(event.request, response.clone());
-          return response;
-        });
+      return cache.match(event.request).then(function(response) {
+        return response || fetch(event.request);
       });
     })
   );
