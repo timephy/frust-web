@@ -28,7 +28,6 @@ function loadJson(callback, path) {
 
 self.addEventListener('activate', function(event) {
   loadJson(deleteCaches, '/version.json?' + Math.random());
-  self.clients.claim();
 });
 
 
