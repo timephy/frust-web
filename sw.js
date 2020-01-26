@@ -43,6 +43,7 @@ const urlsToCache = [
 
 
 self.addEventListener('activate', function(event) {
+  console.log('activating service worker');
   loadJson(deleteCaches, '/version.json?' + Math.random());
 });
 
@@ -61,7 +62,9 @@ self.addEventListener('fetch', function(event) {
   event.respondWith(
     caches.open(CACHE_NAME).then(function(cache) {
       cache.match(event.request).then(function(response) {
-        return response || fetch(event.request);
+        return response || fetch(event.request).then((response) => {
+          return response;
+        });
       })
     })
   );
