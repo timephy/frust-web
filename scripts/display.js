@@ -32,7 +32,7 @@ const HELP_MESSAGE = [
   "Click colors:",
   "    " + ["green", "purple", "blue", "yellow", "black", "white"].join(", "),
   "Click lines:",
-  "    " + ["small", "big", "dotted", "dashed", "highlight", "fire"].join(", "),
+  "    " + ["small", "big", "dotted", "dashed", "highlight", "fire", "fancy"].join(", "),
   "Events:",
   "    " + ["exmatrikulation", "einstein", "belasto", "fireworks", "satan", "666", "pride", "rainbow", "fu"].join(", "),
   "Options:",
