@@ -1,6 +1,8 @@
 var CACHE_NAME;
 const urlsToCache = [
   '/scripts/socket.io.js',
+  '/scripts/script.js',
+  '/scripts/display.js',
   '/images/teemo.jpg',
   '/images/elmo.jpg',
   '/images/einstein.svg',
