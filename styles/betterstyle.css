@@ -942,11 +942,6 @@ td {
   background-image: url('/images/fire.gif');
 }
 
-.toast.fancy:after,
-.clickCounter.fancy {
-  animation: bcolorchange 10s ease infinite;
-}
-
 .toast.highlight:after {
   z-index: -1;
   border-radius: 0.5em;
@@ -955,6 +950,11 @@ td {
   -moz-animation: 1s ease-in-out toastUnderlineAnimHighlight;
   -o-animation: 1s ease-in-out toastUnderlineAnimHighlight;
   animation: 1s ease-in-out toastUnderlineAnimHighlight;
+}
+
+.toast.fancy:after,
+.clickCounter.fancy {
+  animation: bcolorchange 10s ease infinite;
 }
 
 /** underline effect types **/
