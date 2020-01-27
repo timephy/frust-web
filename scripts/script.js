@@ -58,10 +58,10 @@ function verzweifle() {
       commentInput.value = "";
       console.log(`command: "${command}"`);
 
-      if (["green", "purple", "blue", "yellow", "black", "white"].includes(command)) {
+      if (["green", "purple", "blue", "yellow", "black", "white", "fancy"].includes(command)) {
         // Color
         storage.color = command;
-      } else if (["small", "big", "dotted", "dashed", "highlight", "fire", "fancy"].includes(command)) {
+      } else if (["small", "big", "dotted", "dashed", "highlight", "fire"].includes(command)) {
         // Underline, Size
         storage.underlineType = command;
       } else if (["fuck", "belasto", "einstein", "satan", "666", "fu", "pride", "fireworks", "rickroll"].includes(command)) {
