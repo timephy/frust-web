@@ -10,7 +10,10 @@ const urlsToCache = [
   '/images/fu-meme.jpg',
   '/images/fire.gif',
   '/styles/betterstyle.css',
-  '/styles/charts.css'
+  '/styles/charts.css',
+  '/',
+  '/index.html',
+  '/404.html'
 ];
 
 function cacheAll() {
