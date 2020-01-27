@@ -296,6 +296,7 @@ td {
 
   50% {
     opacity: 1;
+    height: 0.2em;
     transform: scaleX(1);
   }
 
@@ -942,12 +943,13 @@ td {
 
 .toast.fancy,
 .clickCounter.fancy {
-	animation: bcolorchange 10s ease infinite;
+  animation: bcolorchange 10s ease infinite;
 }
 
 .toast.highlight:after {
   z-index: -1;
   border-radius: 2em;
+  height: 100%;
   -webkit-animation: 1s ease-in-out toastUnderlineAnimHighlight;
   -moz-animation: 1s ease-in-out toastUnderlineAnimHighlight;
   -o-animation: 1s ease-in-out toastUnderlineAnimHighlight;
