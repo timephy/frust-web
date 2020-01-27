@@ -941,7 +941,7 @@ td {
   background-image: url('/images/fire.gif');
 }
 
-.toast.fancy,
+.toast.fancy:after,
 .clickCounter.fancy {
   animation: bcolorchange 10s ease infinite;
 }
