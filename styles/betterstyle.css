@@ -288,6 +288,24 @@ td {
   }
 }
 
+@keyframes toastUnderlineAnimHighlight {
+  0% {
+    opacity: 0.2;
+    height: 0.2em;
+    transform: scaleX(0);
+  }
+
+  50% {
+    opacity: 1;
+    height: 0.2em;
+    transform: scaleX(1);
+  }
+
+  100% {
+    height: 100%;
+  }
+}
+
 .toast:after {
   -webkit-animation: 0.5s ease-in-out toastUnderlineAnim;
   -moz-animation: 0.5s ease-in-out toastUnderlineAnim;
@@ -908,22 +926,35 @@ td {
 }
 
 .toast.highlight {
-  background-color: var(--primary-color);
   color: white;
-  border-radius: 0.5em;
   padding-left: 0.2em;
   padding-right: 0.2em;
 }
 
-.toast.fire {
-  background-image: url('/images/fire.gif');
-  padding-left: 0.2em;
-  padding-right: 0.2em;
-}
-
-.toast.highlight:after,
 .toast.fire:after {
-  display: none;
+  background-image: url('/images/fire.gif');
+  background-position: center;
+  background-color: #ffffff00;
+  height: 0.4em;
+}
+
+.clickCounter.fire {
+  background-image: url('/images/fire.gif');
+}
+
+.toast.highlight:after {
+  z-index: -1;
+  border-radius: 0.5em;
+  height: 100%;
+  -webkit-animation: 1s ease-in-out toastUnderlineAnimHighlight;
+  -moz-animation: 1s ease-in-out toastUnderlineAnimHighlight;
+  -o-animation: 1s ease-in-out toastUnderlineAnimHighlight;
+  animation: 1s ease-in-out toastUnderlineAnimHighlight;
+}
+
+.toast.fancy:after,
+.clickCounter.fancy {
+  animation: bcolorchange 10s ease infinite;
 }
 
 /** underline effect types **/

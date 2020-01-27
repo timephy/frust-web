@@ -58,7 +58,7 @@ function verzweifle() {
       commentInput.value = "";
       console.log(`command: "${command}"`);
 
-      if (["green", "purple", "blue", "yellow", "black", "white"].includes(command)) {
+      if (["green", "purple", "blue", "yellow", "black", "white", "fancy"].includes(command)) {
         // Color
         storage.color = command;
       } else if (["small", "big", "dotted", "dashed", "highlight", "fire"].includes(command)) {

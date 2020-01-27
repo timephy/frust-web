@@ -30,7 +30,7 @@ const possibleButtonLabels = [
 const HELP_MESSAGE = [
   "Syntax:  /{command}",
   "Click colors:",
-  "    " + ["green", "purple", "blue", "yellow", "black", "white"].join(", "),
+  "    " + ["green", "purple", "blue", "yellow", "black", "white", "fancy"].join(", "),
   "Click lines:",
   "    " + ["small", "big", "dotted", "dashed", "highlight", "fire"].join(", "),
   "Events:",
