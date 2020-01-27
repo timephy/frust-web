@@ -291,6 +291,7 @@ td {
 @keyframes toastUnderlineAnimHighlight {
   0% {
     opacity: 0.2;
+    height: 0.2em;
     transform: scaleX(0);
   }
 
@@ -948,7 +949,7 @@ td {
 
 .toast.highlight:after {
   z-index: -1;
-  border-radius: 2em;
+  border-radius: 0.5em;
   height: 100%;
   -webkit-animation: 1s ease-in-out toastUnderlineAnimHighlight;
   -moz-animation: 1s ease-in-out toastUnderlineAnimHighlight;
