@@ -1,6 +1,5 @@
 var CACHE_NAME;
 const urlsToCache = [
-  '/',
   '/scripts/socket.io.js',
   '/images/teemo.jpg',
   '/images/elmo.jpg',
@@ -9,7 +8,9 @@ const urlsToCache = [
   '/images/belasto.png',
   '/images/fireworks.gif',
   '/images/fu-meme.jpg',
-  '/images/fire.gif'
+  '/images/fire.gif',
+  '/styles/betterstyle.css',
+  '/styles/charts.css'
 ];
 
 function cacheAll() {
@@ -72,12 +73,8 @@ self.addEventListener('install', function(event) {
 
 self.addEventListener('fetch', function(event) {
   event.respondWith(
-    caches.match(event.request)
-    .then(function(response) {
-      console.log('cached response: ',response);
-      if (response)
-        return response
-      return fetch(event.request)
+    caches.match(event.request).then(function(response) {
+      return response || fetch(event.request);
     })
   );
 });
