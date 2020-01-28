@@ -187,6 +187,7 @@ td {
 /*the user name box*/
 .nameInput {
   border: 0.1em solid transparent;
+  border-radius: 0.2em;
   font-size: 1.5em;
   height: 1em;
   text-align: center;
