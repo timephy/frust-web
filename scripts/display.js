@@ -34,7 +34,7 @@ const HELP_MESSAGE = [
   "Click lines:",
   "    " + ["small", "big", "dotted", "dashed", "highlight", "fire"].join(", "),
   "Events:",
-  "    " + ["exmatrikulation", "einstein", "belasto", "fireworks", "satan", "666", "pride", "rainbow", "fu"].join(", "),
+  "    " + ["exmatrikulation", "lemma 6.7", "sas", "einstein", "belasto", "fireworks", "satan", "666", "pride", "rainbow", "fu"].join(", "),
   "Options:",
   "    " + ["vibrate", "darkmode", "clear"].join(", "),
   "Dev options:",
@@ -136,6 +136,24 @@ function belasto() {
   wrapper.appendChild(belasto);
 }
 
+function formula(type) {
+  const formula = document.createElement("span")
+  formula.className = "formula " + type;
+  anime.set(formula, {
+    top: anime.random(-10, 90) + '%',
+    left: anime.random(-10, 90) + '%',
+  });
+
+  anime({
+    targets: formula,
+    rotate: anime.random(-30, 30) + 'deg',
+    scale: [0.4, 1]
+  })
+  destroyDelay(formula, 20000);
+
+  wrapper.appendChild(formula);
+}
+
 /** Returns a randomized button label. */
 function displayRandomButtonLabel() {
   button.textContent = Math.random() < 0.9 ?
@@ -198,7 +216,7 @@ function displayClick(click) {
   displayToast(text, click.style);
 }
 
-function displayToast(string, effectClass, unstackable=false) {
+function displayToast(string, effectClass, unstackable = false) {
   if (activeToasts[string + "\n" + effectClass] !== undefined && !unstackable) {
     atoast = activeToasts[string + "\n" + effectClass];
     clearTimeout(atoast[2])

@@ -27,6 +27,10 @@
   --bg-shade: #1d1d1d;
 }
 
+[data-theme="dark"] .formula {
+  filter: invert();
+}
+
 [data-theme="light"] {
   --font-color: black;
   --primary-color: #B71C1C;
@@ -1084,17 +1088,33 @@ td {
   background-image: url('/images/fireworks.gif');
 }
 
-.belasto {
+.formula, .belasto {
   position: fixed;
-  background-image: url('/images/belasto.png');
   background-size: contain;
   background-repeat: no-repeat;
-  width: 20vmin;
-  height: 20vmin;
   z-index: -2;
   top: 50%;
   left: 50%;
   transform-origin: center;
+}
+
+.formula {
+  width: 30vmin;
+  height: 30vmin;
+}
+
+.sas {
+  background-image: url('/images/sas.png');
+}
+
+.lemma {
+  background-image: url('/images/lemma67.png');
+}
+
+.belasto {
+  background-image: url('/images/belasto.png');
+  width: 20vmin;
+  height: 20vmin;
 }
 
 .einstein {

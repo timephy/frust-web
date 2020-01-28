@@ -64,7 +64,7 @@ function verzweifle() {
       } else if (["small", "big", "dotted", "dashed", "highlight", "fire"].includes(command)) {
         // Underline, Size
         storage.underlineType = command;
-      } else if (["fuck", "belasto", "einstein", "satan", "666", "fu", "pride", "fireworks", "rickroll"].includes(command)) {
+      } else if (["fuck", "belasto", "einstein", "satan", "666", "fu", "pride", "fireworks", "rickroll", "sas", "lemma 6.7"].includes(command)) {
         // Global events
         socket.emit("event", {
           "user": name,
@@ -275,7 +275,9 @@ socket.on("event", event => {
     belasto: () => belasto(),
     rickroll: () => {
       window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-    }
+    },
+    sas: () => formula("sas"),
+    "lemma 6.7": () => formula("lemma"),
   } [event["name"]]());
 });
 
