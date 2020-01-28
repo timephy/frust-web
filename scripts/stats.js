@@ -1,44 +1,58 @@
-const testTable = [{
-    "Name": "Einstein",
-    "Nachricht": "Lineare Algebra",
-    "Clicks": "258",
-    "Events": "5"
-  },
-  {
-    "Name": "Newton",
-    "Nachricht": "",
-    "Clicks": "467",
-    "Events": "5"
-  }, {
-    "Name": "Newton",
-    "Nachricht": "Exphy :(",
-    "Clicks": "47",
-    "Events": "1"
-  }, {
-    "Name": "Weierstrass",
-    "Nachricht": "Mathe...",
-    "Clicks": "100",
-    "Events": "14"
-  }, {
-    "Name": "Heisenberg",
-    "Nachricht": "Alles so unscharf",
-    "Clicks": "20",
-    "Events": "0"
-  }, {
-    "Name": "Marie Curie",
-    "Nachricht": "Hab mich wieder übergeben...",
-    "Clicks": "197",
-    "Events": "0"
-  }];
-
 window.addEventListener('load', () => {
   loadJson((error, result) => {
     if (error)
       console.log(error);
-    CreateUserTableFromJSON(result, 'showData');
-  }, '/api/list');
+    CreateUserTableFromJSON(result, 'showOnlineUsers');
+  }, '/api/online_users');
 
-  CreateTableFromJSON(testTable, 'showData2');
+  loadJson((error, result) => {
+    if (error)
+      console.log(error);
+    CreateTableFromJSON(result, 'showUsers');
+  }, '/api/users');
+
+  loadJson((error, result) => {
+    if (error)
+      console.log(error);
+
+    result = groupBy(result, click => click.user + "\n" + click.comment)
+    result = Object.entries(result).map((key) => {
+      // console.log(key);
+      const clicks = key[1];
+      const firstClick = clicks[0];
+      return {
+        count: clicks.length,
+        user: firstClick.user,
+        comment: firstClick.comment
+      };
+    });
+    result = result.sort((a, b) => b.count - a.count);
+
+    CreateTableFromJSON(result, 'latest-clicks');
+  }, '/api/latest_clicks');
+
+    loadJson((error, result) => {
+    if (error)
+      console.log(error);
+
+    console.log("raw result ",result)
+    result = groupBy(result, event => event.user + "\n" + event.name)
+    console.log("grouped result ", result)
+    result = Object.entries(result).map((key) => {
+      // console.log(key);
+      const events = key[1];
+      const firstEvent = events[0];
+      return {
+        count: events.length,
+        user: firstEvent.user,
+        event: firstEvent.name
+      };
+    });
+    result = result.sort((a, b) => b.count - a.count);
+    console.log("final result ",result)
+
+    CreateTableFromJSON(result, 'latest-events');
+  }, '/api/latest_events');
 
   loadJson((error, result) => {
     if (error)
@@ -49,6 +63,6 @@ window.addEventListener('load', () => {
   loadJson((error, result) => {
     if (error)
       console.log(error);
-    CreateTextFromJSON(result, 'apiv');
+    CreateTextFromJSON(result, 'api-version');
   }, '/api');
 });
