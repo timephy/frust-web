@@ -18,7 +18,7 @@ const possibleButtonLabels = [
   "E1GeNv3kToR",
   "I wanna die",
   "end me now",
-  ":(",
+  "Gib auf",
   "（┬＿┬）",
   "(◕︵◕)",
   "RIP Studium",
@@ -97,13 +97,9 @@ const statsDisplay = new StatsDisplay()
 // Utils
 
 /** Display a popup. */
-function popup(text, cssClass) {
+function popup(text, cssClass = "popup") {
   const pop = document.createElement("div")
-  if (!cssClass)
-    pop.className = "popup";
-  else
-    pop.className = cssClass;
-
+  pop.className = cssClass;
   pop.appendChild(document.createTextNode(text));
   panker.appendChild(pop);
   destroyDelay(pop, 5000);
@@ -215,6 +211,9 @@ function displayToast(string, effectClass, unstackable=false) {
     atoast[4]++;
     atoast[1].textContent = atoast[4];
 
+    if (anker.contains(atoast[0]))
+      tfrag.appendChild(atoast[0]);
+
     //set counter position
     if (anime.get(atoast[1], 'width', 'rem') != atoast[5]) {
       atoast[5] = anime.get(atoast[1], 'width', 'rem');
@@ -289,7 +288,11 @@ function newToast(string, effectClass) {
     animation.finished.then(() => toast.remove());
   }
 
-  // save the toast with his resetable timer and removal function
+  // save the toast with his resetable timer and removal function (key is the string + cssClasses)
+  /* elements in an active toast:
+  0 ref to the toast element, 1 ref to the counter element of this toast, 2 removal timeout id,
+  3 removal function,         4 the click count of this toast,            5 the width of the toast
+  */
   activeToasts[string + effectClass] = [toast, count, setTimeout(funkyFunc, RESET_TIME), funkyFunc, 1, 0];
 
   toast.className = [effectClass, "toast"].join(" ");
