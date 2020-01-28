@@ -199,8 +199,8 @@ function displayClick(click) {
 }
 
 function displayToast(string, effectClass, unstackable=false) {
-  if (activeToasts[string + effectClass] !== undefined && !unstackable) {
-    atoast = activeToasts[string + effectClass];
+  if (activeToasts[string + "\n" + effectClass] !== undefined && !unstackable) {
+    atoast = activeToasts[string + "\n" + effectClass];
     clearTimeout(atoast[2])
     //create a new timer instance
     atoast[2] = setTimeout(atoast[3], RESET_TIME)
@@ -272,7 +272,7 @@ function newToast(string, effectClass) {
   //function that hides, animates and deletes the toast when executed
   function funkyFunc() {
     toast.classList.add("hide")
-    delete activeToasts[string + effectClass];
+    delete activeToasts[string + "\n" + effectClass];
     const animation = anime({
       targets: toast,
       delay: 500,
@@ -293,7 +293,7 @@ function newToast(string, effectClass) {
   0 ref to the toast element, 1 ref to the counter element of this toast, 2 removal timeout id,
   3 removal function,         4 the click count of this toast,            5 the width of the toast
   */
-  activeToasts[string + effectClass] = [toast, count, setTimeout(funkyFunc, RESET_TIME), funkyFunc, 1, 0];
+  activeToasts[string + "\n" + effectClass] = [toast, count, setTimeout(funkyFunc, RESET_TIME), funkyFunc, 1, 0];
 
   toast.className = [effectClass, "toast"].join(" ");
   count.className = [effectClass, "clickCounter"].join(" ");
