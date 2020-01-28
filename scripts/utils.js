@@ -24,17 +24,17 @@ function addTemporaryClass(targetElem, cssClass, time) {
   console.log(cssClass + ": timer " + resetableTimers[cssClass])
 }
 
-function CreateUserTableFromJSON(jsonData, eid) {
+function CreateUserTableFromJSON(jsonData, eid, caption) {
   ownuser = {
     name: storage.name || "Gast"
   }
   jsonData.push(ownuser);
   // console.log(jsonData);
 
-  CreateTableFromJSON(jsonData, eid);
+  CreateTableFromJSON(jsonData, eid, caption);
 }
 
-function CreateTableFromJSON(jsonData, eid) {
+function CreateTableFromJSON(jsonData, eid, caption) {
   var col = [];
   for (var i = 0; i < jsonData.length; i++)
     for (var key in jsonData[i])
@@ -44,8 +44,14 @@ function CreateTableFromJSON(jsonData, eid) {
   // CREATE DYNAMIC TABLE.
   var table = document.createElement("table");
 
+  //CREATE TABLE CAPTION
+  var cap = table.createCaption();
+  cap.textContent = caption;
+
+
   // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
-  var tr = table.insertRow(-1); // TABLE ROW.
+  var head = table.createTHead();
+  var tr = head.insertRow(-1); // TABLE ROW.
 
   for (var i = 0; i < col.length; i++) {
     var th = document.createElement("th"); // TABLE HEADER.
@@ -89,11 +95,11 @@ function loadJson(callback, path) {
 }
 
 function groupBy(array, kf) {
-  const result = array.reduce(function (r, a) {
-        key = kf(a)
-        r[key] = r[key] || [];
-        r[key].push(a);
-        return r;
-    }, Object.create(null));
+  const result = array.reduce(function(r, a) {
+    key = kf(a)
+    r[key] = r[key] || [];
+    r[key].push(a);
+    return r;
+  }, Object.create(null));
   return result
 }

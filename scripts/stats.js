@@ -2,13 +2,13 @@ window.addEventListener('load', () => {
   loadJson((error, result) => {
     if (error)
       console.log(error);
-    CreateUserTableFromJSON(result, 'showOnlineUsers');
+    CreateUserTableFromJSON(result, 'showOnlineUsers', 'online users');
   }, '/api/online_users');
 
   loadJson((error, result) => {
     if (error)
       console.log(error);
-    CreateTableFromJSON(result, 'showUsers');
+    CreateTableFromJSON(result, 'showUsers', 'all users');
   }, '/api/users');
 
   loadJson((error, result) => {
@@ -28,7 +28,7 @@ window.addEventListener('load', () => {
     });
     result = result.sort((a, b) => b.count - a.count);
 
-    CreateTableFromJSON(result, 'latest-clicks');
+    CreateTableFromJSON(result, 'latest-clicks', 'latest clicks');
   }, '/api/latest_clicks');
 
     loadJson((error, result) => {
@@ -51,7 +51,7 @@ window.addEventListener('load', () => {
     result = result.sort((a, b) => b.count - a.count);
     console.log("final result ",result)
 
-    CreateTableFromJSON(result, 'latest-events');
+    CreateTableFromJSON(result, 'latest-events', 'latest events');
   }, '/api/latest_events');
 
   loadJson((error, result) => {
