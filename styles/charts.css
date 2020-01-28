@@ -13,6 +13,7 @@ tr {
   padding-top: 0.5em;
   border-bottom: 1px solid var(--dark-red, red);
 }
+
 tbody {
   max-height: 20em;
   min-height: 5em;
@@ -21,7 +22,9 @@ tbody {
 
 th, td, tr, thead, tbody {
   display: block;
-}td, th {
+}
+
+td, th {
   float: left;
   border: none;
   text-align: left;
@@ -43,6 +46,7 @@ th:nth-child(3) {
   width: 40%;
   float: left;
 }
+
 /* some colors */
 thead {
   background-color: var(--primary-color, red);
@@ -66,5 +70,7 @@ h2 {
 caption {
   display: table-caption;
   text-align: left;
+  font-size: 150%;
   padding: 0.2em;
+  font-weight: bold;
 }

@@ -49,24 +49,26 @@ function CreateTableFromJSON(jsonData, eid, caption) {
   cap.textContent = caption;
 
 
-  // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
-  var head = table.createTHead();
-  var tr = head.insertRow(-1); // TABLE ROW.
 
-  for (var i = 0; i < col.length; i++) {
-    var th = document.createElement("th"); // TABLE HEADER.
-    th.innerHTML = col[i];
-    tr.appendChild(th);
-  }
+  var tr; // TABLE ROW.
 
   // ADD JSON DATA TO THE TABLE AS ROWS.
   for (var i = 0; i < jsonData.length; i++) {
     tr = table.insertRow(-1);
-
     for (var j = 0; j < col.length; j++) {
       var tabCell = tr.insertCell(-1);
       tabCell.innerHTML = jsonData[i][col[j]];
     }
+  }
+
+  // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+  var head = table.createTHead();
+
+  tr = head.insertRow(-1);
+  for (var i = 0; i < col.length; i++) {
+    var th = document.createElement("th"); // TABLE HEADER.
+    th.innerHTML = col[i];
+    tr.appendChild(th);
   }
 
   // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
