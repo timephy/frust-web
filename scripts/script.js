@@ -212,9 +212,9 @@ socket.on("message", message => {
   console.log("message", message);
 
   if (message["type"] == "toast") {
-    displayToast(message["text"], message["style"]);
+    displayToast(message["text"], message["style"], true);
   } else if (message["type"] == "popup") {
-    popup(message["text"], "fu");
+    popup(message["text"], message["style"]);
   }
 });
 
