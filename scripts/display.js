@@ -211,8 +211,8 @@ function displayToast(string, effectClass, unstackable=false) {
     atoast[4]++;
     atoast[1].textContent = atoast[4];
 
-    if (anker.contains(atoast[0]))
-      tfrag.appendChild(atoast[0]);
+    if (!anker.contains(atoast[0]))
+      tfrag.prepend(atoast[0]);
 
     //set counter position
     if (anime.get(atoast[1], 'width', 'rem') != atoast[5]) {
