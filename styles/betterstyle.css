@@ -921,6 +921,10 @@ td {
   transform: scale(0.5);
 }
 
+.toast.medium {
+  transform: scale(0.75);
+}
+
 .toast.big {
   font-size: 200%;
   max-height: 10em;
