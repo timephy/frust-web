@@ -1109,6 +1109,7 @@ td {
 
 .lemma {
   background-image: url('/images/lemma67.png');
+    width: 80vmin;
 }
 
 .belasto {
