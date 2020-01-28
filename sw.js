@@ -1,22 +1,38 @@
-var CACHE_NAME;
-const urlsToCache = [
-  '/scripts/socket.io.js',
-  '/scripts/script.js',
-  '/scripts/display.js',
-  '/images/teemo.jpg',
-  '/images/elmo.jpg',
+const urlsToCache = ['/',
+  '/index.html',
+  '/404.html',
+  '/images/android-chrome-192x192.png',
+  '/images/android-chrome-512x512.png',
+  '/images/apple-touch-icon.png',
+  '/images/belasto.png',
+  '/images/browserconfig.xml',
   '/images/einstein.svg',
   '/images/einsteinBW.svg',
-  '/images/belasto.png',
+  '/images/elmo.jpg',
+  '/images/favicon-16x16.png',
+  '/images/favicon-194x194.png',
+  '/images/favicon-32x32.png',
+  '/images/favicon.ico',
+  '/images/fire.gif',
   '/images/fireworks.gif',
   '/images/fu-meme.jpg',
-  '/images/fire.gif',
+  '/images/maskable_icon.png',
+  '/images/mstile-150x150.png',
+  '/images/safari-pinned-tab.svg',
+  '/images/teemo.jpg',
   '/styles/betterstyle.css',
   '/styles/charts.css',
-  '/',
-  '/index.html',
-  '/404.html'
+  '/scripts/anime.min.js',
+  '/scripts/display.js',
+  '/scripts/script.js',
+  '/scripts/socket.io.js',
+  '/scripts/socket.io.js.map',
+  '/scripts/stats.js',
+  '/scripts/storage.js',
+  '/scripts/utils.js'
 ];
+
+var CACHE_NAME;
 
 function cacheAll() {
   return caches.open(CACHE_NAME).then(function(cache) {
