@@ -18,6 +18,10 @@
     --bg-color: #121212;
     --bg-shade: #1d1d1d;
   }
+
+  .formula {
+    filter: invert();
+  }
 }
 
 [data-theme="dark"] {
