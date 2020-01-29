@@ -1,6 +1,14 @@
 const commit_sha = "{{COMMIT_SHA}}"; // value will be set by CD
 const urlsToCache = ["{{CACHE_URLS}}"]; // value will be set by CD
 
+var index = urlsToCache.indexOf('/images');
+if (index !== -1) urlsToCache.splice(index, 1);
+index = urlsToCache.indexOf('/scripts');
+if (index !== -1) urlsToCache.splice(index, 1);
+index = urlsToCache.indexOf('/styles');
+if (index !== -1) urlsToCache.splice(index, 1);
+urlsToCache.push('/')
+
 var CACHE_VERSION = commit_sha;
 
 var CURRENT_CACHES = {

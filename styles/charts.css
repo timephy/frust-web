@@ -41,6 +41,11 @@ th {
   margin-bottom: 2em;
 }
 
+.jsChartsCont{
+  max-width: 90vmin;
+  
+}
+
 table {
   max-height: 20em;
   min-height: 5em;

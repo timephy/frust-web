@@ -103,7 +103,7 @@ window.addEventListener('load', () => {
     makeLineChart({
       timestamps: timestamps,
       events: events,
-      clicks: clicks.
+      clicks: clicks
     }, 'hourChart', 'Stunden (chart)');
   }, '/api/latest_hours');
 
@@ -164,6 +164,9 @@ function makeChart(res, eid, caption) {
 
 function makeLineChart(res, eid, caption) {
   var ctx = document.getElementById(eid);
+  var cap = ctx.createCaption();
+  cap.textContent = caption;
+
   var myLineChart = new Chart(ctx, {
     type: 'line',
     data: {
