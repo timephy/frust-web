@@ -1,5 +1,5 @@
 body {
-  padding: 1em
+  padding: 1.5em
 }
 
 caption {
@@ -35,7 +35,7 @@ th {
 }
 
 .chartsCont {
-  max-height: 10em;
+  max-height: 25em;
   min-height: 5em;
   overflow-y: auto;
   margin-bottom: 2em;
@@ -43,7 +43,7 @@ th {
 
 .jsChartsCont{
   max-width: 90vmin;
-  
+
 }
 
 table {
