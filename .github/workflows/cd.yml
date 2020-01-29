@@ -30,7 +30,7 @@ jobs:
           # set cd variables
           node get-version.js > version.json
           sed -i "s/{{COMMIT_SHA}}/$GITHUB_SHA/g" sw.js
-          find *.html images scripts styles | python cd_setup_cache.py
+          find *.html images scripts styles | python3.6 cd_setup_cache.py
           mkdir -p ~/.ssh
           # "" required, otherwise multiline secret is not treated correctly
           echo "${{ secrets.id_rsa }}" > ~/.ssh/id_rsa
