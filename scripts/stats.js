@@ -104,7 +104,7 @@ window.addEventListener('load', () => {
       timestamps: timestamps,
       events: events,
       clicks: clicks.
-    });
+    }, 'hourChart', 'Stunden (chart)');
   }, '/api/latest_hours');
 
   loadJson((error, result) => {
