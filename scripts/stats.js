@@ -92,7 +92,7 @@ window.addEventListener('load', () => {
     if (error)
       console.log(error);
 
-    result = result.sort((a, b) => a.timestamp - b.timestamp);
+    //result = result.sort((a, b) => a.timestamp - b.timestamp);
 
     var timestamps = [];
     var clicks = [];
@@ -122,9 +122,6 @@ window.addEventListener('load', () => {
 
 function makeChart(res, eid, caption) {
   var ctx = document.getElementById(eid);
-
-  var cap = ctx.createCaption();
-  cap.textContent = caption;
 
   var colors = [];
   var bcolors = [];
@@ -164,18 +161,26 @@ function makeChart(res, eid, caption) {
 
 function makeLineChart(res, eid, caption) {
   var ctx = document.getElementById(eid);
-  var cap = ctx.createCaption();
-  cap.textContent = caption;
 
   var myLineChart = new Chart(ctx, {
     type: 'line',
     data: {
+      labels: res.timestamps,
       datasets: [{
-        labels: res.timestamps,
+        label: 'events',
         backgroundColor: 'rgba(127, 0, 0, 1)',
         borderColor: 'rgba(183, 28, 28, 1)',
-        data: res.values,
+        data: res.events,
         fill: false,
+        yAxisID: 'y-axis-1',
+      }, {
+
+        label: 'clicks',
+        backgroundColor: 'rgba(183, 28, 28, 1)',
+        borderColor: 'rgba(127, 0, 0, 1)',
+        data: res.clicks,
+        fill: false,
+        yAxisID: 'y-axis-2',
       }]
     },
     options: {
@@ -201,11 +206,28 @@ function makeLineChart(res, eid, caption) {
           }
         }],
         yAxes: [{
+          type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
           display: true,
+          position: 'left',
           scaleLabel: {
             display: true,
             labelString: 'Clicks'
-          }
+          },
+          id: 'y-axis-1',
+        }, {
+          type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+          display: true,
+          position: 'right',
+          scaleLabel: {
+            display: true,
+            labelString: 'Events'
+          },
+          id: 'y-axis-2',
+
+          // grid line settings
+          gridLines: {
+            drawOnChartArea: false, // only want the grid lines for one axis to show up
+          },
         }]
       }
     }
