@@ -2,13 +2,13 @@ window.addEventListener('load', () => {
   loadJson((error, result) => {
     if (error)
       console.log(error);
-    CreateUserTableFromJSON(result, 'showOnlineUsers', 'online users');
+    CreateUserTableFromJSON(result, 'showOnlineUsers', 'Nutzer (online)');
   }, '/api/online_users');
 
   loadJson((error, result) => {
     if (error)
       console.log(error);
-    CreateTableFromJSON(result, 'showUsers', 'all users');
+    CreateTableFromJSON(result, 'showUsers', 'Nutzer (alle)');
   }, '/api/users');
 
   loadJson((error, result) => {
@@ -28,10 +28,10 @@ window.addEventListener('load', () => {
     });
     result = result.sort((a, b) => b.count - a.count);
 
-    CreateTableFromJSON(result, 'latest-clicks', 'latest clicks');
+    CreateTableFromJSON(result, 'latest-clicks', 'Klicks (heute)');
   }, '/api/latest_clicks');
 
-    loadJson((error, result) => {
+  loadJson((error, result) => {
     if (error)
       console.log(error);
 
@@ -49,20 +49,26 @@ window.addEventListener('load', () => {
       };
     });
     result = result.sort((a, b) => b.count - a.count);
-    console.log("final result ",result)
+    // console.log("final result ", result)
 
-    CreateTableFromJSON(result, 'latest-events', 'latest events');
+    CreateTableFromJSON(result, 'latest-events', 'Events (heute)');
   }, '/api/latest_events');
 
   loadJson((error, result) => {
     if (error)
       console.log(error);
-    CreateTextFromJSON(result, 'versionData');
+    CreateTableFromJSON(result, 'latest-hours', 'Stunden (heute)');
+  }, '/api/latest_hours');
+
+  loadJson((error, result) => {
+    if (error)
+      console.log(error);
+    CreateTextFromJSON(result, 'versionData', 'Frontend version:');
   }, '/version.json');
 
   loadJson((error, result) => {
     if (error)
       console.log(error);
-    CreateTextFromJSON(result, 'api-version');
+    CreateTextFromJSON(result, 'api-version', 'Backend version:');
   }, '/api');
 });
