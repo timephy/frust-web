@@ -1,85 +1,5 @@
 body {
-  padding: 1.5em;
-}
-
-table {
-  width: 100%;
-  text-align: left;
-  border-collapse: collapse;
-}
-
-tr {
-  height: 1.5em;
-  padding-top: 0.25em;
-  padding-left: 0.25em;
-  border-bottom: 1px solid var(--dark-red, red);
-}
-
-tbody {
-  max-height: 20em;
-  min-height: 5em;
-  overflow-y: auto;
-}
-
-th, td, tr, thead, tbody {
-  display: block;
-}
-
-td, th {
-  float: left;
-  border: none;
-  text-align: left;
-}
-
-td:nth-child(1),
-th:nth-child(1) {
-  width: 15%;
-}
-
-td:nth-child(2),
-th:nth-child(2) {
-  width: 15%;
-}
-
-td:nth-child(3),
-th:nth-child(3) {
-  width: 15%;
-}
-
-td:nth-child(4),
-th:nth-child(4) {
-  width: 15%;
-}
-
-td:nth-child(5),
-th:nth-child(5) {
-  width: 15%;
-}
-
-/* some colors */
-thead {
-  background-color: var(--primary-color, red);
-  color: white;
-}
-
-tr:hover {
-  background-color: var(--bg-shade, grey);
-}
-
-.largeSpacer {
-  height: 2em;
-}
-
-h2 {
-  font-size: 0.5em;
-  bottom: 1em;
-  margin: 0.8em;
-  color: gray;
-}
-
-h2 a:link,
-h2 a:visited {
-    color: gray;
+  padding: 1em
 }
 
 caption {
@@ -88,4 +8,55 @@ caption {
   font-size: 125%;
   padding: 0 0 0.25em 0.25em;
   font-weight: 500;
+}
+
+th,
+td {
+  border-left: none;
+  border-right: none;
+  padding: 0.5em;
+  text-align: left;
+}
+
+h2 {
+  font-size: 0.5em;
+  bottom: 1em;
+  margin: 0.8em;
+  color: grey;
+}
+
+thead {
+  background-color: var(--primary-color, red);
+  color: white;
+}
+
+th {
+  border: none;
+}
+
+.chartsCont {
+  max-height: 10em;
+  min-height: 5em;
+  overflow-y: auto;
+  margin-bottom: 2em;
+}
+
+table {
+  max-height: 20em;
+  min-height: 5em;
+  overflow-y: auto;
+  border-collapse: collapse;
+}
+
+tr {
+  border-bottom: 1px solid var(--dark-red, red);
+}
+
+tr:hover {
+  background-color: var(--bg-shade, grey);
+  border-bottom: 1px dashed var(--dark-red, red);
+}
+
+.largeSpacer {
+  height: 5em;
 }
