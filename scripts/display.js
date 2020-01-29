@@ -18,7 +18,7 @@ const possibleButtonLabels = [
   "E1GeNv3kToR",
   "I wanna die",
   "end me now",
-  ":(",
+  "Gib auf",
   "（┬＿┬）",
   "(◕︵◕)",
   "RIP Studium",
@@ -30,11 +30,11 @@ const possibleButtonLabels = [
 const HELP_MESSAGE = [
   "Syntax:  /{command}",
   "Click colors:",
-  "    " + ["green", "purple", "blue", "yellow", "black", "white"].join(", "),
+  "    " + ["green", "purple", "blue", "yellow", "black", "white", "fancy"].join(", "),
   "Click lines:",
   "    " + ["small", "big", "dotted", "dashed", "highlight", "fire"].join(", "),
   "Events:",
-  "    " + ["exmatrikulation", "einstein", "belasto", "fireworks", "satan", "666", "pride", "rainbow", "fu"].join(", "),
+  "    " + ["exmatrikulation", "lemma 6.7", "sas", "einstein", "belasto", "fireworks", "satan", "666", "pride", "rainbow", "fu"].join(", "),
   "Options:",
   "    " + ["vibrate", "darkmode", "clear"].join(", "),
   "Dev options:",
@@ -97,13 +97,9 @@ const statsDisplay = new StatsDisplay()
 // Utils
 
 /** Display a popup. */
-function popup(text, cssClass) {
+function popup(text, cssClass = "popup") {
   const pop = document.createElement("div")
-  if (!cssClass)
-    pop.className = "popup";
-  else
-    pop.className = cssClass;
-
+  pop.className = cssClass;
   pop.appendChild(document.createTextNode(text));
   panker.appendChild(pop);
   destroyDelay(pop, 5000);
@@ -138,6 +134,24 @@ function belasto() {
   destroyDelay(belasto, 30000);
 
   wrapper.appendChild(belasto);
+}
+
+function formula(type) {
+  const formula = document.createElement("span")
+  formula.className = "formula " + type;
+  anime.set(formula, {
+    top: anime.random(-10, 90) + '%',
+    left: anime.random(-10, 90) + '%',
+  });
+
+  anime({
+    targets: formula,
+    rotate: anime.random(-30, 30) + 'deg',
+    scale: [0.4, 1]
+  })
+  destroyDelay(formula, 20000);
+
+  wrapper.appendChild(formula);
 }
 
 /** Returns a randomized button label. */
@@ -202,9 +216,9 @@ function displayClick(click) {
   displayToast(text, click.style);
 }
 
-function displayToast(string, effectClass, unstackable=false) {
-  if (activeToasts[string + effectClass] !== undefined && !unstackable) {
-    atoast = activeToasts[string + effectClass];
+function displayToast(string, effectClass, unstackable = false) {
+  if (activeToasts[string + "\n" + effectClass] !== undefined && !unstackable) {
+    atoast = activeToasts[string + "\n" + effectClass];
     clearTimeout(atoast[2])
     //create a new timer instance
     atoast[2] = setTimeout(atoast[3], RESET_TIME)
@@ -214,6 +228,9 @@ function displayToast(string, effectClass, unstackable=false) {
       });
     atoast[4]++;
     atoast[1].textContent = atoast[4];
+
+    if (!anker.contains(atoast[0]))
+      tfrag.prepend(atoast[0]);
 
     //set counter position
     if (anime.get(atoast[1], 'width', 'rem') != atoast[5]) {
@@ -273,7 +290,7 @@ function newToast(string, effectClass) {
   //function that hides, animates and deletes the toast when executed
   function funkyFunc() {
     toast.classList.add("hide")
-    delete activeToasts[string + effectClass];
+    delete activeToasts[string + "\n" + effectClass];
     const animation = anime({
       targets: toast,
       delay: 500,
@@ -289,8 +306,12 @@ function newToast(string, effectClass) {
     animation.finished.then(() => toast.remove());
   }
 
-  // save the toast with his resetable timer and removal function
-  activeToasts[string + effectClass] = [toast, count, setTimeout(funkyFunc, RESET_TIME), funkyFunc, 1, 0];
+  // save the toast with his resetable timer and removal function (key is the string + cssClasses)
+  /* elements in an active toast:
+  0 ref to the toast element, 1 ref to the counter element of this toast, 2 removal timeout id,
+  3 removal function,         4 the click count of this toast,            5 the width of the toast
+  */
+  activeToasts[string + "\n" + effectClass] = [toast, count, setTimeout(funkyFunc, RESET_TIME), funkyFunc, 1, 0];
 
   toast.className = [effectClass, "toast"].join(" ");
   count.className = [effectClass, "clickCounter"].join(" ");

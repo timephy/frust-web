@@ -1,41 +1,91 @@
 body {
-  padding: 1em
+  padding: 1em;
 }
 
-th,
-td {
-  border-bottom: 1px solid var(--dark-red);
-  border-left: none;
-  border-right: none;
-  padding: 0.5em;
+table {
+  width: 100%;
   text-align: left;
+  border-collapse: collapse;
+}
+
+tr {
+  height: 1.5em;
+  padding-top: 0.25em;
+  padding-left: 0.25em;
+  border-bottom: 1px solid var(--dark-red, red);
+}
+
+tbody {
+  max-height: 20em;
+  min-height: 5em;
+  overflow-y: auto;
+}
+
+th, td, tr, thead, tbody {
+  display: block;
+}
+
+td, th {
+  float: left;
+  border: none;
+  text-align: left;
+}
+
+td:nth-child(1),
+th:nth-child(1) {
+  width: 15%;
+}
+
+td:nth-child(2),
+th:nth-child(2) {
+  width: 15%;
+}
+
+td:nth-child(3),
+th:nth-child(3) {
+  width: 15%;
+}
+
+td:nth-child(4),
+th:nth-child(4) {
+  width: 15%;
+}
+
+td:nth-child(5),
+th:nth-child(5) {
+  width: 15%;
+}
+
+/* some colors */
+thead {
+  background-color: var(--primary-color, red);
+  color: white;
+}
+
+tr:hover {
+  background-color: var(--bg-shade, grey);
+}
+
+.largeSpacer {
+  height: 2em;
 }
 
 h2 {
   font-size: 0.5em;
   bottom: 1em;
   margin: 0.8em;
+  color: gray;
 }
 
-th {
-  background-color: var(--primary-color);
-  /*background-image: -webkit-linear-gradient(0deg, var(--dark-red), var(--primary-color));
-  background-image: linear-gradient(0deg, var(--dark-red), var(--primary-color));
-  */
-  color: white;
+h2 a:link,
+h2 a:visited {
+    color: gray;
 }
 
-table {
-  max-height: 20em;
-  min-height: 5em;
-  overflow-y: auto;
-  border-collapse: collapse;
-}
-
-tr:hover {
-  background-color: var(--bg-shade);
-}
-
-.largeSpacer{
-  height: 5em;
+caption {
+  display: table-caption;
+  text-align: left;
+  font-size: 125%;
+  padding: 0 0 0.25em 0.25em;
+  font-weight: 500;
 }

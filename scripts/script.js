@@ -58,13 +58,13 @@ function verzweifle() {
       commentInput.value = "";
       console.log(`command: "${command}"`);
 
-      if (["green", "purple", "blue", "yellow", "black", "white"].includes(command)) {
+      if (["green", "purple", "blue", "yellow", "black", "white", "fancy"].includes(command)) {
         // Color
         storage.color = command;
       } else if (["small", "big", "dotted", "dashed", "highlight", "fire"].includes(command)) {
         // Underline, Size
         storage.underlineType = command;
-      } else if (["fuck", "belasto", "einstein", "satan", "666", "fu", "pride", "fireworks", "rickroll"].includes(command)) {
+      } else if (["fuck", "belasto", "einstein", "satan", "666", "fu", "pride", "fireworks", "rickroll", "sas", "lemma 6.7"].includes(command)) {
         // Global events
         socket.emit("event", {
           "user": name,
@@ -76,14 +76,14 @@ function verzweifle() {
             storage.vibration = !storage.vibration;
             console.log("vibrationsActive   ", storage.vibration);
             break;
-          // case "belastos":
-          //   for (var i = 0; i < 20; i++) {
-          //     socket.emit("event", {
-          //       "user": "God",
-          //       "name": "belasto"
-          //     });
-          //   }
-          //   break;
+          case "belastos":
+            for (var i = 0; i < 20; i++) {
+              socket.emit("event", {
+                "user": name,
+                "name": "belasto"
+              });
+            }
+            break;
           case "fps":
             setInterval(updateFps, 500);
             const fpsElem = document.createElement("div");
@@ -102,8 +102,8 @@ function verzweifle() {
               for (var i = 0; i < 5; i++) {
                 gtest++;
                 socket.emit("click", {
-                  "user": `${gtest} gtest `,
-                  "comment": `${gtest}`,
+                  "user": name,
+                  "comment": `gtest ${gtest}`,
                   "style": [storage.underlineType, storage.color].join(" ")
                 });
               }
@@ -212,9 +212,9 @@ socket.on("message", message => {
   console.log("message", message);
 
   if (message["type"] == "toast") {
-    displayToast(message["text"], message["style"]);
+    displayToast(message["text"], message["style"], true);
   } else if (message["type"] == "popup") {
-    popup(message["text"], "fu");
+    popup(message["text"], message["style"]);
   }
 });
 
@@ -275,7 +275,9 @@ socket.on("event", event => {
     belasto: () => belasto(),
     rickroll: () => {
       window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-    }
+    },
+    sas: () => formula("sas"),
+    "lemma 6.7": () => formula("lemma"),
   } [event["name"]]());
 });
 

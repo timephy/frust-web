@@ -24,55 +24,17 @@ function addTemporaryClass(targetElem, cssClass, time) {
   console.log(cssClass + ": timer " + resetableTimers[cssClass])
 }
 
-function CreateUserTableFromJSON(jsonData, eid) {
-  jsonData.userCount++;
+function CreateUserTableFromJSON(jsonData, eid, caption) {
   ownuser = {
-    Name: storage.name || "Ich",
-    Nachricht: storage.comment || ""
+    name: storage.name || "Gast"
   }
-  jsonData.identifiedUsers.push(ownuser);
-  console.log(jsonData);
-  // EXTRACT VALUE FOR HTML HEADER.
-  var col = [];
-  for (var i = 0; i < jsonData.identifiedUsers.length; i++) {
-    for (var key in jsonData.identifiedUsers[i]) {
-      if (col.indexOf(key) === -1) {
-        col.push(key);
-      }
-    }
-  }
+  jsonData.push(ownuser);
+  // console.log(jsonData);
 
-  // CREATE DYNAMIC TABLE.
-  var table = document.createElement("table");
-
-  // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
-
-  var tr = table.insertRow(-1); // TABLE ROW.
-
-  for (var i = 0; i < col.length; i++) {
-    var th = document.createElement("th"); // TABLE HEADER.
-    th.innerHTML = col[i];
-    tr.appendChild(th);
-  }
-
-  // ADD JSON DATA TO THE TABLE AS ROWS.
-  for (var i = 0; i < jsonData.identifiedUsers.length; i++) {
-
-    tr = table.insertRow(-1);
-
-    for (var j = 0; j < col.length; j++) {
-      var tabCell = tr.insertCell(-1);
-      tabCell.innerHTML = jsonData.identifiedUsers[i][col[j]];
-    }
-  }
-
-  // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
-  var divContainer = document.getElementById(eid);
-  divContainer.innerHTML = "user count: " + jsonData.userCount + "<br><br>";
-  divContainer.appendChild(table);
+  CreateTableFromJSON(jsonData, eid, caption);
 }
 
-function CreateTableFromJSON(jsonData, eid) {
+function CreateTableFromJSON(jsonData, eid, caption) {
   var col = [];
   for (var i = 0; i < jsonData.length; i++)
     for (var key in jsonData[i])
@@ -82,23 +44,31 @@ function CreateTableFromJSON(jsonData, eid) {
   // CREATE DYNAMIC TABLE.
   var table = document.createElement("table");
 
-  // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
-  var tr = table.insertRow(-1); // TABLE ROW.
+  //CREATE TABLE CAPTION
+  var cap = table.createCaption();
+  cap.textContent = caption;
 
-  for (var i = 0; i < col.length; i++) {
-    var th = document.createElement("th"); // TABLE HEADER.
-    th.innerHTML = col[i];
-    tr.appendChild(th);
-  }
+
+
+  var tr; // TABLE ROW.
 
   // ADD JSON DATA TO THE TABLE AS ROWS.
   for (var i = 0; i < jsonData.length; i++) {
     tr = table.insertRow(-1);
-
     for (var j = 0; j < col.length; j++) {
       var tabCell = tr.insertCell(-1);
       tabCell.innerHTML = jsonData[i][col[j]];
     }
+  }
+
+  // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+  var head = table.createTHead();
+
+  tr = head.insertRow(-1);
+  for (var i = 0; i < col.length; i++) {
+    var th = document.createElement("th"); // TABLE HEADER.
+    th.innerHTML = col[i];
+    tr.appendChild(th);
   }
 
   // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
@@ -107,11 +77,11 @@ function CreateTableFromJSON(jsonData, eid) {
   divContainer.appendChild(table);
 }
 
-function CreateTextFromJSON(jsonData, eid) {
+function CreateTextFromJSON(jsonData, eid, caption) {
   console.log(jsonData);
 
   const txt = document.createElement("h2");
-  txt.textContent = JSON.stringify(jsonData, null, 4);
+  txt.textContent = [caption, JSON.stringify(jsonData, null, 4)].join(" ");
   const divContainer = document.getElementById(eid);
   divContainer.innerHTML = "";
   divContainer.appendChild(txt);
@@ -122,6 +92,16 @@ function loadJson(callback, path) {
     .then(response => response.json())
     .then(json => callback(null, json))
     .catch(error => callback(error, {
-      "error": "while fetching data, sorry"
+      error: "while fetching data, sorry"
     }));
+}
+
+function groupBy(array, kf) {
+  const result = array.reduce(function(r, a) {
+    key = kf(a)
+    r[key] = r[key] || [];
+    r[key].push(a);
+    return r;
+  }, Object.create(null));
+  return result
 }
