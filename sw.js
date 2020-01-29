@@ -48,65 +48,66 @@ const urlsToCache = ['/',
   '/scripts/utils.js'
 ];
 
-var CACHE_NAME;
+var CACHE_VERSION = commit_sha;
 
-function cacheAll() {
-  return caches.open(CACHE_NAME).then(function(cache) {
-    return cache.addAll(urlsToCache);
-  });
-}
-
-function loadJson(callback, path) {
-  fetch(path)
-    .then(response => response.json())
-    .then(json => callback(null, json))
-    .catch(error => callback(error, {
-      "error": "while fetching data, sorry"
-    }));
-  return callback;
-}
-
-function updateCaches(error, json) {
-  var promise = new Promise(function(resolve, reject) {
-    if (error) {
-      console.log('error getting version json');
-      console.error(error);
-      reject(error)
-    } else {
-      CACHE_NAME = json.commit_sha;
-      resolve(cacheAll());
-    }
-  });
-  return promise;
-}
-
-function deleteCaches() {
-  console.log('keeping cache', CACHE_NAME);
-  caches.keys().then(keyList => {
-    return Promise.all(keyList.map(key => {
-      if (key != CACHE_NAME) {
-        console.log('deleting cache: ', key);
-        return caches.delete(key);
-      }
-    }));
-  });
-}
-
-self.addEventListener('activate', function(event) {
-  console.log('activating service worker');
-  if (CACHE_NAME) {
-    console.log('cache name loaded, deleting caches');
-    deleteCaches();
-  } else {
-    console.log('default cache name detected, keeping as is');
-  }
-});
+var CURRENT_CACHES = {
+  prefetch: 'frustrated-cache-v' + CACHE_VERSION
+};
 
 self.addEventListener('install', function(event) {
-  console.log('installing...');
-  event.waitUntil(loadJson(updateCaches, '/version.json?' + Math.random()));
+  var now = Date.now();
+
+  console.log('Handling install event. Resources to prefetch:', urlsToCache);
+event.waitUntil(
+    caches.open(CURRENT_CACHES.prefetch).then(function(cache) {
+      var cachePromises = urlsToCache.map(function(urlToPrefetch) {
+        var url = new URL(urlToPrefetch, location.href);
+        url.search += (url.search ? '&' : '?') + 'cache-bust=' + now;
+
+        var request = new Request(url, {
+          mode: 'no-cors'
+        });
+        return fetch(request).then(function(response) {
+          if (response.status >= 400) {
+            throw new Error('request for ' + urlToPrefetch +
+              ' failed with status ' + response.statusText);
+          }
+          // Use the original URL without the cache-busting parameter as the key for cache.put().
+          return cache.put(urlToPrefetch, response);
+        }).catch(function(error) {
+          console.error('Not caching ' + urlToPrefetch + ' due to ' + error);
+        });
+      });
+
+      return Promise.all(cachePromises).then(function() {
+        console.log('Pre-fetching complete.');
+      });
+    }).catch(function(error) {
+      console.error('Pre-fetching failed:', error);
+    })
+  );
 });
 
+
+
+self.addEventListener('activate', function(event) {
+  var expectedCacheNames = Object.keys(CURRENT_CACHES).map(function(key) {
+    return CURRENT_CACHES[key];
+  });
+  event.waitUntil(
+    caches.keys().then(function(cacheNames) {
+      return Promise.all(
+        cacheNames.map(function(cacheName) {
+          if (expectedCacheNames.indexOf(cacheName) === -1) {
+            // If this cache name isn't present in the array of "expected" cache names, then delete it.
+            console.log('Deleting out of date cache:', cacheName);
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+});
 
 self.addEventListener('fetch', function(event) {
   event.respondWith(
