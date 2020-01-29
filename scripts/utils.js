@@ -77,11 +77,11 @@ function CreateTableFromJSON(jsonData, eid, caption) {
   divContainer.appendChild(table);
 }
 
-function CreateTextFromJSON(jsonData, eid) {
+function CreateTextFromJSON(jsonData, eid, caption) {
   console.log(jsonData);
 
   const txt = document.createElement("h2");
-  txt.textContent = JSON.stringify(jsonData, null, 4);
+  txt.textContent = [caption, JSON.stringify(jsonData, null, 4)].join(" ");
   const divContainer = document.getElementById(eid);
   divContainer.innerHTML = "";
   divContainer.appendChild(txt);
