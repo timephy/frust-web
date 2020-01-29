@@ -176,7 +176,7 @@ function makeLineChart(res, eid, caption) {
       }, {
 
         label: 'clicks',
-        backgroundColor: 'rgba(183, 28, 28, 1)',
+        backgroundColor: 'rgba(240, 85, 69, 1)',
         borderColor: 'rgba(127, 0, 0, 1)',
         data: res.clicks,
         fill: false,
@@ -211,7 +211,7 @@ function makeLineChart(res, eid, caption) {
           position: 'left',
           scaleLabel: {
             display: true,
-            labelString: 'Clicks'
+            labelString: 'Events'
           },
           id: 'y-axis-1',
         }, {
@@ -220,7 +220,7 @@ function makeLineChart(res, eid, caption) {
           position: 'right',
           scaleLabel: {
             display: true,
-            labelString: 'Events'
+            labelString: 'Clicks'
           },
           id: 'y-axis-2',
 
