@@ -1,3 +1,5 @@
+const commit_sha = "{{COMMIT_SHA}}" // value will be set by CD
+
 const urlsToCache = ['/',
   '/index.html',
   '/404.html',

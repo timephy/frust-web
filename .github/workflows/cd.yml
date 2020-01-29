@@ -28,6 +28,7 @@ jobs:
       - name: rsync
         run: |
           node get-version.js > version.json
+          sed -i "" "s/{{COMMIT_SHA}}/$GITHUB_SHA/g" sw.js
           mkdir -p ~/.ssh
           # "" required, otherwise multiline secret is not treated correctly
           echo "${{ secrets.id_rsa }}" > ~/.ssh/id_rsa
