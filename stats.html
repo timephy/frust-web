@@ -36,6 +36,10 @@
         theme = "dark";
         document.documentElement.setAttribute("data-theme", theme);
         console.log("automatically set darkmode to " + theme)
+      } else if (localStorage.getItem("theme") == "light") {
+        theme = "light";
+        document.documentElement.setAttribute("data-theme", theme);
+        console.log("automatically set darkmode to " + theme)
       } else if (!window.matchMedia) {
         //matchMedia method not supported
         console.log("matchMedia method not supported")
@@ -44,6 +48,7 @@
       } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
         //OS theme setting detected as dark
         theme = "dark";
+        console.log("matchMedia color set ", theme);
       }
     }
     detectColorScheme();
