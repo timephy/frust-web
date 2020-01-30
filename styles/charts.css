@@ -27,7 +27,7 @@ h2 {
 
 thead {
   background-color: var(--primary-color, red);
-  color: white;
+  color: white !important;
 }
 
 th {
