@@ -106,7 +106,7 @@ function makeLineChart(res, eid, caption) {
   });
 }
 
-function createTable(jsonData, caption, eid, columnMap) {
+function createTable(jsonData, eid, caption, columnMap) {
   const table = document.createElement("table");
 
   // caption
