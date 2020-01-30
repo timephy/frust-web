@@ -27,7 +27,9 @@ jobs:
 
       - name: rsync
         run: |
-          node get-version.js > version.json
+          # set cd variables
+          python3.6 cd_setup_version.py
+          find *.html images scripts styles version.json -type f | python3.6 cd_setup_cache.py
           mkdir -p ~/.ssh
           # "" required, otherwise multiline secret is not treated correctly
           echo "${{ secrets.id_rsa }}" > ~/.ssh/id_rsa

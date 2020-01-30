@@ -1,8 +1,8 @@
 import os
-
 import pyperclip
 
-files = ["'/'", "'/index.html'", "'/404.html'"];
+files = ["'/'", "'/index.html'", "'/404.html'"]
+
 directory = 'images/'
 for filename in os.listdir('../'+directory):
     files.append(os.path.join("'/", directory, filename, "'"))

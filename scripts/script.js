@@ -1,5 +1,5 @@
 const MAX_TOASTS = 30; //please increase if you find any device that needs it
-const MAX_TOAST_BUFFER = 60;
+const MAX_TOAST_BUFFER = 120;
 const BUFFER_DURATION = 1000;
 var EMIT_DURATION = BUFFER_DURATION / MAX_TOAST_BUFFER;
 var savedByBuffer = 0;
@@ -99,15 +99,15 @@ function verzweifle() {
           case "gtest": //testing performance if glogal clicks are emitted
             let gtest = 0;
             const gintervalId = setInterval(() => {
+              gtest++;
               for (var i = 0; i < 5; i++) {
-                gtest++;
                 socket.emit("click", {
                   "user": name,
                   "comment": `gtest ${gtest}`,
                   "style": [storage.underlineType, storage.color].join(" ")
                 });
               }
-            }, 20);
+            }, 100);
             setTimeout(() => {
               clearInterval(gintervalId);
             }, 2000);
@@ -232,16 +232,11 @@ let bufferedClicks = [];
 //collects all the incoming clicks
 function constrainClicks(n, c, s) {
   if (bufferActive) {
-    if (bufferedClicks.length < MAX_TOAST_BUFFER) {
-      bufferedClicks.push({
-        name: n,
-        comment: c,
-        style: s
-      });
-    } else {
-      console.log("a click got dismissed (buffer full)");
-      savedByBuffer++;
-    }
+    bufferedClicks.push({
+      name: n,
+      comment: c,
+      style: s
+    });
   } else {
     displayClick({
       "name": n,
