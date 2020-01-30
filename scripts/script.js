@@ -1,5 +1,5 @@
 const MAX_TOASTS = 30; //please increase if you find any device that needs it
-const MAX_TOAST_BUFFER = 60;
+const MAX_TOAST_BUFFER = 120;
 const BUFFER_DURATION = 1000;
 var EMIT_DURATION = BUFFER_DURATION / MAX_TOAST_BUFFER;
 var savedByBuffer = 0;
@@ -100,7 +100,7 @@ function verzweifle() {
             let gtest = 0;
             const gintervalId = setInterval(() => {
               gtest++;
-              for (var i = 0; i < 50; i++) {
+              for (var i = 0; i < 5; i++) {
                 socket.emit("click", {
                   "user": name,
                   "comment": `gtest ${gtest}`,
@@ -110,7 +110,7 @@ function verzweifle() {
             }, 100);
             setTimeout(() => {
               clearInterval(gintervalId);
-            }, 200000);
+            }, 2000);
             break;
           case "test": //testing the combined toast ring performance
             let test = 0;
@@ -232,16 +232,11 @@ let bufferedClicks = [];
 //collects all the incoming clicks
 function constrainClicks(n, c, s) {
   if (bufferActive) {
-    if (bufferedClicks.length < MAX_TOAST_BUFFER) {
-      bufferedClicks.push({
-        name: n,
-        comment: c,
-        style: s
-      });
-    } else {
-      console.log("a click got dismissed (buffer full)");
-      savedByBuffer++;
-    }
+    bufferedClicks.push({
+      name: n,
+      comment: c,
+      style: s
+    });
   } else {
     displayClick({
       "name": n,
