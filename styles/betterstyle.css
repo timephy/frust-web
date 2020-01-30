@@ -32,7 +32,11 @@
 }
 
 [data-theme="dark"] .formula {
-  filter: invert();
+  filter: invert(100%);
+}
+
+[data-theme="light"] .formula {
+  filter: invert(0);
 }
 
 [data-theme="light"] {
@@ -53,7 +57,7 @@ body {
   transition: 250ms ease;
 }
 
-body * {
+* {
   font-family: 'Roboto', 'Monserrat', sans-serif;
   font-weight: 300;
   color: var(--font-color, black);
