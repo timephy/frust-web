@@ -57,7 +57,7 @@ body {
   transition: 250ms ease;
 }
 
-body * {
+* {
   font-family: 'Roboto', 'Monserrat', sans-serif;
   font-weight: 300;
   color: var(--font-color, black);
