@@ -57,7 +57,7 @@ window.addEventListener('load', () => {
     if (error) console.log(error);
 
     // Date takes time in ms not s, get local time
-    const timestamps = result.map(x => new Date(x.timestamp * 1000).getHours())
+    const timestamps = result.map(x => new Date(x.timestamp * 1000).getDay() + ". " + new Date(x.timestamp * 1000).getHours() + ":00")
     const clicks = result.map(x => x.click_count)
     const events = result.map(x => x.event_count)
     makeLineChart({
