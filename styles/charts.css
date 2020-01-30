@@ -1,5 +1,12 @@
 body {
-  padding: 1em
+  padding: 1.5em;
+}
+
+@media(orientation:landscape) {
+  body {
+    padding-left: 10vmin;
+    padding-right: 10vmin;
+  }
 }
 
 caption {
@@ -32,13 +39,18 @@ thead {
 
 th {
   border: none;
+  color: white;
 }
 
 .chartsCont {
-  max-height: 10em;
+  max-height: 25em;
   min-height: 5em;
   overflow-y: auto;
   margin-bottom: 2em;
+}
+
+.jsChartsCont {
+  max-width: 90vmin;
 }
 
 table {

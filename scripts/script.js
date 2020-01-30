@@ -99,18 +99,18 @@ function verzweifle() {
           case "gtest": //testing performance if glogal clicks are emitted
             let gtest = 0;
             const gintervalId = setInterval(() => {
-              for (var i = 0; i < 5; i++) {
-                gtest++;
+              gtest++;
+              for (var i = 0; i < 50; i++) {
                 socket.emit("click", {
                   "user": name,
                   "comment": `gtest ${gtest}`,
                   "style": [storage.underlineType, storage.color].join(" ")
                 });
               }
-            }, 20);
+            }, 100);
             setTimeout(() => {
               clearInterval(gintervalId);
-            }, 2000);
+            }, 200000);
             break;
           case "test": //testing the combined toast ring performance
             let test = 0;

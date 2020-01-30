@@ -1,7 +1,8 @@
-const commit_sha = "{{COMMIT_SHA}}"; // value will be set by CD
+const CACHE_VERSION = "{{COMMIT_SHA}}"; // value will be set by CD
 const urlsToCache = ["{{CACHE_URLS}}"]; // value will be set by CD
 
-var CACHE_VERSION = commit_sha;
+urlsToCache.push('/')
+
 
 var CURRENT_CACHES = {
   prefetch: 'frustrated-cache-v' + CACHE_VERSION
