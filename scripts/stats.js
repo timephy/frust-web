@@ -90,18 +90,12 @@ window.addEventListener('load', () => {
   }, '/api/latest_events');
 
   loadJson((error, result) => {
-    if (error)
-      console.log(error);
+    if (error) console.log(error);
 
-    //result = result.sort((a, b) => a.timestamp - b.timestamp);
-
-    var timestamps = [];
-    var clicks = [];
-    var events = [];
-
-    timestamps = result.map(x => new Date(x.timestamp * 1000).getUTCHours())
-    clicks = result.map(x => x.click_count)
-    events = result.map(x => x.event_count)
+    // Date takes time in ms not s, get local time
+    const timestamps = result.map(x => new Date(x.timestamp * 1000).getHours())
+    const clicks = result.map(x => x.click_count)
+    const events = result.map(x => x.event_count)
     makeLineChart({
       timestamps: timestamps,
       events: events,
@@ -110,34 +104,26 @@ window.addEventListener('load', () => {
   }, '/api/latest_hours');
 
   loadJson((error, result) => {
-    if (error)
-      console.log(error);
+    if (error) console.log(error);
     CreateTextFromJSON(result, 'versionData', 'Frontend version:');
   }, '/version.json');
 
   loadJson((error, result) => {
-    if (error)
-      console.log(error);
+    if (error) console.log(error);
     CreateTextFromJSON(result, 'api-version', 'Backend version:');
   }, '/api');
 });
 
 function makeChart(res, eid, caption) {
-  var ctx = document.getElementById(eid);
+  const ctx = document.getElementById(eid);
 
-  var colors = [];
-  var bcolors = [];
-  for (var i = 0; i < res.values.length; i++) {
-    colors.push(i % 2 == 0 ?
-      'rgba(183, 28, 28, 1)' :
-      'rgba(127, 0, 0, 1)')
-    bcolors.push(i % 2 == 1 ?
-      'rgba(183, 28, 28, 1)' :
-      'rgba(127, 0, 0, 1)')
-  }
+  const lightRed = 'rgba(183, 28, 28, 1)'
+  const darkRed = 'rgba(127, 0, 0, 1)'
 
+  const colors = res.values.map((x, i) => i % 2 == 0 ? lightRed : darkRed);
+  const bcolors = res.values.map((x, i) => i % 2 == 1 ? lightRed : darkRed);
 
-  var myChart = new Chart(ctx, {
+  new Chart(ctx, {
     type: 'bar',
     data: {
       labels: res.names,
@@ -162,9 +148,9 @@ function makeChart(res, eid, caption) {
 }
 
 function makeLineChart(res, eid, caption) {
-  var ctx = document.getElementById(eid);
+  const ctx = document.getElementById(eid);
 
-  var myLineChart = new Chart(ctx, {
+  new Chart(ctx, {
       type: 'line',
       data: {
         labels: res.timestamps,
@@ -178,7 +164,6 @@ function makeLineChart(res, eid, caption) {
                   yAxisID: 'y-axis-2',
                 },*/
           {
-
             label: 'Clicks',
             backgroundColor: 'rgba(240, 85, 69, 1)',
             borderColor: 'rgba(127, 0, 0, 1)',
