@@ -13,7 +13,7 @@ window.addEventListener('load', () => {
   }, '/api/online_users');
 
   loadJson((error, result) => {
-    if (error) console.log("tim table", error);
+    if (error) console.log(error);
 
     console.log(result)
     result = result.sort((a, b) => b.click_count - a.click_count);
