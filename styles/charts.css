@@ -1,5 +1,12 @@
 body {
-  padding: 1.5em
+  padding: 1.5em;
+}
+
+@media(orientation:landscape) {
+  body {
+    padding-left: 10vmin;
+    padding-right: 10vmin;
+  }
 }
 
 caption {
@@ -41,9 +48,8 @@ th {
   margin-bottom: 2em;
 }
 
-.jsChartsCont{
+.jsChartsCont {
   max-width: 90vmin;
-
 }
 
 table {

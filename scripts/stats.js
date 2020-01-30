@@ -2,12 +2,19 @@ window.addEventListener('load', () => {
   loadJson((error, result) => {
     if (error)
       console.log(error);
+
+    result = result.filter(function(el) {
+      return el.name != null;
+    });
     CreateUserTableFromJSON(result, 'showOnlineUsers', 'Nutzer (online)');
   }, '/api/online_users');
 
   loadJson((error, result) => {
     if (error)
       console.log(error);
+
+
+    result = result.sort((a, b) => b.click_count - a.click_count);
     CreateTableFromJSON(result, 'showUsers', 'Nutzer (alle)');
   }, '/api/users');
 
@@ -57,12 +64,6 @@ window.addEventListener('load', () => {
   loadJson((error, result) => {
     if (error)
       console.log(error);
-    CreateTableFromJSON(result, 'latest-hours', 'Stunden (heute)');
-  }, '/api/latest_hours');
-
-  loadJson((error, result) => {
-    if (error)
-      console.log(error);
 
     console.log("raw result ", result)
     result = groupBy(result, event => event.name)
@@ -85,7 +86,7 @@ window.addEventListener('load', () => {
     makeChart({
       names: names,
       values: values
-    }, 'eventChart', 'Events (chart)');
+    }, 'eventChart', 'Events (heute)');
   }, '/api/latest_events');
 
   loadJson((error, result) => {
@@ -97,14 +98,15 @@ window.addEventListener('load', () => {
     var timestamps = [];
     var clicks = [];
     var events = [];
-    timestamps = result.map(x => x.timestamp)
+
+    timestamps = result.map(x => new Date(x.timestamp * 1000).getUTCHours())
     clicks = result.map(x => x.click_count)
     events = result.map(x => x.event_count)
     makeLineChart({
       timestamps: timestamps,
       events: events,
       clicks: clicks
-    }, 'hourChart', 'Stunden (chart)');
+    }, 'hourChart', 'Stunden (heute)');
   }, '/api/latest_hours');
 
   loadJson((error, result) => {
@@ -163,72 +165,72 @@ function makeLineChart(res, eid, caption) {
   var ctx = document.getElementById(eid);
 
   var myLineChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: res.timestamps,
-      datasets: [{
-        label: 'events',
-        backgroundColor: 'rgba(127, 0, 0, 1)',
-        borderColor: 'rgba(183, 28, 28, 1)',
-        data: res.events,
-        fill: false,
-        yAxisID: 'y-axis-1',
-      }, {
+      type: 'line',
+      data: {
+        labels: res.timestamps,
+        datasets: [
+          /*{
+                  label: 'events',
+                  backgroundColor: 'rgba(127, 0, 0, 1)',
+                  borderColor: 'rgba(183, 28, 28, 1)',
+                  data: res.events,
+                  fill: false,
+                  yAxisID: 'y-axis-2',
+                },*/
+          {
 
-        label: 'clicks',
-        backgroundColor: 'rgba(240, 85, 69, 1)',
-        borderColor: 'rgba(127, 0, 0, 1)',
-        data: res.clicks,
-        fill: false,
-        yAxisID: 'y-axis-2',
-      }]
-    },
-    options: {
-      responsive: true,
-      title: {
-        display: true,
-        text: 'Chart.js Line Chart'
-      },
-      tooltips: {
-        mode: 'index',
-        intersect: false,
-      },
-      hover: {
-        mode: 'nearest',
-        intersect: true
-      },
-      scales: {
-        xAxes: [{
-          display: true,
-          scaleLabel: {
-            display: true,
-            labelString: 'Hours'
+            label: 'Clicks',
+            backgroundColor: 'rgba(240, 85, 69, 1)',
+            borderColor: 'rgba(127, 0, 0, 1)',
+            data: res.clicks,
+            fill: false,
+            yAxisID: 'y-axis-1',
           }
-        }],
-        yAxes: [{
-          type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-          display: true,
-          position: 'left',
-          scaleLabel: {
+        ]
+      },
+      options: {
+        responsive: true,
+        tooltips: {
+          mode: 'index',
+          intersect: false,
+        },
+        hover: {
+          mode: 'nearest',
+          intersect: true
+        },
+        scales: {
+          xAxes: [{
             display: true,
-            labelString: 'Events'
-          },
-          id: 'y-axis-1',
-        }, {
-          type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-          display: true,
-          position: 'right',
-          scaleLabel: {
-            display: true,
-            labelString: 'Clicks'
-          },
-          id: 'y-axis-2',
+            scaleLabel: {
+              display: true,
+              labelString: 'Hours'
+            }
+          }],
+          yAxes: [{
+              type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+              display: true,
+              position: 'left',
+              scaleLabel: {
+                display: true,
+                labelString: 'Clicks'
+              },
+              id: 'y-axis-1',
+            }
+            /*, {
+                      type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                      display: true,
+                      position: 'right',
+                      scaleLabel: {
+                        display: true,
+                        labelString: 'Clicks'
+                      },
+                      id: 'y-axis-2',
 
-          // grid line settings
-          gridLines: {
-            drawOnChartArea: false, // only want the grid lines for one axis to show up
-          },
-        }]
+            // grid line settings
+            gridLines: {
+              drawOnChartArea: false, // only want the grid lines for one axis to show up
+            },
+          }*/]
       }
     }
   });
@@ -237,7 +239,9 @@ function makeLineChart(res, eid, caption) {
 
 function CreateUserTableFromJSON(jsonData, eid, caption) {
   ownuser = {
-    name: storage.name || "Gast"
+    name: storage.name || "Gast",
+      event_count_session: 0,
+          click_count_session: 0,
   }
   jsonData.push(ownuser);
   // console.log(jsonData);
