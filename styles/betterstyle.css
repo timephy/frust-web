@@ -155,7 +155,7 @@ td {
   max-height: 4em;
   bottom: 1em;
   /*top: 1em;*/
-  position: relative;
+  position: absolute;
   display: inherit;
   width: auto;
   -webkit-animation: 0.2s ease-in-out toastAnim;
