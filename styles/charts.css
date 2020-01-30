@@ -4,8 +4,8 @@ body {
 
 @media(orientation:landscape) {
   body {
-    padding-left: 10vmin;
-    padding-right: 10vmin;
+    padding-left: 15vmax;
+    padding-right: 15vmax;
   }
 }
 

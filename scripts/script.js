@@ -250,8 +250,13 @@ setInterval(emitClicks, EMIT_DURATION);
 //emits the buffered clicks over an extended period of time
 function emitClicks() {
   if (bufferedClicks.length > 0) {
-    //console.log(bufferedClicks.length + " clicks are in the buffer");
     displayClick(bufferedClicks.shift());
+    if(Math.floor(bufferedClicks.length/MAX_TOAST_BUFFER)>0){
+      console.log("buffer contains ", bufferedClicks.length, " so ", Math.floor(bufferedClicks.length/MAX_TOAST_BUFFER), " clicks are being emitted");
+      for (var i = 0; i < Math.floor(bufferedClicks.length/MAX_TOAST_BUFFER); i++) {
+          displayClick(bufferedClicks.shift());
+      }
+    }
   }
 }
 
