@@ -27,11 +27,12 @@ h2 {
 
 thead {
   background-color: var(--primary-color, red);
-  color: white !important;
+  color: white;
 }
 
 th {
   border: none;
+  color: white;
 }
 
 .chartsCont {
