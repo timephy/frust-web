@@ -118,11 +118,6 @@ function makeLineChart(res, eid, caption) {
 function createTable(jsonData, eid, caption, columnMap) {
   const table = document.createElement("table");
 
-  // caption
-  var header = document.createElement("H1");
-  header.textContent = caption;
-  table.parentElement.insertBefore(header, table);
-
   // data
   for (const i in jsonData) {
     const tr = table.insertRow(-1);
@@ -146,6 +141,11 @@ function createTable(jsonData, eid, caption, columnMap) {
   const divContainer = document.getElementById(eid);
   divContainer.innerHTML = ""; // remove loading message
   divContainer.appendChild(table);
+
+  // caption
+  var header = document.createElement("H1");
+  header.textContent = caption;
+  table.parentElement.insertBefore(header, table);
 }
 
 // function CreateUserTableFromJSON(jsonData, eid, caption) {
