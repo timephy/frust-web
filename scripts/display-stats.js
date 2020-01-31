@@ -121,7 +121,7 @@ function createTable(jsonData, eid, caption, columnMap) {
   // caption
   var header = document.createElement("H1");
   header.textContent = caption;
-  ctx.parentElement.insertBefore(header, ctx);
+  table.parentElement.insertBefore(header, table);
 
   // data
   for (const i in jsonData) {
