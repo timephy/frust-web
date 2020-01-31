@@ -2,6 +2,7 @@ const CACHE_VERSION = "{{COMMIT_SHA}}"; // value will be set by CD
 const urlsToCache = ["{{CACHE_URLS}}"]; // value will be set by CD
 
 urlsToCache.push('/')
+urlsToCache.push('/datenschutz.html')
 
 
 var CURRENT_CACHES = {

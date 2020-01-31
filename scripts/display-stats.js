@@ -119,8 +119,9 @@ function createTable(jsonData, eid, caption, columnMap) {
   const table = document.createElement("table");
 
   // caption
-  const cap = table.createCaption();
-  cap.textContent = caption;
+  var header = document.createElement("H1");
+  header.textContent = caption;
+  ctx.parentElement.insertBefore(header, ctx);
 
   // data
   for (const i in jsonData) {
@@ -205,7 +206,7 @@ function createTable(jsonData, eid, caption, columnMap) {
 function CreateTextFromJSON(jsonData, eid, caption) {
   console.log(jsonData);
 
-  const txt = document.createElement("h2");
+  const txt = document.createElement("h4");
   txt.textContent = [caption, JSON.stringify(jsonData, null, 4)].join(" ");
   const divContainer = document.getElementById(eid);
   divContainer.innerHTML = "";
