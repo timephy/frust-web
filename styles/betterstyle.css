@@ -3,6 +3,7 @@
   --primary-color: #B71C1C;
   --bg-color: #ffffff;
   --bg-shade: #ECEFF1;
+  --bg-shade-a: rgba(236, 239, 241, 0.8);
   /*******static variables*****/
   --dark-red: #7f0000;
   --bright-red: #f05545;
@@ -17,6 +18,7 @@
     --primary-color: #B71C1C;
     --bg-color: #121212;
     --bg-shade: #1d1d1d;
+    --bg-shade-a: rgba(29, 29, 29, 0.8);
   }
 
   .formula {
@@ -29,6 +31,7 @@
   --primary-color: #B71C1C;
   --bg-color: #121212;
   --bg-shade: #1d1d1d;
+  --bg-shade-a: rgba(29, 29, 29, 0.8);
 }
 
 [data-theme="dark"] .formula {
@@ -44,6 +47,7 @@
   --primary-color: #B71C1C;
   --bg-color: #ffffff;
   --bg-shade: #ECEFF1;
+  --bg-shade-a: rgba(236, 239, 241, 0.8);
 }
 
 body {
@@ -202,11 +206,10 @@ td {
   border-radius: 0.2em;
   font-size: 1.5em;
   height: 1em;
-    opacity: 0.7;
   text-align: center;
   padding: 0.2em;
   letter-spacing: 0.1em;
-  background: var(--bg-shade, gray);
+  background: var(--bg-shade-a, gray);
   box-shadow: var(--medium-material-shadow);
   -webkit-transition: 250ms ease;
   -moz-transition: 250ms ease;
@@ -265,12 +268,13 @@ td {
 .hoverline {
   position: relative;
   height: 100%;
-    z-index: 5;
+  z-index: 5;
 }
 
 .hoverline:before,
 .hoverline:after,
 .toast:after {
+  z-index: 1;
   content: "";
   position: absolute;
   opacity: 0.2;
@@ -1119,7 +1123,7 @@ td {
 
 .lemma {
   background-image: url('/images/lemma67.png');
-    width: 80vmin;
+  width: 80vmin;
 }
 
 .belasto {
