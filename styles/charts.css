@@ -9,12 +9,8 @@ body {
   }
 }
 
-caption {
-  display: table-caption;
-  text-align: left;
-  font-size: 125%;
-  padding: 0 0 0.25em 0.25em;
-  font-weight: 500;
+.spacer {
+  margin-top: 0.5em;
 }
 
 th,
@@ -25,11 +21,18 @@ td {
   text-align: left;
 }
 
-h2 {
-  font-size: 0.5em;
+h4 {
+  font-size: 0.6em;
   bottom: 1em;
   margin: 0.8em;
   color: grey;
+}
+
+h1 {
+  text-align: left;
+  font-size: 1.5em;
+  padding: 0 0 0.25em 0.25em;
+  font-weight: 500;
 }
 
 thead {
@@ -44,14 +47,14 @@ th {
 
 .chartsCont {
   max-height: 25em;
-  min-height: 5em;
+  min-height: 10em;
   overflow-y: auto;
-  margin-bottom: 2em;
+  margin-bottom: 3em;
+  border-bottom: 4px solid var(--primary-color, red);
+  border-top: 4px solid var(--primary-color, red);
 }
 
-.jsChartsCont {
-  max-width: 90vmin;
-}
+.jsChartsCont {}
 
 table {
   max-height: 20em;
@@ -64,9 +67,12 @@ tr {
   border-bottom: 1px solid var(--dark-red, red);
 }
 
-tr:hover {
+th:hover {
+  background-color: var(--dark-red, red);
+}
+
+td:hover {
   background-color: var(--bg-shade, grey);
-  border-bottom: 1px dashed var(--dark-red, red);
 }
 
 .largeSpacer {

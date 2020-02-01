@@ -3,6 +3,7 @@
   --primary-color: #B71C1C;
   --bg-color: #ffffff;
   --bg-shade: #ECEFF1;
+  --bg-shade-a: rgba(236, 239, 241, 0.8);
   /*******static variables*****/
   --dark-red: #7f0000;
   --bright-red: #f05545;
@@ -17,6 +18,7 @@
     --primary-color: #B71C1C;
     --bg-color: #121212;
     --bg-shade: #1d1d1d;
+    --bg-shade-a: rgba(29, 29, 29, 0.8);
   }
 
   .formula {
@@ -29,6 +31,7 @@
   --primary-color: #B71C1C;
   --bg-color: #121212;
   --bg-shade: #1d1d1d;
+  --bg-shade-a: rgba(29, 29, 29, 0.8);
 }
 
 [data-theme="dark"] .formula {
@@ -44,6 +47,7 @@
   --primary-color: #B71C1C;
   --bg-color: #ffffff;
   --bg-shade: #ECEFF1;
+  --bg-shade-a: rgba(236, 239, 241, 0.8);
 }
 
 body {
@@ -64,23 +68,23 @@ body {
 }
 
 ::-moz-selection {
-  background: var(--bright-red);
+  background: var(--bright-red, pink);
 }
 
 ::selection {
-  background: var(--bright-red);
+  background: var(--bright-red, pink);
 }
 
 a:link {
-  color: var(--font-color);
+  color: var(--font-color, black);
 }
 
 a:visited {
-  color: var(--font-color);
+  color: var(--font-color, black);
 }
 
 a:active {
-  color: var(--primary-color);
+  color: var(--primary-color, red);
 }
 
 /*containers*/
@@ -192,7 +196,7 @@ td {
   display: none;
   color: white;
   padding: 0.2em 0.3em 0.2em 0.2em;
-  background-color: var(--primary-color);
+  background-color: var(--primary-color, red);
   top: 0.3em;
 }
 
@@ -205,7 +209,7 @@ td {
   text-align: center;
   padding: 0.2em;
   letter-spacing: 0.1em;
-  background: var(--bg-shade);
+  background: var(--bg-shade-a, gray);
   box-shadow: var(--medium-material-shadow);
   -webkit-transition: 250ms ease;
   -moz-transition: 250ms ease;
@@ -220,7 +224,7 @@ td {
 }
 
 .nameInput:invalid {
-  border: 0.1em solid var(--primary-color);
+  border: 0.1em solid var(--primary-color, red);
 }
 
 #commentButton {
@@ -264,16 +268,18 @@ td {
 .hoverline {
   position: relative;
   height: 100%;
+  z-index: 5;
 }
 
 .hoverline:before,
 .hoverline:after,
 .toast:after {
+  z-index: 1;
   content: "";
   position: absolute;
   opacity: 0.2;
   will-change: opacity, transform;
-  background-color: var(--primary-color);
+  background-color: var(--primary-color, red);
   height: 0.2em;
   left: 0;
   width: 100%;
@@ -414,10 +420,10 @@ td {
   border-radius: 50%;
   outline: none;
   background-color: #B71C1C;
-  background-image: -moz-linear-gradient(-45deg, var(--dark-red), var(--primary-color));
-  background-image: -o-linear-gradient(-45deg, var(--dark-red), var(--primary-color));
-  background-image: -webkit-linear-gradient(-45deg, var(--dark-red), var(--primary-color));
-  background-image: linear-gradient(-45deg, var(--dark-red), var(--primary-color));
+  background-image: -moz-linear-gradient(-45deg, var(--dark-red), var(--primary-color, red));
+  background-image: -o-linear-gradient(-45deg, var(--dark-red), var(--primary-color, red));
+  background-image: -webkit-linear-gradient(-45deg, var(--dark-red), var(--primary-color, red));
+  background-image: linear-gradient(-45deg, var(--dark-red), var(--primary-color, red));
   color: white;
   touch-action: manipulation;
   box-shadow: var(--medium-material-shadow);
@@ -519,14 +525,14 @@ td {
   text-shadow: var(--medium-material-shadow);
   font-size: 4em;
   opacity: 0;
-  color: var(--primary-color);
+  color: var(--primary-color, red);
 }
 
 #fps {
   position: fixed;
   top: 10%;
   right: 5%;
-  color: var(--primary-color);
+  color: var(--primary-color, red);
   font-size: 2em;
   font-weight: bold;
 }
@@ -740,7 +746,7 @@ td {
 }
 
 .snowflake {
-  color: var(--font-color);
+  color: var(--font-color, black);
   font-size: 1em;
   font-family: Arial, sans-serif;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
@@ -978,13 +984,13 @@ td {
 .toast.dashed:after {
   height: 0em;
   background-color: transparent !important;
-  border-bottom: 0.2em dashed var(--primary-color);
+  border-bottom: 0.2em dashed var(--primary-color, red);
 }
 
 .toast.dotted:after {
   height: 0em;
   background-color: transparent !important;
-  border-bottom: 0.2em dotted var(--primary-color);
+  border-bottom: 0.2em dotted var(--primary-color, red);
 }
 
 /**** colors ****/
@@ -1034,37 +1040,37 @@ td {
 @keyframes shadowAnim {
   50% {
     text-shadow:
-      var(--primary-color) 1px 1px,
-      var(--primary-color) 2px 2px,
-      var(--primary-color) 3px 3px,
-      var(--primary-color) 4px 4px,
-      var(--primary-color) 5px 5px,
-      var(--primary-color) 6px 6px,
-      var(--primary-color) 7px 7px,
-      var(--primary-color) 8px 8px,
-      var(--primary-color) 9px 9px,
-      var(--primary-color) 10px 10px,
-      var(--primary-color) 11px 11px,
-      var(--primary-color) 12px 12px,
-      var(--primary-color) 13px 13px,
-      var(--primary-color) 14px 14px,
-      var(--primary-color) 15px 15px;
+      var(--primary-color, red) 1px 1px,
+      var(--primary-color, red) 2px 2px,
+      var(--primary-color, red) 3px 3px,
+      var(--primary-color, red) 4px 4px,
+      var(--primary-color, red) 5px 5px,
+      var(--primary-color, red) 6px 6px,
+      var(--primary-color, red) 7px 7px,
+      var(--primary-color, red) 8px 8px,
+      var(--primary-color, red) 9px 9px,
+      var(--primary-color, red) 10px 10px,
+      var(--primary-color, red) 11px 11px,
+      var(--primary-color, red) 12px 12px,
+      var(--primary-color, red) 13px 13px,
+      var(--primary-color, red) 14px 14px,
+      var(--primary-color, red) 15px 15px;
   }
 
   0% {
     text-shadow:
-      var(--primary-color) 1px 1px,
-      var(--primary-color) 2px 2px,
-      var(--primary-color) 3px 3px,
-      var(--primary-color) 4px 4px;
+      var(--primary-color, red) 1px 1px,
+      var(--primary-color, red) 2px 2px,
+      var(--primary-color, red) 3px 3px,
+      var(--primary-color, red) 4px 4px;
   }
 
   100% {
     text-shadow:
-      var(--primary-color) 1px 1px,
-      var(--primary-color) 2px 2px,
-      var(--primary-color) 3px 3px,
-      var(--primary-color) 4px 4px;
+      var(--primary-color, red) 1px 1px,
+      var(--primary-color, red) 2px 2px,
+      var(--primary-color, red) 3px 3px,
+      var(--primary-color, red) 4px 4px;
   }
 }
 
@@ -1117,7 +1123,7 @@ td {
 
 .lemma {
   background-image: url('/images/lemma67.png');
-    width: 80vmin;
+  width: 80vmin;
 }
 
 .belasto {

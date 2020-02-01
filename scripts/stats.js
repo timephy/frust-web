@@ -5,7 +5,7 @@ window.addEventListener('load', () => {
     result = result.filter((el) => el.name != null);
 
     // CreateUserTableFromJSON(result, 'showOnlineUsers', 'Nutzer (online)');
-    createTable(result, "showOnlineUsers", "Nutzer (online)", {
+    createTable(result, "showOnlineUsers", `online Nutzer (${result.length})`, {
       "Name": "name",
       "Klicks (Session)": "click_count_session",
       "Events (Session)": "event_count_session"
@@ -19,7 +19,7 @@ window.addEventListener('load', () => {
     result = result.sort((a, b) => b.click_count - a.click_count);
 
     // CreateTableFromJSON(result, 'showUsers', 'Nutzer (alle)');
-    createTable(result, "showUsers", "Nutzer (alle)", {
+    createTable(result, "showUsers", `alle Nutzer (${result.length})`, {
       "Name": "name",
       "Klicks": "click_count",
       "Events": "event_count"
@@ -57,14 +57,15 @@ window.addEventListener('load', () => {
     if (error) console.log(error);
 
     // Date takes time in ms not s, get local time
-    const timestamps = result.map(x => new Date(x.timestamp * 1000).getHours())
+    const timestamps = result.map(x => new Date(x.timestamp * 1000).getDay() + "  " + new Date(x.timestamp * 1000).getHours() + ":00")
+    //const timestamps = result.map(x => new Date(x.timestamp * 1000).getHours() + ":00")
     const clicks = result.map(x => x.click_count)
     const events = result.map(x => x.event_count)
     makeLineChart({
       timestamps: timestamps,
       events: events,
       clicks: clicks
-    }, 'hourChart', 'Stunden (heute)');
+    }, 'hourChart', 'Clicks (heute)');
   }, '/api/latest_hours');
 
   loadJson((error, result) => {
@@ -97,7 +98,7 @@ window.addEventListener('load', () => {
     // console.log("final result ", result)
 
     // CreateTableFromJSON(result, 'latest-events', 'Events (heute)');
-    createTable(result, "latest-events", "Events (heute)", {
+    createTable(result, "latest-events", `heutige Events (${result.length})`, {
       "Nutzer": "user",
       "Anzahl": "count",
       "Event": "event"
