@@ -17,9 +17,9 @@ jobs:
         run: |
           BRANCH=${GITHUB_REF#refs/heads/}
           if [ $BRANCH == "master" ]; then
-            DEPLOY_PATH=/private-backup/nginx/static/fp.timephy.com/
+            DEPLOY_PATH=/private-backup/nginx/static/frust.app/
           elif [ $BRANCH == "staging" ]; then
-            DEPLOY_PATH=/private-backup/nginx/static/staging-fp.timephy.com/
+            DEPLOY_PATH=/private-backup/nginx/static/staging.frust.app/
           fi
           echo $BRANCH
           echo $DEPLOY_PATH
@@ -41,4 +41,4 @@ jobs:
             *.html scripts styles images manifest.json sw.js version.json \
             cd@$SERVER:$DEPLOY_PATH
         env:
-          SERVER: timephy.com
+          SERVER: frust.app
