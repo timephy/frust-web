@@ -1,4 +1,4 @@
-# frustrated-physicists-frontend
+# frust-web
 
 A website for fellow Physics students at [TUM](https://www.tum.de) to share their frustration and motivate another.
 
@@ -19,11 +19,11 @@ _Happy frustrated studying!_
 
 ## Continuous delivery
 
-- `master` to frustrierte-physiker.timephy.com
-- `staging` to staging-fp.timephy.com
+- `master` to frust.app
+- `staging` to staging.frust.app
 
 ## Backend
 
 Also see the backend implementation:
 
-<https://github.com/timephy/frustrated-physicists-backend>
+<https://github.com/timephy/frust-api>
