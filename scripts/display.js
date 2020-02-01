@@ -34,11 +34,11 @@ const HELP_MESSAGE = [
   "Click lines:",
   "    " + ["small", "big", "dotted", "dashed", "highlight", "fire"].join(", "),
   "Events:",
-  "    " + ["exmatrikulation", "lemma 6.7", "sas", "einstein", "belasto", "fireworks", "satan", "666", "pride", "rainbow", "fu"].join(", "),
+  "    " + ["zudummfürtum", "lemma 6.7", "sas", "einstein", "belasto", "fireworks", "satan", "666", "pride", "rainbow", "fu"].join(", "),
   "Options:",
   "    " + ["vibrate", "darkmode", "clear"].join(", "),
   "Dev options:",
-  "    " + ["buffer", "fps", "test", "rtest"].join(", ")
+  "    " + ["buffer", "fps", "test", "log"].join(", ")
 ].join("\n")
 
 /** effect variables */
