@@ -56,8 +56,15 @@ window.addEventListener('load', () => {
   loadJson((error, result) => {
     if (error) console.log(error);
 
+    function labelForTimestamp(timestamp) {
+      const date = new Date(timestamp * 1000);
+      const daysOfWeek = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
+
+      return daysOfWeek[date.getDay()] + " " + date.getHours() + ":00"
+    }
+
     // Date takes time in ms not s, get local time
-    const timestamps = result.map(x => new Date(x.timestamp * 1000).getDay() + "  " + new Date(x.timestamp * 1000).getHours() + ":00")
+    const timestamps = result.map(x => labelForTimestamp(x.timestamp))
     //const timestamps = result.map(x => new Date(x.timestamp * 1000).getHours() + ":00")
     const clicks = result.map(x => x.click_count)
     const events = result.map(x => x.event_count)
