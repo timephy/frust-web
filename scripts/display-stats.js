@@ -145,7 +145,7 @@ function createTable(jsonData, eid, caption, columnMap) {
   // caption
   var header = document.createElement("H1");
   header.textContent = caption;
-  table.parentElement.insertBefore(header, table);
+  divContainer.parentElement.insertBefore(header, table);
 }
 
 // function CreateUserTableFromJSON(jsonData, eid, caption) {
