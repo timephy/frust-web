@@ -28,6 +28,18 @@ h4 {
   color: grey;
 }
 
+#zurucklink{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    background: var(--bg-shade);
+    height: 3em;
+    margin-bottom: 0.5em;
+    border-radius: 0.2em;
+    }
+
 h1 {
   text-align: left;
   font-size: 1.5em;
