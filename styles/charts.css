@@ -28,17 +28,17 @@ h4 {
   color: grey;
 }
 
-#zurucklink{
-    display: flex;
-    text-align: center;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    background: var(--bg-shade);
-    height: 3em;
-    margin-bottom: 0.5em;
-    border-radius: 0.2em;
-    }
+#zurucklink {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  background: var(--bg-shade);
+  height: 3em;
+  margin-bottom: 0.5em;
+  border-radius: 0.2em;
+}
 
 h1 {
   text-align: left;
@@ -52,6 +52,14 @@ thead {
   color: white;
 }
 
+.hoverline:before {
+  top: 0;
+}
+
+.hoverline:after {
+  top: auto;
+}
+
 th {
   border: none;
   color: white;
@@ -59,7 +67,7 @@ th {
 
 .chartsCont {
   max-height: 25em;
-  min-height: 10em;
+  min-height: 2em;
   overflow-y: auto;
   margin-bottom: 3em;
   border-bottom: 4px solid var(--primary-color, red);
