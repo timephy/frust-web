@@ -56,6 +56,9 @@ window.addEventListener('load', () => {
   loadJson((error, result) => {
     if (error) console.log(error);
 
+    // only show last 2 days of hours
+    result = result.slice(-24 * 2);
+
     function labelForTimestamp(timestamp) {
       const date = new Date(timestamp * 1000);
       const daysOfWeek = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
