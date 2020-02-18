@@ -2,7 +2,7 @@
 
 A website for fellow Physics students at [TUM](https://www.tum.de) to share their frustration and motivate another.
 
-<frust.ph.tum.de>
+<https://frust.ph.tum.de>
 
 _This project is just for fun._
 
