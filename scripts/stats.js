@@ -61,7 +61,8 @@ window.addEventListener('load', () => {
 
     function labelForTimestamp(timestamp) {
       const date = new Date(timestamp * 1000);
-      const daysOfWeek = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
+      // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getDay
+      const daysOfWeek = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"]
 
       return daysOfWeek[date.getDay()] + " " + date.getHours() + ":00"
     }
