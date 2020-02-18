@@ -7,7 +7,7 @@ window.addEventListener("load", () => {
     // CreateUserTableFromJSON(result, "showOnlineUsers", "Nutzer (online)");
     createTable(result, "showOnlineUsers", `online Nutzer (${result.length})`, {
       "Name": "name",
-      "Klicks (Session)": "click_count_session",
+      "Clicks (Session)": "click_count_session",
       "Events (Session)": "event_count_session"
     });
   }, "/api/online_users");
@@ -21,7 +21,7 @@ window.addEventListener("load", () => {
     // CreateTableFromJSON(result, "showUsers", "Nutzer (alle)");
     createTable(result, "showUsers", `alle Nutzer (${result.length})`, {
       "Name": "name",
-      "Klicks": "click_count",
+      "Clicks": "click_count",
       "Events": "event_count"
     });
   }, "/api/users");
@@ -50,7 +50,7 @@ window.addEventListener("load", () => {
     makeChart({
       names: names,
       values: values
-    }, "eventChart", "Events (heute)");
+    }, "eventChart", `heutige Events (${result.length})`);
   }, "/api/latest_events");
 
   loadJson((error, result) => {
@@ -76,7 +76,7 @@ window.addEventListener("load", () => {
       timestamps: timestamps,
       events: events,
       clicks: clicks
-    }, "hourChart", "Clicks (heute)");
+    }, "hourChart", "Clicks");
   }, "/api/latest_hours");
 
   loadJson((error, result) => {
@@ -132,8 +132,8 @@ window.addEventListener("load", () => {
     });
     result = result.sort((a, b) => b.count - a.count);
 
-    // CreateTableFromJSON(result, "latest-clicks", "Klicks (heute)");
-    createTable(result, "latest-clicks", "Klicks (heute)", {
+    // CreateTableFromJSON(result, "latest-clicks", "Clicks (heute)");
+    createTable(result, "latest-clicks", `heutige Clicks (${result.length})`, {
       "Nutzer": "user",
       "Anzahl": "count",
       "Kommentar": "comment"
