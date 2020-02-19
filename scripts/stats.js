@@ -14,12 +14,13 @@ window.addEventListener("load", () => {
 
   loadJson((error, result) => {
     if (error) console.log(error);
+    const title = `alle Nutzer (${result.length})`;
 
     console.log(result);
     result = result.sort((a, b) => b.click_count - a.click_count);
 
     // CreateTableFromJSON(result, "showUsers", "Nutzer (alle)");
-    createTable(result, "showUsers", `alle Nutzer (${result.length})`, {
+    createTable(result, "showUsers", title, {
       "Name": "name",
       "Clicks": "click_count",
       "Events": "event_count"
@@ -28,6 +29,7 @@ window.addEventListener("load", () => {
 
   loadJson((error, result) => {
     if (error) console.log(error);
+    const title = `heutige Events (${result.length})`;
 
     console.log("raw result ", result);
     result = groupBy(result, event => event.name);
@@ -50,7 +52,7 @@ window.addEventListener("load", () => {
     makeChart({
       names: names,
       values: values
-    }, "eventChart", `heutige Events (${result.length})`);
+    }, "eventChart", title);
   }, "/api/latest_events");
 
   loadJson((error, result) => {
@@ -91,6 +93,7 @@ window.addEventListener("load", () => {
 
   loadJson((error, result) => {
     if (error) console.log(error);
+    const title = `heutige Events (${result.length})`;
 
     console.log("raw result ", result);
     result = groupBy(result, event => event.user + "\n" + event.name);
@@ -109,7 +112,7 @@ window.addEventListener("load", () => {
     // console.log("final result ", result)
 
     // CreateTableFromJSON(result, "latest-events", "Events (heute)");
-    createTable(result, "latest-events", `heutige Events (${result.length})`, {
+    createTable(result, "latest-events", title, {
       "Nutzer": "user",
       "Anzahl": "count",
       "Event": "event"
