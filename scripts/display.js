@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 const button = document.getElementById("mainButton");
 const anker = document.getElementById("toastAnker");
 const wrapper = document.getElementById("wrapper");
@@ -239,7 +241,7 @@ function displayToast(string, effectClass, unstackable = false) {
       //set the width of our message counter
       anime.set(atoast[1], {
         right: (-atoast[5] - 1.2) + 'rem'
-      })
+      });
 
       //ease the width of our toast message
       anime({
@@ -247,7 +249,7 @@ function displayToast(string, effectClass, unstackable = false) {
         'margin-right': (atoast[5] + 1.2) + 'rem',
         duration: 250,
         easing: 'easeInOutSine'
-      })
+      });
     }
 
     anime.timeline({
@@ -271,27 +273,27 @@ function displayToast(string, effectClass, unstackable = false) {
       scale: 0.2,
       opacity: 0,
       duration: 1000
-    })
+    });
   } else {
     newToast(string, effectClass);
   }
 }
 
-const toastBase = document.createElement("div");
-const clickCounter = document.createElement("div");
+var toastBase = document.createElement("div");
+var clickCounter = document.createElement("div");
 
 function newToast(string, effectClass) {
   // prevent extreme amounts of comment messages
   if (anker.childElementCount > MAX_TOASTS)
     anker.lastElementChild.remove();
 
-  const toast = toastBase.cloneNode(true);
-  const count = clickCounter.cloneNode(true);
+  var toast = toastBase.cloneNode(true);
+  var count = clickCounter.cloneNode(true);
   //function that hides, animates and deletes the toast when executed
   function funkyFunc() {
-    toast.classList.add("hide")
+    toast.classList.add("hide");
     delete activeToasts[string + "\n" + effectClass];
-    const animation = anime({
+    var animation = anime({
       targets: toast,
       delay: 500,
       duration: 250,
@@ -301,7 +303,7 @@ function newToast(string, effectClass) {
       'max-height': 0,
       opacity: 0,
       easing: 'easeInSine'
-    })
+    });
     // toast.remove has to be evaluated while in DOM, otherwise undefined?
     animation.finished.then(() => toast.remove());
   }
