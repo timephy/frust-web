@@ -2,6 +2,8 @@
 
 A website for fellow Physics students at [TUM](https://www.tum.de) to share their frustration and motivate another.
 
+<https://frust.ph.tum.de>
+
 _This project is just for fun._
 
 Please feel free to make use of the `Add to Home Screen` feature.

@@ -2,7 +2,11 @@ import sys
 import os
 import json
 
+# takes all files to be cached as args
+# find *.html images scripts styles version.json -type f
+# | python3.6 .github/workflows/setup_cache.py
 files = list(sys.stdin)
+# prepend slashes to all file paths
 files = [f"/{f[:-1]}" for f in files]
 
 sw_content = open("sw.js", "r").read()
