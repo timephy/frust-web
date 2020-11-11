@@ -17,9 +17,9 @@ jobs:
         run: |
           BRANCH=${GITHUB_REF#refs/heads/}
           if [ $BRANCH == "master" ]; then
-            DEPLOY_PATH=/private-backup/nginx/static/frust.app/
+            DEPLOY_PATH=/private-backup/www/app.frust/
           elif [ $BRANCH == "staging" ]; then
-            DEPLOY_PATH=/private-backup/nginx/static/staging.frust.app/
+            DEPLOY_PATH=/private-backup/www/app.frust.staging/
           fi
           echo $BRANCH
           echo $DEPLOY_PATH
