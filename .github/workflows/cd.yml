@@ -13,20 +13,17 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: compute deploy path
+      - name: rsync
         run: |
+          # compute deploy path
           BRANCH=${GITHUB_REF#refs/heads/}
           if [ $BRANCH == "master" ]; then
-            DEPLOY_PATH=/private-backup/nginx/static/frust.app/
+            DEPLOY_PATH=/private-backup/www/app.frust/
           elif [ $BRANCH == "staging" ]; then
-            DEPLOY_PATH=/private-backup/nginx/static/staging.frust.app/
+            DEPLOY_PATH=/private-backup/www/app.frust.staging/
           fi
           echo $BRANCH
           echo $DEPLOY_PATH
-          echo "::set-env name=DEPLOY_PATH::$DEPLOY_PATH"
-
-      - name: rsync
-        run: |
           # set cd variables
           python3.6 .github/workflows/setup_version.py
           find *.html images scripts styles version.json -type f | python3.6 .github/workflows/setup_cache.py
