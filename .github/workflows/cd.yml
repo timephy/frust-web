@@ -25,8 +25,8 @@ jobs:
           echo $BRANCH
           echo $DEPLOY_PATH
           # set cd variables
-          python3.6 .github/workflows/setup_version.py
-          find *.html images scripts styles version.json -type f | python3.6 .github/workflows/setup_cache.py
+          python3.8 .github/workflows/setup_version.py
+          find *.html images scripts styles version.json -type f | python3.8 .github/workflows/setup_cache.py
           mkdir -p ~/.ssh
           # "" required, otherwise multiline secret is not treated correctly
           echo "${{ secrets.id_rsa }}" > ~/.ssh/id_rsa

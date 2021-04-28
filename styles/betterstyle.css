@@ -337,8 +337,8 @@ td {
 
 .toast.hide:after,
 .hoverline:after {
-  transform-origin: 100% 50%;
   transform: scaleX(0);
+  transform-origin: 100% 50%;
 }
 
 .hoverline:after {
