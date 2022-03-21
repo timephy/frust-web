@@ -1198,5 +1198,12 @@ td {
  span.fsss::before { content:"4766" }
  span.fsss::after { content:"61 94+ :enohP" }
  span.fsss { unicode-bidi:bidi-override; direction:rtl }
+
+ span.addd::after {
+   content: "pilihp";
+ }
+ span.addd::before{
+   content: "ved.cis";
+ }
  span.ddfas::after{content: "asse 22";}
  span.ddfas::before{content: "Santrig";}
